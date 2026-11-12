@@ -785,6 +785,18 @@ class PreferenceManager2 @Inject constructor(
         defaultValue = false,
     )
 
+    val smartspaceCenteredDate = preference(
+        key = booleanPreferencesKey("smartspace_centered_date"),
+        defaultValue = false,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    val dockIconSizeFactor = preference(
+        key = floatPreferencesKey("dock_icon_size_factor"),
+        defaultValue = 1f,
+        onSet = { reloadHelper.reloadGrid() },
+    )
+
     val smartspaceWeatherLocation = preference(
         key = stringPreferencesKey("smartspace_weather_location"),
         defaultValue = "",

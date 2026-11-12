@@ -53,6 +53,15 @@ class HyperionBackupConverter(
         private const val CONTAINER_DESKTOP = -100
         private const val CONTAINER_HOTSEAT = -101
         private const val MAX_LOCK_TIMEOUT_SECONDS = 1800
+
+        // Hyperion sizes its icons from a different base than this launcher; these turn Hyperion's
+        // 100% into the size it actually draws (measured on a 7-column grid, 6-icon two-row dock).
+        private const val HOME_ICON_SCALE = 0.83f
+        private const val DRAWER_ICON_SCALE = 0.79f
+        private const val DOCK_ICON_SCALE = 0.93f
+
+        // Hyperion's drawer opacity lets more wallpaper through than the same number here.
+        private const val DRAWER_OPACITY_SCALE = 0.65f
     }
 
     data class HyperionDrawerFolder(val title: String, val components: List<String>)
@@ -272,7 +281,7 @@ class HyperionBackupConverter(
             putInt(prefs.hotseatRows.key, if (settings.twoRowDock) 2 else 1)
             settings.iconPackPackage?.let { putString(prefs.iconPackPackage.key, it) }
             settings.themedIcons?.let { putBoolean(prefs.themedIcons.key, it) }
-            settings.drawerOpacity?.let { putFloat(prefs.drawerOpacity.key, (it / 100f).coerceIn(0f, 1f)) }
+            settings.drawerOpacity?.let { putFloat(prefs.drawerOpacity.key, (it / 100f * DRAWER_OPACITY_SCALE).coerceIn(0f, 1f)) }
             putInt(prefs.dockPages.key, (settings.int("pref_hotseat_pages") ?: 1).coerceAtLeast(1))
             settings.bool("pref_allowRotation")?.let { putBoolean(prefs.allowRotation.key, it) }
             settings.bool("pages_enable_drawer_blur")?.let { putBoolean(prefs.enableWallpaperBlur.key, it) }
@@ -328,8 +337,12 @@ class HyperionBackupConverter(
                 gesture("pref_back_down_action", prefs2.backPressGestureHandler.key)
 
                 // Icon and label sizes: Hyperion keeps percentages and only saves ones changed from 100%.
-                store[prefs2.homeIconSizeFactor.key] = (settings.int("pref_custom_workspace_icon_size") ?: 100) / 100f
-                store[prefs2.drawerIconSizeFactor.key] = (settings.int("pref_custom_icon_size") ?: 100) / 100f
+                val homePercent = (settings.int("pref_custom_workspace_icon_size") ?: 100) / 100f
+                val dockPercent = (settings.int("pref_custom_dock_icon_size") ?: 100) / 100f
+                val drawerPercent = (settings.int("pref_custom_icon_size") ?: 100) / 100f
+                store[prefs2.homeIconSizeFactor.key] = HOME_ICON_SCALE * homePercent
+                store[prefs2.dockIconSizeFactor.key] = (DOCK_ICON_SCALE * dockPercent) / (HOME_ICON_SCALE * homePercent)
+                store[prefs2.drawerIconSizeFactor.key] = DRAWER_ICON_SCALE * drawerPercent
                 store[prefs2.homeIconLabelSizeFactor.key] = (settings.int("pref_custom_workspace_icon_text_scale") ?: 100) / 100f
                 store[prefs2.homeIconLabelFolderSizeFactor.key] = (settings.int("pref_custom_folder_icon_text_scale") ?: 100) / 100f
                 store[prefs2.drawerIconLabelSizeFactor.key] = (settings.int("pref_custom_icon_text_scale") ?: 100) / 100f
@@ -346,7 +359,9 @@ class HyperionBackupConverter(
                 // Drawer and search
                 store[prefs2.hideAppDrawerSearchBar.key] = !(settings.bool("pref_show_drawer_search_bar") ?: true)
                 settings.bool("auto_show_all_apps_search")?.let { store[prefs2.autoShowKeyboardInDrawer.key] = it }
-                settings.bool("pref_show_predictions")?.let { store[prefs2.showSuggestedAppsInDrawer.key] = it }
+                store[prefs2.showSuggestedAppsInDrawer.key] = settings.bool("pref_show_predictions") ?: false
+                if (settings.bool("pref_enable_sesame_search") == true) store[prefs2.hotseatQsbProvider.key] = "sesame"
+                store[prefs2.smartspaceCenteredDate.key] = true
                 if (settings.bool("pref_show_dock_search_bar") == false) store[prefs2.hotseatMode.key] = "disabled"
                 settings.bool("pages_lock_desktop")?.let { store[prefs2.lockHomeScreen.key] = it }
                 settings.bool("pref_smartspace_show_date")?.let { store[prefs2.smartspaceShowDate.key] = it }

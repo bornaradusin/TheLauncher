@@ -59,4 +59,8 @@
     <string name="hyperion_dock_rows_value">%1$d × %2$d</string>
     <string name="hyperion_widget_note">Widgets need one tap each to set up again after restoring</string>
     <string name="check_for_updates">Check for updates</string>
+    <string name="dock_icon_size">Icon size</string>
+    <string name="smartspace_layout">Layout</string>
+    <string name="smartspace_centered_date">Date and weather on one line</string>
+    <string name="smartspace_centered_date_description">Show the date with the weather next to it, centred, as the first card</string>
 </resources>

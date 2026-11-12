@@ -143,6 +143,16 @@ private fun TheLauncherSmartspaceSettings(
                     }
                 }
         }
+        PreferenceGroup(
+            heading = stringResource(id = R.string.smartspace_layout),
+            modifier = Modifier.padding(top = 8.dp),
+        ) {
+            SwitchPreference(
+                adapter = preferenceManager2().smartspaceCenteredDate.getAdapter(),
+                label = stringResource(id = R.string.smartspace_centered_date),
+                description = stringResource(id = R.string.smartspace_centered_date_description),
+            )
+        }
         ExtraSmartspacePreferences()
         SmartspaceDateAndTimePreferences()
     }

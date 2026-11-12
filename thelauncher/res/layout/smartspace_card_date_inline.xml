@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<app.thelauncher.smartspace.BcSmartspaceCard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:paddingTop="@dimen/enhanced_smartspace_padding_top">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <app.thelauncher.smartspace.IcuDateTextView
+            android:id="@+id/date"
+            style="@style/EnhancedSmartspaceTextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <app.thelauncher.smartspace.DoubleShadowTextView
+            android:id="@+id/subtitle_text"
+            style="@style/EnhancedSmartspaceTextTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textColor="?android:attr/textColorPrimary" />
+    </LinearLayout>
+</app.thelauncher.smartspace.BcSmartspaceCard>

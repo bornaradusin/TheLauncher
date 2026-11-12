@@ -1,5 +1,7 @@
 package app.thelauncher.smartspace
 
+import app.thelauncher.preferences2.PreferenceManager2
+import app.thelauncher.preferences2.firstCached
 import android.content.Context
 import android.util.SparseArray
 import android.view.LayoutInflater
@@ -84,8 +86,10 @@ class CardPagerAdapter(context: Context) : PagerAdapter() {
         container: ViewGroup,
         featureType: SmartspaceTarget.FeatureType,
     ): BcSmartspaceCard {
+        val centered = PreferenceManager2.getInstance(container.context).smartspaceCenteredDate.firstCached()
         val layout = when (featureType) {
-            SmartspaceTarget.FeatureType.FEATURE_WEATHER -> R.layout.smartspace_card_date
+            SmartspaceTarget.FeatureType.FEATURE_WEATHER ->
+                if (centered) R.layout.smartspace_card_date_inline else R.layout.smartspace_card_date
             else -> R.layout.smartspace_card
         }
         return LayoutInflater.from(container.context)

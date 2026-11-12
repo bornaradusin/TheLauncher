@@ -78,6 +78,13 @@ fun DockPreferences(modifier: Modifier = Modifier) {
                 ) {
                     HotseatBackgroundSettings(prefs, prefs2)
                 }
+                SliderPreference(
+                    label = stringResource(id = R.string.dock_icon_size),
+                    adapter = prefs2.dockIconSizeFactor.getAdapter(),
+                    step = 0.05f,
+                    valueRange = 0.5F..1.5F,
+                    showAsPercentage = true,
+                )
                 SwitchPreference(
                     adapter = prefs2.dockShadow.getAdapter(),
                     label = stringResource(id = R.string.dock_shadow_label),

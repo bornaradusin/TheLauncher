@@ -95,11 +95,12 @@ class WeatherProvider(context: Context) :
             headerAction = SmartspaceAction(
                 id = "weatherAction",
                 icon = Icon.createWithResource(context, condition.icon),
-                title = "$temp$symbol",
-                subtitle = subtitle,
+                title = "",
+                subtitle = "$temp $symbol",
+                contentDescription = "$temp $symbol, $subtitle",
                 intent = weatherIntent(location),
             ),
-            score = SmartspaceScores.SCORE_WEATHER,
+            score = WEATHER_FIRST_SCORE,
             featureType = SmartspaceTarget.FeatureType.FEATURE_WEATHER,
         )
     }
@@ -182,5 +183,6 @@ class WeatherProvider(context: Context) :
         private const val TAG = "WeatherProvider"
         private const val REFRESH_MS = 30 * 60 * 1000L
         private const val RETRY_MS = 5 * 60 * 1000L
+        private const val WEATHER_FIRST_SCORE = 500f
     }
 }

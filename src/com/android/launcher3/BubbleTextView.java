@@ -86,6 +86,7 @@ import com.android.launcher3.dragndrop.DragOptions.PreDragCondition;
 import com.android.launcher3.dragndrop.DraggableView;
 import com.android.launcher3.folder.FolderIcon;
 import com.android.launcher3.graphics.PreloadIconDrawable;
+import com.android.launcher3.LauncherSettings;
 import com.android.launcher3.icons.DotRenderer;
 import com.android.launcher3.icons.FastBitmapDrawable;
 import com.android.launcher3.icons.IconCache.ItemInfoUpdateReceiver;
@@ -195,7 +196,8 @@ public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver,
 
     private boolean mLayoutHorizontal;
     private final boolean mIsRtl;
-    private final int mIconSize;
+    private int mIconSize;
+    private int mBaseIconSize;
 
     @ViewDebug.ExportedProperty(category = "launcher")
     private boolean mHideBadge = false;
@@ -317,6 +319,7 @@ public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver,
 
         mIconSize = a.getDimensionPixelSize(R.styleable.BubbleTextView_iconSizeOverride,
                 defaultIconSize);
+        mBaseIconSize = mIconSize;
         a.recycle();
 
         mRunningAppIndicatorHeight =
@@ -419,6 +422,13 @@ public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver,
 
     @UiThread
     public void applyFromWorkspaceItem(WorkspaceItemInfo info) {
+        if (mDisplay == DISPLAY_WORKSPACE) {
+            float dockScale = info.container == LauncherSettings.Favorites.CONTAINER_HOTSEAT
+                    ? PreferenceCacheExtensionsKt.firstCached(
+                            PreferenceManager2.getInstance(getContext()).getDockIconSizeFactor())
+                    : 1f;
+            mIconSize = Math.round(mBaseIconSize * dockScale);
+        }
         applyIconAndLabel(info);
         setItemInfo(info);
 
