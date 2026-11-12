@@ -19,6 +19,8 @@ import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.plus
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withTimeoutOrNull
 
 @LauncherAppSingleton
 class IconOverrideRepository @Inject constructor(
@@ -35,6 +37,15 @@ class IconOverrideRepository @Inject constructor(
     private val updatePackageQueue = ConcurrentLinkedQueue<ComponentKey>()
 
     init {
+        // Known before the first icon is drawn: icons are cached by a state that includes these, so
+        // an override missing at start (say, one just restored) would leave the old icon cached.
+        runCatching {
+            runBlocking(Dispatchers.IO) {
+                withTimeoutOrNull(1000) { dao.getAll() }
+            }?.let { overrides ->
+                _overridesMap = overrides.associateBy(keySelector = { it.target }, valueTransform = { it.iconPickerItem })
+            }
+        }
         scope.launch {
             dao.observeAll()
                 .flowOn(Dispatchers.Main)

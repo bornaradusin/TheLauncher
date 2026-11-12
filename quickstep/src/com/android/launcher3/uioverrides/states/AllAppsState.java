@@ -180,6 +180,9 @@ public class AllAppsState extends LauncherState {
     }
 
     private static boolean isWorkspaceVisible(DeviceProfile deviceProfile) {
+        // TheLauncher: the full-screen (Hyperion) drawer shows only the wallpaper behind it, never
+        // the home screen or dock, however see-through or lightly blurred the drawer is.
+        if (!deviceProfile.shouldShowAllAppsOnSheet()) return false;
         return deviceProfile.getDeviceProperties().isTablet() || (Flags.allAppsSheetForHandheld() && Flags.allAppsBlur());
     }
 
