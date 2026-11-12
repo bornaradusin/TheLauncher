@@ -55,9 +55,25 @@ object SeerrTargets {
             "seerr:more:${result.term}",
             result.term,
             extras,
-            webIntent(context, "/search?query=${android.net.Uri.encode(result.term)}"),
+            searchIntent(context, result.term) ?: settingsIntent(context),
         )
     }
+
+    /** Seerr's search for [term]: in SeerrMobile (or the Seerr app) when installed, else the web app. */
+    fun searchIntent(context: Context, term: String): Intent? {
+        val query = Uri.encode(term)
+        SEERR_APPS.forEach { (pkg, scheme) ->
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("$scheme://search?query=$query")).setPackage(pkg)
+            if (intent.resolveActivity(context.packageManager) != null) return intent
+        }
+        return SeerrClient.webUrl(context, "/search?query=$query")?.let { Intent(Intent.ACTION_VIEW, Uri.parse(it)) }
+    }
+
+    // Apps that open Seerr's search from a link: package and link scheme, first found wins.
+    private val SEERR_APPS = listOf(
+        "io.github.bornaradusin.seerrmobile" to "seerrmobile",
+        "dev.seerr.mobileapp" to "seerr",
+    )
 
     fun message(context: Context, result: SearchResult.SeerrMessage): SearchTargetCompat {
         val title = context.getString(

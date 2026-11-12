@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Outline
 import android.graphics.drawable.GradientDrawable
-import android.net.Uri
 import android.util.AttributeSet
 import android.view.View
 import android.view.ViewOutlineProvider
@@ -215,10 +214,8 @@ class SeerrResultView(context: Context, attrs: AttributeSet?) :
     }
 
     private fun openSeerrSearch() {
-        val url = SeerrClient.webUrl(context, "/search?query=${Uri.encode(term)}") ?: return
-        runCatching {
-            context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
-        }
+        val intent = SeerrTargets.searchIntent(context, term) ?: return
+        runCatching { context.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)) }
     }
 
     private fun pill(color: Int) = GradientDrawable().apply {
