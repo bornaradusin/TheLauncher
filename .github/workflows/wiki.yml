@@ -438,6 +438,8 @@ jobs:
           shot 11-settings-more
           scroll
           shot 12-settings-end
+          # Every settings page, for the wiki; skipped when trying out a patch.
+          if [ "$PATCHED" != "true" ]; then
           for p in general general-iconpack general-themedicons home-screen home-screen-grid home-screen-popup-editor \
                    dock dock-search-provider app-drawer app-drawer-hidden-apps app-drawer-locked-apps app-drawer-tabs \
                    app-drawer-folder search folders gestures smartspace backup-restore about experimental-features; do
@@ -454,6 +456,7 @@ jobs:
           settings gestures
           tap_text 'Double tap'
           shot s-gesture-picker
+          fi
           home
           adb shell am broadcast -a com.android.systemui.demo -e command exit >/dev/null
           ls -la "$OUT"
@@ -461,6 +464,8 @@ jobs:
           bash -n "$RUNNER_TEMP/shots.sh" && echo "script OK"
       - name: Capture
         uses: reactivecircus/android-emulator-runner@v2
+        env:
+          PATCHED: ${{ inputs.patch != '' }}
         with:
           api-level: 34
           target: playstore
