@@ -201,9 +201,13 @@ jobs:
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: bash ${{ runner.temp }}/shots.sh
-      - name: Upload screenshots
+      - name: Store screenshots
         if: always()
-        uses: actions/upload-artifact@v7
-        with:
-          name: screenshots
-          path: shots/
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          cd shots
+          git init -q
+          git add -A
+          git -c user.name=github-actions -c user.email=github-actions@users.noreply.github.com commit -q -m "Screenshots ${{ github.run_number }}"
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/screenshots/latest
