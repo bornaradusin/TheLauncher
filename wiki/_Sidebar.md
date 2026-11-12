@@ -5,6 +5,7 @@
 - [Backup and restore](Backup-and-restore)
 
 **Using the launcher**
+- [Settings](Settings)
 - [Home screen](Home-screen)
 - [Dock](Dock)
 - [App drawer](App-drawer)

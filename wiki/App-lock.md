@@ -6,7 +6,7 @@ App lock asks for your fingerprint, face or screen lock before the launcher open
 
 Either:
 
-- **Home settings → App drawer → Locked apps**, then tick the apps, or
+- **Home settings → Interface → App lock**, then tick the apps, or
 - long-press an app → **Customize** → turn on **Lock with biometrics**.
 
 Your phone needs a screen lock (PIN, pattern or password). Without one, TheLauncher says so and doesn't open the app.

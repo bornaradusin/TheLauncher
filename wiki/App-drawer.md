@@ -1,6 +1,6 @@
 # App drawer
 
-Swipe up from the home screen to open it. Settings: **Home settings → App drawer**.
+Swipe up from the home screen to open it. Settings: **Home settings → Interface → App drawer** (colours under **Colors**, icon size under **Iconography**, columns under **Grids**).
 
 ## Hidden apps
 
@@ -23,6 +23,12 @@ Swipe up from the home screen to open it. Settings: **Home settings → App draw
 2. Tap the tab → **Manage apps** and tick the apps for that tab. Rename it from the same sheet, or delete it with the bin icon.
 
 **Remove apps from "All"** keeps apps that are in a tab out of the **All** tab.
+
+## Behaviour
+
+- **Close after launching an app** returns to the home screen, not the drawer, when you come back from an app.
+- **Bounce at the edges** stretches the list when you scroll past the top or bottom. Turn it off for a hard stop.
+- **Show the All tab** (under Drawer tabs) keeps a tab with every app. Turn it off to show only your own tabs.
 
 ## Duplicates
 

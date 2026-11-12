@@ -10,6 +10,14 @@ Settings: **Home settings → Backup and restore**.
 
 **Restore backup** opens a TheLauncher backup, shows what's in it, and lets you choose what to restore: layout, settings, or both. The launcher restarts with your setup.
 
+## Saved layouts
+
+**Save current layout** keeps a copy of your home screen and settings inside the launcher, with no file to pick. Tap a saved layout to go back to it; the launcher restarts with that setup. **Delete saved layouts** removes them all.
+
+## Reload icons
+
+**Reload icons** clears the cached icons and loads them again. Use it when an icon pack update or a changed app icon doesn't show.
+
 ## Coming from Hyperion
 
 **Restore Hyperion backup** brings your Hyperion Launcher setup across.
@@ -26,6 +34,7 @@ What comes across:
 - Drawer folders, hidden apps, locked apps and the re-lock timeout
 - Gestures, including the Home button action
 - The feed, At a Glance (date, time, weather, calendar), a fixed weather town and the temperature unit
+- Page indicator, blackout, fade on swipe, animation speed, hidden status or navigation bar, glow, drawer bounce, close drawer on launch, the All tab, folder names, two-finger double tap and gesture haptics
 - Notification dot style, dark mode, rotation, desktop lock, drawer search bar, suggestions, drawer blur and the wallpaper dimmer
 
 Settings you never changed in Hyperion come across as Hyperion's defaults, so the result looks like your Hyperion screen, not TheLauncher's defaults.

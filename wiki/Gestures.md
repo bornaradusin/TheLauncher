@@ -7,6 +7,7 @@ Set an action for each of these on the home screen:
 - **Double tap**
 - **Swipe up** and **Swipe down**
 - **Two-finger swipe up** and **Two-finger swipe down**
+- **Two-finger double tap**
 - **Home button** (pressing Home when you're already on the home screen)
 - **Back button**
 
@@ -24,6 +25,10 @@ Each can do one of these:
 | Open search | Opens search, including Sesame when it's installed |
 | Open assistant | Starts your assistant |
 | Open an app | Opens any app you pick |
+
+## Haptic feedback
+
+**Haptic feedback** gives a short vibration when a gesture runs. Turn it off for silent gestures.
 
 ## Sleep and Recents
 

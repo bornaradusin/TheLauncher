@@ -1,6 +1,6 @@
 # Dock
 
-Settings: **Home settings → Dock**.
+Settings: **Home settings → Interface → Dock** (background under **Colors**, icon size under **Iconography**, icon count under **Grids**).
 
 ## Icons and rows
 

@@ -1,6 +1,6 @@
 # At a Glance
 
-At a Glance is the line at the top of the home screen with the date and whatever's coming up. Settings: **Home settings → At a Glance**.
+At a Glance is the line at the top of the home screen with the date and whatever's coming up. Settings: **Home settings → Widgets → At a Glance**.
 
 ## What to show
 

@@ -12,6 +12,7 @@
 
 | Page | What it covers |
 |---|---|
+| [Settings](Settings) | How the settings are grouped |
 | [Home screen](Home-screen) | The grid, pages, adding apps and widgets, the feed, locking the layout |
 | [Dock](Dock) | Icon count, one or two rows, pages, the search bar, background and shadow |
 | [App drawer](App-drawer) | Columns, hidden apps, drawer folders, drawer tabs, suggestions |

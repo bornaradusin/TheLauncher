@@ -1,6 +1,6 @@
 # Home screen
 
-Settings: **Home settings → Home screen**.
+Settings: **Home settings → Interface → Home screen** (wallpaper under **Colors**, grid under **Grids**).
 
 ## Grid
 
@@ -19,6 +19,8 @@ Settings: **Home settings → Home screen**.
 
 ## Pages
 
+- **Hide page indicator** removes the dots above the dock.
+- **Fade on swipe** fades the icons of a page as you swipe away from it.
 - **Infinite scrolling** lets you swipe from the last page straight to the first.
 - **Return to first page on screen off** goes back to the first page whenever you turn the screen off.
 
@@ -32,7 +34,17 @@ Settings: **Home settings → Home screen**.
 - **Wallpaper depth effect** zooms the wallpaper slightly when you open the drawer or Recents.
 - **Wallpaper dimmer strength** darkens the wallpaper so icons and labels stand out.
 - **Dark theme dims wallpaper** dims it only while the system dark theme is on.
+- **Glow** adds an accent-coloured glow at the top and bottom of the home screen; **Glow opacity** sets how strong it is.
 - **Top shadow** and **Navigation bar gradient** darken the top and bottom of the screen so the status bar and navigation bar stay readable on light wallpapers.
+
+## Status and navigation bars
+
+- **Show status bar** hides or shows the status bar on the home screen.
+- **Hide navigation bar** hides the navigation bar on the home screen. Swipe up from the bottom edge to bring it back for a moment.
+
+## Animations
+
+**Animation speed** makes the launcher's animations relaxed, as set on your phone, or fast.
 
 ## Labels
 

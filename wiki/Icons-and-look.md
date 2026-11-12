@@ -2,7 +2,7 @@
 
 ## Icon packs
 
-**Home settings → General → Icon pack** lists the icon packs on your phone. Pick one and every icon changes. Apps the pack doesn't cover keep their own icon.
+**Home settings → Iconography → Icon pack and shape** lists the icon packs on your phone. Pick one and every icon changes. Apps the pack doesn't cover keep their own icon.
 
 To change one app's icon, long-press it → **Customize** → tap the icon and pick another from any pack. **Reset to default** undoes it.
 
@@ -31,11 +31,12 @@ Long-press it → **Customize**, then type a new name. Leave it empty to go back
 
 ## Notification dots
 
-**General → Notification dots** shows a dot on apps with notifications. **Show notification counter** puts the number of notifications in the dot instead.
+**Colors → Theme and notification dots** shows a dot on apps with notifications. **Show notification counter** puts the number of notifications in the dot instead. **Dot size** makes the dot bigger or smaller, and **Hide dots on icons** keeps the notifications in the long-press menu without drawing a dot.
 
 ## Colours, theme and font
 
 - **General → Colors** sets the accent colour, or follows your wallpaper.
+- **Blackout** uses pure black backgrounds in dark mode for settings, the drawer and folders.
 - **Color style** chooses how much of the wallpaper colour the launcher uses.
 - **Font (experimental)** changes the font across the launcher. **Add fonts** takes OTF and TTF files.
 
