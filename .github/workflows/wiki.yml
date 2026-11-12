@@ -428,8 +428,8 @@ jobs:
             shot 64-drawer-restored
             scroll; shot 65-drawer-restored-2
             back; sleep 2
-            settings app-drawer; scroll; scroll; shot 66-drawer-settings
-            settings folders; shot 67-folder-settings
+            settings app-drawer; scroll; scroll; scroll; shot 66-drawer-settings
+            settings folders; nudge; shot 67-folder-settings
             adb shell am broadcast -a com.android.systemui.demo -e command exit >/dev/null
             ls -la "$OUT"
             exit 0
