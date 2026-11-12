@@ -1,0 +1,962 @@
+Starting a Gradle Daemon (subsequent builds will be faster)
+Parallel Configuration Cache is an incubating feature.
+Calculating task graph as no cached configuration is available for tasks: assembleOssWithQuickstepGithubRelease
+Type-safe project accessors is an incubating feature.
+> Task :animationlib:preBuild UP-TO-DATE
+> Task :animation:preBuild UP-TO-DATE
+> Task :compatLib:preBuild UP-TO-DATE
+> Task :preBuild UP-TO-DATE
+> Task :animationlib:preReleaseBuild UP-TO-DATE
+> Task :compatLib:preReleaseBuild UP-TO-DATE
+> Task :animation:preReleaseBuild UP-TO-DATE
+> Task :preOssWithQuickstepGithubReleaseBuild UP-TO-DATE
+> Task :animation:mergeReleaseJniLibFolders
+> Task :mergeOssWithQuickstepGithubReleaseJniLibFolders
+> Task :compatLib:mergeReleaseJniLibFolders
+> Task :animationlib:mergeReleaseJniLibFolders
+> Task :concurrent:preBuild UP-TO-DATE
+> Task :concurrent:preReleaseBuild UP-TO-DATE
+> Task :concurrent:mergeReleaseJniLibFolders
+> Task :animation:mergeReleaseNativeLibs NO-SOURCE
+> Task :compatLib:mergeReleaseNativeLibs NO-SOURCE
+> Task :concurrent:mergeReleaseNativeLibs NO-SOURCE
+> Task :animationlib:mergeReleaseNativeLibs NO-SOURCE
+> Task :concurrent:copyReleaseJniLibsProjectOnly
+> Task :contextualeducationlib:preBuild UP-TO-DATE
+> Task :contextualeducationlib:preReleaseBuild UP-TO-DATE
+> Task :animationlib:copyReleaseJniLibsProjectOnly
+> Task :compatLib:copyReleaseJniLibsProjectOnly
+> Task :animation:copyReleaseJniLibsProjectOnly
+> Task :dagger:preBuild UP-TO-DATE
+> Task :dagger:preReleaseBuild UP-TO-DATE
+> Task :flags:preBuild UP-TO-DATE
+> Task :flags:preReleaseBuild UP-TO-DATE
+> Task :displaylib:preBuild UP-TO-DATE
+> Task :displaylib:preReleaseBuild UP-TO-DATE
+> Task :contextualeducationlib:mergeReleaseJniLibFolders
+> Task :displaylib:mergeReleaseJniLibFolders
+> Task :dagger:mergeReleaseJniLibFolders
+> Task :displaylib:mergeReleaseNativeLibs NO-SOURCE
+> Task :contextualeducationlib:mergeReleaseNativeLibs NO-SOURCE
+> Task :dagger:mergeReleaseNativeLibs NO-SOURCE
+> Task :contextualeducationlib:copyReleaseJniLibsProjectOnly
+> Task :flags:mergeReleaseJniLibFolders
+> Task :displaylib:copyReleaseJniLibsProjectOnly
+> Task :dagger:copyReleaseJniLibsProjectOnly
+> Task :log:preBuild UP-TO-DATE
+> Task :mechanics:preBuild UP-TO-DATE
+> Task :log:preReleaseBuild UP-TO-DATE
+> Task :mechanics:preReleaseBuild UP-TO-DATE
+> Task :iconloaderlib:preBuild UP-TO-DATE
+> Task :iconloaderlib:preReleaseBuild UP-TO-DATE
+> Task :flags:mergeReleaseNativeLibs NO-SOURCE
+> Task :iconloaderlib:mergeReleaseJniLibFolders
+> Task :flags:copyReleaseJniLibsProjectOnly
+> Task :mechanics:mergeReleaseJniLibFolders
+> Task :log:mergeReleaseJniLibFolders
+> Task :msdllib:preBuild UP-TO-DATE
+> Task :msdllib:preReleaseBuild UP-TO-DATE
+> Task :mechanics:mergeReleaseNativeLibs NO-SOURCE
+> Task :iconloaderlib:mergeReleaseNativeLibs NO-SOURCE
+> Task :log:mergeReleaseNativeLibs NO-SOURCE
+> Task :iconloaderlib:copyReleaseJniLibsProjectOnly
+> Task :plugincore:preBuild UP-TO-DATE
+> Task :plugincore:preReleaseBuild UP-TO-DATE
+> Task :mechanics:copyReleaseJniLibsProjectOnly
+> Task :log:copyReleaseJniLibsProjectOnly
+> Task :searchuilib:preBuild UP-TO-DATE
+> Task :searchuilib:preReleaseBuild UP-TO-DATE
+> Task :shared:preBuild UP-TO-DATE
+> Task :shared:preReleaseBuild UP-TO-DATE
+> Task :msdllib:mergeReleaseJniLibFolders
+> Task :msdllib:mergeReleaseNativeLibs NO-SOURCE
+> Task :searchuilib:mergeReleaseJniLibFolders
+> Task :plugincore:mergeReleaseJniLibFolders
+> Task :msdllib:copyReleaseJniLibsProjectOnly
+> Task :unfold:preBuild UP-TO-DATE
+> Task :unfold:preReleaseBuild UP-TO-DATE
+> Task :searchuilib:mergeReleaseNativeLibs NO-SOURCE
+> Task :plugincore:mergeReleaseNativeLibs NO-SOURCE
+> Task :shared:mergeReleaseJniLibFolders
+> Task :searchuilib:copyReleaseJniLibsProjectOnly
+> Task :viewcapturelib:preBuild UP-TO-DATE
+> Task :viewcapturelib:preReleaseBuild UP-TO-DATE
+> Task :plugincore:copyReleaseJniLibsProjectOnly
+> Task :shared:mergeReleaseNativeLibs NO-SOURCE
+> Task :wmshell:preBuild UP-TO-DATE
+> Task :wmshell:preReleaseBuild UP-TO-DATE
+> Task :unfold:mergeReleaseJniLibFolders
+> Task :shared:copyReleaseJniLibsProjectOnly
+> Task :compatLib:compatLibVBaklava:preBuild UP-TO-DATE
+> Task :compatLib:compatLibVBaklava:preReleaseBuild UP-TO-DATE
+> Task :unfold:mergeReleaseNativeLibs NO-SOURCE
+> Task :viewcapturelib:mergeReleaseJniLibFolders
+> Task :viewcapturelib:mergeReleaseNativeLibs NO-SOURCE
+> Task :compatLib:compatLibVBaklava:mergeReleaseJniLibFolders
+> Task :wmshell:mergeReleaseJniLibFolders
+> Task :unfold:copyReleaseJniLibsProjectOnly
+> Task :wmshell:mergeReleaseNativeLibs NO-SOURCE
+> Task :compatLib:compatLibVBaklava:mergeReleaseNativeLibs NO-SOURCE
+> Task :compatLib:compatLibVQ:preBuild UP-TO-DATE
+> Task :viewcapturelib:copyReleaseJniLibsProjectOnly
+> Task :compatLib:compatLibVQ:preReleaseBuild UP-TO-DATE
+> Task :compatLib:compatLibVR:preBuild UP-TO-DATE
+> Task :compatLib:compatLibVR:preReleaseBuild UP-TO-DATE
+> Task :compatLib:compatLibVBaklava:copyReleaseJniLibsProjectOnly
+> Task :compatLib:compatLibVS:preBuild UP-TO-DATE
+> Task :compatLib:compatLibVS:preReleaseBuild UP-TO-DATE
+> Task :wmshell:copyReleaseJniLibsProjectOnly
+> Task :compatLib:compatLibVT:preBuild UP-TO-DATE
+> Task :compatLib:compatLibVT:preReleaseBuild UP-TO-DATE
+> Task :compatLib:compatLibVR:mergeReleaseJniLibFolders
+> Task :compatLib:compatLibVS:mergeReleaseJniLibFolders
+> Task :compatLib:compatLibVQ:mergeReleaseJniLibFolders
+> Task :compatLib:compatLibVT:mergeReleaseJniLibFolders
+> Task :compatLib:compatLibVS:mergeReleaseNativeLibs NO-SOURCE
+> Task :compatLib:compatLibVT:mergeReleaseNativeLibs NO-SOURCE
+> Task :compatLib:compatLibVR:mergeReleaseNativeLibs NO-SOURCE
+> Task :compatLib:compatLibVQ:mergeReleaseNativeLibs NO-SOURCE
+> Task :compatLib:compatLibVR:copyReleaseJniLibsProjectOnly
+> Task :compatLib:compatLibVS:copyReleaseJniLibsProjectOnly
+> Task :compatLib:compatLibVV:preBuild UP-TO-DATE
+> Task :compatLib:compatLibVU:preBuild UP-TO-DATE
+> Task :compatLib:compatLibVU:preReleaseBuild UP-TO-DATE
+> Task :compatLib:compatLibVV:preReleaseBuild UP-TO-DATE
+> Task :compatLib:compatLibVQ:copyReleaseJniLibsProjectOnly
+> Task :compatLib:compatLibVT:copyReleaseJniLibsProjectOnly
+> Task :modules:widgetpicker:preBuild UP-TO-DATE
+> Task :modules:widgetpicker:preReleaseBuild UP-TO-DATE
+> Task :compatLib:compatLibVV:mergeReleaseJniLibFolders
+> Task :modules:widgetpicker:mergeReleaseJniLibFolders
+> Task :animation:prepareReleaseArtProfile
+> Task :compatLib:compatLibVV:mergeReleaseNativeLibs NO-SOURCE
+> Task :compatLib:compatLibVU:mergeReleaseJniLibFolders
+> Task :modules:widgetpicker:mergeReleaseNativeLibs NO-SOURCE
+> Task :compatLib:compatLibVU:mergeReleaseNativeLibs NO-SOURCE
+> Task :animationlib:prepareReleaseArtProfile
+> Task :compatLib:compatLibVV:copyReleaseJniLibsProjectOnly
+> Task :modules:widgetpicker:copyReleaseJniLibsProjectOnly
+> Task :compatLib:compatLibVU:copyReleaseJniLibsProjectOnly
+> Task :compatLib:prepareReleaseArtProfile
+> Task :concurrent:prepareReleaseArtProfile
+> Task :dagger:prepareReleaseArtProfile
+> Task :contextualeducationlib:prepareReleaseArtProfile
+> Task :displaylib:prepareReleaseArtProfile
+> Task :flags:prepareReleaseArtProfile
+> Task :log:prepareReleaseArtProfile
+> Task :iconloaderlib:prepareReleaseArtProfile
+> Task :plugincore:prepareReleaseArtProfile
+> Task :mechanics:prepareReleaseArtProfile
+> Task :msdllib:prepareReleaseArtProfile
+> Task :shared:prepareReleaseArtProfile
+> Task :unfold:prepareReleaseArtProfile
+> Task :searchuilib:prepareReleaseArtProfile
+> Task :viewcapturelib:prepareReleaseArtProfile
+> Task :wmshell:prepareReleaseArtProfile
+> Task :compatLib:compatLibVQ:prepareReleaseArtProfile
+> Task :compatLib:compatLibVBaklava:prepareReleaseArtProfile
+> Task :compatLib:compatLibVR:prepareReleaseArtProfile
+> Task :compatLib:compatLibVS:prepareReleaseArtProfile
+> Task :compatLib:compatLibVU:prepareReleaseArtProfile
+> Task :compatLib:compatLibVT:prepareReleaseArtProfile
+> Task :modules:widgetpicker:prepareReleaseArtProfile
+> Task :compatLib:compatLibVV:prepareReleaseArtProfile
+> Task :compatLib:generateReleaseResources FROM-CACHE
+> Task :compatLib:packageReleaseResources FROM-CACHE
+> Task :compatLib:processReleaseNavigationResources FROM-CACHE
+> Task :compatLib:compileReleaseAidl FROM-CACHE
+> Task :compatLib:javaPreCompileRelease FROM-CACHE
+> Task :flags:generateReleaseResources FROM-CACHE
+> Task :flags:packageReleaseResources FROM-CACHE
+> Task :flags:processReleaseNavigationResources FROM-CACHE
+> Task :mergeOssWithQuickstepGithubReleaseArtProfile
+> Task :compatLib:parseReleaseLocalResources FROM-CACHE
+> Task :compatLib:generateReleaseRFile FROM-CACHE
+> Task :mergeOssWithQuickstepGithubReleaseNativeLibs
+> Task :compatLib:compileReleaseKotlin NO-SOURCE
+> Task :flags:parseReleaseLocalResources FROM-CACHE
+> Task :flags:generateReleaseRFile FROM-CACHE
+> Task :compatLib:compatLibVBaklava:generateReleaseResources FROM-CACHE
+> Task :compatLib:compatLibVBaklava:packageReleaseResources FROM-CACHE
+> Task :compatLib:compatLibVBaklava:processReleaseNavigationResources FROM-CACHE
+> Task :compatLib:compatLibVBaklava:parseReleaseLocalResources FROM-CACHE
+> Task :compatLib:compatLibVBaklava:generateReleaseRFile FROM-CACHE
+> Task :compatLib:compatLibVQ:generateReleaseResources FROM-CACHE
+
+> Task :stripOssWithQuickstepGithubReleaseDebugSymbols
+Unable to strip the following libraries, packaging them as they are: libandroidx.graphics.path.so, libdatastore_shared_counter.so, libgraphics-core.so, libhoko_blur.so, libnrb.so. Run with --info option to learn more.
+
+> Task :extractOssWithQuickstepGithubReleaseNativeSymbolTables FROM-CACHE
+> Task :compatLib:compatLibVQ:packageReleaseResources FROM-CACHE
+> Task :mergeOssWithQuickstepGithubReleaseNativeDebugMetadata NO-SOURCE
+> Task :compatLib:compatLibVQ:processReleaseNavigationResources FROM-CACHE
+> Task :compatLib:compatLibVQ:javaPreCompileRelease FROM-CACHE
+> Task :compatLib:compatLibVQ:parseReleaseLocalResources FROM-CACHE
+> Task :compatLib:compatLibVR:generateReleaseResources FROM-CACHE
+> Task :compatLib:compatLibVR:packageReleaseResources FROM-CACHE
+> Task :compatLib:compatLibVR:processReleaseNavigationResources FROM-CACHE
+> Task :compatLib:compatLibVR:parseReleaseLocalResources FROM-CACHE
+> Task :compatLib:compatLibVR:generateReleaseRFile FROM-CACHE
+> Task :compatLib:compatLibVR:javaPreCompileRelease FROM-CACHE
+> Task :compatLib:compatLibVS:generateReleaseResources FROM-CACHE
+> Task :compatLib:compatLibVS:packageReleaseResources FROM-CACHE
+> Task :compatLib:compatLibVS:processReleaseNavigationResources FROM-CACHE
+> Task :compatLib:compatLibVS:parseReleaseLocalResources FROM-CACHE
+> Task :compatLib:compatLibVS:generateReleaseRFile FROM-CACHE
+> Task :compatLib:compatLibVS:javaPreCompileRelease FROM-CACHE
+> Task :compatLib:compatLibVT:generateReleaseResources FROM-CACHE
+> Task :compatLib:compatLibVT:packageReleaseResources FROM-CACHE
+> Task :compatLib:compatLibVT:processReleaseNavigationResources FROM-CACHE
+> Task :compatLib:compatLibVT:parseReleaseLocalResources FROM-CACHE
+> Task :compatLib:compatLibVT:generateReleaseRFile FROM-CACHE
+> Task :compatLib:compatLibVT:javaPreCompileRelease FROM-CACHE
+> Task :compatLib:compatLibVU:generateReleaseResources FROM-CACHE
+> Task :compatLib:compatLibVQ:generateReleaseRFile FROM-CACHE
+> Task :compatLib:compatLibVU:processReleaseNavigationResources FROM-CACHE
+> Task :compatLib:compatLibVU:javaPreCompileRelease FROM-CACHE
+> Task :compatLib:compatLibVU:packageReleaseResources FROM-CACHE
+> Task :compatLib:compatLibVV:generateReleaseResources FROM-CACHE
+> Task :compatLib:compatLibVU:parseReleaseLocalResources FROM-CACHE
+> Task :compatLib:compatLibVU:generateReleaseRFile FROM-CACHE
+> Task :compatLib:compatLibVV:packageReleaseResources FROM-CACHE
+> Task :compatLib:compatLibVV:processReleaseNavigationResources FROM-CACHE
+> Task :compatLib:compatLibVV:javaPreCompileRelease FROM-CACHE
+> Task :compatLib:compatLibVBaklava:javaPreCompileRelease FROM-CACHE
+> Task :compatLib:compatLibVV:parseReleaseLocalResources FROM-CACHE
+> Task :flags:javaPreCompileRelease FROM-CACHE
+> Task :compatLib:compatLibVV:generateReleaseRFile FROM-CACHE
+> Task :iconloaderlib:generateReleaseResources FROM-CACHE
+> Task :iconloaderlib:processReleaseNavigationResources FROM-CACHE
+> Task :iconloaderlib:javaPreCompileRelease FROM-CACHE
+> Task :iconloaderlib:packageReleaseResources FROM-CACHE
+> Task :iconloaderlib:parseReleaseLocalResources FROM-CACHE
+> Task :searchuilib:generateReleaseResources FROM-CACHE
+> Task :iconloaderlib:generateReleaseRFile FROM-CACHE
+> Task :searchuilib:processReleaseNavigationResources FROM-CACHE
+> Task :searchuilib:packageReleaseResources FROM-CACHE
+> Task :searchuilib:javaPreCompileRelease FROM-CACHE
+> Task :searchuilib:parseReleaseLocalResources FROM-CACHE
+> Task :animationlib:generateReleaseResources FROM-CACHE
+> Task :searchuilib:generateReleaseRFile FROM-CACHE
+> Task :searchuilib:compileReleaseKotlin NO-SOURCE
+> Task :animationlib:packageReleaseResources FROM-CACHE
+> Task :animationlib:processReleaseNavigationResources FROM-CACHE
+> Task :animationlib:parseReleaseLocalResources FROM-CACHE
+> Task :animationlib:generateReleaseRFile FROM-CACHE
+> Task :expandOssWithQuickstepGithubReleaseL8ArtProfileWildcards FROM-CACHE
+> Task :animationlib:javaPreCompileRelease FROM-CACHE
+> Task :msdllib:generateReleaseResources FROM-CACHE
+> Task :msdllib:packageReleaseResources FROM-CACHE
+> Task :msdllib:processReleaseNavigationResources FROM-CACHE
+> Task :msdllib:parseReleaseLocalResources FROM-CACHE
+> Task :msdllib:generateReleaseRFile FROM-CACHE
+> Task :searchuilib:compileReleaseJavaWithJavac FROM-CACHE
+> Task :searchuilib:mergeReleaseGeneratedProguardFiles
+> Task :searchuilib:exportReleaseConsumerProguardFiles
+> Task :msdllib:javaPreCompileRelease FROM-CACHE
+> Task :contextualeducationlib:generateReleaseResources FROM-CACHE
+> Task :contextualeducationlib:packageReleaseResources FROM-CACHE
+> Task :contextualeducationlib:processReleaseNavigationResources FROM-CACHE
+> Task :contextualeducationlib:parseReleaseLocalResources FROM-CACHE
+> Task :contextualeducationlib:generateReleaseRFile FROM-CACHE
+> Task :contextualeducationlib:compileReleaseKotlin FROM-CACHE
+> Task :contextualeducationlib:javaPreCompileRelease FROM-CACHE
+> Task :contextualeducationlib:compileReleaseJavaWithJavac NO-SOURCE
+> Task :contextualeducationlib:mergeReleaseGeneratedProguardFiles
+> Task :contextualeducationlib:exportReleaseConsumerProguardFiles
+> Task :compatLib:compressReleaseJavaRes NO-SOURCE
+> Task :viewcapturelib:protobufDummy UP-TO-DATE
+> Task :viewcapturelib:extractReleaseProto
+> Task :viewcapturelib:generateReleaseResources FROM-CACHE
+> Task :viewcapturelib:packageReleaseResources FROM-CACHE
+> Task :viewcapturelib:processReleaseNavigationResources FROM-CACHE
+> Task :viewcapturelib:parseReleaseLocalResources FROM-CACHE
+> Task :viewcapturelib:generateReleaseRFile FROM-CACHE
+> Task :viewcapturelib:javaPreCompileRelease FROM-CACHE
+> Task :displaylib:generateReleaseResources FROM-CACHE
+> Task :displaylib:packageReleaseResources FROM-CACHE
+> Task :displaylib:processReleaseNavigationResources FROM-CACHE
+> Task :displaylib:parseReleaseLocalResources FROM-CACHE
+> Task :displaylib:generateReleaseRFile FROM-CACHE
+> Task :animationlib:compileReleaseKotlin FROM-CACHE
+> Task :msdllib:compileReleaseKotlin FROM-CACHE
+> Task :msdllib:compileReleaseJavaWithJavac NO-SOURCE
+> Task :msdllib:mergeReleaseGeneratedProguardFiles
+> Task :msdllib:exportReleaseConsumerProguardFiles
+> Task :displaylib:javaPreCompileRelease FROM-CACHE
+> Task :mechanics:generateReleaseResources FROM-CACHE
+> Task :mechanics:packageReleaseResources FROM-CACHE
+> Task :mechanics:processReleaseNavigationResources FROM-CACHE
+> Task :mechanics:parseReleaseLocalResources FROM-CACHE
+> Task :mechanics:generateReleaseRFile FROM-CACHE
+> Task :mechanics:compileReleaseKotlin FROM-CACHE
+> Task :mechanics:javaPreCompileRelease FROM-CACHE
+> Task :mechanics:compileReleaseJavaWithJavac NO-SOURCE
+> Task :mechanics:mergeReleaseGeneratedProguardFiles
+> Task :mechanics:exportReleaseConsumerProguardFiles
+> Task :hidden-api:preBuild UP-TO-DATE
+> Task :hidden-api:preReleaseBuild UP-TO-DATE
+> Task :hidden-api:compileReleaseAidl NO-SOURCE
+> Task :hidden-api:generateReleaseResources FROM-CACHE
+> Task :hidden-api:packageReleaseResources FROM-CACHE
+> Task :hidden-api:processReleaseNavigationResources FROM-CACHE
+> Task :hidden-api:parseReleaseLocalResources FROM-CACHE
+> Task :hidden-api:generateReleaseRFile FROM-CACHE
+> Task :hidden-api:compileReleaseKotlin NO-SOURCE
+> Task :hidden-api:javaPreCompileRelease FROM-CACHE
+> Task :hidden-api:compileReleaseJavaWithJavac FROM-CACHE
+> Task :displaylib:kspReleaseKotlin FROM-CACHE
+> Task :hidden-api:bundleLibCompileToJarRelease
+> Task :common:preBuild UP-TO-DATE
+> Task :common:preReleaseBuild UP-TO-DATE
+> Task :common:generateReleaseResources FROM-CACHE
+> Task :common:packageReleaseResources FROM-CACHE
+> Task :common:processReleaseNavigationResources FROM-CACHE
+> Task :common:parseReleaseLocalResources FROM-CACHE
+> Task :common:generateReleaseRFile FROM-CACHE
+> Task :utils:preBuild UP-TO-DATE
+> Task :utils:preReleaseBuild UP-TO-DATE
+> Task :utils:generateReleaseResources FROM-CACHE
+> Task :utils:packageReleaseResources FROM-CACHE
+> Task :utils:processReleaseNavigationResources FROM-CACHE
+> Task :utils:parseReleaseLocalResources FROM-CACHE
+> Task :utils:generateReleaseRFile FROM-CACHE
+> Task :utils:javaPreCompileRelease FROM-CACHE
+> Task :displaylib:compileReleaseKotlin FROM-CACHE
+> Task :common:javaPreCompileRelease FROM-CACHE
+> Task :log:compileReleaseAidl NO-SOURCE
+> Task :log:generateReleaseResources FROM-CACHE
+> Task :log:packageReleaseResources FROM-CACHE
+> Task :log:processReleaseNavigationResources FROM-CACHE
+> Task :log:parseReleaseLocalResources FROM-CACHE
+> Task :log:generateReleaseRFile FROM-CACHE
+> Task :log:javaPreCompileRelease FROM-CACHE
+> Task :wmshell:compileReleaseAidl FROM-CACHE
+> Task :animation:compileReleaseAidl NO-SOURCE
+> Task :animation:generateReleaseResources FROM-CACHE
+> Task :animation:packageReleaseResources FROM-CACHE
+> Task :animation:processReleaseNavigationResources FROM-CACHE
+> Task :animation:parseReleaseLocalResources FROM-CACHE
+> Task :animation:generateReleaseRFile FROM-CACHE
+> Task :msdllib:bundleLibCompileToJarRelease
+> Task :wmshell:generateReleaseResources FROM-CACHE
+> Task :wmshell:packageReleaseResources FROM-CACHE
+> Task :wmshell:processReleaseNavigationResources FROM-CACHE
+> Task :wmshell:parseReleaseLocalResources FROM-CACHE
+> Task :wmshell:generateReleaseRFile FROM-CACHE
+> Task :wmshell:javaPreCompileRelease FROM-CACHE
+> Task :animation:javaPreCompileRelease FROM-CACHE
+> Task :plugin:preBuild UP-TO-DATE
+> Task :plugin:preReleaseBuild UP-TO-DATE
+> Task :plugincore:compileReleaseAidl NO-SOURCE
+> Task :plugin:compileReleaseAidl NO-SOURCE
+> Task :plugin:generateReleaseResources FROM-CACHE
+> Task :plugin:packageReleaseResources FROM-CACHE
+> Task :plugin:processReleaseNavigationResources FROM-CACHE
+> Task :plugin:parseReleaseLocalResources FROM-CACHE
+> Task :plugin:generateReleaseRFile FROM-CACHE
+> Task :plugincore:generateReleaseResources FROM-CACHE
+> Task :plugincore:packageReleaseResources FROM-CACHE
+> Task :plugincore:processReleaseNavigationResources FROM-CACHE
+> Task :plugincore:parseReleaseLocalResources FROM-CACHE
+> Task :plugincore:generateReleaseRFile FROM-CACHE
+> Task :plugincore:javaPreCompileRelease FROM-CACHE
+> Task :plugin:javaPreCompileRelease FROM-CACHE
+> Task :unfold:compileReleaseAidl FROM-CACHE
+> Task :shared:compileReleaseAidl FROM-CACHE
+> Task :shared:generateReleaseResources FROM-CACHE
+> Task :shared:packageReleaseResources FROM-CACHE
+> Task :shared:processReleaseNavigationResources FROM-CACHE
+> Task :shared:parseReleaseLocalResources FROM-CACHE
+> Task :shared:generateReleaseRFile FROM-CACHE
+> Task :androidx-lib:preBuild UP-TO-DATE
+> Task :androidx-lib:preReleaseBuild UP-TO-DATE
+> Task :androidx-lib:generateReleaseResources FROM-CACHE
+> Task :androidx-lib:packageReleaseResources FROM-CACHE
+> Task :androidx-lib:processReleaseNavigationResources FROM-CACHE
+> Task :androidx-lib:parseReleaseLocalResources FROM-CACHE
+> Task :androidx-lib:generateReleaseRFile FROM-CACHE
+> Task :androidx-lib:javaPreCompileRelease FROM-CACHE
+> Task :unfold:generateReleaseResources FROM-CACHE
+> Task :unfold:packageReleaseResources FROM-CACHE
+> Task :unfold:processReleaseNavigationResources FROM-CACHE
+> Task :unfold:parseReleaseLocalResources FROM-CACHE
+> Task :unfold:generateReleaseRFile FROM-CACHE
+> Task :unfold:javaPreCompileRelease FROM-CACHE
+> Task :shared:javaPreCompileRelease FROM-CACHE
+> Task :concurrent:generateReleaseResources FROM-CACHE
+> Task :concurrent:packageReleaseResources FROM-CACHE
+> Task :concurrent:processReleaseNavigationResources FROM-CACHE
+> Task :concurrent:parseReleaseLocalResources FROM-CACHE
+> Task :concurrent:generateReleaseRFile FROM-CACHE
+> Task :concurrent:kspReleaseKotlin FROM-CACHE
+> Task :concurrent:compileReleaseKotlin FROM-CACHE
+> Task :concurrent:javaPreCompileRelease FROM-CACHE
+> Task :concurrent:compileReleaseJavaWithJavac FROM-CACHE
+> Task :concurrent:bundleLibCompileToJarRelease
+> Task :dagger:generateReleaseResources FROM-CACHE
+> Task :dagger:packageReleaseResources FROM-CACHE
+> Task :dagger:processReleaseNavigationResources FROM-CACHE
+> Task :dagger:parseReleaseLocalResources FROM-CACHE
+> Task :dagger:generateReleaseRFile FROM-CACHE
+> Task :dagger:compileReleaseKotlin NO-SOURCE
+> Task :dagger:javaPreCompileRelease FROM-CACHE
+> Task :dagger:compileReleaseJavaWithJavac FROM-CACHE
+> Task :dagger:bundleLibCompileToJarRelease
+> Task :modules:widgetpicker:generateReleaseResources FROM-CACHE
+> Task :modules:widgetpicker:packageReleaseResources FROM-CACHE
+> Task :modules:widgetpicker:processReleaseNavigationResources FROM-CACHE
+> Task :modules:widgetpicker:parseReleaseLocalResources FROM-CACHE
+> Task :modules:widgetpicker:generateReleaseRFile FROM-CACHE
+> Task :modules:widgetpicker:kspReleaseKotlin FROM-CACHE
+> Task :modules:widgetpicker:compileReleaseKotlin FROM-CACHE
+> Task :modules:widgetpicker:javaPreCompileRelease FROM-CACHE
+> Task :modules:widgetpicker:compileReleaseJavaWithJavac FROM-CACHE
+> Task :modules:widgetpicker:mergeReleaseGeneratedProguardFiles
+> Task :modules:widgetpicker:exportReleaseConsumerProguardFiles
+> Task :dagger:mergeReleaseGeneratedProguardFiles
+> Task :dagger:exportReleaseConsumerProguardFiles
+> Task :concurrent:mergeReleaseGeneratedProguardFiles
+> Task :concurrent:exportReleaseConsumerProguardFiles
+> Task :animationlib:compileReleaseJavaWithJavac FROM-CACHE
+> Task :animationlib:mergeReleaseGeneratedProguardFiles
+> Task :searchuilib:bundleLibRuntimeToJarRelease
+> Task :animationlib:exportReleaseConsumerProguardFiles
+> Task :animationlib:bundleLibCompileToJarRelease
+> Task :animationlib:bundleLibRuntimeToJarRelease
+> Task :msdllib:bundleLibRuntimeToJarRelease
+> Task :contextualeducationlib:bundleLibRuntimeToJarRelease
+> Task :mechanics:bundleLibRuntimeToJarRelease
+> Task :concurrent:bundleLibRuntimeToJarRelease
+> Task :modules:widgetpicker:bundleLibRuntimeToJarRelease
+> Task :dagger:bundleLibRuntimeToJarRelease
+> Task :compatLib:compileReleaseJavaWithJavac FROM-CACHE
+> Task :compatLib:mergeReleaseGeneratedProguardFiles
+> Task :compatLib:bundleLibCompileToJarRelease
+> Task :compatLib:exportReleaseConsumerProguardFiles
+> Task :compatLib:bundleLibRuntimeToJarRelease
+> Task :compatLib:compatLibVQ:compileReleaseKotlin NO-SOURCE
+> Task :compatLib:compatLibVQ:compressReleaseJavaRes NO-SOURCE
+> Task :compatLib:createFullJarRelease
+> Task :compileOssWithQuickstepGithubReleaseAidl FROM-CACHE
+> Task :generateOssWithQuickstepGithubReleaseBuildConfig
+> Task :protobufDummy UP-TO-DATE
+> Task :extractGithubProto
+> Task :animationlib:compressReleaseJavaRes FROM-CACHE
+> Task :animationlib:createFullJarRelease
+> Task :concurrent:compressReleaseJavaRes FROM-CACHE
+> Task :concurrent:createFullJarRelease
+> Task :contextualeducationlib:compressReleaseJavaRes FROM-CACHE
+> Task :contextualeducationlib:createFullJarRelease
+> Task :dagger:compressReleaseJavaRes NO-SOURCE
+> Task :dagger:createFullJarRelease
+> Task :displaylib:compressReleaseJavaRes FROM-CACHE
+> Task :hidden-api:bundleLibRuntimeToJarRelease
+> Task :hidden-api:compressReleaseJavaRes FROM-CACHE
+> Task :hidden-api:createFullJarRelease
+> Task :mechanics:compressReleaseJavaRes FROM-CACHE
+> Task :mechanics:createFullJarRelease
+> Task :msdllib:compressReleaseJavaRes FROM-CACHE
+> Task :msdllib:createFullJarRelease
+> Task :searchuilib:compressReleaseJavaRes NO-SOURCE
+> Task :searchuilib:createFullJarRelease
+> Task :viewcapturelib:processReleaseProtoResources
+> Task :modules:widgetpicker:compressReleaseJavaRes FROM-CACHE
+> Task :modules:widgetpicker:createFullJarRelease
+> Task :extractOssWithQuickstepGithubReleaseProto
+> Task :extractReleaseProto
+> Task :extractWithQuickstepProto
+> Task :generateOssWithQuickstepGithubReleaseResValues FROM-CACHE
+> Task :checkOssWithQuickstepGithubReleaseDuplicateClasses
+> Task :displaylib:compileReleaseJavaWithJavac FROM-CACHE
+> Task :displaylib:mergeReleaseGeneratedProguardFiles
+> Task :displaylib:exportReleaseConsumerProguardFiles
+> Task :displaylib:bundleLibRuntimeToJarRelease
+> Task :displaylib:createFullJarRelease
+> Task :animation:extractReleaseSupportedLocales FROM-CACHE
+> Task :animationlib:extractReleaseSupportedLocales FROM-CACHE
+> Task :compatLib:extractReleaseSupportedLocales FROM-CACHE
+> Task :concurrent:extractReleaseSupportedLocales FROM-CACHE
+> Task :contextualeducationlib:extractReleaseSupportedLocales FROM-CACHE
+> Task :dagger:extractReleaseSupportedLocales FROM-CACHE
+> Task :displaylib:extractReleaseSupportedLocales FROM-CACHE
+> Task :mapOssWithQuickstepGithubReleaseSourceSetPaths
+> Task :flags:extractReleaseSupportedLocales FROM-CACHE
+> Task :iconloaderlib:extractReleaseSupportedLocales FROM-CACHE
+> Task :log:extractReleaseSupportedLocales FROM-CACHE
+> Task :mechanics:extractReleaseSupportedLocales FROM-CACHE
+> Task :msdllib:extractReleaseSupportedLocales FROM-CACHE
+> Task :plugincore:extractReleaseSupportedLocales FROM-CACHE
+> Task :compatLib:compatLibVQ:compileReleaseJavaWithJavac FROM-CACHE
+> Task :shared:extractReleaseSupportedLocales FROM-CACHE
+> Task :searchuilib:extractReleaseSupportedLocales FROM-CACHE
+> Task :compatLib:compatLibVQ:mergeReleaseGeneratedProguardFiles
+> Task :compatLib:compatLibVQ:bundleLibCompileToJarRelease
+> Task :compatLib:compatLibVQ:bundleLibRuntimeToJarRelease
+> Task :compatLib:compatLibVQ:exportReleaseConsumerProguardFiles
+> Task :compatLib:compatLibVR:compileReleaseKotlin NO-SOURCE
+> Task :compatLib:compatLibVQ:createFullJarRelease
+> Task :extractOssWithQuickstepGithubReleaseSupportedLocales
+> Task :unfold:extractReleaseSupportedLocales FROM-CACHE
+> Task :wmshell:extractReleaseSupportedLocales FROM-CACHE
+> Task :compatLib:compatLibVR:compressReleaseJavaRes NO-SOURCE
+> Task :compatLib:compatLibVBaklava:extractReleaseSupportedLocales FROM-CACHE
+> Task :viewcapturelib:extractReleaseSupportedLocales FROM-CACHE
+> Task :compatLib:compatLibVR:extractReleaseSupportedLocales FROM-CACHE
+> Task :compatLib:compatLibVQ:extractReleaseSupportedLocales FROM-CACHE
+> Task :compatLib:compatLibVS:extractReleaseSupportedLocales FROM-CACHE
+> Task :compatLib:compatLibVU:extractReleaseSupportedLocales FROM-CACHE
+> Task :compatLib:compatLibVT:extractReleaseSupportedLocales FROM-CACHE
+> Task :modules:widgetpicker:extractReleaseSupportedLocales FROM-CACHE
+> Task :generateOssWithQuickstepGithubReleaseResources
+> Task :compatLib:compatLibVV:extractReleaseSupportedLocales FROM-CACHE
+> Task :generateOssWithQuickstepGithubReleaseLocaleConfig FROM-CACHE
+> Task :contextualeducationlib:bundleLibCompileToJarRelease
+> Task :processOssWithQuickstepGithubReleaseNavigationResources
+> Task :displaylib:bundleLibCompileToJarRelease
+> Task :searchuilib:bundleLibCompileToJarRelease
+> Task :mechanics:bundleLibCompileToJarRelease
+> Task :javaPreCompileOssWithQuickstepGithubRelease FROM-CACHE
+> Task :animation:writeReleaseAarMetadata
+> Task :modules:widgetpicker:bundleLibCompileToJarRelease
+> Task :animationlib:writeReleaseAarMetadata
+> Task :compatLib:writeReleaseAarMetadata
+> Task :contextualeducationlib:writeReleaseAarMetadata
+> Task :concurrent:writeReleaseAarMetadata
+> Task :dagger:writeReleaseAarMetadata
+> Task :displaylib:writeReleaseAarMetadata
+> Task :flags:writeReleaseAarMetadata
+> Task :log:writeReleaseAarMetadata
+> Task :iconloaderlib:writeReleaseAarMetadata
+> Task :mechanics:writeReleaseAarMetadata
+> Task :plugincore:writeReleaseAarMetadata
+> Task :msdllib:writeReleaseAarMetadata
+> Task :searchuilib:writeReleaseAarMetadata
+> Task :unfold:writeReleaseAarMetadata
+> Task :viewcapturelib:writeReleaseAarMetadata
+> Task :wmshell:writeReleaseAarMetadata
+> Task :shared:writeReleaseAarMetadata
+> Task :compatLib:compatLibVQ:writeReleaseAarMetadata
+> Task :compatLib:compatLibVBaklava:writeReleaseAarMetadata
+> Task :compatLib:compatLibVR:writeReleaseAarMetadata
+> Task :compatLib:compatLibVS:writeReleaseAarMetadata
+> Task :compatLib:compatLibVT:writeReleaseAarMetadata
+> Task :compatLib:compatLibVU:writeReleaseAarMetadata
+> Task :compatLib:compatLibVV:writeReleaseAarMetadata
+> Task :modules:widgetpicker:writeReleaseAarMetadata
+> Task :compileOssWithQuickstepGithubReleaseNavigationResources FROM-CACHE
+> Task :checkOssWithQuickstepGithubReleaseAarMetadata
+> Task :createOssWithQuickstepGithubReleaseCompatibleScreenManifests
+> Task :extractDeepLinksOssWithQuickstepGithubRelease FROM-CACHE
+> Task :animation:extractDeepLinksRelease FROM-CACHE
+> Task :animation:processReleaseManifest FROM-CACHE
+> Task :animationlib:extractDeepLinksRelease FROM-CACHE
+> Task :animationlib:processReleaseManifest FROM-CACHE
+> Task :compatLib:extractDeepLinksRelease FROM-CACHE
+> Task :compatLib:processReleaseManifest FROM-CACHE
+> Task :concurrent:extractDeepLinksRelease FROM-CACHE
+> Task :concurrent:processReleaseManifest FROM-CACHE
+> Task :contextualeducationlib:extractDeepLinksRelease FROM-CACHE
+> Task :contextualeducationlib:processReleaseManifest FROM-CACHE
+> Task :dagger:extractDeepLinksRelease FROM-CACHE
+> Task :dagger:processReleaseManifest FROM-CACHE
+> Task :displaylib:extractDeepLinksRelease FROM-CACHE
+> Task :displaylib:processReleaseManifest FROM-CACHE
+> Task :flags:extractDeepLinksRelease FROM-CACHE
+> Task :flags:processReleaseManifest FROM-CACHE
+> Task :iconloaderlib:extractDeepLinksRelease FROM-CACHE
+> Task :iconloaderlib:processReleaseManifest FROM-CACHE
+> Task :log:extractDeepLinksRelease FROM-CACHE
+> Task :log:processReleaseManifest FROM-CACHE
+> Task :mechanics:extractDeepLinksRelease FROM-CACHE
+> Task :mechanics:processReleaseManifest FROM-CACHE
+> Task :msdllib:extractDeepLinksRelease FROM-CACHE
+> Task :msdllib:processReleaseManifest FROM-CACHE
+> Task :plugincore:extractDeepLinksRelease FROM-CACHE
+> Task :plugincore:processReleaseManifest FROM-CACHE
+> Task :searchuilib:extractDeepLinksRelease FROM-CACHE
+> Task :searchuilib:processReleaseManifest FROM-CACHE
+> Task :shared:extractDeepLinksRelease FROM-CACHE
+> Task :shared:processReleaseManifest FROM-CACHE
+> Task :unfold:extractDeepLinksRelease FROM-CACHE
+> Task :unfold:processReleaseManifest FROM-CACHE
+> Task :compatLib:compatLibVR:compileReleaseJavaWithJavac FROM-CACHE
+> Task :viewcapturelib:extractDeepLinksRelease FROM-CACHE
+> Task :compatLib:compatLibVR:bundleLibCompileToJarRelease
+> Task :compatLib:compatLibVS:compileReleaseKotlin NO-SOURCE
+> Task :compatLib:compatLibVR:bundleLibRuntimeToJarRelease
+> Task :compatLib:compatLibVR:createFullJarRelease
+> Task :compatLib:compatLibVS:compressReleaseJavaRes NO-SOURCE
+> Task :compatLib:compatLibVR:mergeReleaseGeneratedProguardFiles
+> Task :compatLib:compatLibVR:exportReleaseConsumerProguardFiles
+> Task :viewcapturelib:processReleaseManifest FROM-CACHE
+> Task :wmshell:extractDeepLinksRelease FROM-CACHE
+> Task :wmshell:processReleaseManifest FROM-CACHE
+> Task :compatLib:compatLibVBaklava:extractDeepLinksRelease FROM-CACHE
+> Task :compatLib:compatLibVBaklava:processReleaseManifest FROM-CACHE
+> Task :compatLib:compatLibVQ:extractDeepLinksRelease FROM-CACHE
+> Task :compatLib:compatLibVQ:processReleaseManifest FROM-CACHE
+> Task :compatLib:compatLibVR:extractDeepLinksRelease FROM-CACHE
+> Task :compatLib:compatLibVR:processReleaseManifest FROM-CACHE
+> Task :compatLib:compatLibVS:extractDeepLinksRelease FROM-CACHE
+> Task :compatLib:compatLibVS:processReleaseManifest FROM-CACHE
+> Task :compatLib:compatLibVT:extractDeepLinksRelease FROM-CACHE
+> Task :compatLib:compatLibVT:processReleaseManifest FROM-CACHE
+> Task :compatLib:compatLibVU:extractDeepLinksRelease FROM-CACHE
+> Task :compatLib:compatLibVU:processReleaseManifest FROM-CACHE
+> Task :compatLib:compatLibVV:extractDeepLinksRelease FROM-CACHE
+> Task :compatLib:compatLibVV:processReleaseManifest FROM-CACHE
+> Task :modules:widgetpicker:extractDeepLinksRelease FROM-CACHE
+> Task :modules:widgetpicker:processReleaseManifest FROM-CACHE
+> Task :processOssWithQuickstepGithubReleaseMainManifest FROM-CACHE
+> Task :processOssWithQuickstepGithubReleaseManifest FROM-CACHE
+> Task :processOssWithQuickstepGithubReleaseManifestForPackage FROM-CACHE
+> Task :animation:mapReleaseSourceSetPaths
+> Task :animation:compileReleaseLibraryResources FROM-CACHE
+> Task :animationlib:mapReleaseSourceSetPaths
+> Task :animationlib:compileReleaseLibraryResources FROM-CACHE
+> Task :compatLib:mapReleaseSourceSetPaths
+> Task :compatLib:compileReleaseLibraryResources FROM-CACHE
+> Task :concurrent:mapReleaseSourceSetPaths
+> Task :concurrent:compileReleaseLibraryResources FROM-CACHE
+> Task :contextualeducationlib:mapReleaseSourceSetPaths
+> Task :contextualeducationlib:compileReleaseLibraryResources FROM-CACHE
+> Task :dagger:mapReleaseSourceSetPaths
+> Task :dagger:compileReleaseLibraryResources FROM-CACHE
+> Task :displaylib:mapReleaseSourceSetPaths
+> Task :displaylib:compileReleaseLibraryResources FROM-CACHE
+> Task :flags:mapReleaseSourceSetPaths
+> Task :flags:compileReleaseLibraryResources FROM-CACHE
+> Task :iconloaderlib:mapReleaseSourceSetPaths
+> Task :iconloaderlib:compileReleaseLibraryResources FROM-CACHE
+> Task :log:mapReleaseSourceSetPaths
+> Task :log:compileReleaseLibraryResources FROM-CACHE
+> Task :mechanics:mapReleaseSourceSetPaths
+> Task :mechanics:compileReleaseLibraryResources FROM-CACHE
+> Task :msdllib:mapReleaseSourceSetPaths
+> Task :msdllib:compileReleaseLibraryResources FROM-CACHE
+> Task :plugincore:mapReleaseSourceSetPaths
+> Task :plugincore:compileReleaseLibraryResources FROM-CACHE
+> Task :searchuilib:mapReleaseSourceSetPaths
+> Task :searchuilib:compileReleaseLibraryResources FROM-CACHE
+> Task :shared:mapReleaseSourceSetPaths
+> Task :shared:compileReleaseLibraryResources FROM-CACHE
+> Task :unfold:mapReleaseSourceSetPaths
+> Task :unfold:compileReleaseLibraryResources FROM-CACHE
+> Task :viewcapturelib:mapReleaseSourceSetPaths
+> Task :viewcapturelib:compileReleaseLibraryResources FROM-CACHE
+> Task :wmshell:mapReleaseSourceSetPaths
+> Task :wmshell:compileReleaseLibraryResources FROM-CACHE
+> Task :compatLib:compatLibVBaklava:mapReleaseSourceSetPaths
+> Task :compatLib:compatLibVBaklava:compileReleaseLibraryResources FROM-CACHE
+> Task :compatLib:compatLibVQ:mapReleaseSourceSetPaths
+> Task :compatLib:compatLibVQ:compileReleaseLibraryResources FROM-CACHE
+> Task :compatLib:compatLibVR:mapReleaseSourceSetPaths
+> Task :compatLib:compatLibVR:compileReleaseLibraryResources FROM-CACHE
+> Task :compatLib:compatLibVS:mapReleaseSourceSetPaths
+> Task :compatLib:compatLibVS:compileReleaseLibraryResources FROM-CACHE
+> Task :compatLib:compatLibVT:mapReleaseSourceSetPaths
+> Task :compatLib:compatLibVT:compileReleaseLibraryResources FROM-CACHE
+> Task :compatLib:compatLibVU:mapReleaseSourceSetPaths
+> Task :compatLib:compatLibVU:compileReleaseLibraryResources FROM-CACHE
+> Task :compatLib:compatLibVV:mapReleaseSourceSetPaths
+> Task :compatLib:compatLibVV:compileReleaseLibraryResources FROM-CACHE
+> Task :modules:widgetpicker:mapReleaseSourceSetPaths
+> Task :compatLib:compatLibVS:compileReleaseJavaWithJavac FROM-CACHE
+> Task :modules:widgetpicker:compileReleaseLibraryResources FROM-CACHE
+> Task :compatLib:compatLibVS:bundleLibCompileToJarRelease
+> Task :compatLib:compatLibVT:compileReleaseKotlin NO-SOURCE
+> Task :compatLib:compatLibVS:bundleLibRuntimeToJarRelease
+> Task :compatLib:compatLibVS:createFullJarRelease
+> Task :compatLib:compatLibVT:compressReleaseJavaRes NO-SOURCE
+> Task :compatLib:compatLibVS:mergeReleaseGeneratedProguardFiles
+> Task :compatLib:compatLibVS:exportReleaseConsumerProguardFiles
+> Task :extractProguardFiles
+> Task :mergeOssWithQuickstepGithubReleaseStartupProfile
+> Task :licenseeAndroidOssWithQuickstepGithubRelease FROM-CACHE
+> Task :copyOssWithQuickstepGithubReleaseLicenseeReportToAssets
+> Task :generateOssWithQuickstepGithubReleaseAssets UP-TO-DATE
+> Task :animation:generateReleaseAssets UP-TO-DATE
+> Task :animation:mergeReleaseAssets
+> Task :animationlib:generateReleaseAssets UP-TO-DATE
+> Task :animationlib:mergeReleaseAssets
+> Task :compatLib:generateReleaseAssets UP-TO-DATE
+> Task :compatLib:mergeReleaseAssets
+> Task :concurrent:generateReleaseAssets UP-TO-DATE
+> Task :concurrent:mergeReleaseAssets
+> Task :contextualeducationlib:generateReleaseAssets UP-TO-DATE
+> Task :contextualeducationlib:mergeReleaseAssets
+> Task :dagger:generateReleaseAssets UP-TO-DATE
+> Task :dagger:mergeReleaseAssets
+> Task :displaylib:generateReleaseAssets UP-TO-DATE
+> Task :displaylib:mergeReleaseAssets
+> Task :flags:generateReleaseAssets UP-TO-DATE
+> Task :flags:mergeReleaseAssets
+> Task :iconloaderlib:generateReleaseAssets UP-TO-DATE
+> Task :iconloaderlib:mergeReleaseAssets
+> Task :log:generateReleaseAssets UP-TO-DATE
+> Task :log:mergeReleaseAssets
+> Task :mechanics:generateReleaseAssets UP-TO-DATE
+> Task :mechanics:mergeReleaseAssets
+> Task :msdllib:generateReleaseAssets UP-TO-DATE
+> Task :msdllib:mergeReleaseAssets
+> Task :plugincore:generateReleaseAssets UP-TO-DATE
+> Task :plugincore:mergeReleaseAssets
+> Task :searchuilib:generateReleaseAssets UP-TO-DATE
+> Task :searchuilib:mergeReleaseAssets
+> Task :shared:generateReleaseAssets UP-TO-DATE
+> Task :shared:mergeReleaseAssets
+> Task :unfold:generateReleaseAssets UP-TO-DATE
+> Task :unfold:mergeReleaseAssets
+> Task :viewcapturelib:generateReleaseAssets UP-TO-DATE
+> Task :viewcapturelib:mergeReleaseAssets
+> Task :wmshell:generateReleaseAssets UP-TO-DATE
+> Task :wmshell:mergeReleaseAssets
+> Task :compatLib:compatLibVBaklava:generateReleaseAssets UP-TO-DATE
+> Task :compatLib:compatLibVBaklava:mergeReleaseAssets
+> Task :compatLib:compatLibVQ:generateReleaseAssets UP-TO-DATE
+> Task :compatLib:compatLibVQ:mergeReleaseAssets
+> Task :compatLib:compatLibVR:generateReleaseAssets UP-TO-DATE
+> Task :compatLib:compatLibVR:mergeReleaseAssets
+> Task :compatLib:compatLibVS:generateReleaseAssets UP-TO-DATE
+> Task :compatLib:compatLibVS:mergeReleaseAssets
+> Task :compatLib:compatLibVT:generateReleaseAssets UP-TO-DATE
+> Task :compatLib:compatLibVT:mergeReleaseAssets
+> Task :compatLib:compatLibVU:generateReleaseAssets UP-TO-DATE
+> Task :compatLib:compatLibVU:mergeReleaseAssets
+> Task :compatLib:compatLibVV:generateReleaseAssets UP-TO-DATE
+> Task :compatLib:compatLibVV:mergeReleaseAssets
+> Task :modules:widgetpicker:generateReleaseAssets UP-TO-DATE
+> Task :modules:widgetpicker:mergeReleaseAssets
+> Task :mergeOssWithQuickstepGithubReleaseAssets
+> Task :compressOssWithQuickstepGithubReleaseAssets FROM-CACHE
+> Task :extractOssWithQuickstepGithubReleaseVersionControlInfo
+> Task :validateSigningOssWithQuickstepGithubRelease
+> Task :writeOssWithQuickstepGithubReleaseAppMetadata
+> Task :writeOssWithQuickstepGithubReleaseSigningConfigVersions
+> Task :compatLib:compatLibVT:compileReleaseJavaWithJavac FROM-CACHE
+> Task :compatLib:compatLibVT:bundleLibRuntimeToJarRelease
+> Task :compatLib:compatLibVT:bundleLibCompileToJarRelease
+> Task :compatLib:compatLibVT:createFullJarRelease
+> Task :compatLib:compatLibVT:mergeReleaseGeneratedProguardFiles
+> Task :compatLib:compatLibVT:exportReleaseConsumerProguardFiles
+> Task :compatLib:compatLibVU:compileReleaseKotlin NO-SOURCE
+> Task :compatLib:compatLibVU:compressReleaseJavaRes NO-SOURCE
+> Task :compatLib:compatLibVU:compileReleaseJavaWithJavac FROM-CACHE
+> Task :compatLib:compatLibVU:bundleLibCompileToJarRelease
+> Task :compatLib:compatLibVV:compileReleaseKotlin NO-SOURCE
+> Task :compatLib:compatLibVU:bundleLibRuntimeToJarRelease
+> Task :compatLib:compatLibVU:createFullJarRelease
+> Task :compatLib:compatLibVV:compressReleaseJavaRes NO-SOURCE
+> Task :compatLib:compatLibVU:mergeReleaseGeneratedProguardFiles
+> Task :compatLib:compatLibVU:exportReleaseConsumerProguardFiles
+> Task :packageOssWithQuickstepGithubReleaseResources
+> Task :compatLib:compatLibVV:compileReleaseJavaWithJavac FROM-CACHE
+> Task :parseOssWithQuickstepGithubReleaseLocalResources
+
+> Task :mergeOssWithQuickstepGithubReleaseResources
+/home/runner/work/TheLauncher/TheLauncher/thelauncher/res/values-fr-rFR/strings.xml:569:4: Multiple substitutions specified in non-positional format of string resource string/battery_charging_percentage_charging_time. Did you mean to add the formatted="false" attribute?
+/home/runner/work/TheLauncher/TheLauncher/thelauncher/res/values-pl-rPL/strings.xml:850:4: Multiple substitutions specified in non-positional format of string resource string/permission_desc_wallpaper_base. Did you mean to add the formatted="false" attribute?
+
+> Task :compatLib:compatLibVV:bundleLibCompileToJarRelease
+> Task :compatLib:compatLibVV:bundleLibRuntimeToJarRelease
+> Task :compatLib:compatLibVV:mergeReleaseGeneratedProguardFiles
+> Task :compatLib:compatLibVV:createFullJarRelease
+> Task :compatLib:compatLibVBaklava:compileReleaseKotlin NO-SOURCE
+> Task :compatLib:compatLibVBaklava:compressReleaseJavaRes NO-SOURCE
+> Task :compatLib:compatLibVV:exportReleaseConsumerProguardFiles
+> Task :compatLib:compatLibVBaklava:compileReleaseJavaWithJavac FROM-CACHE
+> Task :compatLib:compatLibVBaklava:bundleLibCompileToJarRelease
+> Task :compatLib:compatLibVBaklava:bundleLibRuntimeToJarRelease
+> Task :compatLib:compatLibVBaklava:createFullJarRelease
+> Task :generateOssWithQuickstepGithubReleaseRFile
+> Task :androidx-lib:compileReleaseKotlin NO-SOURCE
+> Task :androidx-lib:compileReleaseJavaWithJavac FROM-CACHE
+> Task :androidx-lib:bundleLibCompileToJarRelease
+> Task :flags:compileReleaseKotlin FROM-CACHE
+> Task :flags:compileReleaseJavaWithJavac FROM-CACHE
+> Task :flags:bundleLibCompileToJarRelease
+> Task :iconloaderlib:compileReleaseKotlin FROM-CACHE
+> Task :iconloaderlib:compileReleaseJavaWithJavac FROM-CACHE
+> Task :unfold:kspReleaseKotlin FROM-CACHE
+> Task :iconloaderlib:mergeReleaseGeneratedProguardFiles
+> Task :iconloaderlib:bundleLibCompileToJarRelease
+> Task :iconloaderlib:exportReleaseConsumerProguardFiles
+> Task :compatLib:compatLibVBaklava:mergeReleaseGeneratedProguardFiles
+> Task :compatLib:compatLibVBaklava:exportReleaseConsumerProguardFiles
+> Task :flags:mergeReleaseGeneratedProguardFiles
+> Task :flags:exportReleaseConsumerProguardFiles
+> Task :iconloaderlib:bundleLibRuntimeToJarRelease
+> Task :flags:bundleLibRuntimeToJarRelease
+> Task :flags:compressReleaseJavaRes FROM-CACHE
+> Task :unfold:compileReleaseKotlin FROM-CACHE
+> Task :flags:createFullJarRelease
+> Task :iconloaderlib:compressReleaseJavaRes FROM-CACHE
+> Task :viewcapturelib:extractIncludeReleaseProto
+> Task :iconloaderlib:createFullJarRelease
+> Task :unfold:compressReleaseJavaRes FROM-CACHE
+> Task :viewcapturelib:generateReleaseProto FROM-CACHE
+> Task :unfold:compileReleaseJavaWithJavac FROM-CACHE
+> Task :unfold:mergeReleaseGeneratedProguardFiles
+> Task :unfold:exportReleaseConsumerProguardFiles
+> Task :viewcapturelib:compileReleaseKotlin FROM-CACHE
+> Task :unfold:bundleLibCompileToJarRelease
+> Task :viewcapturelib:compressReleaseJavaRes FROM-CACHE
+> Task :unfold:bundleLibRuntimeToJarRelease
+> Task :unfold:createFullJarRelease
+> Task :viewcapturelib:compileReleaseJavaWithJavac FROM-CACHE
+> Task :viewcapturelib:mergeReleaseGeneratedProguardFiles
+> Task :viewcapturelib:exportReleaseConsumerProguardFiles
+> Task :viewcapturelib:bundleLibCompileToJarRelease
+> Task :viewcapturelib:bundleLibRuntimeToJarRelease
+> Task :viewcapturelib:createFullJarRelease
+> Task :utils:compileReleaseKotlin FROM-CACHE
+> Task :utils:compileReleaseJavaWithJavac NO-SOURCE
+> Task :utils:compressReleaseJavaRes FROM-CACHE
+> Task :utils:bundleLibRuntimeToJarRelease
+> Task :utils:bundleLibCompileToJarRelease
+> Task :utils:createFullJarRelease
+> Task :common:compileReleaseKotlin FROM-CACHE
+> Task :common:compileReleaseJavaWithJavac NO-SOURCE
+> Task :common:compressReleaseJavaRes FROM-CACHE
+> Task :common:bundleLibCompileToJarRelease
+> Task :common:bundleLibRuntimeToJarRelease
+> Task :wmshell:kspReleaseKotlin FROM-CACHE
+> Task :common:createFullJarRelease
+> Task :log:compileReleaseKotlin FROM-CACHE
+> Task :log:compressReleaseJavaRes FROM-CACHE
+> Task :log:compileReleaseJavaWithJavac FROM-CACHE
+> Task :log:mergeReleaseGeneratedProguardFiles
+> Task :log:bundleLibCompileToJarRelease
+> Task :log:exportReleaseConsumerProguardFiles
+> Task :log:bundleLibRuntimeToJarRelease
+> Task :log:createFullJarRelease
+> Task :wmshell:compileReleaseKotlin FROM-CACHE
+> Task :wmshell:compressReleaseJavaRes FROM-CACHE
+> Task :plugincore:compileReleaseKotlin FROM-CACHE
+> Task :plugincore:compressReleaseJavaRes FROM-CACHE
+> Task :plugincore:compileReleaseJavaWithJavac FROM-CACHE
+> Task :wmshell:compileReleaseJavaWithJavac FROM-CACHE
+> Task :plugincore:mergeReleaseGeneratedProguardFiles
+> Task :plugincore:bundleLibCompileToJarRelease
+> Task :wmshell:mergeReleaseGeneratedProguardFiles
+> Task :plugincore:exportReleaseConsumerProguardFiles
+> Task :wmshell:exportReleaseConsumerProguardFiles
+> Task :plugincore:bundleLibRuntimeToJarRelease
+> Task :wmshell:bundleLibCompileToJarRelease
+> Task :plugincore:createFullJarRelease
+> Task :wmshell:bundleLibRuntimeToJarRelease
+> Task :wmshell:createFullJarRelease
+> Task :animation:compileReleaseKotlin FROM-CACHE
+> Task :animation:compressReleaseJavaRes FROM-CACHE
+> Task :animation:compileReleaseJavaWithJavac FROM-CACHE
+> Task :animation:mergeReleaseGeneratedProguardFiles
+> Task :animation:exportReleaseConsumerProguardFiles
+> Task :animation:bundleLibCompileToJarRelease
+> Task :animation:bundleLibRuntimeToJarRelease
+> Task :animation:createFullJarRelease
+> Task :plugin:compileReleaseKotlin FROM-CACHE
+> Task :plugin:compressReleaseJavaRes FROM-CACHE
+> Task :plugin:compileReleaseJavaWithJavac FROM-CACHE
+> Task :plugin:bundleLibCompileToJarRelease
+> Task :plugin:bundleLibRuntimeToJarRelease
+> Task :plugin:createFullJarRelease
+> Task :shared:kspReleaseKotlin FROM-CACHE
+> Task :shared:compileReleaseKotlin FROM-CACHE
+> Task :shared:compressReleaseJavaRes FROM-CACHE
+> Task :shared:compileReleaseJavaWithJavac FROM-CACHE
+> Task :shared:mergeReleaseGeneratedProguardFiles
+> Task :shared:exportReleaseConsumerProguardFiles
+> Task :shared:bundleLibCompileToJarRelease
+> Task :shared:bundleLibRuntimeToJarRelease
+> Task :shared:createFullJarRelease
+> Task :extractIncludeOssWithQuickstepGithubReleaseProto
+> Task :generateOssWithQuickstepGithubReleaseProto FROM-CACHE
+warn: removing resource app.thelauncher:string/apply_grid without required default value.
+warn: removing resource app.thelauncher:string/auto_adaptive_icons_description without required default value.
+warn: removing resource app.thelauncher:string/back_gesture_spoken_intro_subtitle without required default value.
+warn: removing resource app.thelauncher:string/create without required default value.
+warn: removing resource app.thelauncher:string/create_backup_action without required default value.
+warn: removing resource app.thelauncher:string/customize_button_text without required default value.
+warn: removing resource app.thelauncher:string/default_device_name without required default value.
+warn: removing resource app.thelauncher:string/delete without required default value.
+warn: removing resource app.thelauncher:string/dt2s_a11y_hint without required default value.
+warn: removing resource app.thelauncher:string/dt2s_a11y_hint_title without required default value.
+warn: removing resource app.thelauncher:string/gesture_tutorial_action_button_label_cancel without required default value.
+warn: removing resource app.thelauncher:string/gesture_tutorial_action_button_label_skip without required default value.
+warn: removing resource app.thelauncher:string/hide_hidden_apps_search without required default value.
+warn: removing resource app.thelauncher:string/home_gesture_spoken_intro_subtitle without required default value.
+warn: removing resource app.thelauncher:string/home_screen_edit_toggle_from_home_popup without required default value.
+warn: removing resource app.thelauncher:string/home_screen_lock_toggle_from_home_popup without required default value.
+warn: removing resource app.thelauncher:string/icon_shape_bottom_left without required default value.
+warn: removing resource app.thelauncher:string/icon_shape_bottom_right without required default value.
+warn: removing resource app.thelauncher:string/icon_shape_corner without required default value.
+warn: removing resource app.thelauncher:string/icon_shape_corner_cut without required default value.
+warn: removing resource app.thelauncher:string/icon_shape_corner_round without required default value.
+warn: removing resource app.thelauncher:string/icon_shape_corner_squircle without required default value.
+warn: removing resource app.thelauncher:string/icon_shape_top_left without required default value.
+warn: removing resource app.thelauncher:string/icon_shape_top_right without required default value.
+warn: removing resource app.thelauncher:string/icon_style without required default value.
+warn: removing resource app.thelauncher:string/item_added_to_workspace without required default value.
+warn: removing resource app.thelauncher:string/launcher_default_color without required default value.
+warn: removing resource app.thelauncher:string/missing_notification_access_description without required default value.
+warn: removing resource app.thelauncher:string/overview_gesture_spoken_intro_subtitle without required default value.
+warn: removing resource app.thelauncher:string/recents_a11y_hint without required default value.
+warn: removing resource app.thelauncher:string/reset_font without required default value.
+warn: removing resource app.thelauncher:string/restore_backup_action without required default value.
+warn: removing resource app.thelauncher:string/show_dot_pagination_description without required default value.
+warn: removing resource app.thelauncher:string/show_dot_pagination_label without required default value.
+warn: removing resource app.thelauncher:string/show_enable_smart_hide without required default value.
+warn: removing resource app.thelauncher:string/show_home_labels without required default value.
+warn: removing resource app.thelauncher:string/show_material_u_popup_description without required default value.
+warn: removing resource app.thelauncher:string/show_material_u_popup_label without required default value.
+warn: removing resource app.thelauncher:string/show_system_settings_entry without required default value.
+warn: removing resource app.thelauncher:string/skip_tutorial_dialog_subtitle without required default value.
+warn: removing resource app.thelauncher:string/skip_tutorial_dialog_title without required default value.
+warn: removing resource app.thelauncher:string/smartspace_mode_selection without required default value.
+warn: removing resource app.thelauncher:string/task_view_closed without required default value.
+warn: removing resource app.thelauncher:string/taskbar_a11y_hidden_title without required default value.
+warn: removing resource app.thelauncher:string/taskbar_a11y_hidden_with_bubbles_title without required default value.
+warn: removing resource app.thelauncher:string/themed_icon_pack without required default value.
+warn: removing resource app.thelauncher:string/transparent_background_icons without required default value.
+warn: removing resource app.thelauncher:string/transparent_background_icons_description without required default value.
+warn: removing resource app.thelauncher:string/warn_files_permission_content without required default value.
+
+> Task :processOssWithQuickstepGithubReleaseResources
+> Task :kspOssWithQuickstepGithubReleaseKotlin
+> Task :compileOssWithQuickstepGithubReleaseKotlin
+> Task :compressOssWithQuickstepGithubReleaseJavaRes FROM-CACHE
+> Task :mergeOssWithQuickstepGithubReleaseJavaResource
+
+> Task :compileOssWithQuickstepGithubReleaseJavaWithJavac
+Note: Some input files use or override a deprecated API.
+Note: Recompile with -Xlint:deprecation for details.
+Note: Some input files use or override a deprecated API that is marked for removal.
+Note: Recompile with -Xlint:removal for details.
+Note: Some input files use unchecked or unsafe operations.
+Note: Recompile with -Xlint:unchecked for details.
+
+> Task :transformOssWithQuickstepGithubReleaseClassesWithAsm
+> Task :mergeOssWithQuickstepGithubReleaseGeneratedProguardFiles
+> Task :expandOssWithQuickstepGithubReleaseArtProfileWildcards
+> Task :produceOssWithQuickstepGithubReleaseComposeMapping
+> Task :reportOssWithQuickstepGithubReleaseComposeMappingErrors
+> Task :minifyOssWithQuickstepGithubReleaseWithR8
+> Task :convertShrunkResourcesToBinaryOssWithQuickstepGithubRelease
+> Task :optimizeOssWithQuickstepGithubReleaseResources
+> Task :l8DexDesugarLibOssWithQuickstepGithubRelease
+> Task :mergeOssWithQuickstepGithubReleaseComposeMapping
+> Task :compileOssWithQuickstepGithubReleaseArtProfile
+> Task :packageOssWithQuickstepGithubRelease
+> Task :assembleOssWithQuickstepGithubRelease
+> Task :createOssWithQuickstepGithubReleaseApkListingFileRedirect
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-results/__run-1794498028439.json
+
+BUILD SUCCESSFUL in 5m 58s
+730 actionable tasks: 349 executed, 381 from cache
+
+Publishing Build Scan to Develocity...
+gradle/actions: Writing build results to /home/runner/work/_temp/.gradle-actions/build-scans/__run-1794498028439.json
+https://gradle.com/s/23lnnuynez5fi
+
+Configuration cache entry stored.
