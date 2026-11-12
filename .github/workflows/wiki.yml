@@ -12,6 +12,10 @@ on:
         description: 'Capture screenshots of the latest release on an emulator'
         type: boolean
         default: false
+      patch:
+        description: 'Optional gzip+base64 diff to build and capture instead of the release'
+        type: string
+        default: ''
 
 permissions:
   contents: write
@@ -42,9 +46,41 @@ jobs:
   screenshots:
     if: ${{ inputs.screenshots }}
     runs-on: ubuntu-24.04
-    timeout-minutes: 60
+    timeout-minutes: 120
     steps:
+      - uses: actions/checkout@v7
+        if: ${{ inputs.patch != '' }}
+      - uses: actions/setup-java@v6
+        if: ${{ inputs.patch != '' }}
+        with:
+          distribution: 'zulu'
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v6
+        if: ${{ inputs.patch != '' }}
+      - name: Build the patched app
+        if: ${{ inputs.patch != '' }}
+        env:
+          PATCH: ${{ inputs.patch }}
+          KEYSTORE: ${{ secrets.KEYSTORE }}
+        run: |
+          mkdir -p shots
+          echo "$PATCH" | base64 -d | gunzip > /tmp/change.diff
+          git apply --whitespace=nowarn /tmp/change.diff 2>&1 | tee shots/build.log
+          echo storePassword='${{ secrets.KEYSTORE_PASSWORD }}' >> keystore.properties
+          echo keyAlias='${{ secrets.KEY_ALIAS }}' >> keystore.properties
+          echo keyPassword='${{ secrets.KEY_PASSWORD }}' >> keystore.properties
+          echo storeFile='${{ github.workspace }}/key.jks' >> keystore.properties
+          echo "$KEYSTORE" | base64 --decode > key.jks
+          set +e
+          ./gradlew assembleOssWithQuickstepGithubRelease --console=plain >> shots/build.log 2>&1
+          rc=$?
+          set -e
+          grep -E '^e: |error:|What went wrong' -A3 shots/build.log > shots/errors.txt || true
+          if [ "$rc" -ne 0 ]; then tail -80 shots/build.log; exit 1; fi
+          cp "$(find build/outputs/apk -name '*.apk' | head -1)" TheLauncher.apk
+          rm -f key.jks keystore.properties
       - name: Download latest release
+        if: ${{ inputs.patch == '' }}
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -86,6 +122,7 @@ jobs:
           sys.exit(1)
           PY
           }
+          scroll_to() { for i in 1 2 3 4 5 6 7 8; do find_xy "$1" >/dev/null && return 0; scroll; done; return 1; }
           tap_text() { xy=$(find_xy "$1") && { adb shell input tap $xy; sleep 2; return 0; }; echo "tap_text: '$1' not found"; return 1; }
           long_text() { xy=$(find_xy "$1") && { set -- $xy; adb shell input swipe $1 $2 $1 $2 1200; sleep 2; return 0; }; echo "long_text: not found"; return 1; }
           long_xy() { adb shell input swipe $1 $2 $1 $2 1200; sleep 2; }
@@ -138,6 +175,18 @@ jobs:
           tap_text 'Onboarding'
           tap_text 'Cancel'
           shot 22-glance-more
+          back; back; back
+
+          # At a Glance style (builds that have it): a pill bubble behind the text.
+          settings smartspace
+          tap_text 'Cancel'
+          if scroll_to 'Bubble'; then
+            shot 24-glance-style
+            tap_text 'Bubble'
+            tap_text 'Pill around the text'
+            shot 25-glance-bubble
+            scroll; shot 26-glance-style-more
+          fi
           back; back; back
 
           # Home screen.
