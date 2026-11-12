@@ -1,0 +1,401 @@
+--------- beginning of main
+11-12 16:20:23.705  1599  2162 W NgaEntryPointEventSendr: Long enqueue delay: 19960 ms
+11-12 16:20:23.763  7826  7866 W SearchServiceCore: Abort, client detached.
+11-12 16:20:23.799  7826  7837 W DynamiteModule: Local module descriptor class for com.google.android.gms.googlecertificates not found.
+--------- beginning of system
+11-12 16:20:23.801   500  1710 E ActivityManager: Failure starting process com.google.android.gms
+11-12 16:20:23.801   500  1710 E ActivityManager: java.lang.SecurityException: Package com.google.android.gms is currently frozen!
+11-12 16:20:23.801   500  1710 E ActivityManager: 	at com.android.server.pm.PackageManagerService.checkPackageStartable(PackageManagerService.java:4600)
+11-12 16:20:23.801   500  1710 E ActivityManager: 	at com.android.server.pm.PackageManagerService$IPackageManagerImpl.checkPackageStartable(PackageManagerService.java:4681)
+11-12 16:20:23.801   500  1710 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:1758)
+11-12 16:20:23.801   500  1710 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2483)
+11-12 16:20:23.801   500  1710 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2628)
+11-12 16:20:23.801   500  1710 E ActivityManager: 	at com.android.server.am.ActivityManagerService.startProcessLocked(ActivityManagerService.java:2923)
+11-12 16:20:23.801   500  1710 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProviderImpl(ContentProviderHelper.java:535)
+11-12 16:20:23.801   500  1710 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProvider(ContentProviderHelper.java:144)
+11-12 16:20:23.801   500  1710 E ActivityManager: 	at com.android.server.am.ActivityManagerService.getContentProvider(ActivityManagerService.java:6713)
+11-12 16:20:23.801   500  1710 E ActivityManager: 	at android.app.IActivityManager$Stub.onTransact(IActivityManager.java:2761)
+11-12 16:20:23.801   500  1710 E ActivityManager: 	at com.android.server.am.ActivityManagerService.onTransact(ActivityManagerService.java:2720)
+11-12 16:20:23.801   500  1710 E ActivityManager: 	at android.os.Binder.execTransactInternal(Binder.java:1339)
+11-12 16:20:23.801   500  1710 E ActivityManager: 	at android.os.Binder.execTransact(Binder.java:1275)
+11-12 16:20:23.802   500   517 W ServiceWatcher: [GeocoderProxy] 10129/com.google.android.gms/.location.geocode.GeocodeService@2 died
+11-12 16:20:23.802   500   517 W ServiceWatcher: [fused] 10129/com.google.android.gms/com.google.android.location.fused.FusedLocationService@1 died
+11-12 16:20:23.802   500   517 W ServiceWatcher: [RealLocationTimeZoneProviderProxy] 10129/com.google.android.gms/.geotimezone.GeoTimeZoneService@1 died
+11-12 16:20:23.802   500   517 W ServiceWatcher: [network] 10129/com.google.android.gms/com.google.android.location.network.NetworkLocationService@2 died
+11-12 16:20:23.802   500   517 W ServiceWatcher: [GeofenceProxy] 10129/com.google.android.gms/com.google.android.location.internal.GoogleLocationManagerService@1 died
+11-12 16:20:23.802   500   517 W ServiceWatcher: [HardwareActivityRecognitionProxy] 10129/com.google.android.gms/com.google.android.location.internal.server.HardwareArProviderService@1 died
+11-12 16:20:23.802   500  1710 W ContentProviderHelper: Unable to launch app com.google.android.gms/10129 for provider com.google.android.gms.chimera: process is bad
+11-12 16:20:23.803  7826  7837 E ActivityThread: Failed to find provider info for com.google.android.gms.chimera
+11-12 16:20:23.803  7826  7837 W DynamiteModule: Failed to retrieve remote module version.
+11-12 16:20:23.831   500  1710 E ActivityManager: Failure starting process com.google.android.gms
+11-12 16:20:23.831   500  1710 E ActivityManager: java.lang.SecurityException: Package com.google.android.gms is currently frozen!
+11-12 16:20:23.831   500  1710 E ActivityManager: 	at com.android.server.pm.PackageManagerService.checkPackageStartable(PackageManagerService.java:4600)
+11-12 16:20:23.831   500  1710 E ActivityManager: 	at com.android.server.pm.PackageManagerService$IPackageManagerImpl.checkPackageStartable(PackageManagerService.java:4681)
+11-12 16:20:23.831   500  1710 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:1758)
+11-12 16:20:23.831   500  1710 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2483)
+11-12 16:20:23.831   500  1710 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2628)
+11-12 16:20:23.831   500  1710 E ActivityManager: 	at com.android.server.am.ActivityManagerService.startProcessLocked(ActivityManagerService.java:2923)
+11-12 16:20:23.831   500  1710 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProviderImpl(ContentProviderHelper.java:535)
+11-12 16:20:23.831   500  1710 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProvider(ContentProviderHelper.java:144)
+11-12 16:20:23.831   500  1710 E ActivityManager: 	at com.android.server.am.ActivityManagerService.getContentProvider(ActivityManagerService.java:6713)
+11-12 16:20:23.831   500  1710 E ActivityManager: 	at android.app.IActivityManager$Stub.onTransact(IActivityManager.java:2761)
+11-12 16:20:23.831   500  1710 E ActivityManager: 	at com.android.server.am.ActivityManagerService.onTransact(ActivityManagerService.java:2720)
+11-12 16:20:23.831   500  1710 E ActivityManager: 	at android.os.Binder.execTransactInternal(Binder.java:1339)
+11-12 16:20:23.831   500  1710 E ActivityManager: 	at android.os.Binder.execTransact(Binder.java:1275)
+11-12 16:20:23.833   500  1710 W ActivityManager: Scheduling restart of crashed service com.google.android.googlequicksearchbox/com.google.android.apps.gsa.shared.util.keepalive.StandaloneKeepAlive$KeepAliveService in 720896000ms for start-requested
+11-12 16:20:23.833   500  1710 W ActivityManager: Scheduling restart of crashed service com.google.android.googlequicksearchbox/com.google.android.apps.gsa.nowoverlayservice.DrawerOverlayService in 1376256000ms for connection
+11-12 16:20:23.833   500  1710 W ActivityManager: Scheduling restart of crashed service com.google.android.googlequicksearchbox/com.google.android.apps.gsa.publicsearch.PublicSearchService in 1000ms for connection
+11-12 16:20:23.833   500  1710 W ActivityManager: Scheduling restart of crashed service com.google.android.googlequicksearchbox/com.google.android.hotword.service.HotwordService in 11000ms for connection
+11-12 16:20:23.852  1599  2138 E GsaVoiceInteractionSrv: Remote Exception
+11-12 16:20:23.852  1599  2138 E GsaVoiceInteractionSrv: android.os.DeadObjectException
+11-12 16:20:23.852  1599  2138 E GsaVoiceInteractionSrv: 	at android.os.BinderProxy.transactNative(Native Method)
+11-12 16:20:23.852  1599  2138 E GsaVoiceInteractionSrv: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+11-12 16:20:23.852  1599  2138 E GsaVoiceInteractionSrv: 	at com.google.android.a.a.hj(PG:2)
+11-12 16:20:23.852  1599  2138 E GsaVoiceInteractionSrv: 	at com.google.android.hotword.service.g.a(PG:2)
+11-12 16:20:23.852  1599  2138 E GsaVoiceInteractionSrv: 	at com.google.android.voiceinteraction.j.run(PG:6)
+11-12 16:20:23.852  1599  2138 E GsaVoiceInteractionSrv: 	at com.google.apps.tiktok.tracing.ei.run(PG:2)
+11-12 16:20:23.852  1599  2138 E GsaVoiceInteractionSrv: 	at com.google.android.libraries.i.ae.run(PG:1)
+11-12 16:20:23.852  1599  2138 E GsaVoiceInteractionSrv: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 16:20:23.852  1599  2138 E GsaVoiceInteractionSrv: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 16:20:23.852  1599  2138 E GsaVoiceInteractionSrv: 	at com.google.android.libraries.i.k.run(PG:2)
+11-12 16:20:23.852  1599  2138 E GsaVoiceInteractionSrv: 	at com.google.android.libraries.i.p.run(PG:4)
+11-12 16:20:23.852  1599  2138 E GsaVoiceInteractionSrv: 	at java.lang.Thread.run(Thread.java:1012)
+11-12 16:20:23.853  1599  2162 W OpaStateMachine: Search process died, entering IDLE
+11-12 16:20:23.869   500  1710 W ContentProviderHelper: Unable to launch app com.google.android.gms/10129 for provider com.google.android.gms.chimera: process is bad
+11-12 16:20:23.870  1599  2145 E NgaEntryPointEventSendr: Couldn't begin binder session
+11-12 16:20:23.870  1599  2145 E NgaEntryPointEventSendr: android.os.DeadObjectException
+11-12 16:20:23.870  1599  2145 E NgaEntryPointEventSendr: 	at android.os.BinderProxy.transactNative(Native Method)
+11-12 16:20:23.870  1599  2145 E NgaEntryPointEventSendr: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+11-12 16:20:23.870  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.a.a.hj(PG:2)
+11-12 16:20:23.870  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.apps.gsa.publicsearch.c.e(PG:5)
+11-12 16:20:23.870  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.apps.gsa.staticplugins.opa.aj.c.b.i.run(PG:6)
+11-12 16:20:23.870  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.libraries.gsa.k.a.h.run(PG:2)
+11-12 16:20:23.870  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.apps.gsa.shared.util.c.a.cf.b(PG:1)
+11-12 16:20:23.870  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.apps.gsa.shared.util.c.a.ci.run(PG:1)
+11-12 16:20:23.870  1599  2145 E NgaEntryPointEventSendr: 	at com.google.common.util.concurrent.dn.run(PG:1)
+11-12 16:20:23.870  1599  2145 E NgaEntryPointEventSendr: 	at com.google.common.util.concurrent.do.run(PG:4)
+11-12 16:20:23.870  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.libraries.i.ae.run(PG:1)
+11-12 16:20:23.870  1599  2145 E NgaEntryPointEventSendr: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 16:20:23.870  1599  2145 E NgaEntryPointEventSendr: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 16:20:23.870  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.libraries.i.k.run(PG:2)
+11-12 16:20:23.870  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.libraries.i.p.run(PG:4)
+11-12 16:20:23.870  1599  2145 E NgaEntryPointEventSendr: 	at java.lang.Thread.run(Thread.java:1012)
+11-12 16:20:23.906  7889  7889 W profman : Could not find entry primary.prof in the zip archive. Creating an empty profile.
+11-12 16:20:23.961  7890  7890 W dex2oat64: Unexpected CPU variant for x86: x86_64.
+11-12 16:20:23.961  7890  7890 W dex2oat64: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-12 16:20:23.962  7890  7890 W dex2oat64: Mismatch between dex2oat instruction set features to use (ISA: X86_64 Feature string: -ssse3,-sse4.1,-sse4.2,-avx,-avx2,-popcnt) and those from CPP defines (ISA: X86_64 Feature string: ssse3,sse4.1,sse4.2,-avx,-avx2,popcnt) for the command line:
+11-12 16:20:23.962  7890  7890 W dex2oat64: /apex/com.android.art/bin/dex2oat64 --zip-fd=6 --zip-location=/data/app/~~uwfWQzKZiiD10hCSBD79Tg==/com.google.android.gms-qyoQ6r52mCjY4qLuObSryQ==/split_AdsDynamite_installtime.apk --oat-fd=7 --oat-location=/data/app/~~uwfWQzKZiiD10hCSBD79Tg==/com.google.android.gms-qyoQ6r52mCjY4qLuObSryQ==/oat/x86_64/split_AdsDynamite_installtime.odex --output-vdex-fd=8 --swap-fd=9 --class-loader-context-fds=10:11:12:13:14:15 --class-loader-context=DLC[];PCL[base.apk]{PCL[/system/framework/org.apache.http.legacy.jar]#PCL[/system/framework/com.android.location.provider.jar]#PCL[/system/framework/com.android.media.remotedisplay.jar]#PCL[/system_ext/framework/androidx.window.extensions.jar]#PCL[/system_ext/framework/androidx.window.sidecar.jar]} --classpath-dir=/data/app/~~uwfWQzKZiiD10hCSBD79Tg==/com.google.android.gms-qyoQ6r52mCjY4qLuObSryQ== --dm-fd=16 --instruction-set=x86_64 --instruction-set-features=default --instruction-set-variant=x86_64 --compiler-filter=speed --compilation-reason=install-dm --compact-dex-level=none --max-image-block-size=524288 --resolve-startup-const-strings=true --generate-mini-debug-info --runtime-arg -Xtarget-sdk-version:37 --runtime-arg -Xhidden-api-policy:enabled --runtime-arg -Xms64m --runtime-arg -Xmx512m --comments=app-version-name:26.43.30 (190800-1006944126),app-version-code:264330032,art-version:340818082
+11-12 16:20:24.233  7894  7894 W earchbox:search: Unexpected CPU variant for x86: x86_64.
+11-12 16:20:24.233  7894  7894 W earchbox:search: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-12 16:20:24.236  7894  7894 E earchbox:search: Not starting debugger since process cannot load the jdwp agent.
+11-12 16:20:24.381   500  2092 W ActivityManager: Receiver with filter android.content.IntentFilter@dcd2896 already registered for pid 7894, callerPackage is com.google.android.googlequicksearchbox
+11-12 16:20:24.444  7894  7913 W earchbox:search: Accessing hidden field Ljava/util/Collections$SynchronizedCollection;->mutex:Ljava/lang/Object; (max-target-o, reflection, denied)
+11-12 16:20:24.462  7894  7913 W earchbox:search: Accessing hidden method Ljava/util/Collections$SynchronizedSet;-><init>(Ljava/util/Set;Ljava/lang/Object;)V (max-target-o, reflection, denied)
+11-12 16:20:24.466  7894  7913 W earchbox:search: Accessing hidden method Ljava/util/Collections$SynchronizedCollection;-><init>(Ljava/util/Collection;Ljava/lang/Object;)V (max-target-o, reflection, denied)
+11-12 16:20:24.512   500  2092 E ActivityManager: Failure starting process com.google.android.gms
+11-12 16:20:24.512   500  2092 E ActivityManager: java.lang.SecurityException: Package com.google.android.gms is currently frozen!
+11-12 16:20:24.512   500  2092 E ActivityManager: 	at com.android.server.pm.PackageManagerService.checkPackageStartable(PackageManagerService.java:4600)
+11-12 16:20:24.512   500  2092 E ActivityManager: 	at com.android.server.pm.PackageManagerService$IPackageManagerImpl.checkPackageStartable(PackageManagerService.java:4681)
+11-12 16:20:24.512   500  2092 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:1758)
+11-12 16:20:24.512   500  2092 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2483)
+11-12 16:20:24.512   500  2092 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2628)
+11-12 16:20:24.512   500  2092 E ActivityManager: 	at com.android.server.am.ActivityManagerService.startProcessLocked(ActivityManagerService.java:2923)
+11-12 16:20:24.512   500  2092 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProviderImpl(ContentProviderHelper.java:535)
+11-12 16:20:24.512   500  2092 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProvider(ContentProviderHelper.java:144)
+11-12 16:20:24.512   500  2092 E ActivityManager: 	at com.android.server.am.ActivityManagerService.getContentProvider(ActivityManagerService.java:6713)
+11-12 16:20:24.512   500  2092 E ActivityManager: 	at android.app.IActivityManager$Stub.onTransact(IActivityManager.java:2761)
+11-12 16:20:24.512   500  2092 E ActivityManager: 	at com.android.server.am.ActivityManagerService.onTransact(ActivityManagerService.java:2720)
+11-12 16:20:24.512   500  2092 E ActivityManager: 	at android.os.Binder.execTransactInternal(Binder.java:1339)
+11-12 16:20:24.512   500  2092 E ActivityManager: 	at android.os.Binder.execTransact(Binder.java:1275)
+11-12 16:20:24.513   500   517 W ServiceWatcher: [GeocoderProxy] 10129/com.google.android.gms/.location.geocode.GeocodeService@2 died
+11-12 16:20:24.513   500   517 W ServiceWatcher: [fused] 10129/com.google.android.gms/com.google.android.location.fused.FusedLocationService@1 died
+11-12 16:20:24.513   500   517 W ServiceWatcher: [RealLocationTimeZoneProviderProxy] 10129/com.google.android.gms/.geotimezone.GeoTimeZoneService@1 died
+11-12 16:20:24.513   500   517 W ServiceWatcher: [network] 10129/com.google.android.gms/com.google.android.location.network.NetworkLocationService@2 died
+11-12 16:20:24.513   500   517 W ServiceWatcher: [GeofenceProxy] 10129/com.google.android.gms/com.google.android.location.internal.GoogleLocationManagerService@1 died
+11-12 16:20:24.513   500   517 W ServiceWatcher: [HardwareActivityRecognitionProxy] 10129/com.google.android.gms/com.google.android.location.internal.server.HardwareArProviderService@1 died
+11-12 16:20:24.513   500  2092 W ContentProviderHelper: Unable to launch app com.google.android.gms/10129 for provider com.google.android.gms.chimera: process is bad
+11-12 16:20:24.534  7894  7913 E ActivityThread: Failed to find provider info for com.google.android.gms.chimera
+11-12 16:20:24.534  7894  7913 W ConnectionStatusConfig: Dynamic intent resolution failed: java.lang.IllegalArgumentException: Unknown authority com.google.android.gms.chimera
+11-12 16:20:24.534  7894  7913 W ConnectionStatusConfig: Dynamic lookup for intent failed for action: com.google.android.gms.gmscompliance.service.START
+11-12 16:20:24.534   500  2092 W ActivityManager: Unable to start service Intent { act=com.google.android.gms.gmscompliance.service.START pkg=com.google.android.gms } U=0: not found
+11-12 16:20:24.569   500  2092 W ActivityManager: Unbind failed: could not find connection for android.os.BinderProxy@dfe9321
+11-12 16:20:24.576  7894  7913 W GmsClient: unable to connect to service: com.google.android.gms.gmscompliance.service.START on com.google.android.gms
+11-12 16:20:24.594  7894  7923 W UdevsVerdict: apk call failed
+11-12 16:20:24.594  7894  7923 W UdevsVerdict: com.google.android.gms.common.api.n: 17: API: GmsDeviceComplianceService.API is not available on this device. Connection failed with: ConnectionResult{statusCode=API_UNAVAILABLE, resolution=null, message=null}
+11-12 16:20:24.594  7894  7923 W UdevsVerdict: 	at com.google.android.gms.common.internal.a.a(PG:1)
+11-12 16:20:24.594  7894  7923 W UdevsVerdict: 	at com.google.android.gms.common.api.internal.h.a(PG:1)
+11-12 16:20:24.594  7894  7923 W UdevsVerdict: 	at com.google.android.gms.common.api.internal.e.d(PG:1)
+11-12 16:20:24.594  7894  7923 W UdevsVerdict: 	at com.google.android.gms.common.api.internal.bk.r(PG:7)
+11-12 16:20:24.594  7894  7923 W UdevsVerdict: 	at com.google.android.gms.common.api.internal.bk.g(PG:2)
+11-12 16:20:24.594  7894  7923 W UdevsVerdict: 	at com.google.android.gms.common.api.internal.bk.j(PG:19)
+11-12 16:20:24.594  7894  7923 W UdevsVerdict: 	at com.google.android.gms.common.api.internal.bm.run(PG:9)
+11-12 16:20:24.594  7894  7923 W UdevsVerdict: 	at android.os.Handler.handleCallback(Handler.java:958)
+11-12 16:20:24.594  7894  7923 W UdevsVerdict: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+11-12 16:20:24.594  7894  7923 W UdevsVerdict: 	at android.os.Looper.loopOnce(Looper.java:205)
+11-12 16:20:24.594  7894  7923 W UdevsVerdict: 	at android.os.Looper.loop(Looper.java:294)
+11-12 16:20:24.594  7894  7923 W UdevsVerdict: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+11-12 16:20:24.608  7894  7894 W A       : Calling with an invalid UID, the interface will not work
+11-12 16:20:24.630  7894  7894 E A       : Only system apps are allowed to connect
+11-12 16:20:24.630  7894  7894 W A       : Unable to bind to service
+11-12 16:20:24.694  7894  7934 W SearchServiceCore: Abort, client detached.
+11-12 16:20:24.701  7894  7930 E BistoWorker: Couldn't get logged in Google account.
+11-12 16:20:24.743  7894  7934 W SearchServiceCore: Abort, client detached.
+11-12 16:20:24.789   500  2092 E ActivityManager: Failure starting process com.google.android.gms
+11-12 16:20:24.789   500  2092 E ActivityManager: java.lang.SecurityException: Package com.google.android.gms is currently frozen!
+11-12 16:20:24.789   500  2092 E ActivityManager: 	at com.android.server.pm.PackageManagerService.checkPackageStartable(PackageManagerService.java:4600)
+11-12 16:20:24.789   500  2092 E ActivityManager: 	at com.android.server.pm.PackageManagerService$IPackageManagerImpl.checkPackageStartable(PackageManagerService.java:4681)
+11-12 16:20:24.789   500  2092 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:1758)
+11-12 16:20:24.789   500  2092 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2483)
+11-12 16:20:24.789   500  2092 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2628)
+11-12 16:20:24.789   500  2092 E ActivityManager: 	at com.android.server.am.ActivityManagerService.startProcessLocked(ActivityManagerService.java:2923)
+11-12 16:20:24.789   500  2092 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProviderImpl(ContentProviderHelper.java:535)
+11-12 16:20:24.789   500  2092 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProvider(ContentProviderHelper.java:144)
+11-12 16:20:24.789   500  2092 E ActivityManager: 	at com.android.server.am.ActivityManagerService.getContentProvider(ActivityManagerService.java:6713)
+11-12 16:20:24.789   500  2092 E ActivityManager: 	at android.app.IActivityManager$Stub.onTransact(IActivityManager.java:2761)
+11-12 16:20:24.789   500  2092 E ActivityManager: 	at com.android.server.am.ActivityManagerService.onTransact(ActivityManagerService.java:2720)
+11-12 16:20:24.789   500  2092 E ActivityManager: 	at android.os.Binder.execTransactInternal(Binder.java:1339)
+11-12 16:20:24.789   500  2092 E ActivityManager: 	at android.os.Binder.execTransact(Binder.java:1275)
+11-12 16:20:24.791   500  2092 W ContentProviderHelper: Unable to launch app com.google.android.gms/10129 for provider com.google.android.gms.phenotype: process is bad
+11-12 16:20:24.791  7894  7930 E ActivityThread: Failed to find provider info for com.google.android.gms.phenotype
+11-12 16:20:24.797  1599  2162 W NgaEntryPointEventSendr: Long enqueue delay: 21052 ms
+11-12 16:20:24.806  7894  7934 W SearchServiceCore: Abort, client detached.
+11-12 16:20:24.872  7894  7905 W DynamiteModule: Local module descriptor class for com.google.android.gms.googlecertificates not found.
+11-12 16:20:24.873   500  2092 E ActivityManager: Failure starting process com.google.android.gms
+11-12 16:20:24.873   500  2092 E ActivityManager: java.lang.SecurityException: Package com.google.android.gms is currently frozen!
+11-12 16:20:24.873   500  2092 E ActivityManager: 	at com.android.server.pm.PackageManagerService.checkPackageStartable(PackageManagerService.java:4600)
+11-12 16:20:24.873   500  2092 E ActivityManager: 	at com.android.server.pm.PackageManagerService$IPackageManagerImpl.checkPackageStartable(PackageManagerService.java:4681)
+11-12 16:20:24.873   500  2092 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:1758)
+11-12 16:20:24.873   500  2092 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2483)
+11-12 16:20:24.873   500  2092 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2628)
+11-12 16:20:24.873   500  2092 E ActivityManager: 	at com.android.server.am.ActivityManagerService.startProcessLocked(ActivityManagerService.java:2923)
+11-12 16:20:24.873   500  2092 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProviderImpl(ContentProviderHelper.java:535)
+11-12 16:20:24.873   500  2092 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProvider(ContentProviderHelper.java:144)
+11-12 16:20:24.873   500  2092 E ActivityManager: 	at com.android.server.am.ActivityManagerService.getContentProvider(ActivityManagerService.java:6713)
+11-12 16:20:24.873   500  2092 E ActivityManager: 	at android.app.IActivityManager$Stub.onTransact(IActivityManager.java:2761)
+11-12 16:20:24.873   500  2092 E ActivityManager: 	at com.android.server.am.ActivityManagerService.onTransact(ActivityManagerService.java:2720)
+11-12 16:20:24.873   500  2092 E ActivityManager: 	at android.os.Binder.execTransactInternal(Binder.java:1339)
+11-12 16:20:24.873   500  2092 E ActivityManager: 	at android.os.Binder.execTransact(Binder.java:1275)
+11-12 16:20:24.874   500  2092 W ProcessStats: Tracking association SourceState{a5599a6 com.android.vending:background/10131 ImpBg #11116} whose proc state 6 is better than process ProcessState{da3be92 com.android.vending/10131 pkg=com.android.vending (sub)} proc state 14 (256 skipped)
+11-12 16:20:24.874   500  2092 W ContentProviderHelper: Unable to launch app com.google.android.gms/10129 for provider com.google.android.gms.chimera: process is bad
+11-12 16:20:24.874  7894  7905 E ActivityThread: Failed to find provider info for com.google.android.gms.chimera
+11-12 16:20:24.874  7894  7905 W DynamiteModule: Failed to retrieve remote module version.
+11-12 16:20:24.893   500  2092 E ActivityManager: Failure starting process com.google.android.gms
+11-12 16:20:24.893   500  2092 E ActivityManager: java.lang.SecurityException: Package com.google.android.gms is currently frozen!
+11-12 16:20:24.893   500  2092 E ActivityManager: 	at com.android.server.pm.PackageManagerService.checkPackageStartable(PackageManagerService.java:4600)
+11-12 16:20:24.893   500  2092 E ActivityManager: 	at com.android.server.pm.PackageManagerService$IPackageManagerImpl.checkPackageStartable(PackageManagerService.java:4681)
+11-12 16:20:24.893   500  2092 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:1758)
+11-12 16:20:24.893   500  2092 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2483)
+11-12 16:20:24.893   500  2092 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2628)
+11-12 16:20:24.893   500  2092 E ActivityManager: 	at com.android.server.am.ActivityManagerService.startProcessLocked(ActivityManagerService.java:2923)
+11-12 16:20:24.893   500  2092 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProviderImpl(ContentProviderHelper.java:535)
+11-12 16:20:24.893   500  2092 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProvider(ContentProviderHelper.java:144)
+11-12 16:20:24.893   500  2092 E ActivityManager: 	at com.android.server.am.ActivityManagerService.getContentProvider(ActivityManagerService.java:6713)
+11-12 16:20:24.893   500  2092 E ActivityManager: 	at android.app.IActivityManager$Stub.onTransact(IActivityManager.java:2761)
+11-12 16:20:24.893   500  2092 E ActivityManager: 	at com.android.server.am.ActivityManagerService.onTransact(ActivityManagerService.java:2720)
+11-12 16:20:24.893   500  2092 E ActivityManager: 	at android.os.Binder.execTransactInternal(Binder.java:1339)
+11-12 16:20:24.893   500  2092 E ActivityManager: 	at android.os.Binder.execTransact(Binder.java:1275)
+11-12 16:20:24.894   500  2092 W ActivityManager: Scheduling restart of crashed service com.google.android.googlequicksearchbox/com.google.android.apps.gsa.shared.util.keepalive.StandaloneKeepAlive$KeepAliveService in 2883584000ms for start-requested
+11-12 16:20:24.894   500  2092 W ActivityManager: Scheduling restart of crashed service com.google.android.googlequicksearchbox/com.google.android.apps.gsa.nowoverlayservice.DrawerOverlayService in 5505024000ms for connection
+11-12 16:20:24.894   500  2092 W ActivityManager: Scheduling restart of crashed service com.google.android.googlequicksearchbox/com.google.android.apps.gsa.publicsearch.PublicSearchService in 1000ms for connection
+11-12 16:20:24.894   500  2092 W ActivityManager: Scheduling restart of crashed service com.google.android.googlequicksearchbox/com.google.android.hotword.service.HotwordService in 11000ms for connection
+11-12 16:20:24.896   500  2092 W ContentProviderHelper: Unable to launch app com.google.android.gms/10129 for provider com.google.android.gms.chimera: process is bad
+11-12 16:20:24.908  1599  2162 W OpaStateMachine: Search process died, entering IDLE
+11-12 16:20:24.912  1599  2145 E NgaEntryPointEventSendr: Couldn't begin binder session
+11-12 16:20:24.912  1599  2145 E NgaEntryPointEventSendr: android.os.DeadObjectException
+11-12 16:20:24.912  1599  2145 E NgaEntryPointEventSendr: 	at android.os.BinderProxy.transactNative(Native Method)
+11-12 16:20:24.912  1599  2145 E NgaEntryPointEventSendr: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+11-12 16:20:24.912  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.a.a.hj(PG:2)
+11-12 16:20:24.912  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.apps.gsa.publicsearch.c.e(PG:5)
+11-12 16:20:24.912  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.apps.gsa.staticplugins.opa.aj.c.b.i.run(PG:6)
+11-12 16:20:24.912  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.libraries.gsa.k.a.h.run(PG:2)
+11-12 16:20:24.912  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.apps.gsa.shared.util.c.a.cf.b(PG:1)
+11-12 16:20:24.912  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.apps.gsa.shared.util.c.a.ci.run(PG:1)
+11-12 16:20:24.912  1599  2145 E NgaEntryPointEventSendr: 	at com.google.common.util.concurrent.dn.run(PG:1)
+11-12 16:20:24.912  1599  2145 E NgaEntryPointEventSendr: 	at com.google.common.util.concurrent.do.run(PG:4)
+11-12 16:20:24.912  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.libraries.i.ae.run(PG:1)
+11-12 16:20:24.912  1599  2145 E NgaEntryPointEventSendr: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 16:20:24.912  1599  2145 E NgaEntryPointEventSendr: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 16:20:24.912  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.libraries.i.k.run(PG:2)
+11-12 16:20:24.912  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.libraries.i.p.run(PG:4)
+11-12 16:20:24.912  1599  2145 E NgaEntryPointEventSendr: 	at java.lang.Thread.run(Thread.java:1012)
+11-12 16:20:24.914  1599  2094 E GsaVoiceInteractionSrv: Remote Exception
+11-12 16:20:24.914  1599  2094 E GsaVoiceInteractionSrv: android.os.DeadObjectException
+11-12 16:20:24.914  1599  2094 E GsaVoiceInteractionSrv: 	at android.os.BinderProxy.transactNative(Native Method)
+11-12 16:20:24.914  1599  2094 E GsaVoiceInteractionSrv: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+11-12 16:20:24.914  1599  2094 E GsaVoiceInteractionSrv: 	at com.google.android.a.a.hj(PG:2)
+11-12 16:20:24.914  1599  2094 E GsaVoiceInteractionSrv: 	at com.google.android.hotword.service.g.a(PG:2)
+11-12 16:20:24.914  1599  2094 E GsaVoiceInteractionSrv: 	at com.google.android.voiceinteraction.j.run(PG:6)
+11-12 16:20:24.914  1599  2094 E GsaVoiceInteractionSrv: 	at com.google.apps.tiktok.tracing.ei.run(PG:2)
+11-12 16:20:24.914  1599  2094 E GsaVoiceInteractionSrv: 	at com.google.android.libraries.i.ae.run(PG:1)
+11-12 16:20:24.914  1599  2094 E GsaVoiceInteractionSrv: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 16:20:24.914  1599  2094 E GsaVoiceInteractionSrv: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 16:20:24.914  1599  2094 E GsaVoiceInteractionSrv: 	at com.google.android.libraries.i.k.run(PG:2)
+11-12 16:20:24.914  1599  2094 E GsaVoiceInteractionSrv: 	at com.google.android.libraries.i.p.run(PG:4)
+11-12 16:20:24.914  1599  2094 E GsaVoiceInteractionSrv: 	at java.lang.Thread.run(Thread.java:1012)
+11-12 16:20:25.285  7960  7960 W earchbox:search: Unexpected CPU variant for x86: x86_64.
+11-12 16:20:25.285  7960  7960 W earchbox:search: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-12 16:20:25.291  7960  7960 E earchbox:search: Not starting debugger since process cannot load the jdwp agent.
+11-12 16:20:25.424  7960  7978 W earchbox:search: Accessing hidden field Ljava/util/Collections$SynchronizedCollection;->mutex:Ljava/lang/Object; (max-target-o, reflection, denied)
+11-12 16:20:25.464  7960  7978 W earchbox:search: Accessing hidden method Ljava/util/Collections$SynchronizedSet;-><init>(Ljava/util/Set;Ljava/lang/Object;)V (max-target-o, reflection, denied)
+11-12 16:20:25.473  7960  7978 W earchbox:search: Accessing hidden method Ljava/util/Collections$SynchronizedCollection;-><init>(Ljava/util/Collection;Ljava/lang/Object;)V (max-target-o, reflection, denied)
+11-12 16:20:25.506   500  2298 E ActivityManager: Failure starting process com.google.android.gms
+11-12 16:20:25.506   500  2298 E ActivityManager: java.lang.SecurityException: Package com.google.android.gms is currently frozen!
+11-12 16:20:25.506   500  2298 E ActivityManager: 	at com.android.server.pm.PackageManagerService.checkPackageStartable(PackageManagerService.java:4600)
+11-12 16:20:25.506   500  2298 E ActivityManager: 	at com.android.server.pm.PackageManagerService$IPackageManagerImpl.checkPackageStartable(PackageManagerService.java:4681)
+11-12 16:20:25.506   500  2298 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:1758)
+11-12 16:20:25.506   500  2298 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2483)
+11-12 16:20:25.506   500  2298 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2628)
+11-12 16:20:25.506   500  2298 E ActivityManager: 	at com.android.server.am.ActivityManagerService.startProcessLocked(ActivityManagerService.java:2923)
+11-12 16:20:25.506   500  2298 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProviderImpl(ContentProviderHelper.java:535)
+11-12 16:20:25.506   500  2298 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProvider(ContentProviderHelper.java:144)
+11-12 16:20:25.506   500  2298 E ActivityManager: 	at com.android.server.am.ActivityManagerService.getContentProvider(ActivityManagerService.java:6713)
+11-12 16:20:25.506   500  2298 E ActivityManager: 	at android.app.IActivityManager$Stub.onTransact(IActivityManager.java:2761)
+11-12 16:20:25.506   500  2298 E ActivityManager: 	at com.android.server.am.ActivityManagerService.onTransact(ActivityManagerService.java:2720)
+11-12 16:20:25.506   500  2298 E ActivityManager: 	at android.os.Binder.execTransactInternal(Binder.java:1339)
+11-12 16:20:25.506   500  2298 E ActivityManager: 	at android.os.Binder.execTransact(Binder.java:1275)
+11-12 16:20:25.507   500   517 W ServiceWatcher: [GeocoderProxy] 10129/com.google.android.gms/.location.geocode.GeocodeService@2 died
+11-12 16:20:25.507   500   517 W ServiceWatcher: [fused] 10129/com.google.android.gms/com.google.android.location.fused.FusedLocationService@1 died
+11-12 16:20:25.507   500   517 W ServiceWatcher: [RealLocationTimeZoneProviderProxy] 10129/com.google.android.gms/.geotimezone.GeoTimeZoneService@1 died
+11-12 16:20:25.507   500   517 W ServiceWatcher: [network] 10129/com.google.android.gms/com.google.android.location.network.NetworkLocationService@2 died
+11-12 16:20:25.507   500   517 W ServiceWatcher: [GeofenceProxy] 10129/com.google.android.gms/com.google.android.location.internal.GoogleLocationManagerService@1 died
+11-12 16:20:25.507   500   517 W ServiceWatcher: [HardwareActivityRecognitionProxy] 10129/com.google.android.gms/com.google.android.location.internal.server.HardwareArProviderService@1 died
+11-12 16:20:25.507   500  2298 W ContentProviderHelper: Unable to launch app com.google.android.gms/10129 for provider com.google.android.gms.chimera: process is bad
+11-12 16:20:25.512  7960  7978 E ActivityThread: Failed to find provider info for com.google.android.gms.chimera
+11-12 16:20:25.512  7960  7978 W ConnectionStatusConfig: Dynamic intent resolution failed: java.lang.IllegalArgumentException: Unknown authority com.google.android.gms.chimera
+11-12 16:20:25.512  7960  7978 W ConnectionStatusConfig: Dynamic lookup for intent failed for action: com.google.android.gms.gmscompliance.service.START
+11-12 16:20:25.512   500  2298 W ActivityManager: Unable to start service Intent { act=com.google.android.gms.gmscompliance.service.START pkg=com.google.android.gms } U=0: not found
+11-12 16:20:25.512   500  2298 W ActivityManager: Unbind failed: could not find connection for android.os.BinderProxy@21367b
+11-12 16:20:25.512  7960  7978 W GmsClient: unable to connect to service: com.google.android.gms.gmscompliance.service.START on com.google.android.gms
+11-12 16:20:25.518   500  2298 E ActivityManager: Failure starting process com.google.android.gms
+11-12 16:20:25.518   500  2298 E ActivityManager: java.lang.SecurityException: Package com.google.android.gms is currently frozen!
+11-12 16:20:25.518   500  2298 E ActivityManager: 	at com.android.server.pm.PackageManagerService.checkPackageStartable(PackageManagerService.java:4600)
+11-12 16:20:25.518   500  2298 E ActivityManager: 	at com.android.server.pm.PackageManagerService$IPackageManagerImpl.checkPackageStartable(PackageManagerService.java:4681)
+11-12 16:20:25.518   500  2298 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:1758)
+11-12 16:20:25.518   500  2298 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2483)
+11-12 16:20:25.518   500  2298 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2628)
+11-12 16:20:25.518   500  2298 E ActivityManager: 	at com.android.server.am.ActivityManagerService.startProcessLocked(ActivityManagerService.java:2923)
+11-12 16:20:25.518   500  2298 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProviderImpl(ContentProviderHelper.java:535)
+11-12 16:20:25.518   500  2298 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProvider(ContentProviderHelper.java:144)
+11-12 16:20:25.518   500  2298 E ActivityManager: 	at com.android.server.am.ActivityManagerService.getContentProvider(ActivityManagerService.java:6713)
+11-12 16:20:25.518   500  2298 E ActivityManager: 	at android.app.IActivityManager$Stub.onTransact(IActivityManager.java:2761)
+11-12 16:20:25.518   500  2298 E ActivityManager: 	at com.android.server.am.ActivityManagerService.onTransact(ActivityManagerService.java:2720)
+11-12 16:20:25.518   500  2298 E ActivityManager: 	at android.os.Binder.execTransactInternal(Binder.java:1339)
+11-12 16:20:25.518   500  2298 E ActivityManager: 	at android.os.Binder.execTransact(Binder.java:1275)
+11-12 16:20:25.519   500  2298 W ContentProviderHelper: Unable to launch app com.google.android.gms/10129 for provider com.google.android.gms.chimera: process is bad
+11-12 16:20:25.522  7960  7978 E ActivityThread: Failed to find provider info for com.google.android.gms.chimera
+11-12 16:20:25.522  7960  7978 W ConnectionStatusConfig: Dynamic intent resolution failed: java.lang.IllegalArgumentException: Unknown authority com.google.android.gms.chimera
+11-12 16:20:25.528  7960  7978 W ConnectionStatusConfig: Dynamic lookup for intent failed for action: com.google.android.gms.gmscompliance.service.START
+11-12 16:20:25.528   500  2298 W ActivityManager: Unable to start service Intent { act=com.google.android.gms.gmscompliance.service.START pkg=com.google.android.gms } U=0: not found
+11-12 16:20:25.532   500  2298 W ActivityManager: Unbind failed: could not find connection for android.os.BinderProxy@382bf57
+11-12 16:20:25.538  7960  7978 W GmsClient: unable to connect to service: com.google.android.gms.gmscompliance.service.START on com.google.android.gms
+11-12 16:20:25.571  7960  7960 W A       : Calling with an invalid UID, the interface will not work
+11-12 16:20:25.585  7960  7994 W UdevsVerdict: apk call failed
+11-12 16:20:25.585  7960  7994 W UdevsVerdict: com.google.android.gms.common.api.n: 17: API: GmsDeviceComplianceService.API is not available on this device. Connection failed with: ConnectionResult{statusCode=API_UNAVAILABLE, resolution=null, message=null}
+11-12 16:20:25.585  7960  7994 W UdevsVerdict: 	at com.google.android.gms.common.internal.a.a(PG:1)
+11-12 16:20:25.585  7960  7994 W UdevsVerdict: 	at com.google.android.gms.common.api.internal.h.a(PG:1)
+11-12 16:20:25.585  7960  7994 W UdevsVerdict: 	at com.google.android.gms.common.api.internal.e.d(PG:1)
+11-12 16:20:25.585  7960  7994 W UdevsVerdict: 	at com.google.android.gms.common.api.internal.bk.r(PG:7)
+11-12 16:20:25.585  7960  7994 W UdevsVerdict: 	at com.google.android.gms.common.api.internal.bk.g(PG:2)
+11-12 16:20:25.585  7960  7994 W UdevsVerdict: 	at com.google.android.gms.common.api.internal.bk.j(PG:19)
+11-12 16:20:25.585  7960  7994 W UdevsVerdict: 	at com.google.android.gms.common.api.internal.bm.run(PG:9)
+11-12 16:20:25.585  7960  7994 W UdevsVerdict: 	at android.os.Handler.handleCallback(Handler.java:958)
+11-12 16:20:25.585  7960  7994 W UdevsVerdict: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+11-12 16:20:25.585  7960  7994 W UdevsVerdict: 	at android.os.Looper.loopOnce(Looper.java:205)
+11-12 16:20:25.585  7960  7994 W UdevsVerdict: 	at android.os.Looper.loop(Looper.java:294)
+11-12 16:20:25.585  7960  7994 W UdevsVerdict: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+11-12 16:20:25.585  7960  7960 E A       : Only system apps are allowed to connect
+11-12 16:20:25.585  7960  7960 W A       : Unable to bind to service
+11-12 16:20:25.693  7960  8000 W SearchServiceCore: Abort, client detached.
+11-12 16:20:25.710  7960  7998 E BistoWorker: Couldn't get logged in Google account.
+11-12 16:20:25.747   500  2092 E ActivityManager: Failure starting process com.google.android.gms
+11-12 16:20:25.747   500  2092 E ActivityManager: java.lang.SecurityException: Package com.google.android.gms is currently frozen!
+11-12 16:20:25.747   500  2092 E ActivityManager: 	at com.android.server.pm.PackageManagerService.checkPackageStartable(PackageManagerService.java:4600)
+11-12 16:20:25.747   500  2092 E ActivityManager: 	at com.android.server.pm.PackageManagerService$IPackageManagerImpl.checkPackageStartable(PackageManagerService.java:4681)
+11-12 16:20:25.747   500  2092 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:1758)
+11-12 16:20:25.747   500  2092 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2483)
+11-12 16:20:25.747   500  2092 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2628)
+11-12 16:20:25.747   500  2092 E ActivityManager: 	at com.android.server.am.ActivityManagerService.startProcessLocked(ActivityManagerService.java:2923)
+11-12 16:20:25.747   500  2092 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProviderImpl(ContentProviderHelper.java:535)
+11-12 16:20:25.747   500  2092 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProvider(ContentProviderHelper.java:144)
+11-12 16:20:25.747   500  2092 E ActivityManager: 	at com.android.server.am.ActivityManagerService.getContentProvider(ActivityManagerService.java:6713)
+11-12 16:20:25.747   500  2092 E ActivityManager: 	at android.app.IActivityManager$Stub.onTransact(IActivityManager.java:2761)
+11-12 16:20:25.747   500  2092 E ActivityManager: 	at com.android.server.am.ActivityManagerService.onTransact(ActivityManagerService.java:2720)
+11-12 16:20:25.747   500  2092 E ActivityManager: 	at android.os.Binder.execTransactInternal(Binder.java:1339)
+11-12 16:20:25.747   500  2092 E ActivityManager: 	at android.os.Binder.execTransact(Binder.java:1275)
+11-12 16:20:25.747   500  2092 W ContentProviderHelper: Unable to launch app com.google.android.gms/10129 for provider com.google.android.gms.phenotype: process is bad
+11-12 16:20:25.749  7960  7998 E ActivityThread: Failed to find provider info for com.google.android.gms.phenotype
+11-12 16:20:25.755  7960  8000 W SearchServiceCore: Abort, client detached.
+11-12 16:20:25.800  7960  8000 W SearchServiceCore: Abort, client detached.
+11-12 16:20:25.826  1599  2162 W NgaEntryPointEventSendr: Long enqueue delay: 22080 ms
+11-12 16:20:25.902  7960  8007 W DynamiteModule: Local module descriptor class for com.google.android.gms.googlecertificates not found.
+11-12 16:20:25.903   500  2298 E ActivityManager: Failure starting process com.google.android.gms
+11-12 16:20:25.903   500  2298 E ActivityManager: java.lang.SecurityException: Package com.google.android.gms is currently frozen!
+11-12 16:20:25.903   500  2298 E ActivityManager: 	at com.android.server.pm.PackageManagerService.checkPackageStartable(PackageManagerService.java:4600)
+11-12 16:20:25.903   500  2298 E ActivityManager: 	at com.android.server.pm.PackageManagerService$IPackageManagerImpl.checkPackageStartable(PackageManagerService.java:4681)
+11-12 16:20:25.903   500  2298 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:1758)
+11-12 16:20:25.903   500  2298 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2483)
+11-12 16:20:25.903   500  2298 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2628)
+11-12 16:20:25.903   500  2298 E ActivityManager: 	at com.android.server.am.ActivityManagerService.startProcessLocked(ActivityManagerService.java:2923)
+11-12 16:20:25.903   500  2298 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProviderImpl(ContentProviderHelper.java:535)
+11-12 16:20:25.903   500  2298 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProvider(ContentProviderHelper.java:144)
+11-12 16:20:25.903   500  2298 E ActivityManager: 	at com.android.server.am.ActivityManagerService.getContentProvider(ActivityManagerService.java:6713)
+11-12 16:20:25.903   500  2298 E ActivityManager: 	at android.app.IActivityManager$Stub.onTransact(IActivityManager.java:2761)
+11-12 16:20:25.903   500  2298 E ActivityManager: 	at com.android.server.am.ActivityManagerService.onTransact(ActivityManagerService.java:2720)
+11-12 16:20:25.903   500  2298 E ActivityManager: 	at android.os.Binder.execTransactInternal(Binder.java:1339)
+11-12 16:20:25.903   500  2298 E ActivityManager: 	at android.os.Binder.execTransact(Binder.java:1275)
+11-12 16:20:25.904   500  2298 W ContentProviderHelper: Unable to launch app com.google.android.gms/10129 for provider com.google.android.gms.chimera: process is bad
+11-12 16:20:25.905  7960  8007 E ActivityThread: Failed to find provider info for com.google.android.gms.chimera
+11-12 16:20:25.905  7960  8007 W DynamiteModule: Failed to retrieve remote module version.
+11-12 16:20:25.968   500  2298 E ActivityManager: Failure starting process com.google.android.gms
+11-12 16:20:25.968   500  2298 E ActivityManager: java.lang.SecurityException: Package com.google.android.gms is currently frozen!
+11-12 16:20:25.968   500  2298 E ActivityManager: 	at com.android.server.pm.PackageManagerService.checkPackageStartable(PackageManagerService.java:4600)
+11-12 16:20:25.968   500  2298 E ActivityManager: 	at com.android.server.pm.PackageManagerService$IPackageManagerImpl.checkPackageStartable(PackageManagerService.java:4681)
+11-12 16:20:25.968   500  2298 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:1758)
+11-12 16:20:25.968   500  2298 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2483)
+11-12 16:20:25.968   500  2298 E ActivityManager: 	at com.android.server.am.ProcessList.startProcessLocked(ProcessList.java:2628)
+11-12 16:20:25.968   500  2298 E ActivityManager: 	at com.android.server.am.ActivityManagerService.startProcessLocked(ActivityManagerService.java:2923)
+11-12 16:20:25.968   500  2298 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProviderImpl(ContentProviderHelper.java:535)
+11-12 16:20:25.968   500  2298 E ActivityManager: 	at com.android.server.am.ContentProviderHelper.getContentProvider(ContentProviderHelper.java:144)
+11-12 16:20:25.968   500  2298 E ActivityManager: 	at com.android.server.am.ActivityManagerService.getContentProvider(ActivityManagerService.java:6713)
+11-12 16:20:25.968   500  2298 E ActivityManager: 	at android.app.IActivityManager$Stub.onTransact(IActivityManager.java:2761)
+11-12 16:20:25.968   500  2298 E ActivityManager: 	at com.android.server.am.ActivityManagerService.onTransact(ActivityManagerService.java:2720)
+11-12 16:20:25.968   500  2298 E ActivityManager: 	at android.os.Binder.execTransactInternal(Binder.java:1339)
+11-12 16:20:25.968   500  2298 E ActivityManager: 	at android.os.Binder.execTransact(Binder.java:1275)
+11-12 16:20:25.972   500  2298 W ActivityManager: Scheduling restart of crashed service com.google.android.googlequicksearchbox/com.google.android.apps.gsa.publicsearch.PublicSearchService in 1000ms for connection
+11-12 16:20:25.972   500  2298 W ActivityManager: Scheduling restart of crashed service com.google.android.googlequicksearchbox/com.google.android.apps.gsa.shared.util.keepalive.StandaloneKeepAlive$KeepAliveService in 11534336000ms for start-requested
+11-12 16:20:25.972   500  2298 W ActivityManager: Scheduling restart of crashed service com.google.android.googlequicksearchbox/com.google.android.apps.gsa.nowoverlayservice.DrawerOverlayService in 22020096000ms for connection
+11-12 16:20:25.972   500  2298 W ActivityManager: Scheduling restart of crashed service com.google.android.googlequicksearchbox/com.google.android.hotword.service.HotwordService in 11000ms for connection
+11-12 16:20:25.980   500  2298 W ContentProviderHelper: Unable to launch app com.google.android.gms/10129 for provider com.google.android.gms.chimera: process is bad
+11-12 16:20:25.988  1599  2141 E GsaVoiceInteractionSrv: Remote Exception
+11-12 16:20:25.988  1599  2141 E GsaVoiceInteractionSrv: android.os.DeadObjectException
+11-12 16:20:25.988  1599  2141 E GsaVoiceInteractionSrv: 	at android.os.BinderProxy.transactNative(Native Method)
+11-12 16:20:25.988  1599  2141 E GsaVoiceInteractionSrv: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+11-12 16:20:25.988  1599  2141 E GsaVoiceInteractionSrv: 	at com.google.android.a.a.hj(PG:2)
+11-12 16:20:25.988  1599  2141 E GsaVoiceInteractionSrv: 	at com.google.android.hotword.service.g.a(PG:2)
+11-12 16:20:25.988  1599  2141 E GsaVoiceInteractionSrv: 	at com.google.android.voiceinteraction.j.run(PG:6)
+11-12 16:20:25.988  1599  2141 E GsaVoiceInteractionSrv: 	at com.google.apps.tiktok.tracing.ei.run(PG:2)
+11-12 16:20:25.988  1599  2141 E GsaVoiceInteractionSrv: 	at com.google.android.libraries.i.ae.run(PG:1)
+11-12 16:20:25.988  1599  2141 E GsaVoiceInteractionSrv: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 16:20:25.988  1599  2141 E GsaVoiceInteractionSrv: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 16:20:25.988  1599  2141 E GsaVoiceInteractionSrv: 	at com.google.android.libraries.i.k.run(PG:2)
+11-12 16:20:25.988  1599  2141 E GsaVoiceInteractionSrv: 	at com.google.android.libraries.i.p.run(PG:4)
+11-12 16:20:25.988  1599  2141 E GsaVoiceInteractionSrv: 	at java.lang.Thread.run(Thread.java:1012)
+11-12 16:20:25.989  1599  2145 E NgaEntryPointEventSendr: Couldn't begin binder session
+11-12 16:20:25.989  1599  2145 E NgaEntryPointEventSendr: android.os.DeadObjectException
+11-12 16:20:25.989  1599  2145 E NgaEntryPointEventSendr: 	at android.os.BinderProxy.transactNative(Native Method)
+11-12 16:20:25.989  1599  2145 E NgaEntryPointEventSendr: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+11-12 16:20:25.989  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.a.a.hj(PG:2)
+11-12 16:20:25.989  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.apps.gsa.publicsearch.c.e(PG:5)
+11-12 16:20:25.989  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.apps.gsa.staticplugins.opa.aj.c.b.i.run(PG:6)
+11-12 16:20:25.989  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.libraries.gsa.k.a.h.run(PG:2)
+11-12 16:20:25.989  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.apps.gsa.shared.util.c.a.cf.b(PG:1)
+11-12 16:20:25.989  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.apps.gsa.shared.util.c.a.ci.run(PG:1)
+11-12 16:20:25.989  1599  2145 E NgaEntryPointEventSendr: 	at com.google.common.util.concurrent.dn.run(PG:1)
+11-12 16:20:25.989  1599  2145 E NgaEntryPointEventSendr: 	at com.google.common.util.concurrent.do.run(PG:4)
+11-12 16:20:25.989  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.libraries.i.ae.run(PG:1)
+11-12 16:20:25.989  1599  2145 E NgaEntryPointEventSendr: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 16:20:25.989  1599  2145 E NgaEntryPointEventSendr: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 16:20:25.989  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.libraries.i.k.run(PG:2)
+11-12 16:20:25.989  1599  2145 E NgaEntryPointEventSendr: 	at com.google.android.libraries.i.p.run(PG:4)
+11-12 16:20:25.989  1599  2145 E NgaEntryPointEventSendr: 	at java.lang.Thread.run(Thread.java:1012)
+11-12 16:20:25.989  1599  2162 W OpaStateMachine: Search process died, entering IDLE
