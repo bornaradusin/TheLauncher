@@ -422,12 +422,14 @@ jobs:
             sleep 25
             adb logcat -d -b crash > "$OUT/crash.txt" 2>&1
             adb logcat -d -t 600 '*:W' > "$OUT/logcat-restore.txt" 2>&1
-            home; sleep 15; shot 63-home-restored
-            drawer; shot 64-drawer-restored
+            # No Home key here: the restored setup turns a Home press into a Sesame search.
+            sleep 10; shot 63-home-restored
+            adb shell input swipe 540 1500 540 300 300; sleep 3
+            shot 64-drawer-restored
             scroll; shot 65-drawer-restored-2
-            home
-            settings smartspace; shot 66-glance-settings
-            back; back; home
+            back; sleep 2
+            settings app-drawer; scroll; scroll; shot 66-drawer-settings
+            settings folders; shot 67-folder-settings
             adb shell am broadcast -a com.android.systemui.demo -e command exit >/dev/null
             ls -la "$OUT"
             exit 0
