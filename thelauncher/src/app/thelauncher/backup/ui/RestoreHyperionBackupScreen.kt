@@ -203,8 +203,9 @@ private fun CollectEvents(events: Flow<Event>) {
                 }
 
                 is Event.RestoreError -> {
-                    Toast.makeText(context, R.string.backup_restore_error, Toast.LENGTH_SHORT)
-                        .show()
+                    val message = context.getString(R.string.backup_restore_error) +
+                        (event.reason?.let { ": $it" } ?: "")
+                    Toast.makeText(context, message, Toast.LENGTH_LONG).show()
                 }
             }
         }

@@ -20,7 +20,7 @@ internal class RestoreHyperionBackupViewModel(
 
     sealed interface Event {
         data object RestoreSuccess : Event
-        data object RestoreError : Event
+        data class RestoreError(val reason: String?) : Event
     }
 
     sealed interface State {
@@ -71,7 +71,7 @@ internal class RestoreHyperionBackupViewModel(
             } catch (t: Throwable) {
                 Log.e("RestoreHyperionBackup", "failed to restore Hyperion backup", t)
                 _state.value = state.copy(isRestoring = false)
-                _events.send(Event.RestoreError)
+                _events.send(Event.RestoreError(t.message ?: t.javaClass.simpleName))
             }
         }
     }

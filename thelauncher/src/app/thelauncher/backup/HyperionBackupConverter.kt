@@ -9,11 +9,13 @@ import android.database.sqlite.SQLiteDatabase
 import android.net.Uri
 import android.os.Process
 import android.util.Log
+import androidx.datastore.preferences.core.edit
 import app.thelauncher.DeviceProfileOverrides
 import app.thelauncher.data.folder.service.FolderService
 import app.thelauncher.gestures.config.GestureHandlerConfig
 import app.thelauncher.preferences.PreferenceManager
 import app.thelauncher.preferences2.PreferenceManager2
+import app.thelauncher.util.kotlinxJson
 import com.android.launcher3.GridType
 import com.android.launcher3.InvariantDeviceProfile
 import com.android.launcher3.LauncherSettings.Favorites
@@ -33,6 +35,7 @@ import javax.xml.parsers.DocumentBuilderFactory
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
+import kotlinx.serialization.encodeToString
 import org.json.JSONArray
 import org.w3c.dom.Element
 
@@ -154,8 +157,8 @@ class HyperionBackupConverter(
                 InvariantDeviceProfile.INSTANCE.get(context).dbFile = gridInfo.dbFile
             }
 
-            writeSettings(settings)
-            importDrawerFolders(settings.drawerFolders)
+            runCatching { writeSettings(settings) }.onFailure { Log.w(TAG, "Settings import failed", it) }
+            runCatching { importDrawerFolders(settings.drawerFolders) }.onFailure { Log.w(TAG, "Drawer folder import failed", it) }
 
             val restoredDbFile = context.getDatabasePath(TheLauncherBackup.RESTORED_DB_FILE_NAME)
             restoredDbFile.parentFile?.mkdirs()
@@ -247,7 +250,8 @@ class HyperionBackupConverter(
         val prefs = PreferenceManager.getInstance(context)
         val prefs2 = PreferenceManager2.getInstance(context)
 
-        prefs.sp.edit().apply {
+        runCatching {
+            prefs.sp.edit().apply {
             settings.columns?.let { putInt(prefs.workspaceColumns.key, it) }
             settings.rows?.let { putInt(prefs.workspaceRows.key, it) }
             settings.hotseatColumns?.let { putInt(prefs.hotseatColumns.key, it) }
@@ -255,41 +259,50 @@ class HyperionBackupConverter(
             settings.iconPackPackage?.let { putString(prefs.iconPackPackage.key, it) }
             settings.themedIcons?.let { putBoolean(prefs.themedIcons.key, it) }
             settings.drawerOpacity?.let { putFloat(prefs.drawerOpacity.key, (it / 100f).coerceIn(0f, 1f)) }
-        }.commit()
+            }.commit()
+        }.onFailure { Log.w(TAG, "Could not import layout settings", it) }
 
         runCatching {
-            settings.drawerColumns?.let {
-                prefs2.drawerColumns.set(it, InvariantDeviceProfile.INSTANCE.get(context).closestProfile)
+            settings.drawerColumns?.let { columns ->
+                val gridOption = InvariantDeviceProfile.INSTANCE.get(context).closestProfile
+                if (gridOption != null) {
+                    prefs2.preferencesDataStore.edit { it[prefs2.drawerColumns.key] = columns }
+                }
             }
         }.onFailure { Log.w(TAG, "Could not set drawer columns", it) }
 
         val hidden = settings.hiddenApps.mapNotNull { toComponentKey(it) }.toSet()
-        if (hidden.isNotEmpty()) prefs2.hiddenApps.set(prefs2.hiddenApps.get().first() + hidden)
+        val locked = if (settings.appLockEnabled) settings.lockedApps.mapNotNull { toComponentKey(it) }.toSet() else emptySet()
+        val swipeDown: GestureHandlerConfig? = when (settings.swipeDownAction) {
+            "sesame_search", "search", "app_search" -> GestureHandlerConfig.OpenSearch
+            "notifications", "expand_notifications" -> GestureHandlerConfig.OpenNotifications
+            "quick_settings" -> GestureHandlerConfig.OpenQuickSettings
+            "app_drawer" -> GestureHandlerConfig.OpenAppDrawer
+            "none" -> GestureHandlerConfig.NoOp
+            else -> null
+        }
 
-        if (settings.appLockEnabled) {
-            val locked = settings.lockedApps.mapNotNull { toComponentKey(it) }.toSet()
-            if (locked.isNotEmpty()) prefs2.lockedApps.set(prefs2.lockedApps.get().first() + locked)
-            settings.appLockTimeoutMinutes?.let {
-                prefs2.appLockTimeoutSeconds.set((it * 60).coerceIn(0, MAX_LOCK_TIMEOUT_SECONDS))
+        runCatching {
+            prefs2.preferencesDataStore.edit { store ->
+                if (hidden.isNotEmpty()) store[prefs2.hiddenApps.key] = (store[prefs2.hiddenApps.key] ?: emptySet()) + hidden
+                if (locked.isNotEmpty()) store[prefs2.lockedApps.key] = (store[prefs2.lockedApps.key] ?: emptySet()) + locked
+                if (settings.appLockEnabled) {
+                    settings.appLockTimeoutMinutes?.let {
+                        store[prefs2.appLockTimeoutSeconds.key] = (it * 60).coerceIn(0, MAX_LOCK_TIMEOUT_SECONDS)
+                    }
+                }
+                settings.feedEnabled?.let { store[prefs2.enableFeed.key] = it }
+                settings.smartspaceEnabled?.let { store[prefs2.enableSmartspace.key] = it }
+                settings.smartspaceShowTime?.let { store[prefs2.smartspaceShowTime.key] = it }
+                settings.smartspaceShowWeather?.let { store[prefs2.smartspaceWeather.key] = it }
+                settings.smartspaceShowEvents?.let { store[prefs2.smartspaceCalendarEvents.key] = it }
+                settings.weatherLocation?.let { store[prefs2.smartspaceWeatherLocation.key] = it }
+                settings.rememberDrawerPosition?.let { store[prefs2.rememberPosition.key] = it }
+                settings.dockShadow?.let { store[prefs2.dockShadow.key] = it }
+                settings.notificationCount?.let { store[prefs2.showNotificationCount.key] = it }
+                swipeDown?.let { store[prefs2.swipeDownGestureHandler.key] = kotlinxJson.encodeToString(it) }
             }
-        }
-
-        settings.feedEnabled?.let { prefs2.enableFeed.set(it) }
-        settings.smartspaceEnabled?.let { prefs2.enableSmartspace.set(it) }
-        settings.smartspaceShowTime?.let { prefs2.smartspaceShowTime.set(it) }
-        settings.smartspaceShowWeather?.let { prefs2.smartspaceWeather.set(it) }
-        settings.smartspaceShowEvents?.let { prefs2.smartspaceCalendarEvents.set(it) }
-        settings.weatherLocation?.let { prefs2.smartspaceWeatherLocation.set(it) }
-        settings.rememberDrawerPosition?.let { prefs2.rememberPosition.set(it) }
-        settings.dockShadow?.let { prefs2.dockShadow.set(it) }
-        settings.notificationCount?.let { prefs2.showNotificationCount.set(it) }
-        when (settings.swipeDownAction) {
-            "sesame_search", "search", "app_search" -> prefs2.swipeDownGestureHandler.set(GestureHandlerConfig.OpenSearch)
-            "notifications", "expand_notifications" -> prefs2.swipeDownGestureHandler.set(GestureHandlerConfig.OpenNotifications)
-            "quick_settings" -> prefs2.swipeDownGestureHandler.set(GestureHandlerConfig.OpenQuickSettings)
-            "app_drawer" -> prefs2.swipeDownGestureHandler.set(GestureHandlerConfig.OpenAppDrawer)
-            "none" -> prefs2.swipeDownGestureHandler.set(GestureHandlerConfig.NoOp)
-        }
+        }.onFailure { Log.w(TAG, "Could not import settings", it) }
     }
 
     private suspend fun importDrawerFolders(folders: List<HyperionDrawerFolder>) {
