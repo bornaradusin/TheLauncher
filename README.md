@@ -18,9 +18,9 @@ Open-source Android home screen launcher.
 
 ## Building
 
-Every push to `main` builds a debug APK on GitHub Actions. Pushing a `v*` tag builds a release APK and creates a draft release.
+Every push to `main` builds a signed APK on GitHub Actions. Running the Release workflow (or pushing a `v*` tag) also creates a draft GitHub release with the APK.
 
-Locally: `./gradlew assembleOssWithQuickstepGithubDebug` (JDK 21, Android SDK).
+Locally: `./gradlew assembleOssWithQuickstepGithubRelease` (JDK 21, Android SDK, `keystore.properties` for signing).
 
 ## Privacy
 

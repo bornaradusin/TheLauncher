@@ -135,7 +135,7 @@ final def ciRunNumber = System.getenv("GITHUB_RUN_NUMBER") ?: ""
 final def releaseTag = System.getenv("RELEASE_TAG") ?: (ciRef.startsWith("refs/tags/v") ? ciRef.replace("refs/tags/", "") : "")
 final def isReleaseBuild = ciBuild && releaseTag.startsWith("v")
 final def version = "1.0.0"
-final def versionDisplayName = isReleaseBuild ? releaseTag.substring(1) : "${version}-dev.${ciBuild ? ciRunNumber : buildCommit}"
+final def versionDisplayName = isReleaseBuild ? releaseTag.substring(1) : "${version} (build ${ciBuild ? ciRunNumber : buildCommit})"
 final def majorVersion = versionDisplayName.split("\\.")[0]
 
 final def quickstepMinSdk = "35"
@@ -207,13 +207,6 @@ android {
         }
     } catch (Exception ignored) {
         releaseSigning = signingConfigs.debug
-    }
-    def repoDebugKeystore = rootProject.file("signing/debug.keystore")
-    if (repoDebugKeystore.exists()) {
-        signingConfigs.debug.storeFile = repoDebugKeystore
-        signingConfigs.debug.storePassword = "android"
-        signingConfigs.debug.keyAlias = "androiddebugkey"
-        signingConfigs.debug.keyPassword = "android"
     }
 
     buildTypes {
