@@ -422,6 +422,7 @@ jobs:
             sleep 25
             adb logcat -d -b crash > "$OUT/crash.txt" 2>&1
             adb logcat -d -t 600 '*:W' > "$OUT/logcat-restore.txt" 2>&1
+            adb logcat -d | grep -i -E 'thelauncher|launcher3|ModelDb|RestoreDb|GridSize|LoaderTask|DatabaseHelper|Hyperion|SQLite' > "$OUT/logcat-launcher.txt" 2>&1
             # No Home key here: the restored setup turns a Home press into a Sesame search.
             sleep 10; shot 63-home-restored
             adb shell input swipe 540 1500 540 300 300; sleep 3
