@@ -340,7 +340,7 @@ jobs:
             adb emu power status charging
             settings smartspace
             dismiss
-            scroll_to 'Size' && tap_text 'Size' && tap_text 'Large: two rows'
+            scroll_to 'Size' && nudge && tap_text 'Size' && tap_text 'Large: two rows'
             shot 32-glance-large-setting
             back; back
             home; sleep 8; shot 33-glance-large
@@ -359,20 +359,19 @@ jobs:
             shot 50-seerr-settings
             home; drawer
             adb shell input tap 540 230; sleep 2
-            adb shell input text 'add%sbatman'; sleep 6
-            back; sleep 1
+            adb shell input text 'add%sbatman'; sleep 8
             shot 51-seerr-add
             tap_text 'Batman: The Animated Series' && shot 52-seerr-info
             tap_last 'Add' && shot 53-seerr-seasons
-            back; sleep 1
+            back; sleep 2
+            shot 51b-seerr-after-sheet
             tap_text 'Add' && sleep 3 && shot 54-seerr-added 1
-            home; drawer
+            home; sleep 2; home; drawer
             adb shell input tap 540 230; sleep 2
-            adb shell input text 'delete%sbatman'; sleep 6
-            back; sleep 1
+            adb shell input text 'delete%sbatman'; sleep 8
             shot 55-seerr-delete
             tap_text 'Delete' && sleep 3 && shot 56-seerr-delete-sheet
-            back; home
+            back; sleep 1; home
           fi
 
           # Hyperion-style drawer (builds that have it): full screen instead of a sheet.
