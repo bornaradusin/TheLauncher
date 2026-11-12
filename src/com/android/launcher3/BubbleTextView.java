@@ -945,14 +945,28 @@ public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver,
      *
      * @param canvas The canvas to draw to.
      */
+    private float mDotSizeFactor = -1f;
+
     protected void drawDotIfNecessary(Canvas canvas) {
+        if (mDotSizeFactor < 0) {
+            app.thelauncher.preferences2.PreferenceManager2 prefs2 =
+                    app.thelauncher.preferences2.PreferenceManager2.getInstance(getContext());
+            boolean hidden = app.thelauncher.preferences2.PreferenceCacheExtensionsKt
+                    .firstCached(prefs2.getHideNotificationDots());
+            mDotSizeFactor = hidden ? 0f : app.thelauncher.preferences2.PreferenceCacheExtensionsKt
+                    .firstCached(prefs2.getNotificationDotSizeFactor());
+        }
+        if (mDotSizeFactor == 0f) return;
         if (!mForceHideDot && (hasDot() || mDotParams.scale > 0)) {
             getIconBounds(mDotParams.iconBounds);
             Utilities.scaleRectAboutCenter(mDotParams.iconBounds, ICON_VISIBLE_AREA_FACTOR);
             final int scrollX = getScrollX();
             final int scrollY = getScrollY();
             canvas.translate(scrollX, scrollY);
+            float dotScale = mDotParams.scale;
+            mDotParams.scale = dotScale * mDotSizeFactor;
             mDotRenderer.draw(canvas, mDotParams, mDotInfo == null ? -1 : mDotInfo.getNotificationCount());
+            mDotParams.scale = dotScale;
             canvas.translate(-scrollX, -scrollY);
         }
     }

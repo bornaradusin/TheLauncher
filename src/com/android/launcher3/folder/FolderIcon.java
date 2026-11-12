@@ -631,6 +631,14 @@ public class FolderIcon extends FrameLayout implements FloatingIconViewCompanion
             // If we are animating to the accepting state, animate the dot out.
             mDotParams.scale = Math.max(0, mDotScale - mBackground.getAcceptScaleProgress());
             mDotParams.dotColor = mBackground.getDotColor();
+            app.thelauncher.preferences2.PreferenceManager2 prefs2 =
+                    app.thelauncher.preferences2.PreferenceManager2.getInstance(getContext());
+            if (app.thelauncher.preferences2.PreferenceCacheExtensionsKt
+                    .firstCached(prefs2.getHideNotificationDots())) {
+                return;
+            }
+            mDotParams.scale *= app.thelauncher.preferences2.PreferenceCacheExtensionsKt
+                    .firstCached(prefs2.getNotificationDotSizeFactor());
             mDotRenderer.draw(canvas, mDotParams);
         }
     }

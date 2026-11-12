@@ -45,6 +45,16 @@ fun PreferenceGroup(
     itemSpacing: Dp = ListItemDefaults.SegmentedGap,
     content: @Composable () -> Unit,
 ) {
+    val filter = LocalSectionFilter.current
+    if (!filter.shows(heading)) return
+    if (filter.headings != null) {
+        androidx.compose.runtime.CompositionLocalProvider(
+            LocalSectionFilter provides filter.copy(headings = null),
+        ) {
+            PreferenceGroup(modifier, heading, description, showDescription, itemSpacing, content)
+        }
+        return
+    }
     Column(
         modifier = modifier,
     ) {

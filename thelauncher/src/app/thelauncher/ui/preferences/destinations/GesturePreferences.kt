@@ -9,6 +9,7 @@ import app.thelauncher.preferences2.preferenceManager2
 import app.thelauncher.ui.preferences.LocalIsExpandedScreen
 import app.thelauncher.ui.preferences.components.GestureHandlerPreference
 import app.thelauncher.ui.preferences.components.controls.ListPreference
+import app.thelauncher.ui.preferences.components.controls.SwitchPreference
 import app.thelauncher.ui.preferences.components.layout.PreferenceGroup
 import app.thelauncher.ui.preferences.components.layout.PreferenceLayout
 import com.android.launcher3.R
@@ -45,12 +46,23 @@ fun GesturePreferences(
                 label = stringResource(id = R.string.gesture_two_finger_swipe_down),
             )
             GestureHandlerPreference(
+                adapter = prefs.twoFingerDoubleTapGestureHandler.getAdapter(),
+                label = stringResource(id = R.string.gesture_two_finger_double_tap),
+            )
+            GestureHandlerPreference(
                 adapter = prefs.homePressGestureHandler.getAdapter(),
                 label = stringResource(id = R.string.gesture_home_tap),
             )
             GestureHandlerPreference(
                 adapter = prefs.backPressGestureHandler.getAdapter(),
                 label = stringResource(id = R.string.gesture_back_tap),
+            )
+        }
+        PreferenceGroup {
+            SwitchPreference(
+                adapter = prefs.gestureHaptics.getAdapter(),
+                label = stringResource(id = R.string.gesture_haptics),
+                description = stringResource(id = R.string.gesture_haptics_desc),
             )
         }
         PreferenceGroup(heading = stringResource(id = R.string.sleep_mode_label)) {

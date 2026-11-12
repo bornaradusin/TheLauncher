@@ -95,7 +95,7 @@ fun Preferences(
 
     Providers {
         Surface(
-            color = MaterialTheme.colorScheme.surface,
+            color = MaterialTheme.colorScheme.surface.copy(alpha = 0.86f),
             modifier = modifier,
         ) {
             CompositionLocalProvider(

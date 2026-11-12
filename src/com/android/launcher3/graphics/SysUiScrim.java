@@ -154,6 +154,24 @@ public class SysUiScrim implements View.OnAttachStateChangeListener {
                     return null;
                 });
         PreferenceExtensionsKt.onEach(
+                preferenceManager2.getDesktopGlow(),
+                ViewExtensionsKt.getViewAttachedScope(mRoot),
+                (enabled) -> {
+                    mGlowEnabled = enabled;
+                    mGlowHeight = 0;
+                    mRoot.invalidate();
+                    return null;
+                });
+        PreferenceExtensionsKt.onEach(
+                preferenceManager2.getDesktopGlowOpacity(),
+                ViewExtensionsKt.getViewAttachedScope(mRoot),
+                (opacity) -> {
+                    mGlowOpacity = opacity;
+                    mGlowHeight = 0;
+                    mRoot.invalidate();
+                    return null;
+                });
+        PreferenceExtensionsKt.onEach(
                 preferenceManager2.getSystemBarGradient(),
                 ViewExtensionsKt.getViewAttachedScope(mRoot),
                 (enabled) -> {
@@ -162,6 +180,33 @@ public class SysUiScrim implements View.OnAttachStateChangeListener {
                     mRoot.invalidate();
                     return null;
                 });
+    }
+
+    private boolean mGlowEnabled = false;
+    private float mGlowOpacity = 0.5f;
+    private int mGlowHeight = 0;
+    private final Paint mGlowTopPaint = new Paint();
+    private final Paint mGlowBottomPaint = new Paint();
+
+    private void drawGlow(Canvas canvas) {
+        int width = mRoot.getWidth();
+        int height = mRoot.getHeight();
+        if (!mGlowEnabled || width == 0 || height == 0) return;
+        int glowHeight = height / 4;
+        if (mGlowHeight != height) {
+            mGlowHeight = height;
+            int accent = Themes.getColorAccent(mRoot.getContext());
+            int from = androidx.core.graphics.ColorUtils.setAlphaComponent(
+                    accent, Math.round(255 * Math.max(0f, Math.min(1f, mGlowOpacity))));
+            int to = androidx.core.graphics.ColorUtils.setAlphaComponent(accent, 0);
+            mGlowTopPaint.setShader(new android.graphics.LinearGradient(
+                    0, 0, 0, glowHeight, from, to, android.graphics.Shader.TileMode.CLAMP));
+            mGlowBottomPaint.setShader(new android.graphics.LinearGradient(
+                    0, height, 0, height - glowHeight, from, to,
+                    android.graphics.Shader.TileMode.CLAMP));
+        }
+        canvas.drawRect(0, 0, width, glowHeight, mGlowTopPaint);
+        canvas.drawRect(0, height - glowHeight, width, height, mGlowBottomPaint);
     }
 
     private float getEffectiveWallpaperDim() {
@@ -187,6 +232,7 @@ public class SysUiScrim implements View.OnAttachStateChangeListener {
             mDimPaint.setAlpha(Math.round(255 * dim));
             canvas.drawRect(0, 0, mRoot.getWidth(), mRoot.getHeight(), mDimPaint);
         }
+        drawGlow(canvas);
         if (!mHideSysUiScrim) {
             if (mSysUiProgress.value <= 0) {
                 mAnimateScrimOnNextDraw = false;

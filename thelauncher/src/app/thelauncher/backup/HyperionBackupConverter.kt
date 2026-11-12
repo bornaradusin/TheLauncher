@@ -335,6 +335,31 @@ class HyperionBackupConverter(
                 gesture("pref_two_finger_swipe_up_action", prefs2.twoFingerSwipeUpGestureHandler.key)
                 gesture("pref_two_finger_swipe_down_action", prefs2.twoFingerSwipeDownGestureHandler.key)
                 gesture("pref_back_down_action", prefs2.backPressGestureHandler.key)
+                gesture("pref_two_finger_double_tap_action", prefs2.twoFingerDoubleTapGestureHandler.key)
+
+                settings.string("page_indicator_mode")?.let { store[prefs2.pageIndicatorHidden.key] = it == "hidden" }
+                settings.bool("blackout_dark_mode")?.let { store[prefs2.blackoutDarkMode.key] = it }
+                settings.bool("pref_fade_on_desktop_swipe")?.let { store[prefs2.fadeOnSwipe.key] = it }
+                settings.bool("pages_enable_bounce_physics")?.let { store[prefs2.drawerOverscroll.key] = it }
+                settings.bool("pages_close_drawer_on_pause")?.let { store[prefs2.closeDrawerOnLaunch.key] = it }
+                settings.bool("pref_show_zeroth_tab")?.let { store[prefs2.drawerTabsShowAll.key] = it }
+                settings.bool("folder_show_folder_name")?.let { store[prefs2.showFolderTitle.key] = it }
+                settings.bool("gesture_haptic")?.let { store[prefs2.gestureHaptics.key] = it }
+                settings.bool("pref_enable_custom_gradient_glow")?.let { store[prefs2.desktopGlow.key] = it }
+                settings.int("pref_glow_opacity")?.let { store[prefs2.desktopGlowOpacity.key] = (it / 100f).coerceIn(0.1f, 1f) }
+                settings.string("pref_animation_speed")?.let {
+                    if (it == "slow" || it == "fast" || it == "default") store[prefs2.animationSpeed.key] = it
+                }
+                settings.string("status_navigation_bars")?.let {
+                    if (it == "hide_both") {
+                        store[prefs2.showStatusBar.key] = false
+                        store[prefs2.hideNavigationBar.key] = true
+                    } else if (it.startsWith("hide") && it.contains("nav")) {
+                        store[prefs2.hideNavigationBar.key] = true
+                    } else if (it.startsWith("hide") && it.contains("status")) {
+                        store[prefs2.showStatusBar.key] = false
+                    }
+                }
 
                 // Icon and label sizes: Hyperion keeps percentages and only saves ones changed from 100%.
                 val homePercent = (settings.int("pref_custom_workspace_icon_size") ?: 100) / 100f

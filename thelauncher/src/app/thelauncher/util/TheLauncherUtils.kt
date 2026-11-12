@@ -234,6 +234,8 @@ fun resolveFolderBackgroundColor(context: Context): Int {
     val custom = getCustomFolderColor(context)
     return if (custom != 0) {
         custom
+    } else if (isBlackout(context)) {
+        android.graphics.Color.BLACK
     } else {
         ColorTokens.FolderBackgroundColor.resolveColor(context)
     }
@@ -244,8 +246,18 @@ private fun getAllAppsBaseColor(context: Context, defaultColor: Int): Int {
     val prefs2 = PreferenceManager2.getInstance(context)
     val colorOptions: ColorOption = prefs2.appDrawerBackgroundColor.firstCached()
     val color = colorOptions.colorPreferenceEntry.lightColor.invoke(context)
-    val baseColor = if (color != 0) color else defaultColor
+    val baseColor = when {
+        color != 0 -> color
+        isBlackout(context) -> android.graphics.Color.BLACK
+        else -> defaultColor
+    }
     return ColorUtils.setAlphaComponent(baseColor, 255)
+}
+
+/** True when the pure black dark mode is on and the launcher is currently dark. */
+fun isBlackout(context: Context): Boolean {
+    if (!PreferenceManager2.getInstance(context).blackoutDarkMode.firstCached()) return false
+    return Utilities.isDarkTheme(context)
 }
 
 /** Apply TheLauncher custom allapps opacity and colour to the provided colour */

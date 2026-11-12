@@ -785,6 +785,88 @@ class PreferenceManager2 @Inject constructor(
         defaultValue = false,
     )
 
+    val pageIndicatorHidden = preference(
+        key = booleanPreferencesKey("page_indicator_hidden"),
+        defaultValue = false,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    val blackoutDarkMode = preference(
+        key = booleanPreferencesKey("blackout_dark_mode"),
+        defaultValue = false,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    val hideNavigationBar = preference(
+        key = booleanPreferencesKey("hide_navigation_bar"),
+        defaultValue = false,
+    )
+
+    val animationSpeed = preference(
+        key = stringPreferencesKey("animation_speed"),
+        defaultValue = "default",
+    )
+
+    val fadeOnSwipe = preference(
+        key = booleanPreferencesKey("fade_on_swipe"),
+        defaultValue = false,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    val drawerOverscroll = preference(
+        key = booleanPreferencesKey("drawer_overscroll"),
+        defaultValue = true,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    val closeDrawerOnLaunch = preference(
+        key = booleanPreferencesKey("close_drawer_on_launch"),
+        defaultValue = false,
+    )
+
+    val drawerTabsShowAll = preference(
+        key = booleanPreferencesKey("drawer_tabs_show_all"),
+        defaultValue = true,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    val hideNotificationDots = preference(
+        key = booleanPreferencesKey("hide_notification_dots"),
+        defaultValue = false,
+        onSet = { reloadHelper.reloadGrid() },
+    )
+
+    val notificationDotSizeFactor = preference(
+        key = floatPreferencesKey("notification_dot_size_factor"),
+        defaultValue = 1f,
+        onSet = { reloadHelper.reloadGrid() },
+    )
+
+    val showFolderTitle = preference(
+        key = booleanPreferencesKey("show_folder_title"),
+        defaultValue = true,
+    )
+
+    val desktopGlow = preference(
+        key = booleanPreferencesKey("desktop_glow"),
+        defaultValue = false,
+    )
+
+    val desktopGlowOpacity = preference(
+        key = floatPreferencesKey("desktop_glow_opacity"),
+        defaultValue = 0.5f,
+    )
+
+    val twoFingerDoubleTapGestureHandler = serializablePreference<GestureHandlerConfig>(
+        key = stringPreferencesKey("two_finger_double_tap_gesture_handler"),
+        defaultValue = GestureHandlerConfig.NoOp,
+    )
+
+    val gestureHaptics = preference(
+        key = booleanPreferencesKey("gesture_haptics"),
+        defaultValue = true,
+    )
+
     val smartspaceCenteredDate = preference(
         key = booleanPreferencesKey("smartspace_centered_date"),
         defaultValue = false,

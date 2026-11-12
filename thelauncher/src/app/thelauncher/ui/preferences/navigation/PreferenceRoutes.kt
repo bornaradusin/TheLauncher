@@ -40,6 +40,38 @@ data object Dummy : PreferenceRootRoute
 
 // Top-level destinations
 @Serializable
+data object CategoryColors : PreferenceRootRoute
+
+@Serializable
+data object CategoryIconography : PreferenceRootRoute
+
+@Serializable
+data object CategoryTypography : PreferenceRootRoute
+
+@Serializable
+data object CategoryInterface : PreferenceRootRoute
+
+@Serializable
+data object CategoryGrids : PreferenceRootRoute
+
+@Serializable
+data object CategoryWidgets : PreferenceRootRoute
+
+@Serializable
+data object CategoryAnimations : PreferenceRootRoute
+
+@Serializable
+data object CategoryIntegrations : PreferenceRootRoute
+
+@Serializable
+data class SettingsSection(
+    val screen: String,
+    val title: Int,
+    val headings: String,
+    val untitled: Boolean = false,
+) : PreferenceRoute
+
+@Serializable
 data object General : PreferenceRootRoute, PreferenceDeepLink {
     override val deepLink = "$URI/general"
 }

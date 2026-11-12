@@ -85,6 +85,16 @@ fun AppDrawerPreferences(
         }
         val hiddenApps = prefs2.hiddenApps.getAdapter().state.value
         PreferenceGroup(heading = stringResource(id = R.string.general_label)) {
+            SwitchPreference(
+                adapter = prefs2.closeDrawerOnLaunch.getAdapter(),
+                label = stringResource(id = R.string.close_drawer_on_launch),
+                description = stringResource(id = R.string.close_drawer_on_launch_desc),
+            )
+            SwitchPreference(
+                adapter = prefs2.drawerOverscroll.getAdapter(),
+                label = stringResource(id = R.string.drawer_overscroll),
+                description = stringResource(id = R.string.drawer_overscroll_desc),
+            )
             NavigationActionPreference(
                 label = stringResource(id = R.string.hidden_apps_label),
                 destination = AppDrawerHiddenApps,

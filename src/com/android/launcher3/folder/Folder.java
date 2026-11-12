@@ -353,6 +353,11 @@ public class Folder extends AbstractFloatingView implements ClipPathView, DragSo
         mFooter = findViewById(R.id.folder_footer);
         mFooterHeight = dp.folderFooterHeightPx;
         mFolderName = findViewById(R.id.folder_name);
+        if (!app.thelauncher.preferences2.PreferenceCacheExtensionsKt.firstCached(
+                app.thelauncher.preferences2.PreferenceManager2.getInstance(getContext())
+                        .getShowFolderTitle())) {
+            mFolderName.setVisibility(View.INVISIBLE);
+        }
         if (Flags.enableLauncherVisualRefresh()) {
             mFolderName.setTypeface(Typeface.create("google-sans-flex", Typeface.NORMAL));
         }

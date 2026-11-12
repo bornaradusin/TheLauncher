@@ -1,5 +1,13 @@
 package app.thelauncher.ui.preferences.navigation
 
+import app.thelauncher.ui.preferences.destinations.ColorsCategory
+import app.thelauncher.ui.preferences.destinations.IconographyCategory
+import app.thelauncher.ui.preferences.destinations.TypographyCategory
+import app.thelauncher.ui.preferences.destinations.InterfaceCategory
+import app.thelauncher.ui.preferences.destinations.GridsCategory
+import app.thelauncher.ui.preferences.destinations.WidgetsCategory
+import app.thelauncher.ui.preferences.destinations.AnimationsCategory
+import app.thelauncher.ui.preferences.destinations.IntegrationsCategory
 import android.content.Intent
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -115,6 +123,35 @@ fun PreferenceNavigation(
             DummyPreference()
         }
 
+        composable<CategoryColors> { ColorsCategory() }
+        composable<CategoryIconography> { IconographyCategory() }
+        composable<CategoryTypography> { TypographyCategory() }
+        composable<CategoryInterface> { InterfaceCategory() }
+        composable<CategoryGrids> { GridsCategory() }
+        composable<CategoryWidgets> { WidgetsCategory() }
+        composable<CategoryAnimations> { AnimationsCategory() }
+        composable<CategoryIntegrations> { IntegrationsCategory() }
+        composable<SettingsSection> { backStackEntry ->
+            val route: SettingsSection = backStackEntry.toRoute()
+            val headings = route.headings.split(',').mapNotNull { it.trim().toIntOrNull() }
+                .map { androidx.compose.ui.res.stringResource(it) }.toSet()
+            androidx.compose.runtime.CompositionLocalProvider(
+                app.thelauncher.ui.preferences.components.layout.LocalSectionFilter provides
+                    app.thelauncher.ui.preferences.components.layout.SectionFilter(
+                        title = androidx.compose.ui.res.stringResource(route.title),
+                        headings = headings.ifEmpty { null },
+                        showUntitled = route.untitled,
+                    ),
+            ) {
+                when (route.screen) {
+                    "general" -> GeneralPreferences()
+                    "home" -> HomeScreenPreferences()
+                    "dock" -> DockPreferences()
+                    "drawer" -> AppDrawerPreferences()
+                    "folders" -> FolderPreferences()
+                }
+            }
+        }
         composable<General>(
             deepLinks = getDeepLink(General),
         ) { GeneralPreferences() }

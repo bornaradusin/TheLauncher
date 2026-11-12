@@ -195,6 +195,21 @@ class MainLauncher : QuickstepLauncher() {
             }
         }.launchIn(scope = lifecycleScope)
 
+        preferenceManager2.hideNavigationBar.get().distinctUntilChanged().onEach { hideNav ->
+            with(insetsController) {
+                if (hideNav) {
+                    systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+                    hide(WindowInsetsCompat.Type.navigationBars())
+                } else {
+                    show(WindowInsetsCompat.Type.navigationBars())
+                }
+            }
+        }.launchIn(scope = lifecycleScope)
+
+        preferenceManager2.animationSpeed.get().distinctUntilChanged().onEach {
+            applyAnimationSpeed(it)
+        }.launchIn(scope = lifecycleScope)
+
         preferenceManager2.statusBarClock.get().distinctUntilChanged().onEach {
             with(launcher.stateManager) {
                 if (it) {
@@ -468,9 +483,37 @@ class MainLauncher : QuickstepLauncher() {
         return ActivityOptionsWrapper(options, callback)
     }
 
+    override fun onStop() {
+        super.onStop()
+        if (preferenceManager2.closeDrawerOnLaunch.firstCached() && isInState(LauncherState.ALL_APPS)) {
+            stateManager.goToState(LauncherState.NORMAL, false)
+        }
+    }
+
+    private fun applyAnimationSpeed(speed: String) {
+        val factor = when (speed) {
+            "slow" -> 1.5f
+            "fast" -> 0.6f
+            else -> 1f
+        }
+        runCatching {
+            val system = android.provider.Settings.Global.getFloat(
+                contentResolver,
+                android.provider.Settings.Global.ANIMATOR_DURATION_SCALE,
+                1f,
+            )
+            android.animation.ValueAnimator::class.java
+                .getMethod("setDurationScale", Float::class.javaPrimitiveType)
+                .invoke(null, system * factor)
+        }
+    }
+
     override fun onResume() {
         super.onResume()
         restartIfPending()
+        if (preferenceManager2.animationSpeed.firstCached() != "default") {
+            applyAnimationSpeed(preferenceManager2.animationSpeed.firstCached())
+        }
         refreshPredictionContainersFromModel()
 
         dragLayer.viewTreeObserver.addOnDrawListener(

@@ -61,6 +61,11 @@ fun DrawerTabsPreferences(
     ) {
         PreferenceGroup(heading = stringResource(id = R.string.settings)) {
             SwitchPreference(
+                adapter = prefs2.drawerTabsShowAll.getAdapter(),
+                label = stringResource(id = R.string.drawer_tabs_show_all),
+                description = stringResource(id = R.string.drawer_tabs_show_all_desc),
+            )
+            SwitchPreference(
                 adapter = prefs2.drawerTabsRemoveFromAll.getAdapter(),
                 label = stringResource(id = R.string.drawer_tabs_remove_from_all),
                 description = stringResource(id = R.string.drawer_tabs_remove_from_all_description),

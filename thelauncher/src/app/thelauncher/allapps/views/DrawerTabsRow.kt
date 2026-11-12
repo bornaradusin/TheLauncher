@@ -24,6 +24,8 @@ class DrawerTabsRow @JvmOverloads constructor(
 
     private val prefs2 = PreferenceManager2.getInstance(context)
     private val tabs: List<DrawerTab> = prefs2.drawerTabs.firstCached()
+    private val showAll = prefs2.drawerTabsShowAll.firstCached()
+    private val chipIndices = mutableListOf<Int>()
     private val chipContainer = LinearLayout(context).apply {
         orientation = LinearLayout.HORIZONTAL
         gravity = Gravity.CENTER_VERTICAL
@@ -39,7 +41,7 @@ class DrawerTabsRow @JvmOverloads constructor(
         addView(chipContainer, LayoutParams(LayoutParams.WRAP_CONTENT, chipHeight))
         visibility = if (tabs.isEmpty()) GONE else VISIBLE
         if (tabs.isNotEmpty()) {
-            addChip(context.getString(R.string.drawer_tab_all), -1)
+            if (showAll) addChip(context.getString(R.string.drawer_tab_all), -1)
             tabs.forEachIndexed { index, tab -> addChip(tab.name, index) }
             updateSelection()
         }
@@ -60,6 +62,7 @@ class DrawerTabsRow @JvmOverloads constructor(
         lp.marginEnd = dp(8)
         chipContainer.addView(chip, lp)
         chips.add(chip)
+        chipIndices.add(index)
     }
 
     private fun appsList(): TheLauncherAlphabeticalAppsList<*>? = runCatching {
@@ -73,8 +76,12 @@ class DrawerTabsRow @JvmOverloads constructor(
     }
 
     private fun updateSelection() {
-        val selected = appsList()?.selectedTabIndex ?: -1
-        chips.forEachIndexed { i, chip -> chip.isSelected = (i - 1) == selected }
+        val list = appsList()
+        if (!showAll && tabs.isNotEmpty() && list != null && list.selectedTabIndex < 0) {
+            list.selectTab(0)
+        }
+        val selected = list?.selectedTabIndex ?: -1
+        chips.forEachIndexed { i, chip -> chip.isSelected = chipIndices[i] == selected }
     }
 
     override fun onAttachedToWindow() {

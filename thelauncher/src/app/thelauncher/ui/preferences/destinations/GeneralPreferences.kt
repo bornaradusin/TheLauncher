@@ -16,6 +16,7 @@
 
 package app.thelauncher.ui.preferences.destinations
 
+import app.thelauncher.ui.preferences.components.controls.SliderPreference
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -167,6 +168,11 @@ fun GeneralPreferences(modifier: Modifier = Modifier) {
         PreferenceGroup(heading = stringResource(id = R.string.colors)) {
             ThemePreference()
             ColorPreference(preference = prefs2.accentColor)
+            SwitchPreference(
+                adapter = prefs2.blackoutDarkMode.getAdapter(),
+                label = stringResource(id = R.string.blackout_dark_mode),
+                description = stringResource(id = R.string.blackout_dark_mode_desc),
+            )
             ExpandAndShrink(visible = showColorStyle) {
                 ColorStylePreference(prefs2.colorStyle.getAdapter())
             }
@@ -182,6 +188,22 @@ fun GeneralPreferences(modifier: Modifier = Modifier) {
         PreferenceGroup(heading = stringResource(id = R.string.notification_dots)) {
             NotificationDotsPreference(enabled = notificationEnabled, serviceEnabled = serviceEnabled)
             val canDisplayNotificationDot = notificationEnabled && serviceEnabled
+            ExpandAndShrink(visible = canDisplayNotificationDot) {
+                SwitchPreference(
+                    adapter = prefs2.hideNotificationDots.getAdapter(),
+                    label = stringResource(id = R.string.hide_notification_dots),
+                    description = stringResource(id = R.string.hide_notification_dots_desc),
+                )
+            }
+            ExpandAndShrink(visible = canDisplayNotificationDot) {
+                SliderPreference(
+                    label = stringResource(id = R.string.notification_dot_size),
+                    adapter = prefs2.notificationDotSizeFactor.getAdapter(),
+                    step = 0.1f,
+                    valueRange = 0.5F..1.5F,
+                    showAsPercentage = true,
+                )
+            }
             ExpandAndShrink(visible = canDisplayNotificationDot) {
                 ColorPreference(preference = prefs2.notificationDotColor)
             }

@@ -46,10 +46,15 @@ class GestureController(private val launcher: MainLauncher) {
     private val twoFingerSwipeDownHandler = handler(prefs.twoFingerSwipeDownGestureHandler)
     private val homePressHandler = handler(prefs.homePressGestureHandler)
     private val backPressHandler = handler(prefs.backPressGestureHandler)
+    private val twoFingerDoubleTapHandler = handler(prefs.twoFingerDoubleTapGestureHandler)
     private val mMSDLPlayerWrapper = MSDLPlayerWrapper.INSTANCE.get(launcher)
 
     fun onDoubleTap() {
         triggerHandler(doubleTapHandler)
+    }
+
+    fun onTwoFingerDoubleTap() {
+        triggerHandler(twoFingerDoubleTapHandler)
     }
 
     fun onSwipeUp() {
@@ -90,7 +95,7 @@ class GestureController(private val launcher: MainLauncher) {
                 return@launch
             }
             handler.onTrigger(launcher)
-            if (withHaptic) {
+            if (withHaptic && prefs.gestureHaptics.get().first()) {
                 mMSDLPlayerWrapper.playToken(MSDLToken.SWIPE_THRESHOLD_INDICATOR)
             }
         }

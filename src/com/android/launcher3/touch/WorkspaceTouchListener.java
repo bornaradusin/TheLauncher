@@ -20,6 +20,7 @@ package com.android.launcher3.touch;
 import static android.view.MotionEvent.ACTION_CANCEL;
 import static android.view.MotionEvent.ACTION_DOWN;
 import static android.view.MotionEvent.ACTION_MOVE;
+import static android.view.MotionEvent.ACTION_POINTER_DOWN;
 import static android.view.MotionEvent.ACTION_POINTER_UP;
 import static android.view.MotionEvent.ACTION_UP;
 
@@ -83,6 +84,12 @@ public class WorkspaceTouchListener extends GestureDetector.SimpleOnGestureListe
 
     private final GestureDetector mGestureDetector;
     private boolean mDoubleTapPending = false;
+    private boolean mTwoFingerTap = false;
+    private long mTwoFingerDownTime = 0;
+    private long mLastTwoFingerTapTime = 0;
+    private final PointF[] mTwoFingerStart = {new PointF(), new PointF()};
+    private static final long TWO_FINGER_TAP_TIMEOUT = 300;
+    private static final long TWO_FINGER_DOUBLE_TAP_TIMEOUT = 400;
 
     DevicePolicyManager mDpm;
 
@@ -101,7 +108,9 @@ public class WorkspaceTouchListener extends GestureDetector.SimpleOnGestureListe
         int action = ev.getActionMasked();
         if (action == ACTION_DOWN) {
             mDoubleTapPending = false;
+            mTwoFingerTap = false;
         }
+        trackTwoFingerTap(ev, action);
 
         mGestureDetector.onTouchEvent(ev);
 
@@ -216,6 +225,36 @@ public class WorkspaceTouchListener extends GestureDetector.SimpleOnGestureListe
         }
 
         return result;
+    }
+
+    private void trackTwoFingerTap(MotionEvent ev, int action) {
+        if (action == ACTION_POINTER_DOWN && ev.getPointerCount() == 2) {
+            mTwoFingerTap = true;
+            mTwoFingerDownTime = ev.getEventTime();
+            mTwoFingerStart[0].set(ev.getX(0), ev.getY(0));
+            mTwoFingerStart[1].set(ev.getX(1), ev.getY(1));
+        } else if (action == ACTION_POINTER_DOWN) {
+            mTwoFingerTap = false;
+        } else if (action == ACTION_MOVE && mTwoFingerTap) {
+            for (int i = 0; i < Math.min(2, ev.getPointerCount()); i++) {
+                if (PointF.length(mTwoFingerStart[i].x - ev.getX(i),
+                        mTwoFingerStart[i].y - ev.getY(i)) > mTouchSlop) {
+                    mTwoFingerTap = false;
+                }
+            }
+        } else if (action == ACTION_POINTER_UP && mTwoFingerTap) {
+            mTwoFingerTap = false;
+            long now = ev.getEventTime();
+            if (now - mTwoFingerDownTime > TWO_FINGER_TAP_TIMEOUT) return;
+            if (now - mLastTwoFingerTapTime < TWO_FINGER_DOUBLE_TAP_TIMEOUT) {
+                mLastTwoFingerTapTime = 0;
+                cancelLongPress();
+                MainLauncher launcher = Launcher.fromContext(mWorkspace.getContext());
+                launcher.getGestureController().onTwoFingerDoubleTap();
+            } else {
+                mLastTwoFingerTapTime = now;
+            }
+        }
     }
 
     private boolean canHandleLongPress() {

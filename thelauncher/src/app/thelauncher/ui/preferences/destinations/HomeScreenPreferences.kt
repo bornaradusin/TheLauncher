@@ -16,6 +16,7 @@
 
 package app.thelauncher.ui.preferences.destinations
 
+import app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry
 import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorManager
@@ -133,6 +134,18 @@ fun HomeScreenPreferences(
                 }
             }
         }
+        PreferenceGroup(heading = stringResource(id = R.string.page_indicator_label)) {
+            SwitchPreference(
+                adapter = prefs2.pageIndicatorHidden.getAdapter(),
+                label = stringResource(id = R.string.page_indicator_hide),
+                description = stringResource(id = R.string.page_indicator_hide_desc),
+            )
+            SwitchPreference(
+                adapter = prefs2.fadeOnSwipe.getAdapter(),
+                label = stringResource(id = R.string.fade_on_swipe),
+                description = stringResource(id = R.string.fade_on_swipe_desc),
+            )
+        }
         PreferenceGroup(heading = stringResource(id = R.string.home_screen_actions)) {
             ClickablePreference(
                 label = stringResource(id = R.string.remove_all_views_from_home_screen),
@@ -163,8 +176,32 @@ fun HomeScreenPreferences(
                 adapter = prefs2.closingAppOverlay.getAdapter(),
                 label = stringResource(id = R.string.app_closing_animation),
             )
+            ListPreference(
+                adapter = prefs2.animationSpeed.getAdapter(),
+                entries = listOf(
+                    ListPreferenceEntry("slow") { stringResource(R.string.animation_speed_slow) },
+                    ListPreferenceEntry("default") { stringResource(R.string.animation_speed_default) },
+                    ListPreferenceEntry("fast") { stringResource(R.string.animation_speed_fast) },
+                ),
+                label = stringResource(id = R.string.animation_speed),
+            )
         }
         PreferenceGroup(heading = stringResource(id = R.string.wallpaper)) {
+            val glowAdapter = prefs2.desktopGlow.getAdapter()
+            SwitchPreference(
+                adapter = glowAdapter,
+                label = stringResource(id = R.string.desktop_glow),
+                description = stringResource(id = R.string.desktop_glow_desc),
+            )
+            ExpandAndShrink(visible = glowAdapter.state.value) {
+                SliderPreference(
+                    label = stringResource(id = R.string.desktop_glow_opacity),
+                    adapter = prefs2.desktopGlowOpacity.getAdapter(),
+                    step = 0.05f,
+                    valueRange = 0.1F..1F,
+                    showAsPercentage = true,
+                )
+            }
             SwitchPreference(
                 prefs.wallpaperScrolling.getAdapter(),
                 label = stringResource(id = R.string.wallpaper_scrolling_label),
@@ -241,6 +278,11 @@ fun HomeScreenPreferences(
         }
         val showStatusBarAdapter = prefs2.showStatusBar.getAdapter()
         PreferenceGroup(heading = stringResource(id = R.string.status_bar_label)) {
+            SwitchPreference(
+                adapter = prefs2.hideNavigationBar.getAdapter(),
+                label = stringResource(id = R.string.hide_navigation_bar),
+                description = stringResource(id = R.string.hide_navigation_bar_desc),
+            )
             SwitchPreference(
                 adapter = showStatusBarAdapter,
                 label = stringResource(id = R.string.show_status_bar),

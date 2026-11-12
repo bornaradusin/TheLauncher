@@ -43,13 +43,14 @@ fun PreferenceScaffold(
         topBar = {
             TopBar(
                 backArrowVisible = backArrowVisible,
-                label = label,
+                label = LocalSectionFilter.current.title ?: label,
                 isExpandedScreen = isExpandedScreen,
                 actions = actions,
                 scrollBehavior = scrollBehavior,
             )
         },
         bottomBar = bottomBar,
+        containerColor = androidx.compose.ui.graphics.Color.Transparent,
     ) {
         content(it)
     }

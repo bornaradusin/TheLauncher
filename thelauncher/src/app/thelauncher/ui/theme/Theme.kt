@@ -96,12 +96,24 @@ fun getColorScheme(darkTheme: Boolean): ColorScheme {
     val preferenceManager2 = preferenceManager2()
     val accentColor by preferenceManager2.accentColor.asState()
     val colorStyle by preferenceManager2.colorStyle.asState()
+    val blackout by preferenceManager2.blackoutDarkMode.asState()
 
     val colorScheme = remember(accentColor, colorStyle.style) {
         ThemeProvider.INSTANCE.get(context).colorScheme
     }
 
-    return colorScheme.toComposeColorScheme(isDark = darkTheme)
+    val scheme = colorScheme.toComposeColorScheme(isDark = darkTheme)
+    if (!darkTheme || !blackout) return scheme
+    val black = androidx.compose.ui.graphics.Color.Black
+    return scheme.copy(
+        background = black,
+        surface = black,
+        surfaceContainerLowest = black,
+        surfaceContainerLow = androidx.compose.ui.graphics.Color(0xFF0A0A0A),
+        surfaceContainer = androidx.compose.ui.graphics.Color(0xFF111111),
+        surfaceContainerHigh = androidx.compose.ui.graphics.Color(0xFF181818),
+        surfaceContainerHighest = androidx.compose.ui.graphics.Color(0xFF202020),
+    )
 }
 
 private fun getPreviewColorScheme(darkTheme: Boolean) = if (darkTheme) {

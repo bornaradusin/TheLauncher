@@ -53,6 +53,10 @@ fun FolderPreferences(
             ?: stringResource(id = R.string.custom)
         PreferenceGroup(heading = stringResource(id = R.string.general_label)) {
             SwitchPreference(
+                adapter = prefs2.showFolderTitle.getAdapter(),
+                label = stringResource(id = R.string.show_folder_title),
+            )
+            SwitchPreference(
                 adapter = prefs2.sortFolderContents.getAdapter(),
                 label = stringResource(id = R.string.sort_folder_contents_label),
                 description = stringResource(id = R.string.sort_folder_contents_description),

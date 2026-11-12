@@ -95,6 +95,10 @@ public class AllAppsRecyclerView extends FastScrollRecyclerView {
         super(context, attrs, defStyleAttr);
         mNumAppsPerRow = LauncherAppState.getIDP(context).numColumns;
         mFastScrollHelper = new AllAppsFastScrollHelper(this);
+        if (!app.thelauncher.preferences2.PreferenceCacheExtensionsKt.firstCached(
+                app.thelauncher.preferences2.PreferenceManager2.getInstance(context).getDrawerOverscroll())) {
+            setOverScrollMode(OVER_SCROLL_NEVER);
+        }
     }
 
     /**

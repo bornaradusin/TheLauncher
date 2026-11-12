@@ -262,6 +262,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
     public boolean mHasOnLayoutBeenCalled = false;
 
     private boolean mWorkspaceFadeInAdjacentScreens;
+    private boolean mFadeOnSwipe;
 
     final WallpaperOffsetInterpolator mWallpaperOffset;
     private boolean mUnlockWallpaperFromDefaultPageOnLayout;
@@ -385,6 +386,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         DeviceProfile grid = mLauncher.getDeviceProfile();
 
         mWorkspaceFadeInAdjacentScreens = grid.shouldFadeAdjacentWorkspaceScreens();
+        mFadeOnSwipe = PreferenceCacheExtensionsKt.firstCached(mPreferenceManager2.getFadeOnSwipe());
 
         Rect padding = grid.workspacePadding;
         setPadding(padding.left, padding.top, padding.right, padding.bottom);
@@ -1528,7 +1530,8 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             // Note: Use wrap-aware scroll for continuous infinite-scroll indicator animation.
             mPageIndicator.setScroll(getScrollForPageIndicator(), computeMaxScroll());
             var isHotseatEnabled = PreferenceCacheExtensionsKt.firstCached(mPreferenceManager2.isHotseatEnabled());
-            mPageIndicator.setVisibility(isHotseatEnabled ? VISIBLE : INVISIBLE);
+            var pageIndicatorHidden = PreferenceCacheExtensionsKt.firstCached(mPreferenceManager2.getPageIndicatorHidden());
+            mPageIndicator.setVisibility(isHotseatEnabled && !pageIndicatorHidden ? VISIBLE : INVISIBLE);
         }
     }
 
@@ -1655,7 +1658,7 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
                 if (child != null) {
                     float scrollProgress = getScrollProgress(screenCenter, child, i);
                     float alpha = 1 - Math.abs(scrollProgress);
-                    if (mWorkspaceFadeInAdjacentScreens) {
+                    if (mWorkspaceFadeInAdjacentScreens || mFadeOnSwipe) {
                         child.getShortcutsAndWidgets().setAlpha(alpha);
                     } else {
                         // Pages that are off-screen aren't important for accessibility.
