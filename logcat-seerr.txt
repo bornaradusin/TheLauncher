@@ -1,0 +1,119 @@
+--------- beginning of main
+11-12 12:17:18.438  9869  9909 W WeatherProvider: weather update failed
+11-12 12:17:18.438  9869  9909 W WeatherProvider: sb0: Child of the scoped flow was cancelled
+11-12 12:17:18.463  9869  9899 E OpenGLRenderer: Unable to match the desired swap behavior.
+11-12 12:17:18.798  9869  9899 E FrameEvents: updateAcquireFence: Did not find frame.
+11-12 12:17:18.844  9869  9894 E QuickstepModelDelegate: Failed to register launcher snapshot logging callback with StatsManager
+11-12 12:17:18.844  9869  9894 E QuickstepModelDelegate: java.lang.NullPointerException: Attempt to invoke interface method 'void android.os.IStatsManagerService.registerPullAtomCallback(int, long, long, int[], android.os.IPullAtomCallback)' on a null object reference
+11-12 12:17:18.844  9869  9894 E QuickstepModelDelegate: 	at android.app.StatsManager.setPullAtomCallback(StatsManager.java:644)
+11-12 12:17:18.844  9869  9894 E QuickstepModelDelegate: 	at com.android.launcher3.model.QuickstepModelDelegate.registerSnapshotLoggingCallback(r8-map-id-5977a252559050945653afe2b01a359f53fbdf9af9dcfaf2a631462b695083b3:23)
+11-12 12:17:18.844  9869  9894 E QuickstepModelDelegate: 	at com.android.launcher3.model.QuickstepModelDelegate.modelLoadComplete(r8-map-id-5977a252559050945653afe2b01a359f53fbdf9af9dcfaf2a631462b695083b3:98)
+11-12 12:17:18.844  9869  9894 E QuickstepModelDelegate: 	at pb6.modelLoadComplete(r8-map-id-5977a252559050945653afe2b01a359f53fbdf9af9dcfaf2a631462b695083b3:1)
+11-12 12:17:18.844  9869  9894 E QuickstepModelDelegate: 	at com.android.launcher3.model.LoaderTask.loadAllSurfacesOrdered(r8-map-id-5977a252559050945653afe2b01a359f53fbdf9af9dcfaf2a631462b695083b3:324)
+11-12 12:17:18.844  9869  9894 E QuickstepModelDelegate: 	at com.android.launcher3.model.LoaderTask.run(r8-map-id-5977a252559050945653afe2b01a359f53fbdf9af9dcfaf2a631462b695083b3:69)
+11-12 12:17:18.844  9869  9894 E QuickstepModelDelegate: 	at android.os.Handler.handleCallback(Handler.java:958)
+11-12 12:17:18.844  9869  9894 E QuickstepModelDelegate: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+11-12 12:17:18.844  9869  9894 E QuickstepModelDelegate: 	at android.os.Looper.loopOnce(Looper.java:205)
+11-12 12:17:18.844  9869  9894 E QuickstepModelDelegate: 	at android.os.Looper.loop(Looper.java:294)
+11-12 12:17:18.844  9869  9894 E QuickstepModelDelegate: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+11-12 12:17:19.086   447   832 W AMessage: failed to post message as target looper for handler 0 is gone.
+--------- beginning of system
+11-12 12:17:19.749   500  3504 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+11-12 12:17:19.963  7249  7287 W A       : Queue length for executor EventBus is now 11. Perhaps some tasks are too long, or the pool is too small.
+11-12 12:17:21.358   500  1640 W ProcessStats: Tracking association SourceState{d425c9a com.google.android.googlequicksearchbox:search/10132 BTop #16484} whose proc state 2 is better than process ProcessState{6061529 com.google.android.googlequicksearchbox:interactor/10132 pkg=com.google.android.googlequicksearchbox} proc state 4 (70 skipped)
+11-12 12:17:22.573   795   795 W TouchableRegionManager: onHeadsUpPinnedModeChanged
+11-12 12:17:27.310  9961  9961 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+11-12 12:17:27.310  9961  9961 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+11-12 12:17:28.102  9963  9963 W app_process: Unexpected CPU variant for x86: x86_64.
+11-12 12:17:28.102  9963  9963 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-12 12:17:28.103  9963  9963 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+11-12 12:17:28.104  9963  9963 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+11-12 12:17:28.129  9963  9963 W libc    : Access denied finding property "ro.product.name_for_attestation"
+11-12 12:17:28.129  9963  9963 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+11-12 12:17:28.129  9963  9963 W libc    : Access denied finding property "ro.product.model_for_attestation"
+11-12 12:17:28.127  9963  9963 W main    : type=1400 audit(0.0:229): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=85 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-12 12:17:28.127  9963  9963 W main    : type=1400 audit(0.0:230): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=85 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-12 12:17:28.139  9963  9963 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+11-12 12:17:28.127  9963  9963 W main    : type=1400 audit(0.0:231): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=85 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-12 12:17:28.161   500  2216 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-12 12:17:28.181   500  2279 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-12 12:17:28.218   795   795 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+11-12 12:17:28.221   795   795 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+11-12 12:17:28.281  9869  9876 W app.thelauncher: Cleared Reference was only reachable from finalizer (only reported once)
+11-12 12:17:28.918  9981  9981 W ocess.gservices: Unexpected CPU variant for x86: x86_64.
+11-12 12:17:28.918  9981  9981 W ocess.gservices: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-12 12:17:28.921  9981  9981 E ocess.gservices: Not starting debugger since process cannot load the jdwp agent.
+11-12 12:17:28.999   500  2279 W ActivityManager: Unable to start service Intent { act=com.google.android.gms.gservices.START pkg=com.google.android.gms } U=0: not found
+11-12 12:17:29.000   500  2279 W ActivityManager: Unbind failed: could not find connection for android.os.BinderProxy@36c4ce9
+11-12 12:17:29.000  9981  9995 E GmsClient: unable to connect to service: com.google.android.gms.gservices.START on com.google.android.gms
+11-12 12:17:29.241  9963  9963 W AccessibilityNodeInfoDumper: Fetch time: 25ms
+11-12 12:17:29.242   500  2216 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-12 12:17:29.248   795   795 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+11-12 12:17:29.250  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.250  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.251  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.251  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.251  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.251  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.251  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.251  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.251  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.251  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.251  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.251  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.251  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.251  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.251  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.251  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.255  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.255  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.255  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.255  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.255  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.255  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.255  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.255  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.255  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.255  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.255  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.255  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.255  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.255  1535  2010 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: Invalid input from icing corpus JSON flag.
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: android.util.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 123 column 2
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at android.util.JsonReader.syntaxError(JsonReader.java:1162)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at android.util.JsonReader.checkLenient(JsonReader.java:840)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at android.util.JsonReader.nextInArray(JsonReader.java:615)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at android.util.JsonReader.peek(JsonReader.java:345)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at android.util.JsonReader.hasNext(JsonReader.java:321)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at com.google.android.apps.gsa.searchbox.c.b.b.k.c(PG:7)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at com.google.android.apps.gsa.searchbox.c.b.b.k.<init>(PG:5)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at com.google.android.apps.gsa.staticplugins.searchboxroot.features.n.a.c.<init>(PG:16)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at com.google.android.apps.gsa.staticplugins.searchboxroot.b.a(PG:14)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at com.google.android.apps.gsa.staticplugins.searchboxroot.x.<init>(PG:7)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at com.google.android.apps.gsa.binaries.velvet.app.akd.b(PG:15)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at dagger.a.e.b(PG:1)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at com.google.android.apps.gsa.staticplugins.searchboxroot.a.a.a(PG:3)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at com.google.android.apps.gsa.binaries.velvet.app.ok.f(Unknown Source:2541)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at com.google.android.apps.gsa.binaries.velvet.app.ok.b(PG:1)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at com.google.android.apps.gsa.search.core.service.g.a.c.a(PG:2)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at com.google.android.libraries.gsa.k.a.f.a(PG:2)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at com.google.common.util.concurrent.dx.a(PG:1)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at com.google.common.util.concurrent.cv.run(PG:4)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at com.google.common.util.concurrent.dz.run(PG:1)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at com.google.android.libraries.i.ae.run(PG:1)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at com.google.android.libraries.i.k.run(PG:2)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at com.google.android.libraries.i.p.run(PG:4)
+11-12 12:17:29.324  7249  7301 W CorpusConfigHelper: 	at java.lang.Thread.run(Thread.java:1012)
+11-12 12:17:29.326  7249  7301 W A       : Queue length for executor EventBus is now 11. Perhaps some tasks are too long, or the pool is too small.
+11-12 12:17:29.328   500  2216 W ActivityManager: Unable to start service Intent { cmp=com.google.android.apps.tachyon/.clientapi.ClientApiService } U=0: not found
+11-12 12:17:29.330  7249  7287 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 241] task was not run. Callback from Service received after client was disposed.
+11-12 12:17:29.330  7249  7287 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 241] task was not run. Callback from Service received after client was disposed.
+11-12 12:17:29.332  7249  7287 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 105] task was not run. Callback from Service received after client was disposed.
+11-12 12:17:29.332  7249  7287 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 107] task was not run. Callback from Service received after client was disposed.
+11-12 12:17:29.332  7249  7287 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 107] task was not run. Callback from Service received after client was disposed.
+11-12 12:17:29.332  7249  7287 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 42] task was not run. Callback from Service received after client was disposed.
+11-12 12:17:29.342  7249  7287 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 67] task was not run. Callback from Service received after client was disposed.
+11-12 12:17:29.344  7249  7287 W SearchServiceCore: Abort, client detached.

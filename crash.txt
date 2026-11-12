@@ -1,0 +1,19 @@
+--------- beginning of crash
+11-12 12:17:16.085  5508  9846 E AndroidRuntime: FATAL EXCEPTION: DefaultDispatcher-worker-8
+11-12 12:17:16.085  5508  9846 E AndroidRuntime: Process: app.thelauncher, PID: 5508
+11-12 12:17:16.085  5508  9846 E AndroidRuntime: java.lang.IllegalStateException: At least one type of intent should be available.
+11-12 12:17:16.085  5508  9846 E AndroidRuntime: 	at h.s(r8-map-id-5977a252559050945653afe2b01a359f53fbdf9af9dcfaf2a631462b695083b3:3)
+11-12 12:17:16.085  5508  9846 E AndroidRuntime: 	at jc5.<init>(r8-map-id-5977a252559050945653afe2b01a359f53fbdf9af9dcfaf2a631462b695083b3:29)
+11-12 12:17:16.085  5508  9846 E AndroidRuntime: 	at ff5.a(r8-map-id-5977a252559050945653afe2b01a359f53fbdf9af9dcfaf2a631462b695083b3:430)
+11-12 12:17:16.085  5508  9846 E AndroidRuntime: 	at ob6.g(r8-map-id-5977a252559050945653afe2b01a359f53fbdf9af9dcfaf2a631462b695083b3:31)
+11-12 12:17:16.085  5508  9846 E AndroidRuntime: 	at jb6.a(r8-map-id-5977a252559050945653afe2b01a359f53fbdf9af9dcfaf2a631462b695083b3:252)
+11-12 12:17:16.085  5508  9846 E AndroidRuntime: 	at jb6.emit(r8-map-id-5977a252559050945653afe2b01a359f53fbdf9af9dcfaf2a631462b695083b3:3)
+11-12 12:17:16.085  5508  9846 E AndroidRuntime: 	at ab2.invokeSuspend(r8-map-id-5977a252559050945653afe2b01a359f53fbdf9af9dcfaf2a631462b695083b3:123)
+11-12 12:17:16.085  5508  9846 E AndroidRuntime: 	at ab2.invoke(r8-map-id-5977a252559050945653afe2b01a359f53fbdf9af9dcfaf2a631462b695083b3:42)
+11-12 12:17:16.085  5508  9846 E AndroidRuntime: 	at ai0.invokeSuspend(r8-map-id-5977a252559050945653afe2b01a359f53fbdf9af9dcfaf2a631462b695083b3:300)
+11-12 12:17:16.085  5508  9846 E AndroidRuntime: 	at dw.resumeWith(r8-map-id-5977a252559050945653afe2b01a359f53fbdf9af9dcfaf2a631462b695083b3:5)
+11-12 12:17:16.085  5508  9846 E AndroidRuntime: 	at y51.run(r8-map-id-5977a252559050945653afe2b01a359f53fbdf9af9dcfaf2a631462b695083b3:102)
+11-12 12:17:16.085  5508  9846 E AndroidRuntime: 	at d5.run(r8-map-id-5977a252559050945653afe2b01a359f53fbdf9af9dcfaf2a631462b695083b3:56)
+11-12 12:17:16.085  5508  9846 E AndroidRuntime: 	at z16.run(r8-map-id-5977a252559050945653afe2b01a359f53fbdf9af9dcfaf2a631462b695083b3:3)
+11-12 12:17:16.085  5508  9846 E AndroidRuntime: 	at mr0.run(r8-map-id-5977a252559050945653afe2b01a359f53fbdf9af9dcfaf2a631462b695083b3:79)
+11-12 12:17:16.085  5508  9846 E AndroidRuntime: 	Suppressed: z31: [lv5{Cancelling}@9e03d1d, Dispatchers.IO]
