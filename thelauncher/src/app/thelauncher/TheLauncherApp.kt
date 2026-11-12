@@ -16,6 +16,7 @@
 
 package app.thelauncher
 
+import app.thelauncher.updates.AppUpdates
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ActivityManager
@@ -76,6 +77,7 @@ class TheLauncherApp : LauncherApplication() {
         Flowerpot.Manager.getInstance(this)
         registerActivityLifecycleCallbacks(activityHandler)
         scheduleBaselineProfileInstall()
+        runCatching { AppUpdates.cleanLeftovers(this) }
     }
 
     /**

@@ -81,7 +81,13 @@ class HyperionBackupConverter(
         val dockShadow: Boolean?,
         val notificationCount: Boolean?,
         val drawerFolders: List<HyperionDrawerFolder>,
-    )
+        val raw: Map<String, Any> = emptyMap(),
+    ) {
+        fun int(key: String): Int? = raw[key] as? Int
+        fun bool(key: String): Boolean? = raw[key] as? Boolean
+        fun string(key: String): String? = raw[key] as? String
+        fun float(key: String): Float? = raw[key] as? Float
+    }
 
     data class HyperionBackupInfo(
         val settings: HyperionSettings,
@@ -175,6 +181,7 @@ class HyperionBackupConverter(
         val strings = mutableMapOf<String, String>()
         val ints = mutableMapOf<String, Int>()
         val bools = mutableMapOf<String, Boolean>()
+        val floats = mutableMapOf<String, Float>()
         val sets = mutableMapOf<String, Set<String>>()
         val children = root.childNodes
         for (i in 0 until children.length) {
@@ -184,6 +191,7 @@ class HyperionBackupConverter(
                 "string" -> strings[name] = node.textContent.orEmpty()
                 "int", "long" -> node.getAttribute("value").toIntOrNull()?.let { ints[name] = it }
                 "boolean" -> bools[name] = node.getAttribute("value") == "true"
+                "float" -> node.getAttribute("value").toFloatOrNull()?.let { floats[name] = it }
                 "set" -> {
                     val values = mutableSetOf<String>()
                     val items = node.getElementsByTagName("string")
@@ -219,8 +227,14 @@ class HyperionBackupConverter(
             swipeDownAction = strings["pref_home_down_action"],
             rememberDrawerPosition = bools["pages_remember_drawer_position"],
             dockShadow = bools["pages_enable_dock_shadow"],
-            notificationCount = strings["pref_icon_badging_style"]?.let { it == "text" },
+            notificationCount = (strings["pref_icon_badging_style"] ?: "dot") == "text",
             drawerFolders = parseDrawerFolders(strings["drawer_folders"]),
+            raw = buildMap<String, Any> {
+                putAll(strings)
+                putAll(ints)
+                putAll(bools)
+                putAll(floats)
+            },
         )
     }
 
@@ -259,6 +273,14 @@ class HyperionBackupConverter(
             settings.iconPackPackage?.let { putString(prefs.iconPackPackage.key, it) }
             settings.themedIcons?.let { putBoolean(prefs.themedIcons.key, it) }
             settings.drawerOpacity?.let { putFloat(prefs.drawerOpacity.key, (it / 100f).coerceIn(0f, 1f)) }
+            putInt(prefs.dockPages.key, (settings.int("pref_hotseat_pages") ?: 1).coerceAtLeast(1))
+            settings.bool("pref_allowRotation")?.let { putBoolean(prefs.allowRotation.key, it) }
+            settings.bool("pages_enable_drawer_blur")?.let { putBoolean(prefs.enableWallpaperBlur.key, it) }
+            when (settings.string("dark_mode")) {
+                "light" -> putString(prefs.launcherTheme.key, "light")
+                "dark" -> putString(prefs.launcherTheme.key, "dark")
+                "follow_system" -> putString(prefs.launcherTheme.key, "system")
+            }
             }.commit()
         }.onFailure { Log.w(TAG, "Could not import layout settings", it) }
 
@@ -273,14 +295,6 @@ class HyperionBackupConverter(
 
         val hidden = settings.hiddenApps.mapNotNull { toComponentKey(it) }.toSet()
         val locked = if (settings.appLockEnabled) settings.lockedApps.mapNotNull { toComponentKey(it) }.toSet() else emptySet()
-        val swipeDown: GestureHandlerConfig? = when (settings.swipeDownAction) {
-            "sesame_search", "search", "app_search" -> GestureHandlerConfig.OpenSearch
-            "notifications", "expand_notifications" -> GestureHandlerConfig.OpenNotifications
-            "quick_settings" -> GestureHandlerConfig.OpenQuickSettings
-            "app_drawer" -> GestureHandlerConfig.OpenAppDrawer
-            "none" -> GestureHandlerConfig.NoOp
-            else -> null
-        }
 
         runCatching {
             prefs2.preferencesDataStore.edit { store ->
@@ -300,9 +314,67 @@ class HyperionBackupConverter(
                 settings.rememberDrawerPosition?.let { store[prefs2.rememberPosition.key] = it }
                 settings.dockShadow?.let { store[prefs2.dockShadow.key] = it }
                 settings.notificationCount?.let { store[prefs2.showNotificationCount.key] = it }
-                swipeDown?.let { store[prefs2.swipeDownGestureHandler.key] = kotlinxJson.encodeToString(it) }
+                fun gesture(hyperionKey: String, key: androidx.datastore.preferences.core.Preferences.Key<String>) {
+                    val value = settings.string(hyperionKey) ?: return
+                    val handler = gestureFor(value) ?: return
+                    store[key] = kotlinxJson.encodeToString(handler)
+                }
+                gesture("pref_home_down_action", prefs2.homePressGestureHandler.key)
+                gesture("pref_swipe_down_action", prefs2.swipeDownGestureHandler.key)
+                gesture("pref_swipe_up_action", prefs2.swipeUpGestureHandler.key)
+                gesture("pref_double_tap_action", prefs2.doubleTapGestureHandler.key)
+                gesture("pref_two_finger_swipe_up_action", prefs2.twoFingerSwipeUpGestureHandler.key)
+                gesture("pref_two_finger_swipe_down_action", prefs2.twoFingerSwipeDownGestureHandler.key)
+                gesture("pref_back_down_action", prefs2.backPressGestureHandler.key)
+
+                // Icon and label sizes: Hyperion keeps percentages and only saves ones changed from 100%.
+                store[prefs2.homeIconSizeFactor.key] = (settings.int("pref_custom_workspace_icon_size") ?: 100) / 100f
+                store[prefs2.drawerIconSizeFactor.key] = (settings.int("pref_custom_icon_size") ?: 100) / 100f
+                store[prefs2.homeIconLabelSizeFactor.key] = (settings.int("pref_custom_workspace_icon_text_scale") ?: 100) / 100f
+                store[prefs2.homeIconLabelFolderSizeFactor.key] = (settings.int("pref_custom_folder_icon_text_scale") ?: 100) / 100f
+                store[prefs2.drawerIconLabelSizeFactor.key] = (settings.int("pref_custom_icon_text_scale") ?: 100) / 100f
+                store[prefs2.drawerCellHeightFactor.key] = (settings.int("pref_drawer_row_height_scale") ?: 100) / 100f
+
+                // Labels, with Hyperion's defaults for anything not saved.
+                store[prefs2.showIconLabelsOnHomeScreen.key] = settings.bool("pref_enable_workspace_icon_text") ?: true
+                store[prefs2.showIconLabelsOnHomeScreenFolder.key] = settings.bool("pref_enable_folder_icon_text") ?: true
+                store[prefs2.enableLabelInDock.key] = settings.bool("pref_enable_dock_icon_text") ?: false
+                store[prefs2.showIconLabelsInDrawer.key] = settings.bool("pref_enable_app_drawer_label_label") ?: true
+                store[prefs2.twoLineAllApps.key] = settings.bool("pref_enable_icon_multiple_lines") ?: false
+                settings.bool("pref_enable_icon_text_shadow")?.let { store[prefs2.desktopTextShadow.key] = it }
+
+                // Drawer and search
+                store[prefs2.hideAppDrawerSearchBar.key] = !(settings.bool("pref_show_drawer_search_bar") ?: true)
+                settings.bool("auto_show_all_apps_search")?.let { store[prefs2.autoShowKeyboardInDrawer.key] = it }
+                settings.bool("pref_show_predictions")?.let { store[prefs2.showSuggestedAppsInDrawer.key] = it }
+                if (settings.bool("pref_show_dock_search_bar") == false) store[prefs2.hotseatMode.key] = "disabled"
+                settings.bool("pages_lock_desktop")?.let { store[prefs2.lockHomeScreen.key] = it }
+                settings.bool("pref_smartspace_show_date")?.let { store[prefs2.smartspaceShowDate.key] = it }
+                settings.string("pref_temperature_unit")?.let {
+                    store[prefs2.smartspaceWeatherFahrenheit.key] = it.contains("f", ignoreCase = true) && !it.contains("c", ignoreCase = true)
+                }
+
+                // Wallpaper dimmer: Hyperion's strength defaults to 20%.
+                store[prefs2.wallpaperDimAmount.key] = if (settings.bool("wallpaper_dimmer_toggle") == true) {
+                    (settings.float("wallpaper_dimmer_strength") ?: 0.2f).coerceIn(0f, 0.9f)
+                } else {
+                    0f
+                }
             }
         }.onFailure { Log.w(TAG, "Could not import settings", it) }
+    }
+
+    private fun gestureFor(action: String): GestureHandlerConfig? = when (action.substringBefore(';')) {
+        "", "none" -> GestureHandlerConfig.NoOp
+        "all_apps" -> GestureHandlerConfig.OpenAppDrawer
+        "app_search" -> GestureHandlerConfig.OpenAppSearch
+        "sesame_search", "google_search" -> GestureHandlerConfig.OpenSearch
+        "assistant" -> GestureHandlerConfig.OpenAssistant
+        "lock_screen" -> GestureHandlerConfig.Sleep
+        "qs_pulldown" -> GestureHandlerConfig.OpenNotifications
+        "qs_expand" -> GestureHandlerConfig.OpenQuickSettings
+        "show_recent_apps", "show_overview" -> GestureHandlerConfig.Recents
+        else -> null
     }
 
     private suspend fun importDrawerFolders(folders: List<HyperionDrawerFolder>) {

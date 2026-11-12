@@ -48,5 +48,6 @@ jobs:
         run: |
           APK=$(find build/outputs/apk -name '*.apk' | head -1)
           cp "$APK" "TheLauncher-$TAG.apk"
-          gh release create "$TAG" "TheLauncher-$TAG.apk" --title "TheLauncher $TAG" \
+          sha256sum "TheLauncher-$TAG.apk" > SHA256SUMS.txt
+          gh release create "$TAG" "TheLauncher-$TAG.apk" SHA256SUMS.txt --title "TheLauncher $TAG" \
             --target "${{ github.sha }}" --generate-notes

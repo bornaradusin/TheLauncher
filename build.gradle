@@ -142,6 +142,8 @@ final def ciRunNumber = System.getenv("GITHUB_RUN_NUMBER") ?: ""
 final def releaseTag = System.getenv("RELEASE_TAG") ?: (ciRef.startsWith("refs/tags/v") ? ciRef.replace("refs/tags/", "") : "")
 final def isReleaseBuild = ciBuild && releaseTag.startsWith("v")
 final def version = "1.0.0"
+final def codeParts = (isReleaseBuild ? releaseTag.substring(1) : version).tokenize('.').collect { it.replaceAll('[^0-9]', '') ?: '0' }
+final def appVersionCode = 1_600_100_000 + (codeParts[0] as int) * 10_000 + ((codeParts.size() > 1 ? codeParts[1] : '0') as int) * 100 + ((codeParts.size() > 2 ? codeParts[2] : '0') as int)
 final def versionDisplayName = isReleaseBuild ? releaseTag.substring(1) : "${version} (build ${ciBuild ? ciRunNumber : buildCommit})"
 final def majorVersion = versionDisplayName.split("\\.")[0]
 
@@ -151,7 +153,7 @@ final def quickstepMaxSdk = "36"
 android {
     namespace "com.android.launcher3"
     defaultConfig {
-        versionCode 16_00_02_01_00
+        versionCode appVersionCode
         versionName "${versionDisplayName}"
         buildConfigField "String", "VERSION_DISPLAY_NAME", "\"${versionDisplayName}\""
         buildConfigField "String", "MAJOR_VERSION", "\"${majorVersion}\""

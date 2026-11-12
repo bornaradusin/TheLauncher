@@ -16,6 +16,7 @@
 
 package app.thelauncher.ui.preferences
 
+import app.thelauncher.updates.AppUpdatePrompt
 import android.content.Intent
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -117,6 +118,7 @@ fun Preferences(
                         startDestination = startingRoute,
                         intent = intent,
                     )
+                    AppUpdatePrompt()
                 }
             }
         }

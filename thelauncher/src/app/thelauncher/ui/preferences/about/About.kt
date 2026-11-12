@@ -16,6 +16,11 @@
 
 package app.thelauncher.ui.preferences.about
 
+import app.thelauncher.updates.Updater
+import androidx.compose.foundation.layout.Box
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.ui.Alignment
 import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.combinedClickable
@@ -162,24 +167,15 @@ fun About(
             Spacer(modifier = Modifier.height(8.dp))
         }
         item {
-            UpdateSection(
-                updateState = uiState.updateState,
-                onInstall = {
-                    viewModel.installUpdate(it)
-                },
-                onForceInstall = {
-                    viewModel.installUpdate(it, forceInstall = true)
-                },
-                onViewChanges = {
-                    openBottomSheet = true
-                    scope.launch {
-                        sheetState.show()
-                    }
-                },
-                onDismissMajorUpdate = {
-                    viewModel.resetToDownloaded(it)
-                },
-            )
+            val updater = remember { Updater.get(context) }
+            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                Button(
+                    onClick = { updater.checkForUpdate(manual = true) },
+                    shapes = ButtonDefaults.shapes(),
+                ) {
+                    Text(text = stringResource(R.string.check_for_updates))
+                }
+            }
         }
         item {
             Spacer(modifier = Modifier.requiredHeight(16.dp))
