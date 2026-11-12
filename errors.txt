@@ -1,0 +1,12 @@
+/home/runner/work/TheLauncher/TheLauncher/src/com/android/launcher3/views/RecyclerViewFastScroller.java:190: error: variable mThumbColor might already have been assigned
+            mThumbColor = scrollbarColor.getColorPreferenceEntry().getLightColor().invoke(context);
+            ^
+Note: Some input files use or override a deprecated API.
+--
+* What went wrong:
+Execution failed for task ':compileOssWithQuickstepGithubReleaseJavaWithJavac' (registered by plugin 'com.android.internal.application').
+> Compilation failed; see the compiler output below.
+  /home/runner/work/TheLauncher/TheLauncher/src/com/android/launcher3/views/RecyclerViewFastScroller.java:190: error: variable mThumbColor might already have been assigned
+              mThumbColor = scrollbarColor.getColorPreferenceEntry().getLightColor().invoke(context);
+              ^
+  Note: Some input files use or override a deprecated API.
