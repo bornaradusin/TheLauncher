@@ -348,7 +348,8 @@ public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver,
     // TheLauncher: a long name scrolls instead of ending in "…" ("Scroll long names").
     private boolean mScrollLabel;
 
-    private void applyScrollLabel(int area) {
+    /** TheLauncher: for labels set outside {@link #applyLabel}, such as a folder's name. */
+    public void applyScrollLabel(int area) {
         PreferenceManager2 prefs2 = PreferenceManager2.getInstance(getContext());
         boolean scroll = switch (area) {
             case TheLauncherUtilsKt.LABEL_AREA_HOME, TheLauncherUtilsKt.LABEL_AREA_DOCK ->

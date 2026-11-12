@@ -220,6 +220,8 @@ public class FolderIcon extends FrameLayout implements FloatingIconViewCompanion
         if (folderLabelColor != 0) {
             icon.mFolderName.setTextColor(folderLabelColor);
         }
+        // TheLauncher: a long folder name scrolls, as app names there do ("Scroll long names").
+        icon.mFolderName.applyScrollLabel(labelArea);
         icon.mFolderName.setCompoundDrawablePadding(0);
         FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) icon.mFolderName.getLayoutParams();
         if (folderInfo.container == ItemInfo.NO_ID) {
