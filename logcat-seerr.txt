@@ -1,0 +1,171 @@
+--------- beginning of main
+11-12 21:49:18.307  1445  1445 W ModuleManager: ModuleManager.loadModule():450 Module erj is not available
+11-12 21:49:18.352  5846  5846 W AutofillChimeraService: Pending fill request while another request in the same session was triggered. [CONTEXT service_id=177 ]
+--------- beginning of system
+11-12 21:49:18.406   501   501 W FillRequestEventLogger: Shouldn't be logging AutofillFillRequestReported again for same event
+11-12 21:49:18.406   501   501 W FillResponseEventLogger: Shouldn't be logging AutofillFillRequestReported again for same event
+11-12 21:49:18.885  1445  1445 W InputContextProxyV4: InputContextProxyV4.applyClientDiffInternal():897 Ignore [FetchSuggestions] diff due to stale request: 56<58, inputStateId=44, lastInputStateId=45
+11-12 21:49:18.901  1445  1445 W TooltipLifecycleManager: TooltipLifecycleManager.dismissTooltips():159 Tooltip with id spell_check_add_to_dictionary not found in tooltipManager.
+11-12 21:49:18.963  4020  7776 E GoogleWebSearchProvider: Error during suggestion retrieval
+11-12 21:49:18.963  4020  7776 E GoogleWebSearchProvider: dy2: sv5 was cancelled; job=sv5{Cancelling}@ce09668
+11-12 21:49:19.223  1445  1445 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 176 ms
+11-12 21:49:19.424  1445  1445 W TooltipLifecycleManager: TooltipLifecycleManager.dismissTooltips():159 Tooltip with id spell_check_add_to_dictionary not found in tooltipManager.
+11-12 21:49:19.494  4020  7776 E GoogleWebSearchProvider: Error during suggestion retrieval
+11-12 21:49:19.494  4020  7776 E GoogleWebSearchProvider: dy2: sv5 was cancelled; job=sv5{Cancelling}@7e2c9ae
+11-12 21:49:19.719  1445  1445 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 128 ms
+11-12 21:49:19.884  1445  1445 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 165 ms
+11-12 21:49:20.086  1445  1445 W TooltipLifecycleManager: TooltipLifecycleManager.dismissTooltips():159 Tooltip with id spell_check_add_to_dictionary not found in tooltipManager.
+11-12 21:49:20.948   501   845 W JobScheduler: Job didn't exist in JobStore: 7ef5961 #u0a136/7 com.google.android.contacts/com.google.android.apps.contacts.shortcut.ShortcutJobService
+11-12 21:49:21.923  4020  8441 E GoogleWebSearchProvider: Error during suggestion retrieval
+11-12 21:49:21.923  4020  8441 E GoogleWebSearchProvider: dy2: sv5 was cancelled; job=sv5{Cancelling}@41f6e58
+11-12 21:49:21.930  4020  8441 E GoogleWebSearchProvider: Error during suggestion retrieval
+11-12 21:49:21.930  4020  8441 E GoogleWebSearchProvider: dy2: sv5 was cancelled; job=sv5{Cancelling}@44912b3
+11-12 21:49:22.043  1445  1445 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 119 ms
+11-12 21:49:22.153  1445  1445 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 109 ms
+11-12 21:49:22.155  1445  1445 W InputContextProxyV4: InputContextProxyV4.applyClientDiffInternal():897 Ignore [FetchSuggestions] diff due to stale request: 64<65, inputStateId=53, lastInputStateId=54
+11-12 21:49:22.259  1445  1445 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 103 ms
+11-12 21:49:22.350  1445  1445 W InputContextProxyV4: InputContextProxyV4.applyClientDiffInternal():897 Ignore [FetchSuggestions] diff due to stale request: 66<67, inputStateId=55, lastInputStateId=56
+11-12 21:49:22.488  4020  4031 W System  : A resource failed to call release. 
+11-12 21:49:22.488  4020  4031 W System  : A resource failed to call release. 
+11-12 21:49:22.730  1445  1445 W TooltipLifecycleManager: TooltipLifecycleManager.dismissTooltips():159 Tooltip with id spell_check_add_to_dictionary not found in tooltipManager.
+11-12 21:49:23.077  1445  1445 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 268 ms
+11-12 21:49:23.101   501   526 E system_server: No package ID 7f found for resource ID 0x7f080107.
+11-12 21:49:23.101   501   526 E system_server: No package ID 7f found for resource ID 0x7f150560.
+11-12 21:49:23.631  1445  1445 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 386 ms
+11-12 21:49:23.752  5846  6112 W ChimeraUtils: Module com.google.android.gms.nearby_en missing resource null(0)
+11-12 21:49:23.760  5846  6112 W ChimeraUtils: Module com.google.android.gms.nearby_en missing resource null(0)
+11-12 21:49:23.984  1445  1445 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 209 ms
+11-12 21:49:24.188  1445  1445 W TooltipLifecycleManager: TooltipLifecycleManager.dismissTooltips():159 Tooltip with id spell_check_add_to_dictionary not found in tooltipManager.
+11-12 21:49:25.394   501   515 W ProcessStats: Tracking association SourceState{ced627f com.google.android.gms.unstable/10129 BTop #13675} whose proc state 2 is better than process ProcessState{2959f0 com.google.android.gms.persistent/10129 pkg=com.google.android.gms} proc state 4 (1815 skipped)
+11-12 21:49:25.474  1611  2547 W A       : Queue length for executor EventBus is now 11. Perhaps some tasks are too long, or the pool is too small.
+11-12 21:49:25.577  2606  8504 W libc    : Access denied finding property "persist.adb.tls_server.enable"
+11-12 21:49:25.577  2606  8504 W libc    : Access denied finding property "service.adb.tls.port"
+11-12 21:49:25.574  2606  2606 W binder:2606_C: type=1400 audit(0.0:226): avc:  denied  { read } for  name="u:object_r:system_adbd_prop:s0" dev="tmpfs" ino=291 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:system_adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+11-12 21:49:25.574  2606  2606 W binder:2606_C: type=1400 audit(0.0:227): avc:  denied  { read } for  name="u:object_r:adbd_prop:s0" dev="tmpfs" ino=59 scontext=u:r:gmscore_app:s0:c512,c768 tcontext=u:object_r:adbd_prop:s0 tclass=file permissive=0 app=com.google.android.gms
+11-12 21:49:25.594  5846  6112 W GmsUrlRequestImpl: Content-Type header is overwritten.
+11-12 21:49:25.695  5846  6112 W GLSUser : [AppCertManager] Exception while requesting key: 
+11-12 21:49:25.695  5846  6112 W GLSUser : java.util.concurrent.ExecutionException: avvw: Parse Proto Exception.
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at dlnv.s(:com.google.android.gms@231818047@23.18.18 (190800-535401451):3)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at dlnv.get(:com.google.android.gms@231818047@23.18.18 (190800-535401451):7)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at oub.b(:com.google.android.gms@231818047@23.18.18 (190800-535401451):78)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at otz.b(:com.google.android.gms@231818047@23.18.18 (190800-535401451):4)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at otu.a(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at otx.a(:com.google.android.gms@231818047@23.18.18 (190800-535401451):6)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at lzq.call(:com.google.android.gms@231818047@23.18.18 (190800-535401451):14)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at aced.c(:com.google.android.gms@231818047@23.18.18 (190800-535401451):6)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at aced.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):7)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at acjn.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at java.lang.Thread.run(Thread.java:1012)
+11-12 21:49:25.695  5846  6112 W GLSUser : Caused by: avvw: Parse Proto Exception.
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at avwn.f(:com.google.android.gms@231818047@23.18.18 (190800-535401451):5)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at avxk.onSucceeded(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at jf.onSucceeded(:com.google.android.gms.dynamite_cronetdynamite@231818047@23.18.18 (190800-0):0)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at ie.run(:com.google.android.gms.dynamite_cronetdynamite@231818047@23.18.18 (190800-0):4)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	... 6 more
+11-12 21:49:25.695  5846  6112 W GLSUser : Caused by: dzfz: Protocol message contained an invalid tag (zero).
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at dzdb.k(:com.google.android.gms@231818047@23.18.18 (190800-535401451):13)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at dzha.c(:com.google.android.gms@231818047@23.18.18 (190800-535401451):47)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at dzha.h(:com.google.android.gms@231818047@23.18.18 (190800-535401451):45)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at dzfd.A(:com.google.android.gms@231818047@23.18.18 (190800-535401451):2)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at dzex.f(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at dzcx.d(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at dzcx.c(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at dzcx.n(:com.google.android.gms@231818047@23.18.18 (190800-535401451):0)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at avwn.h(:com.google.android.gms@231818047@23.18.18 (190800-535401451):7)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	at avwn.f(:com.google.android.gms@231818047@23.18.18 (190800-535401451):1)
+11-12 21:49:25.695  5846  6112 W GLSUser : 	... 9 more
+11-12 21:49:35.092  8516  8516 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+11-12 21:49:35.092  8516  8516 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+11-12 21:49:35.555  8518  8518 W app_process: Unexpected CPU variant for x86: x86_64.
+11-12 21:49:35.555  8518  8518 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-12 21:49:35.558  8518  8518 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+11-12 21:49:35.559  8518  8518 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+11-12 21:49:35.575  8518  8518 W libc    : Access denied finding property "ro.product.name_for_attestation"
+11-12 21:49:35.575  8518  8518 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+11-12 21:49:35.575  8518  8518 W libc    : Access denied finding property "ro.product.model_for_attestation"
+11-12 21:49:35.574  8518  8518 W main    : type=1400 audit(0.0:228): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=85 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-12 21:49:35.574  8518  8518 W main    : type=1400 audit(0.0:229): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=85 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-12 21:49:35.585  8518  8518 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+11-12 21:49:35.574  8518  8518 W main    : type=1400 audit(0.0:230): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=85 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-12 21:49:35.607   501  2447 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-12 21:49:35.655   501   515 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-12 21:49:35.662   793   793 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+11-12 21:49:35.668   793   793 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+11-12 21:49:35.671   501  2514 W ProcessStats: Tracking association SourceState{ad0df44 com.google.android.googlequicksearchbox:interactor/10132 BTop #13707} whose proc state 2 is better than process ProcessState{2959f0 com.google.android.gms.persistent/10129 pkg=com.google.android.gms} proc state 4 (420 skipped)
+11-12 21:49:36.683  8518  8518 W AccessibilityNodeInfoDumper: Fetch time: 62ms
+11-12 21:49:36.684   501  2514 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-12 21:49:36.686   793   793 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.694  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.695  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.695  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.695  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.695  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.695  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.695  1546  2146 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: Invalid input from icing corpus JSON flag.
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: android.util.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 123 column 2
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at android.util.JsonReader.syntaxError(JsonReader.java:1162)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at android.util.JsonReader.checkLenient(JsonReader.java:840)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at android.util.JsonReader.nextInArray(JsonReader.java:615)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at android.util.JsonReader.peek(JsonReader.java:345)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at android.util.JsonReader.hasNext(JsonReader.java:321)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at com.google.android.apps.gsa.searchbox.c.b.b.k.c(PG:7)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at com.google.android.apps.gsa.searchbox.c.b.b.k.<init>(PG:5)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at com.google.android.apps.gsa.staticplugins.searchboxroot.features.n.a.c.<init>(PG:16)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at com.google.android.apps.gsa.staticplugins.searchboxroot.b.a(PG:14)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at com.google.android.apps.gsa.staticplugins.searchboxroot.x.<init>(PG:7)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at com.google.android.apps.gsa.binaries.velvet.app.akd.b(PG:15)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at dagger.a.e.b(PG:1)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at com.google.android.apps.gsa.staticplugins.searchboxroot.a.a.a(PG:3)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at com.google.android.apps.gsa.binaries.velvet.app.ok.f(Unknown Source:2541)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at com.google.android.apps.gsa.binaries.velvet.app.ok.b(PG:1)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at com.google.android.apps.gsa.search.core.service.g.a.c.a(PG:2)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at com.google.android.libraries.gsa.k.a.f.a(PG:2)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at com.google.common.util.concurrent.dx.a(PG:1)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at com.google.common.util.concurrent.cv.run(PG:4)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at com.google.common.util.concurrent.dz.run(PG:1)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at com.google.android.libraries.i.ae.run(PG:1)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at com.google.android.libraries.i.k.run(PG:2)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at com.google.android.libraries.i.p.run(PG:4)
+11-12 21:49:36.764  1611  2072 W CorpusConfigHelper: 	at java.lang.Thread.run(Thread.java:1012)
+11-12 21:49:36.769  1611  2075 W A       : Queue length for executor EventBus is now 11. Perhaps some tasks are too long, or the pool is too small.
+11-12 21:49:36.778   501   515 W ActivityManager: Unable to start service Intent { cmp=com.google.android.apps.tachyon/.clientapi.ClientApiService } U=0: not found
+11-12 21:49:36.779  1611  2547 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 60] task was not run. Callback from Service received after client was disposed.
+11-12 21:49:36.779  1611  2547 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 60] task was not run. Callback from Service received after client was disposed.
+11-12 21:49:36.779  1611  2547 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 105] task was not run. Callback from Service received after client was disposed.
+11-12 21:49:36.779  1611  2547 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 107] task was not run. Callback from Service received after client was disposed.
+11-12 21:49:36.779  1611  2547 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 107] task was not run. Callback from Service received after client was disposed.
+11-12 21:49:36.779  1611  2547 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 42] task was not run. Callback from Service received after client was disposed.
+11-12 21:49:36.781  1611  2547 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 67] task was not run. Callback from Service received after client was disposed.
+11-12 21:49:36.781  1611  2547 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 241] task was not run. Callback from Service received after client was disposed.
+11-12 21:49:36.781  1611  2547 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 241] task was not run. Callback from Service received after client was disposed.
+11-12 21:49:36.783  1611  2547 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 60] task was not run. Callback from Service received after client was disposed.
+11-12 21:49:36.784  1611  2547 W SearchServiceCore: Abort, client detached.
