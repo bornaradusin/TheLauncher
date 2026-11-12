@@ -3,8 +3,8 @@ run-name: Build ${{ github.run_number }}
 
 # Every push to main builds the signed app once. When version.txt names a version
 # that has no release yet, the same build publishes it as a GitHub release.
-# The same APK then goes on an emulator for screenshots (kept under refs/screenshots/);
-# after a release they also refresh the wiki's pictures.
+# A release then retakes only the wiki pictures its changes touch, on an emulator, with the same
+# APK; other builds take no screenshots (a manual run can ask for them).
 on:
   push:
     branches: [ main ]
@@ -97,6 +97,10 @@ jobs:
           # otherwise since the previous push.
           if [ -n "$ASKED" ]; then
             echo "$ASKED" | tr ' ' '\n' > changed.txt
+          elif [ "$RELEASED" != "true" ]; then
+            # Builds that aren't releases take no screenshots.
+            printf 'SECTIONS=none\nPAGES=none\n' | tee -a "$GITHUB_ENV"
+            exit 0
           else
             if [ "$RELEASED" = "true" ]; then
               BEFORE=$(gh release list -R "$GITHUB_REPOSITORY" --limit 2 --json tagName --jq '.[1].tagName')
