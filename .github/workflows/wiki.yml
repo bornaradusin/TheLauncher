@@ -357,10 +357,15 @@ jobs:
             type_setting 'API key' 'stand-in-key'
             tap_text 'Test connection'; sleep 4
             shot 50-seerr-settings
+            adb logcat -c
             home; drawer
+            shot 51a-seerr-drawer 1
             adb shell input tap 540 230; sleep 2
-            adb shell input text 'add%sbatman'; sleep 8
+            adb shell input text 'add'; sleep 2
+            adb shell input text '%sbatman'; sleep 8
             shot 51-seerr-add
+            adb logcat -d -b crash > "$OUT/crash.txt" 2>&1
+            adb logcat -d -t 400 '*:W' > "$OUT/logcat-seerr.txt" 2>&1
             tap_text 'Batman: The Animated Series' && shot 52-seerr-info
             tap_last 'Add' && shot 53-seerr-seasons
             back; sleep 2
