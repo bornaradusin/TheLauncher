@@ -80,6 +80,7 @@ public class MediaListener extends MediaController.Callback {
 
     private void updateTracking() {
         updateControllers(getControllers());
+        String lastPackage = mTracking != null ? mTracking.getPackageName() : null;
 
         if (mTracking != null) {
             mTracking.reloadInfo();
@@ -97,6 +98,17 @@ public class MediaListener extends MediaController.Callback {
             if ((mTracking == null && mnc.isPlaying())
                     || (mTracking != null && mnc.isPlaying() && !mTracking.isPlaying())) {
                 mTracking = mnc;
+            }
+        }
+
+        // TheLauncher: keep showing the app that was playing while it is paused, so it can be
+        // resumed from At a Glance, until another app starts playing or its notification goes.
+        if (mTracking == null && lastPackage != null) {
+            for (MediaNotificationController mnc : mControllers) {
+                if (lastPackage.equals(mnc.getPackageName()) && mnc.hasTitle()) {
+                    mTracking = mnc;
+                    break;
+                }
             }
         }
 
@@ -164,6 +176,12 @@ public class MediaListener extends MediaController.Callback {
         private CharSequence title;
         private CharSequence artist;
         private CharSequence album;
+        private android.graphics.Bitmap art;
+
+        /** The album art or the media's own picture, when the app gives one. */
+        public android.graphics.Bitmap getArt() {
+            return art;
+        }
 
         public CharSequence getTitle() {
             return title;
@@ -207,6 +225,10 @@ public class MediaListener extends MediaController.Callback {
             return info != null && info.title != null;
         }
 
+        public boolean getPlaying() {
+            return isPlaying();
+        }
+
         private boolean isPlaying() {
             if (!hasTitle()) return false;
             PlaybackState playbackState = controller.getPlaybackState();
@@ -226,6 +248,9 @@ public class MediaListener extends MediaController.Callback {
                 info.title = metadata.getText(MediaMetadata.METADATA_KEY_TITLE);
                 info.artist = metadata.getText(MediaMetadata.METADATA_KEY_ARTIST);
                 info.album = metadata.getText(MediaMetadata.METADATA_KEY_ALBUM);
+                info.art = metadata.getBitmap(MediaMetadata.METADATA_KEY_ALBUM_ART);
+                if (info.art == null) info.art = metadata.getBitmap(MediaMetadata.METADATA_KEY_ART);
+                if (info.art == null) info.art = metadata.getBitmap(MediaMetadata.METADATA_KEY_DISPLAY_ICON);
             } else if (sbn != null) {
                 info = new MediaInfo();
                 info.title = sbn.getNotification().extras.getCharSequence(Notification.EXTRA_TITLE);

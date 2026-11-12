@@ -5,7 +5,6 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
-import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.view.View
 import android.view.View.MeasureSpec.EXACTLY
@@ -14,7 +13,6 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.viewpager.widget.ViewPager
 import app.thelauncher.preferences2.PreferenceManager2
-import app.thelauncher.smartspace.model.SMARTSPACE_BUBBLE_OFF
 import app.thelauncher.smartspace.model.SmartspaceStyle
 import app.thelauncher.smartspace.model.SmartspaceTarget
 import app.thelauncher.smartspace.provider.SmartspaceProvider
@@ -114,16 +112,6 @@ class BcSmartspaceView @JvmOverloads constructor(
         style = newStyle
         adapter.style = newStyle
         indicator.dotsAllowed = !newStyle.oneCard && newStyle.pageDots
-        // In one-card layout the bubble wraps the text inside the card; with swipeable cards it sits
-        // behind the whole area.
-        background = if (!newStyle.oneCard && newStyle.bubble != SMARTSPACE_BUBBLE_OFF) {
-            GradientDrawable().apply {
-                setColor(newStyle.bubbleColor)
-                cornerRadius = newStyle.bubbleRadiusDp * resources.displayMetrics.density
-            }
-        } else {
-            null
-        }
     }
 
     private fun onSmartspaceTargetsUpdate(targets: List<SmartspaceTarget>) {

@@ -8,6 +8,7 @@ import android.graphics.drawable.Icon
 import android.provider.AlarmClock
 import android.text.format.DateFormat
 import androidx.core.content.getSystemService
+import app.thelauncher.smartspace.model.GlanceExtras
 import app.thelauncher.smartspace.model.SmartspaceAction
 import app.thelauncher.smartspace.model.SmartspaceScores
 import app.thelauncher.smartspace.model.SmartspaceTarget
@@ -57,6 +58,7 @@ class NextAlarmProvider(context: Context) :
                 icon = Icon.createWithResource(context, R.drawable.ic_smartspace_alarm),
                 title = context.getString(R.string.smartspace_next_alarm_title, time),
                 intent = Intent(AlarmClock.ACTION_SHOW_ALARMS).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK),
+                extras = android.os.Bundle().apply { putLong(GlanceExtras.TRIGGER, alarm.triggerTime) },
             ),
             score = SmartspaceScores.SCORE_ALARM,
             featureType = SmartspaceTarget.FeatureType.FEATURE_UPCOMING_ALARM,

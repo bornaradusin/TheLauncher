@@ -701,7 +701,9 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
         }
 
         int cellHSpan = mLauncher.getDeviceProfile().inv.numColumns;
-        CellLayoutLayoutParams lp = new CellLayoutLayoutParams(0, 0, cellHSpan, 1);
+        CellLayoutLayoutParams lp = new CellLayoutLayoutParams(0, 0, cellHSpan,
+                Math.min(app.thelauncher.smartspace.GlanceGrid.rows(getContext()),
+                        mLauncher.getDeviceProfile().inv.numRows));
         lp.canReorder = false;
         if (!firstPage.addViewToCellLayout(
                 mFirstPagePinnedItem, 0, R.id.search_container_workspace, lp, true)) {

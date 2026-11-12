@@ -37,6 +37,7 @@ class TheLauncherSearchAdapterProvider(
         append(SEARCH_RESULT_CALCULATOR, R.layout.search_result_tall_icon_row_calculator)
         append(SEARCH_RESULT_EMPTY_STATE, R.layout.search_result_empty_state)
         append(SEARCH_RESULT_SEARCH_SETTINGS, R.layout.search_result_search_settings)
+        append(SEARCH_RESULT_SEERR, R.layout.search_result_seerr)
     }
     private var quickLaunchItem: SearchResultView? = null
         set(value) {
@@ -117,6 +118,7 @@ class TheLauncherSearchAdapterProvider(
         private const val SEARCH_RESULT_CALCULATOR = 1 shl 20
         private const val SEARCH_RESULT_EMPTY_STATE = 1 shl 21
         private const val SEARCH_RESULT_SEARCH_SETTINGS = 1 shl 22
+        private const val SEARCH_RESULT_SEERR = 1 shl 23
 
         val viewTypeMap = mapOf(
             LayoutType.ICON_SINGLE_VERTICAL_TEXT to SEARCH_RESULT_ICON,
@@ -132,6 +134,7 @@ class TheLauncherSearchAdapterProvider(
             LayoutType.CALCULATOR to SEARCH_RESULT_CALCULATOR,
             LayoutType.EMPTY_STATE to SEARCH_RESULT_EMPTY_STATE,
             LayoutType.SEARCH_SETTINGS to SEARCH_RESULT_SEARCH_SETTINGS,
+            app.thelauncher.seerr.SEERR_LAYOUT to SEARCH_RESULT_SEERR,
         )
     }
 }

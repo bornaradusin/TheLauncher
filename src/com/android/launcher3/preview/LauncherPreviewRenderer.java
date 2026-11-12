@@ -356,7 +356,9 @@ public class LauncherPreviewRenderer extends BaseContext
                 // TODO: set bgHandler on qsb when it is BaseTemplateCard, which requires API
                 //  changes.
                 CellLayoutLayoutParams lp = new CellLayoutLayoutParams(
-                        0, 0, firstScreen.getCountX(), 1);
+                        0, 0, firstScreen.getCountX(),
+                        Math.min(app.thelauncher.smartspace.GlanceGrid.rows(firstScreen.getContext()),
+                                firstScreen.getCountY()));
                 lp.canReorder = false;
                 firstScreen.addViewToCellLayout(qsb, 0, R.id.search_container_workspace, lp, true);
             }

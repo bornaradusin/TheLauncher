@@ -1,5 +1,7 @@
 package app.thelauncher.search.algorithms
 
+import app.thelauncher.search.algorithms.engine.SeerrSectionBuilder
+import app.thelauncher.search.algorithms.engine.provider.SeerrSearchProvider
 import android.content.Context
 import app.thelauncher.preferences.PreferenceManager
 import app.thelauncher.preferences2.PreferenceManager2
@@ -60,6 +62,7 @@ class TheLauncherLocalSearchAlgorithm(context: Context) : TheLauncherSearchAlgor
         FileSearchProvider,
         ContactsSearchProvider,
         WebSuggestionProvider,
+        SeerrSearchProvider,
     )
 
     override fun doSearch(query: String, callback: SearchCallback<BaseAllAppsAdapter.AdapterItem>) {
@@ -179,6 +182,7 @@ class TheLauncherLocalSearchAlgorithm(context: Context) : TheLauncherSearchAlgor
     }
 
     private val sectionBuilders: List<SectionBuilder> = listOf(
+        SeerrSectionBuilder,
         AppsAndShortcutsSectionBuilder,
         CalculationSectionBuilder,
         WebSuggestionsSectionBuilder,

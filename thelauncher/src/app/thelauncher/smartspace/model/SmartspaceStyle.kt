@@ -6,9 +6,17 @@ const val SMARTSPACE_LAYOUT_ONE_CARD = "one_card"
 /** One swipeable card per item, as before. */
 const val SMARTSPACE_LAYOUT_PAGES = "pages"
 
-const val SMARTSPACE_BUBBLE_OFF = "off"
-const val SMARTSPACE_BUBBLE_PILL = "pill"
-const val SMARTSPACE_BUBBLE_CARD = "card"
+/** At a Glance as a Material You card with the date, weather and what matters right now. */
+const val GLANCE_STYLE_MATERIAL = "material"
+
+/** At a Glance as text over the wallpaper. */
+const val GLANCE_STYLE_TEXT = "text"
+
+/** One row under the date, in one row of the grid. */
+const val GLANCE_SIZE_COMPACT = "compact"
+
+/** Two rows under the date, in two rows of the grid. */
+const val GLANCE_SIZE_LARGE = "large"
 
 const val SMARTSPACE_DATE_SHORT = "short"
 const val SMARTSPACE_DATE_LONG = "long"
@@ -25,9 +33,6 @@ fun smartspaceDateSkeleton(style: String): String = when (style) {
 data class SmartspaceStyle(
     val layout: String = SMARTSPACE_LAYOUT_ONE_CARD,
     val pageDots: Boolean = false,
-    val bubble: String = SMARTSPACE_BUBBLE_OFF,
-    val bubbleColor: Int = 0,
-    val bubbleRadiusDp: Float = 28f,
     val textScale: Float = 1f,
     /** Null follows the home screen's text colour. */
     val textColor: Int? = null,
@@ -43,32 +48,22 @@ data class SmartspaceStyle(
             listOf(
                 prefs.smartspaceLayout.get(),
                 prefs.smartspacePageDots.get(),
-                prefs.smartspaceBubble.get(),
-                prefs.smartspaceBubbleColor.get(),
-                prefs.smartspaceBubbleOpacity.get(),
-                prefs.smartspaceBubbleRadius.get(),
                 prefs.smartspaceTextScale.get(),
                 prefs.smartspaceTextColor.get(),
                 prefs.smartspaceCenteredDate.get(),
             ),
         ) { values ->
-            val bubbleOption = values[3] as app.thelauncher.theme.color.ColorOption
-            val opacity = (values[4] as Float).coerceIn(0f, 1f)
-            val bubbleBase = bubbleOption.colorPreferenceEntry.lightColor(context)
-            val textOption = values[7] as app.thelauncher.theme.color.ColorOption
+            val textOption = values[3] as app.thelauncher.theme.color.ColorOption
             SmartspaceStyle(
                 layout = values[0] as String,
                 pageDots = values[1] as Boolean,
-                bubble = values[2] as String,
-                bubbleColor = androidx.core.graphics.ColorUtils.setAlphaComponent(bubbleBase, (opacity * 255).toInt()),
-                bubbleRadiusDp = values[5] as Float,
-                textScale = (values[6] as Float).coerceIn(0.5f, 2f),
+                textScale = (values[2] as Float).coerceIn(0.5f, 2f),
                 textColor = if (textOption is app.thelauncher.theme.color.ColorOption.Default) {
                     null
                 } else {
                     textOption.colorPreferenceEntry.lightColor(context)
                 },
-                centered = values[8] as Boolean,
+                centered = values[4] as Boolean,
             )
         }
     }

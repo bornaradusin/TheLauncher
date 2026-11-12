@@ -14,6 +14,7 @@ import android.text.format.DateFormat
 import android.text.format.DateUtils
 import app.thelauncher.extras.PermissionRequestActivity
 import app.thelauncher.preferences2.PreferenceManager2
+import app.thelauncher.smartspace.model.GlanceExtras
 import app.thelauncher.smartspace.model.SmartspaceAction
 import app.thelauncher.smartspace.model.SmartspaceScores
 import app.thelauncher.smartspace.model.SmartspaceTarget
@@ -138,6 +139,7 @@ class CalendarEventsProvider(context: Context) :
                 title = title,
                 subtitle = subtitle,
                 intent = intent,
+                extras = android.os.Bundle().apply { putLong(GlanceExtras.BEGIN, begin) },
             ),
             score = SmartspaceScores.SCORE_CALENDAR,
             featureType = SmartspaceTarget.FeatureType.FEATURE_CALENDAR,

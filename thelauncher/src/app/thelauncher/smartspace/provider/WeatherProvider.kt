@@ -13,6 +13,7 @@ import android.util.Log
 import androidx.core.content.getSystemService
 import app.thelauncher.extras.PermissionRequestActivity
 import app.thelauncher.preferences2.PreferenceManager2
+import app.thelauncher.smartspace.model.GlanceExtras
 import app.thelauncher.smartspace.model.SmartspaceAction
 import app.thelauncher.smartspace.model.SmartspaceScores
 import app.thelauncher.smartspace.model.SmartspaceTarget
@@ -109,6 +110,7 @@ class WeatherProvider(context: Context) :
                 subtitle = "$temp $symbol",
                 contentDescription = "$temp $symbol, $subtitle",
                 intent = weatherIntent(location),
+                extras = android.os.Bundle().apply { putString(GlanceExtras.DETAIL, subtitle) },
             ),
             score = WEATHER_FIRST_SCORE,
             featureType = SmartspaceTarget.FeatureType.FEATURE_WEATHER,

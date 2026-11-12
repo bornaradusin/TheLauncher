@@ -1,7 +1,6 @@
 package app.thelauncher.smartspace
 
 import android.content.Context
-import android.graphics.drawable.GradientDrawable
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.style.ImageSpan
@@ -19,8 +18,6 @@ import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
 import app.thelauncher.preferences2.PreferenceManager2
 import app.thelauncher.preferences2.firstCached
-import app.thelauncher.smartspace.model.SMARTSPACE_BUBBLE_CARD
-import app.thelauncher.smartspace.model.SMARTSPACE_BUBBLE_OFF
 import app.thelauncher.smartspace.model.SmartspaceAction
 import app.thelauncher.smartspace.model.SmartspaceStyle
 import app.thelauncher.smartspace.model.SmartspaceTarget
@@ -60,7 +57,7 @@ class BcSmartspaceCard @JvmOverloads constructor(
         extrasGroup = findViewById(R.id.smartspace_extras_group)
         topPadding = paddingTop
         detailsView = findViewById(R.id.smartspace_details)
-        bubbleView = findViewById(R.id.smartspace_bubble)
+        bubbleView = findViewById(R.id.smartspace_text_block)
         listOfNotNull(dateView, titleTextView, subtitleTextView, baseActionIconSubtitleView, detailsView)
             .forEach { baseTextSizes[it] = it.textSize }
         extrasGroup?.let {
@@ -144,7 +141,7 @@ class BcSmartspaceCard @JvmOverloads constructor(
         }
     }
 
-    /** Text size, alignment and the optional bubble behind the text. */
+    /** Text size and alignment. */
     fun applyStyle(style: SmartspaceStyle) {
         baseTextSizes.forEach { (view, size) ->
             view.setTextSize(TypedValue.COMPLEX_UNIT_PX, size * style.textScale)
@@ -154,22 +151,8 @@ class BcSmartspaceCard @JvmOverloads constructor(
         gravity = Gravity.TOP or horizontalGravity
         bubble.gravity = horizontalGravity
         (bubble.layoutParams as? LinearLayout.LayoutParams)?.let { lp ->
-            lp.width = if (style.bubble == SMARTSPACE_BUBBLE_CARD) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
             lp.gravity = horizontalGravity
             bubble.layoutParams = lp
-        }
-        if (style.bubble == SMARTSPACE_BUBBLE_OFF) {
-            bubble.background = null
-            bubble.setPadding(0, 0, 0, 0)
-        } else {
-            val density = resources.displayMetrics.density
-            bubble.background = GradientDrawable().apply {
-                setColor(style.bubbleColor)
-                cornerRadius = style.bubbleRadiusDp * density
-            }
-            val horizontal = (18 * density).toInt()
-            val vertical = (10 * density).toInt()
-            bubble.setPadding(horizontal, vertical, horizontal, vertical)
         }
     }
 

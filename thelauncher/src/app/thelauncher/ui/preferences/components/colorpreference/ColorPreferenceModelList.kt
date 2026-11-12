@@ -107,9 +107,9 @@ class ColorPreferenceModelList @Inject constructor(
         )
         registerModel(
             ColorPreferenceModel(
-                prefObject = prefs.smartspaceBubbleColor,
-                labelRes = R.string.smartspace_bubble_color,
-                dynamicEntries = dynamicColors,
+                prefObject = prefs.smartspaceCardColor,
+                labelRes = R.string.glance_card_color,
+                dynamicEntries = dynamicColorsWithDefault,
             ),
         )
         registerModel(

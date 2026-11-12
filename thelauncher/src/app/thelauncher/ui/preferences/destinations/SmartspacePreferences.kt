@@ -41,9 +41,6 @@ import app.thelauncher.preferences.getAdapter
 import app.thelauncher.preferences2.preferenceManager2
 import app.thelauncher.smartspace.SmartspaceViewContainer
 import app.thelauncher.smartspace.model.TheLauncherSmartspace
-import app.thelauncher.smartspace.model.SMARTSPACE_BUBBLE_CARD
-import app.thelauncher.smartspace.model.SMARTSPACE_BUBBLE_OFF
-import app.thelauncher.smartspace.model.SMARTSPACE_BUBBLE_PILL
 import app.thelauncher.smartspace.model.SMARTSPACE_DATE_FULL
 import app.thelauncher.smartspace.model.SMARTSPACE_DATE_LONG
 import app.thelauncher.smartspace.model.SMARTSPACE_DATE_SHORT
@@ -69,6 +66,18 @@ import app.thelauncher.ui.preferences.components.layout.PreferenceGroup
 import app.thelauncher.ui.preferences.components.layout.PreferenceLayout
 import app.thelauncher.ui.theme.isSelectedThemeDark
 import app.thelauncher.ui.theme.preferenceGroupColor
+import android.content.Context
+import android.widget.Toast
+import androidx.compose.runtime.rememberCoroutineScope
+import app.thelauncher.smartspace.model.GLANCE_SIZE_COMPACT
+import app.thelauncher.smartspace.model.GLANCE_SIZE_LARGE
+import app.thelauncher.smartspace.model.GLANCE_STYLE_MATERIAL
+import app.thelauncher.smartspace.model.GLANCE_STYLE_TEXT
+import com.android.launcher3.LauncherAppState
+import com.android.launcher3.LauncherSettings
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import com.android.launcher3.R
 import com.kieronquinn.app.smartspacer.sdk.SmartspacerConstants
 
@@ -152,15 +161,18 @@ private fun TheLauncherSmartspaceSettings(
                     }
                 }
         }
-        PreferenceGroup(
-            heading = stringResource(id = R.string.smartspace_layout),
-            modifier = Modifier.padding(top = 8.dp),
-        ) {
-            SwitchPreference(
-                adapter = preferenceManager2().smartspaceCenteredDate.getAdapter(),
-                label = stringResource(id = R.string.smartspace_centered_date),
-                description = stringResource(id = R.string.smartspace_centered_date_description),
-            )
+        val textStyle = preferenceManager2().smartspaceWidgetStyle.getAdapter().state.value == GLANCE_STYLE_TEXT
+        ExpandAndShrink(visible = textStyle) {
+            PreferenceGroup(
+                heading = stringResource(id = R.string.smartspace_layout),
+                modifier = Modifier.padding(top = 8.dp),
+            ) {
+                SwitchPreference(
+                    adapter = preferenceManager2().smartspaceCenteredDate.getAdapter(),
+                    label = stringResource(id = R.string.smartspace_centered_date),
+                    description = stringResource(id = R.string.smartspace_centered_date_description),
+                )
+            }
         }
         SmartspaceStylePreferences()
         ExtraSmartspacePreferences()
@@ -168,35 +180,99 @@ private fun TheLauncherSmartspaceSettings(
     }
 }
 
-/** How At a Glance looks: one card or swipeable cards, the date style, text and the bubble. */
+/** How At a Glance looks: the Material card or text, its size and colours, the date and text. */
 @Composable
 private fun SmartspaceStylePreferences() {
     val prefs2 = preferenceManager2()
+    val context = LocalContext.current
+    val scope = rememberCoroutineScope()
+    val styleAdapter = prefs2.smartspaceWidgetStyle.getAdapter()
+    val material = styleAdapter.state.value == GLANCE_STYLE_MATERIAL
     val layoutAdapter = prefs2.smartspaceLayout.getAdapter()
-    val bubbleAdapter = prefs2.smartspaceBubble.getAdapter()
     val swipeable = layoutAdapter.state.value == SMARTSPACE_LAYOUT_PAGES
-    val bubbleOn = bubbleAdapter.state.value != SMARTSPACE_BUBBLE_OFF
+    val sizeAdapter = prefs2.smartspaceWidgetSize.getAdapter()
 
     PreferenceGroup(
         heading = stringResource(id = R.string.smartspace_style),
+        description = stringResource(id = R.string.glance_widget_desc).takeIf { material },
+        showDescription = material,
         modifier = Modifier.padding(top = 8.dp),
     ) {
         ListPreference(
-            adapter = layoutAdapter,
+            adapter = styleAdapter,
             entries = remember {
                 listOf(
-                    ListPreferenceEntry(SMARTSPACE_LAYOUT_ONE_CARD) { stringResource(id = R.string.smartspace_layout_one_card) },
-                    ListPreferenceEntry(SMARTSPACE_LAYOUT_PAGES) { stringResource(id = R.string.smartspace_layout_pages) },
+                    ListPreferenceEntry(GLANCE_STYLE_MATERIAL) { stringResource(id = R.string.glance_style_material) },
+                    ListPreferenceEntry(GLANCE_STYLE_TEXT) { stringResource(id = R.string.glance_style_text) },
                 )
             },
-            label = stringResource(id = R.string.smartspace_card_layout),
+            label = stringResource(id = R.string.glance_style),
         )
-        ExpandAndShrink(visible = swipeable) {
-            SwitchPreference(
-                adapter = prefs2.smartspacePageDots.getAdapter(),
-                label = stringResource(id = R.string.smartspace_page_dots),
-                description = stringResource(id = R.string.smartspace_page_dots_description),
-            )
+        ExpandAndShrink(visible = material) {
+            Column {
+                ListPreference(
+                    entries = remember {
+                        listOf(
+                            ListPreferenceEntry(GLANCE_SIZE_COMPACT) { stringResource(id = R.string.glance_size_compact) },
+                            ListPreferenceEntry(GLANCE_SIZE_LARGE) { stringResource(id = R.string.glance_size_large) },
+                        )
+                    },
+                    value = sizeAdapter.state.value,
+                    onValueChange = { size ->
+                        if (size != GLANCE_SIZE_LARGE) {
+                            sizeAdapter.onChange(size)
+                        } else {
+                            // The large widget takes the second row of the first home screen, so
+                            // that row has to be empty.
+                            scope.launch {
+                                val free = withContext(Dispatchers.IO) { secondRowIsFree(context) }
+                                if (free) {
+                                    sizeAdapter.onChange(size)
+                                } else {
+                                    Toast.makeText(context, R.string.glance_size_large_blocked, Toast.LENGTH_LONG).show()
+                                }
+                            }
+                        }
+                    },
+                    label = stringResource(id = R.string.glance_size),
+                )
+                ColorPreference(preference = prefs2.smartspaceCardColor)
+                SliderPreference(
+                    label = stringResource(id = R.string.glance_card_opacity),
+                    adapter = prefs2.smartspaceCardOpacity.getAdapter(),
+                    valueRange = 0.2f..1f,
+                    step = 0.05f,
+                    showAsPercentage = true,
+                )
+                SliderPreference(
+                    label = stringResource(id = R.string.glance_card_corners),
+                    adapter = prefs2.smartspaceCardRadius.getAdapter(),
+                    valueRange = 0f..40f,
+                    step = 2f,
+                    showUnit = "dp",
+                )
+            }
+        }
+        ExpandAndShrink(visible = !material) {
+            Column {
+                ListPreference(
+                    adapter = layoutAdapter,
+                    entries = remember {
+                        listOf(
+                            ListPreferenceEntry(SMARTSPACE_LAYOUT_ONE_CARD) { stringResource(id = R.string.smartspace_layout_one_card) },
+                            ListPreferenceEntry(SMARTSPACE_LAYOUT_PAGES) { stringResource(id = R.string.smartspace_layout_pages) },
+                        )
+                    },
+                    label = stringResource(id = R.string.smartspace_card_layout),
+                )
+                ExpandAndShrink(visible = swipeable) {
+                    SwitchPreference(
+                        adapter = prefs2.smartspacePageDots.getAdapter(),
+                        label = stringResource(id = R.string.smartspace_page_dots),
+                        description = stringResource(id = R.string.smartspace_page_dots_description),
+                    )
+                }
+            }
         }
         ListPreference(
             adapter = prefs2.smartspaceDateStyle.getAdapter(),
@@ -217,38 +293,21 @@ private fun SmartspaceStylePreferences() {
             showAsPercentage = true,
         )
         ColorPreference(preference = prefs2.smartspaceTextColor)
-        ListPreference(
-            adapter = bubbleAdapter,
-            entries = remember {
-                listOf(
-                    ListPreferenceEntry(SMARTSPACE_BUBBLE_OFF) { stringResource(id = R.string.smartspace_bubble_off) },
-                    ListPreferenceEntry(SMARTSPACE_BUBBLE_PILL) { stringResource(id = R.string.smartspace_bubble_pill) },
-                    ListPreferenceEntry(SMARTSPACE_BUBBLE_CARD) { stringResource(id = R.string.smartspace_bubble_card) },
-                )
-            },
-            label = stringResource(id = R.string.smartspace_bubble),
-        )
-        ExpandAndShrink(visible = bubbleOn) {
-            Column {
-                ColorPreference(preference = prefs2.smartspaceBubbleColor)
-                SliderPreference(
-                    label = stringResource(id = R.string.smartspace_bubble_opacity),
-                    adapter = prefs2.smartspaceBubbleOpacity.getAdapter(),
-                    valueRange = 0.05f..1f,
-                    step = 0.05f,
-                    showAsPercentage = true,
-                )
-                SliderPreference(
-                    label = stringResource(id = R.string.smartspace_bubble_corners),
-                    adapter = prefs2.smartspaceBubbleRadius.getAdapter(),
-                    valueRange = 0f..40f,
-                    step = 2f,
-                    showUnit = "dp",
-                )
-            }
-        }
     }
 }
+
+/** Whether nothing sits in the second row of the first home screen. */
+private fun secondRowIsFree(context: Context): Boolean = runCatching {
+    val db = LauncherAppState.INSTANCE.get(context).model.modelDbController
+    db.query(
+        arrayOf(LauncherSettings.Favorites._ID),
+        "${LauncherSettings.Favorites.CONTAINER} = ${LauncherSettings.Favorites.CONTAINER_DESKTOP} AND " +
+            "${LauncherSettings.Favorites.SCREEN} = 0 AND ${LauncherSettings.Favorites.CELLY} <= 1 AND " +
+            "${LauncherSettings.Favorites.CELLY} + ${LauncherSettings.Favorites.SPANY} > 1",
+        null,
+        null,
+    ).use { it.count == 0 }
+}.getOrDefault(false)
 
 @Composable
 private fun ExtraSmartspacePreferences() {
@@ -269,6 +328,18 @@ private fun ExtraSmartspacePreferences() {
                 adapter = preferenceManager2.smartspaceWeatherKelvin.getAdapter(),
                 label = stringResource(id = R.string.smartspace_weather_kelvin),
             )
+            if (preferenceManager2.smartspaceWidgetStyle.getAdapter().state.value == GLANCE_STYLE_MATERIAL) {
+                SwitchPreference(
+                    adapter = preferenceManager2.smartspaceWeatherDetails.getAdapter(),
+                    label = stringResource(id = R.string.glance_weather_details),
+                    description = stringResource(id = R.string.glance_weather_details_desc),
+                )
+                SmartspaceAppPreference(
+                    adapter = preferenceManager2.smartspaceWeatherApp.getAdapter(),
+                    label = stringResource(id = R.string.glance_weather_app),
+                    defaultLabel = stringResource(id = R.string.glance_weather_app_default),
+                )
+            }
             val automaticLocation = stringResource(id = R.string.smartspace_weather_location_auto)
             TextPreference(
                 adapter = preferenceManager2.smartspaceWeatherLocation.getAdapter(),
@@ -282,6 +353,22 @@ private fun ExtraSmartspacePreferences() {
         val selected = idsAdapter.state.value
         val calendars = remember(calendarEnabled) {
             CalendarEventsProvider.listCalendars(context)
+        }
+        if (preferenceManager2.smartspaceWidgetStyle.getAdapter().state.value == GLANCE_STYLE_MATERIAL) {
+            PreferenceGroup(modifier = Modifier.padding(top = 8.dp)) {
+                ListPreference(
+                    adapter = preferenceManager2.smartspaceEventLookahead.getAdapter(),
+                    entries = remember {
+                        listOf(
+                            ListPreferenceEntry(1) { stringResource(id = R.string.glance_event_lookahead_1) },
+                            ListPreferenceEntry(3) { stringResource(id = R.string.glance_event_lookahead_3) },
+                            ListPreferenceEntry(12) { stringResource(id = R.string.glance_event_lookahead_12) },
+                            ListPreferenceEntry(24) { stringResource(id = R.string.glance_event_lookahead_24) },
+                        )
+                    },
+                    label = stringResource(id = R.string.glance_event_lookahead),
+                )
+            }
         }
         if (calendars.isNotEmpty()) {
             PreferenceGroup(
@@ -352,12 +439,19 @@ fun SmartspacePreview(
             color = preferenceGroupColor(),
             modifier = Modifier.fillMaxWidth(),
         ) {
+            val prefs2 = preferenceManager2()
+            val widgetStyle = prefs2.smartspaceWidgetStyle.getAdapter().state.value
+            val widgetSize = prefs2.smartspaceWidgetSize.getAdapter().state.value
             CompositionLocalProvider(LocalContext provides themedContext) {
+                key(widgetStyle, widgetSize) {
                 AndroidView(
                     factory = {
                         val view = SmartspaceViewContainer(it, previewMode = true)
-                        val height = it.resources
-                            .getDimensionPixelSize(R.dimen.enhanced_smartspace_height)
+                        val height = if (widgetStyle == GLANCE_STYLE_MATERIAL) {
+                            ViewGroup.LayoutParams.WRAP_CONTENT
+                        } else {
+                            it.resources.getDimensionPixelSize(R.dimen.enhanced_smartspace_height)
+                        }
                         view.layoutParams = ViewGroup.LayoutParams(MATCH_PARENT, height)
                         view
                     },
@@ -368,6 +462,7 @@ fun SmartspacePreview(
                         bottom = 8.dp,
                     ),
                 )
+                }
             }
         }
         LaunchedEffect(key1 = null) {
@@ -488,9 +583,24 @@ fun SmartspacerSettings(
 /** Which app tapping the date opens: the default calendar or any app. */
 @Composable
 private fun SmartspaceCalendarAppPreference(modifier: Modifier = Modifier) {
+    SmartspaceAppPreference(
+        adapter = preferenceManager2().smartspaceCalendarApp.getAdapter(),
+        label = stringResource(id = R.string.smartspace_calendar_app),
+        defaultLabel = stringResource(id = R.string.smartspace_calendar_app_default),
+        modifier = modifier,
+    )
+}
+
+/** Picks an app to open, or the default ([defaultLabel]) when empty. */
+@Composable
+private fun SmartspaceAppPreference(
+    adapter: PreferenceAdapter<String>,
+    label: String,
+    defaultLabel: String,
+    modifier: Modifier = Modifier,
+) {
     val context = LocalContext.current
-    val defaultLabel = stringResource(id = R.string.smartspace_calendar_app_default)
-    val entries = remember {
+    val entries = remember(defaultLabel) {
         val launcherApps = context.getSystemService(android.content.pm.LauncherApps::class.java)
         val apps = runCatching {
             launcherApps.getActivityList(null, android.os.Process.myUserHandle())
@@ -499,12 +609,12 @@ private fun SmartspaceCalendarAppPreference(modifier: Modifier = Modifier) {
                 .sortedBy { it.second.lowercase() }
         }.getOrDefault(emptyList())
         listOf(ListPreferenceEntry("") { defaultLabel }) +
-            apps.map { (pkg, label) -> ListPreferenceEntry(pkg) { label } }
+            apps.map { (pkg, appLabel) -> ListPreferenceEntry(pkg) { appLabel } }
     }
     ListPreference(
-        adapter = preferenceManager2().smartspaceCalendarApp.getAdapter(),
+        adapter = adapter,
         entries = entries,
-        label = stringResource(id = R.string.smartspace_calendar_app),
+        label = label,
         modifier = modifier,
     )
 }

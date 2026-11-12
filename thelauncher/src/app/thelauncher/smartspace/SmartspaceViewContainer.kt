@@ -10,6 +10,9 @@ import android.view.View
 import android.widget.FrameLayout
 import app.thelauncher.MainLauncher
 import app.thelauncher.launcher
+import app.thelauncher.preferences2.PreferenceManager2
+import app.thelauncher.preferences2.firstCached
+import app.thelauncher.smartspace.model.GLANCE_STYLE_MATERIAL
 import app.thelauncher.ui.preferences.PreferenceActivity
 import app.thelauncher.ui.preferences.navigation.Smartspace
 import com.android.launcher3.CheckLongPressHelper
@@ -28,9 +31,18 @@ class SmartspaceViewContainer @JvmOverloads constructor(
     private val smartspaceView: View
 
     init {
-        val inflater = LayoutInflater.from(context)
-        smartspaceView = inflater.inflate(R.layout.smartspace_enhanced, this, false) as BcSmartspaceView
-        smartspaceView.previewMode = previewMode
+        val widgetStyle = PreferenceManager2.getInstance(context).smartspaceWidgetStyle.firstCached()
+        smartspaceView = if (widgetStyle == GLANCE_STYLE_MATERIAL) {
+            GlanceWidgetView(context).also {
+                it.previewMode = previewMode
+                it.layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT)
+            }
+        } else {
+            val inflater = LayoutInflater.from(context)
+            (inflater.inflate(R.layout.smartspace_enhanced, this, false) as BcSmartspaceView).also {
+                it.previewMode = previewMode
+            }
+        }
         val dp = InvariantDeviceProfile.INSTANCE.get(context).getDeviceProfile(context)
         val leftPadding = dp.widgetPadding.left
         val rightPadding = dp.widgetPadding.right

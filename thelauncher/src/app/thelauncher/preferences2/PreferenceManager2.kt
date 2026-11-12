@@ -53,7 +53,8 @@ import app.thelauncher.util.DOT_PLACEMENT_TOP_RIGHT
 import app.thelauncher.util.DRAWER_INDICATOR_NONE
 import app.thelauncher.util.SUGGESTIONS_DIVIDER_AUTO
 import app.thelauncher.qsb.QSB_END_VOICE
-import app.thelauncher.smartspace.model.SMARTSPACE_BUBBLE_OFF
+import app.thelauncher.smartspace.model.GLANCE_SIZE_COMPACT
+import app.thelauncher.smartspace.model.GLANCE_STYLE_MATERIAL
 import app.thelauncher.smartspace.model.SMARTSPACE_DATE_LONG
 import app.thelauncher.smartspace.model.SMARTSPACE_LAYOUT_ONE_CARD
 import app.thelauncher.theme.color.ColorStyle
@@ -1137,27 +1138,66 @@ class PreferenceManager2 @Inject constructor(
         defaultValue = false,
     )
 
-    /** "off", "pill" (fits the text) or "card" (full width). */
-    val smartspaceBubble = preference(
-        key = stringPreferencesKey("smartspace_bubble"),
-        defaultValue = SMARTSPACE_BUBBLE_OFF,
+    /** Seerr's address, such as https://seerr.example.com, for adding and deleting from search. */
+    val seerrUrl = preference(
+        key = stringPreferencesKey("seerr_url"),
+        defaultValue = "",
     )
 
-    val smartspaceBubbleColor = preference(
-        key = stringPreferencesKey("smartspace_bubble_color"),
+    /** Seerr's API key, from Seerr's Settings → General. */
+    val seerrApiKey = preference(
+        key = stringPreferencesKey("seerr_api_key"),
+        defaultValue = "",
+    )
+
+    /** "material": a Material You card. "text": the date and details over the wallpaper. */
+    val smartspaceWidgetStyle = preference(
+        key = stringPreferencesKey("smartspace_widget_style"),
+        defaultValue = GLANCE_STYLE_MATERIAL,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    /** "compact": one row under the date. "large": two rows, using two rows of the grid. */
+    val smartspaceWidgetSize = preference(
+        key = stringPreferencesKey("smartspace_widget_size"),
+        defaultValue = GLANCE_SIZE_COMPACT,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    /** The card's colour; Default follows the wallpaper (Material You). */
+    val smartspaceCardColor = preference(
+        key = stringPreferencesKey("smartspace_card_color"),
         parse = ColorOption::fromString,
         save = ColorOption::toString,
-        defaultValue = ColorOption.CustomColor(0xFF000000),
+        defaultValue = ColorOption.Default,
     )
 
-    val smartspaceBubbleOpacity = preference(
-        key = floatPreferencesKey("smartspace_bubble_opacity"),
-        defaultValue = 0.35f,
+    val smartspaceCardOpacity = preference(
+        key = floatPreferencesKey("smartspace_card_opacity"),
+        defaultValue = 1f,
     )
 
-    val smartspaceBubbleRadius = preference(
-        key = floatPreferencesKey("smartspace_bubble_radius"),
+    val smartspaceCardRadius = preference(
+        key = floatPreferencesKey("smartspace_card_radius"),
         defaultValue = 28f,
+    )
+
+    /** How many hours ahead calendar events show on the widget. */
+    val smartspaceEventLookahead = preference(
+        key = intPreferencesKey("smartspace_event_lookahead"),
+        defaultValue = 24,
+    )
+
+    /** The condition and the day's high and low under the date. */
+    val smartspaceWeatherDetails = preference(
+        key = booleanPreferencesKey("smartspace_weather_details"),
+        defaultValue = true,
+    )
+
+    /** The app tapping the weather opens; empty opens the forecast. */
+    val smartspaceWeatherApp = preference(
+        key = stringPreferencesKey("smartspace_weather_app"),
+        defaultValue = "",
     )
 
     val smartspaceTextScale = preference(

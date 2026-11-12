@@ -251,3 +251,31 @@ data object SearchSettingsSectionBuilder : SectionBuilder {
         return targets
     }
 }
+
+/** "Add to Seerr" or "Delete from Seerr", above everything else when the search asks for it. */
+data object SeerrSectionBuilder : SectionBuilder {
+    override fun build(
+        context: Context,
+        factory: SearchTargetFactory,
+        results: List<SearchResult>,
+    ): List<SearchTargetCompat> {
+        val items = results.filterIsInstance<SearchResult.Seerr>()
+        val more = results.filterIsInstance<SearchResult.SeerrMore>().firstOrNull()
+        val message = results.filterIsInstance<SearchResult.SeerrMessage>().firstOrNull()
+        val mode = items.firstOrNull()?.mode ?: message?.mode ?: if (more != null) app.thelauncher.seerr.SeerrMode.ADD else return emptyList()
+
+        val targets = mutableListOf<SearchTargetCompat>()
+        targets.add(
+            factory.createHeaderTarget(
+                context.getString(
+                    if (mode == app.thelauncher.seerr.SeerrMode.ADD) R.string.seerr_header_add else R.string.seerr_header_delete,
+                ),
+            ),
+        )
+        items.forEach { targets.add(app.thelauncher.seerr.SeerrTargets.item(context, it)) }
+        more?.let { targets.add(app.thelauncher.seerr.SeerrTargets.more(context, it)) }
+        message?.let { targets.add(app.thelauncher.seerr.SeerrTargets.message(context, it)) }
+        targets.add(factory.createHeaderTarget(SPACE))
+        return targets
+    }
+}

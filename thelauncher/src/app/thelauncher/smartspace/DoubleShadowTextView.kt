@@ -14,6 +14,18 @@ open class DoubleShadowTextView @JvmOverloads constructor(
 
     private val shadowInfo = fromContext(context, attrs, 0)
 
+    /** Off for text on a card, such as the At a Glance widget, where a shadow looks smudged. */
+    var shadowsEnabled = true
+        set(value) {
+            field = value
+            if (value) {
+                setShadowLayer(shadowInfo.ambientShadowBlur, 0f, 0f, shadowInfo.ambientShadowColor)
+            } else {
+                setShadowLayer(0f, 0f, 0f, Color.TRANSPARENT)
+            }
+            invalidate()
+        }
+
     init {
         setShadowLayer(shadowInfo.ambientShadowBlur, 0f, 0f, shadowInfo.ambientShadowColor)
     }
@@ -57,6 +69,11 @@ open class DoubleShadowTextView @JvmOverloads constructor(
     }
 
     override fun onDraw(canvas: Canvas) {
+        if (!shadowsEnabled) {
+            paint.clearShadowLayer()
+            super.onDraw(canvas)
+            return
+        }
         // If text is transparent or shadow alpha is 0, don't draw any shadow
         if (skipDoubleShadow()) {
             super.onDraw(canvas)

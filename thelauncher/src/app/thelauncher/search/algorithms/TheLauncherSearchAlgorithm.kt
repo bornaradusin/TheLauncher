@@ -91,6 +91,7 @@ sealed class TheLauncherSearchAlgorithm(
         val settingIndices = findIndices(filtered, ICON_SLICE)
         val recentIndices = findIndices(filtered, WIDGET_LIVE)
         val calculator = findIndices(filtered, CALCULATOR)
+        val seerrIndices = findIndices(filtered, app.thelauncher.seerr.SEERR_LAYOUT)
 
         return filtered.mapIndexedNotNull { index, target ->
             val isFirst = index == 0 || filtered[index - 1].isDivider
@@ -118,6 +119,7 @@ sealed class TheLauncherSearchAlgorithm(
                     settingIndices,
                     recentIndices,
                     calculator,
+                    seerrIndices,
                 )
                 SearchAdapterItem.createAdapterItem(target, background)
             }
@@ -170,6 +172,7 @@ sealed class TheLauncherSearchAlgorithm(
         settingIndices: List<Int>,
         recentIndices: List<Int>,
         calculator: List<Int>,
+        seerrIndices: List<Int>,
     ): SearchItemBackground = when {
         layoutType == TEXT_HEADER || layoutType == ICON_SINGLE_VERTICAL_TEXT || layoutType == EMPTY_DIVIDER -> iconBackground
 
@@ -192,6 +195,8 @@ sealed class TheLauncherSearchAlgorithm(
         layoutType == EMPTY_STATE -> transparentBackground
 
         layoutType == SEARCH_SETTINGS -> transparentBackground
+
+        layoutType == app.thelauncher.seerr.SEERR_LAYOUT -> getGroupedBackground(index, seerrIndices)
 
         //        layoutType == PLAY_PLACEHOLDER -> transparentBackground
 //        layoutType == EDUCARD -> transparentBackground

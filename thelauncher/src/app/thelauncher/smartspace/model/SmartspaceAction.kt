@@ -15,6 +15,8 @@ data class SmartspaceAction(
     val intent: Intent? = null,
     val onClick: Runnable? = null,
     val extras: Bundle? = null,
+    /** Buttons the At a Glance widget shows on this item's row (media controls, Turn off). */
+    val controls: List<SmartspaceAction> = emptyList(),
 )
 
 val SmartspaceAction?.hasIntent get() = this != null && (intent != null || pendingIntent != null || onClick != null)

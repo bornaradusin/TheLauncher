@@ -246,6 +246,7 @@ fun IntegrationsCategory() = CategoryScreen(
         Entry(R.string.minus_one, R.string.cat_entry_feed_desc, section("home", R.string.minus_one, R.string.minus_one)),
         Entry(R.string.search_bar_label, R.string.cat_entry_search_desc, Search()),
         Entry(R.string.suggestion_pref_screen_title, R.string.cat_entry_suggestions_desc, Predictions),
+        Entry(R.string.seerr_label, R.string.seerr_entry_desc, app.thelauncher.ui.preferences.navigation.SeerrSettings),
         Entry(R.string.experimental_features_label, R.string.cat_entry_debug_desc, ExperimentalFeatures),
     ),
 )

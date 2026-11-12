@@ -5,6 +5,8 @@ import android.content.Context
 import android.graphics.drawable.Icon
 import app.thelauncher.BlankActivity
 import app.thelauncher.getAppName
+import androidx.core.graphics.drawable.toBitmap
+import app.thelauncher.smartspace.model.GlanceExtras
 import app.thelauncher.smartspace.model.SmartspaceAction
 import app.thelauncher.smartspace.model.SmartspaceScores
 import app.thelauncher.smartspace.model.SmartspaceTarget
@@ -46,15 +48,44 @@ class NowPlayingProvider(context: Context) :
             ?: sbn?.getAppName(context)
             ?: context.getAppName(tracking.packageName)
         val intent = sbn?.notification?.contentIntent
+        val playing = tracking.playing
+        // Album art, otherwise the playing app's icon, for the widget's row.
+        val art = mediaInfo.art ?: runCatching {
+            context.packageManager.getApplicationIcon(tracking.packageName).toBitmap()
+        }.getOrNull()
+        val appName = sbn?.getAppName(context) ?: context.getAppName(tracking.packageName)
+        val controls = listOf(
+            SmartspaceAction(
+                id = "mediaPrevious",
+                icon = Icon.createWithResource(context, R.drawable.ic_glance_skip_previous),
+                title = context.getString(R.string.glance_media_previous),
+                onClick = Runnable { media.previous(true) },
+            ),
+            SmartspaceAction(
+                id = "mediaToggle",
+                icon = Icon.createWithResource(context, if (playing) R.drawable.ic_glance_pause else R.drawable.ic_glance_play),
+                title = context.getString(if (playing) R.string.glance_media_pause else R.string.glance_media_play),
+                onClick = Runnable { media.toggle(false) },
+            ),
+            SmartspaceAction(
+                id = "mediaNext",
+                icon = Icon.createWithResource(context, R.drawable.ic_glance_skip_next),
+                title = context.getString(R.string.glance_media_next),
+                onClick = Runnable { media.next(true) },
+            ),
+        )
         return SmartspaceTarget(
-            id = "nowPlaying-${mediaInfo.hashCode()}",
+            id = "nowPlaying-${mediaInfo.hashCode()}-$playing",
             headerAction = SmartspaceAction(
                 id = "nowPlayingAction-${mediaInfo.hashCode()}",
                 icon = icon,
                 title = title,
                 subtitle = subtitle,
+                contentDescription = listOfNotNull(mediaInfo.artist?.takeIf { it.isNotEmpty() }, appName).joinToString(" · "),
                 pendingIntent = intent,
-                onClick = if (intent == null) Runnable { media.toggle(true) } else null,
+                onClick = if (intent == null) Runnable { media.toggle(false) } else null,
+                extras = art?.let { bitmap -> android.os.Bundle().apply { putParcelable(GlanceExtras.ART, bitmap) } },
+                controls = controls,
             ),
             score = SmartspaceScores.SCORE_MEDIA,
             featureType = SmartspaceTarget.FeatureType.FEATURE_MEDIA,

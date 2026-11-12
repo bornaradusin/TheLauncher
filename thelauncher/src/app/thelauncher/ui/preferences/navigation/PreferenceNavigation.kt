@@ -255,6 +255,9 @@ fun PreferenceNavigation(
         composable<BackupAndRestore>(
             deepLinks = getDeepLink(BackupAndRestore),
         ) { BackupAndRestorePreference() }
+        composable<SeerrSettings>(
+            deepLinks = getDeepLink(SeerrSettings),
+        ) { app.thelauncher.ui.preferences.destinations.SeerrPreferences() }
 
         composable<About>(
             deepLinks = getDeepLink(About),

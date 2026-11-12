@@ -7,6 +7,7 @@ import android.graphics.drawable.Icon
 import android.os.BatteryManager
 import android.util.Log
 import androidx.core.content.getSystemService
+import app.thelauncher.smartspace.model.GlanceExtras
 import app.thelauncher.smartspace.model.SmartspaceAction
 import app.thelauncher.smartspace.model.SmartspaceScores
 import app.thelauncher.smartspace.model.SmartspaceTarget
@@ -79,6 +80,19 @@ class BatteryStatusProvider(context: Context) :
                 icon = Icon.createWithResource(context, iconResId),
                 title = title,
                 subtitle = subtitle,
+                extras = android.os.Bundle().apply {
+                    putInt(GlanceExtras.LEVEL, level)
+                    putBoolean(GlanceExtras.CHARGING, charging)
+                    if (charging && chargingTimeRemaining > 0) {
+                        putString(
+                            GlanceExtras.DETAIL,
+                            context.getString(
+                                R.string.glance_full_in,
+                                formatShortElapsedTimeRoundingUpToMinutes(context, chargingTimeRemaining),
+                            ),
+                        )
+                    }
+                },
             ),
             score = score,
             featureType = SmartspaceTarget.FeatureType.FEATURE_CALENDAR,
