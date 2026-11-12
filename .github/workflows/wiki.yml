@@ -203,6 +203,17 @@ jobs:
             tap_text 'Pill around the text'
             shot 25-glance-bubble
             scroll; shot 26-glance-style-more
+            home; sleep 6; shot 29-home-pill
+            settings smartspace; dismiss
+            scroll_to 'Bubble' && nudge && tap_text 'Bubble' && tap_text 'Full-width card'
+            shot 30-glance-card-setting
+            home; sleep 6; shot 31-home-card
+            settings smartspace; dismiss
+            scroll_to 'Centered' && tap_text 'Centered'
+            home; sleep 6; shot 32-home-card-centered
+            settings smartspace; dismiss
+            scroll_to 'Bubble' && nudge && tap_text 'Bubble' && tap_text 'Pill around the text'
+            home; sleep 6; shot 33-home-pill-centered
           fi
           back; back; back
 
