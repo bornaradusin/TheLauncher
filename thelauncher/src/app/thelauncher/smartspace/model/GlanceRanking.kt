@@ -17,6 +17,18 @@ object GlanceRanking {
         .sortedByDescending { it.second }
         .map { it.first }
 
+    /** From this priority up an item shows by itself, without a swipe (see [urgentItems]). */
+    private const val URGENT = 70
+
+    /**
+     * What needs to be seen now, most urgent first: the flashlight while it's on, music playing, an
+     * event about to start, an alarm or timer due within the hour. At a Glance shows these first.
+     */
+    fun urgentItems(targets: List<SmartspaceTarget>, now: Long): List<SmartspaceTarget> = targets
+        .mapNotNull { target -> priority(target, now, 0)?.takeIf { it >= URGENT }?.let { target to it } }
+        .sortedByDescending { it.second }
+        .map { it.first }
+
     /** Null leaves the item off the widget. */
     private fun priority(target: SmartspaceTarget, now: Long, lookaheadHours: Int): Int? {
         val extras = (target.headerAction ?: target.baseAction)?.extras

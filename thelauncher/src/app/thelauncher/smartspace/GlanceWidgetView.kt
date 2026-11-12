@@ -17,8 +17,10 @@ import android.text.format.DateUtils
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.Gravity
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewConfiguration
 import android.view.ViewOutlineProvider
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -87,6 +89,18 @@ class GlanceWidgetView @JvmOverloads constructor(
     private var targets: List<SmartspaceTarget> = emptyList()
     private var renderedRows: List<String> = emptyList()
     private var wantsDetail = false
+
+    // The one-row card shows one page at a time and turns with a swipe: page 0 is the date and
+    // weather, the others one item each. It turns by itself to anything urgent that appears.
+    private var page = 0
+    private var pageCount = 1
+    private var lastUrgentKey: String? = null
+    private var palette: GlancePalette? = null
+    private val dotPaint = Paint(Paint.ANTI_ALIAS_FLAG)
+    private val touchSlop = ViewConfiguration.get(context).scaledTouchSlop
+    private var downX = 0f
+    private var downY = 0f
+    private var swiping = false
 
     init {
         clipChildren = false
@@ -182,17 +196,26 @@ class GlanceWidgetView @JvmOverloads constructor(
         }
         var showDetail = wantsDetail
         var visibleRows = rowHeights.size
-        if (heightMode != MeasureSpec.UNSPECIFIED && available > 0) {
+        if (compact) {
+            // One page at a time (see [showPage]); the weather details only when they fit.
+            visibleRows = -1
+            val detailFits = heightMode == MeasureSpec.UNSPECIFIED || available <= 0 ||
+                card.paddingTop + card.paddingBottom + headerWithDetail <= available
+            val show = wantsDetail && detailFits
+            if (detailView.isVisible != show) detailView.isVisible = show
+        } else if (heightMode != MeasureSpec.UNSPECIFIED && available > 0) {
             fun total() = card.paddingTop + card.paddingBottom +
                 (if (showDetail) headerWithDetail else headerWithoutDetail) + rowHeights.take(visibleRows).sum()
             while (total() > available && visibleRows > 0) visibleRows--
             if (total() > available && showDetail) showDetail = false
         }
-        for (i in 0 until rows.childCount) {
-            val visibility = if (i < visibleRows) View.VISIBLE else View.GONE
-            if (rows.getChildAt(i).visibility != visibility) rows.getChildAt(i).visibility = visibility
+        if (visibleRows >= 0) {
+            for (i in 0 until rows.childCount) {
+                val visibility = if (i < visibleRows) View.VISIBLE else View.GONE
+                if (rows.getChildAt(i).visibility != visibility) rows.getChildAt(i).visibility = visibility
+            }
+            if (detailView.isVisible != showDetail) detailView.isVisible = showDetail
         }
-        if (detailView.isVisible != showDetail) detailView.isVisible = showDetail
         measureCard(innerWidth)
         // Last resort for a very short space: shrink the card, keeping it the full width.
         fitScale = if (heightMode != MeasureSpec.UNSPECIFIED && available in 1 until card.measuredHeight) {
@@ -263,19 +286,108 @@ class GlanceWidgetView @JvmOverloads constructor(
         BcSmartSpaceUtil.setOnClickListener(weatherBox, weatherTap, null, TAG)
         BcSmartSpaceUtil.setOnClickListener(detailView, weatherTap, null, TAG)
 
+        this.palette = palette
         val items = GlanceRanking.contextItems(targets, now, style.lookaheadHours)
             .filter { (it.headerAction ?: it.baseAction) != null }
-            .take(maxRows)
-        // The compact widget has room for the weather details or a row, not both.
-        wantsDetail = style.weatherDetails && !detail.isNullOrBlank() && (!compact || items.isEmpty())
+            .take(if (compact) COMPACT_MAX_PAGES - 1 else maxRows)
+        wantsDetail = style.weatherDetails && !detail.isNullOrBlank()
         detailView.isVisible = wantsDetail
         val rowContent = items.mapNotNull { describe(it, now) }
         val keys = rowContent.map { it.key }
-        if (!restyled && keys == renderedRows) return
-        renderedRows = keys
-        rows.removeAllViews()
-        rowContent.forEach { rows.addView(makeRow(it, palette)) }
-        rows.isVisible = rowContent.isNotEmpty()
+        if (restyled || keys != renderedRows) {
+            renderedRows = keys
+            rows.removeAllViews()
+            rowContent.forEach { rows.addView(makeRow(it, palette)) }
+        }
+        if (compact) {
+            pageCount = 1 + rowContent.size
+            // Something urgent that wasn't there before (the flashlight just turned on): show it.
+            val urgent = GlanceRanking.urgentItems(targets, now).firstOrNull()?.id
+            val urgentIndex = rowContent.indexOfFirst { it.target.id == urgent }
+            if (urgent != null && urgent != lastUrgentKey && urgentIndex >= 0) page = urgentIndex + 1
+            lastUrgentKey = urgent
+            if (page >= pageCount) page = 0
+            showPage()
+        } else {
+            pageCount = 1
+            card.getChildAt(0).isVisible = true
+            rows.isVisible = rowContent.isNotEmpty()
+        }
+    }
+
+    /** Shows the current page of the one-row card: the date and weather, or one item. */
+    private fun showPage() {
+        card.getChildAt(0).isVisible = page == 0
+        for (i in 0 until rows.childCount) rows.getChildAt(i).isVisible = i == page - 1
+        rows.isVisible = page > 0
+        invalidate()
+        requestLayout()
+    }
+
+    private fun turnPage(delta: Int) {
+        if (pageCount < 2) return
+        val next = (page + delta).mod(pageCount)
+        val shift = dp(24).toFloat() * if (delta > 0) 1 else -1
+        card.animate().cancel()
+        card.animate().alpha(0f).translationX(-shift).setDuration(90).withEndAction {
+            page = next
+            showPage()
+            card.translationX = shift
+            card.animate().alpha(1f).translationX(0f).setDuration(140).start()
+        }.start()
+    }
+
+    override fun onInterceptTouchEvent(ev: MotionEvent): Boolean {
+        if (!compact || pageCount < 2) return false
+        when (ev.actionMasked) {
+            MotionEvent.ACTION_DOWN -> {
+                downX = ev.x
+                downY = ev.y
+                swiping = false
+                // Sideways swipes on the card turn its pages, not the home screen's.
+                parent?.requestDisallowInterceptTouchEvent(true)
+            }
+            MotionEvent.ACTION_MOVE -> {
+                val dx = ev.x - downX
+                val dy = ev.y - downY
+                if (kotlin.math.abs(dx) > touchSlop && kotlin.math.abs(dx) > kotlin.math.abs(dy)) {
+                    swiping = true
+                    return true
+                }
+                if (kotlin.math.abs(dy) > touchSlop) parent?.requestDisallowInterceptTouchEvent(false)
+            }
+        }
+        return false
+    }
+
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        if (!swiping) return super.onTouchEvent(event)
+        when (event.actionMasked) {
+            MotionEvent.ACTION_UP -> {
+                val dx = event.x - downX
+                if (kotlin.math.abs(dx) > dp(24)) turnPage(if (dx < 0) 1 else -1)
+                swiping = false
+            }
+            MotionEvent.ACTION_CANCEL -> swiping = false
+        }
+        return true
+    }
+
+    // Page dots along the bottom edge of the one-row card.
+    override fun dispatchDraw(canvas: Canvas) {
+        super.dispatchDraw(canvas)
+        val colors = palette ?: return
+        if (!compact || pageCount < 2) return
+        val radius = density * 2.5f
+        val gap = density * 9f
+        val cardBottom = card.top + card.measuredHeight * fitScale
+        val cardWidth = card.measuredWidth * fitScale
+        val y = cardBottom - density * 5f
+        val startX = card.left + cardWidth / 2f - gap * (pageCount - 1) / 2f
+        for (i in 0 until pageCount) {
+            dotPaint.color = ColorUtils.setAlphaComponent(colors.primary, if (i == page) 0xE6 else 0x55)
+            canvas.drawCircle(startX + gap * i, y, radius, dotPaint)
+        }
     }
 
     /** What one row shows, worked out from its item. */
@@ -345,8 +457,9 @@ class GlanceWidgetView @JvmOverloads constructor(
                 cornerRadius = dp(if (compact) 16 else 18).toFloat()
             }
             foreground = ripple(palette.primary, dp(18).toFloat())
+            // In the one-row card each row is a page of its own, under nothing.
             layoutParams = LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-                .apply { topMargin = dp(if (compact) 8 else 10) }
+                .apply { topMargin = if (compact) 0 else dp(10) }
         }
 
         if (content.art != null) {
@@ -447,6 +560,9 @@ class GlanceWidgetView @JvmOverloads constructor(
 
         if (action.hasIntent) {
             BcSmartSpaceUtil.setOnClickListener(row, action, null, TAG)
+        } else {
+            // Still takes the touch, so a swipe across the row turns the one-row card's page.
+            row.isClickable = true
         }
         return row
     }
@@ -493,6 +609,7 @@ class GlanceWidgetView @JvmOverloads constructor(
     companion object {
         private const val TAG = "GlanceWidgetView"
         private const val APP_WIDGET_MAX_ROWS = 3
+        private const val COMPACT_MAX_PAGES = 5
     }
 }
 

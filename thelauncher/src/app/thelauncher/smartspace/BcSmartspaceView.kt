@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.viewpager.widget.ViewPager
 import app.thelauncher.preferences2.PreferenceManager2
+import app.thelauncher.smartspace.model.GlanceRanking
 import app.thelauncher.smartspace.model.SmartspaceStyle
 import app.thelauncher.smartspace.model.SmartspaceTarget
 import app.thelauncher.smartspace.provider.SmartspaceProvider
@@ -131,7 +132,13 @@ class BcSmartspaceView @JvmOverloads constructor(
             return
         }
 
-        val sortedTargets = targets.sortedByDescending { it.score }.toMutableList()
+        // What needs to be seen now (the flashlight, music, an alarm due soon) comes first, and the
+        // pager turns to it by itself when it appears.
+        val urgent = GlanceRanking.urgentItems(targets, System.currentTimeMillis())
+        val sortedTargets = (urgent + targets.filter { it !in urgent }.sortedByDescending { it.score }).toMutableList()
+        val urgentKey = urgent.firstOrNull()?.id
+        val showUrgent = urgentKey != null && urgentKey != lastUrgentKey
+        lastUrgentKey = urgentKey
         val isRtl = layoutDirection == LAYOUT_DIRECTION_RTL
         val currentItem = viewPager.currentItem
         val index = if (isRtl) adapter.count - currentItem else currentItem
@@ -148,7 +155,13 @@ class BcSmartspaceView @JvmOverloads constructor(
         indicator.setNumPages(targets.size)
         oldCard?.let { animateSmartspaceUpdate(it) }
         adapter.notifyDataSetChanged()
+        if (showUrgent) {
+            val first = if (isRtl) count - 1 else 0
+            if (viewPager.currentItem != first) viewPager.setCurrentItem(first, true)
+        }
     }
+
+    private var lastUrgentKey: String? = null
 
     private fun animateSmartspaceUpdate(oldCard: BcSmartspaceCard) {
         if (runningAnimation != null || oldCard.parent != null) return
