@@ -163,7 +163,7 @@ class TheLauncherPredictionEngine(
     }
 
     private fun shouldUseWeightedUsageStats(): Boolean {
-        if (!prefs2.thelauncherPredictorUseWeightedUsageStats.firstCached()) return false
+        if (!prefs2.theLauncherPredictorUseWeightedUsageStats.firstCached()) return false
         val appOps = context.getSystemService(AppOpsManager::class.java)
         return appOps.checkOpNoThrow(
             AppOpsManager.OPSTR_GET_USAGE_STATS,

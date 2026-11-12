@@ -17,7 +17,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import app.thelauncher.MainLauncher
-import app.thelauncher.thelauncherApp
+import app.thelauncher.theLauncherApp
 import app.thelauncher.ui.ModalBottomSheetContent
 import app.thelauncher.views.ComposeBottomSheet
 import com.android.launcher3.R
@@ -25,7 +25,7 @@ import com.android.launcher3.R
 object GestureWithAccessibilityHandler {
 
     fun onTrigger(launcher: MainLauncher, stringAction: Int, action: Int) {
-        val app = launcher.thelauncherApp
+        val app = launcher.theLauncherApp
         if (!app.isAccessibilityServiceBound()) {
             val intent = Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

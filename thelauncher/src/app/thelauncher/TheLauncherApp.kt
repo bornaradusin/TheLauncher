@@ -291,7 +291,7 @@ class TheLauncherApp : LauncherApplication() {
         @OptIn(ExperimentalMaterial3ExpressiveApi::class, ExperimentalMaterial3Api::class)
         fun Launcher.showQuickstepWarningIfNecessary() {
             val launcher = this
-            if (!thelauncherApp.isRecentsComponent || isRecentsEnabled) return
+            if (!theLauncherApp.isRecentsComponent || isRecentsEnabled) return
             ComposeBottomSheet.show(this) {
                 ModalBottomSheetContent(
                     title = { Text(text = stringResource(id = R.string.quickstep_incompatible)) },
@@ -331,4 +331,4 @@ class TheLauncherApp : LauncherApplication() {
     }
 }
 
-val Context.thelauncherApp get() = applicationContext as TheLauncherApp
+val Context.theLauncherApp get() = applicationContext as TheLauncherApp

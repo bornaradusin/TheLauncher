@@ -514,7 +514,7 @@ class MainLauncher : QuickstepLauncher() {
 
     private fun restartIfPending() {
         when {
-            sRestartFlags and FLAG_RESTART != 0 -> thelauncherApp.restart(false)
+            sRestartFlags and FLAG_RESTART != 0 -> theLauncherApp.restart(false)
 
             sRestartFlags and FLAG_RECREATE != 0 -> {
                 sRestartFlags = 0

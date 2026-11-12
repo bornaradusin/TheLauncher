@@ -415,7 +415,7 @@ class PreferenceManager2 @Inject constructor(
         save = { it.toString() },
     )
 
-    val thelauncherPredictorUseWeightedUsageStats = preference(
+    val theLauncherPredictorUseWeightedUsageStats = preference(
         key = booleanPreferencesKey(name = "thelauncher_prediction_use_weighted_usage"),
         defaultValue = false,
     )

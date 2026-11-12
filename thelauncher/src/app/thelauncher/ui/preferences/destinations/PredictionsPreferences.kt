@@ -92,7 +92,7 @@ private fun AppPredictionsFeature(
     }
 
     val predictionModeAdapter = prefs2.predictionMode.getAdapter()
-    val weightedUsageStatsAdapter = prefs2.thelauncherPredictorUseWeightedUsageStats.getAdapter()
+    val weightedUsageStatsAdapter = prefs2.theLauncherPredictorUseWeightedUsageStats.getAdapter()
     val predictionModeEntries = rememberPredictionModeEntries(context)
     val dismissedPredictionAppsCount = rememberDismissedPredictionAppsCount(context)
     val dismissedPredictionAppsSubtitle = resources.getQuantityString(

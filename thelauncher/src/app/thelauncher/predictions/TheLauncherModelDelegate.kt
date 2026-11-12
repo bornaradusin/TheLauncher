@@ -36,7 +36,7 @@ class TheLauncherModelDelegate @Inject constructor(
 ) : QuickstepModelDelegate(context, idp, userCache, itemParserFactory, dbFileName) {
 
     private val prefs2: PreferenceManager2 by lazy { PreferenceManager2.getInstance(context) }
-    private val thelauncherPredictor: TheLauncherAppPredictor by lazy {
+    private val theLauncherPredictor: TheLauncherAppPredictor by lazy {
         TheLauncherAppPredictor(context)
     }
 
@@ -57,13 +57,13 @@ class TheLauncherModelDelegate @Inject constructor(
     @WorkerThread
     override fun destroy() {
         unregisterPredictionModeChanged()
-        thelauncherPredictor.unregister()
+        theLauncherPredictor.unregister()
         super.destroy()
     }
 
     @WorkerThread
     override fun recreatePredictors() {
-        thelauncherPredictor.unregister()
+        theLauncherPredictor.unregister()
         when (currentPredictionMode()) {
             SystemPredictor -> super.recreatePredictors()
 
@@ -120,7 +120,7 @@ class TheLauncherModelDelegate @Inject constructor(
         destroyPredictors()
         if (!mActive) return
 
-        thelauncherPredictor.register(
+        theLauncherPredictor.register(
             model = mModel,
             dataModel = mDataModel,
             allAppsState = mAllPredictionAppsState,
@@ -133,7 +133,7 @@ class TheLauncherModelDelegate @Inject constructor(
 
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun updateTheLauncherPredictions() {
-        thelauncherPredictor.updates(
+        theLauncherPredictor.updates(
             model = mModel,
             dataModel = mDataModel,
             allAppsState = mAllPredictionAppsState,
@@ -145,7 +145,7 @@ class TheLauncherModelDelegate @Inject constructor(
 
     private fun clearPredictions() {
         destroyPredictors()
-        thelauncherPredictor.empty(
+        theLauncherPredictor.empty(
             model = mModel,
             allAppsState = mAllPredictionAppsState,
             hotseatState = mHotseatPredictionState,

@@ -206,7 +206,7 @@ class PreferenceManager @Inject constructor(
     val enableGnc = BoolPref("pref_enableGnc", isGestureNavContractCompatible, recreate)
     val hasOpenedSettings = BoolPref("pref_hasOpenedSettings", false)
 
-    val thelauncherMajorVersion = IntPref(
+    val theLauncherMajorVersion = IntPref(
         "pref_thelauncherMajorVersion",
         context.getApkVersionComparison().first[0],
     )

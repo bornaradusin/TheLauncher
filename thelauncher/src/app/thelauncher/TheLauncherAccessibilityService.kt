@@ -34,11 +34,11 @@ class TheLauncherAccessibilityService : AccessibilityService() {
             // to events from all applications.
             packageNames = emptyArray()
         }
-        thelauncherApp.accessibilityService = this
+        theLauncherApp.accessibilityService = this
     }
 
     override fun onDestroy() {
-        thelauncherApp.accessibilityService = null
+        theLauncherApp.accessibilityService = null
         super.onDestroy()
     }
 
