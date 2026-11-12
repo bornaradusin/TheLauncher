@@ -43,7 +43,15 @@ class AboutViewModel(
                     BuildConfig.VERSION_NAME
                 },
                 commitHash = BuildConfig.COMMIT_HASH,
-                coreTeam = emptyList(),
+                coreTeam = listOf(
+                    TeamMember(
+                        name = "bornaradusin",
+                        role = Role.Development,
+                        photoUrl = "https://github.com/bornaradusin.png",
+                        socialUrl = "https://github.com/bornaradusin",
+                        githubUsername = "bornaradusin",
+                    ),
+                ),
                 supportAndPr = emptyList(),
                 topLinks = listOf(
                     Link(
