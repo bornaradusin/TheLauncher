@@ -114,6 +114,30 @@ jobs:
           python3 .github/screenshots/make_backup.py "$RUNNER_TEMP/hyperion_test.backup"
           sleep 2
           curl -s localhost:5055/api/v1/status
+      # A started emulator is kept between builds, so it resumes in seconds instead of booting
+      # from scratch (several minutes) every time.
+      - name: Emulator from the last build
+        if: ${{ env.SECTIONS != 'none' || env.PAGES != 'none' }}
+        id: avd-cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.android/avd/*
+            ~/.android/adb*
+          key: avd-34-playstore-pixel_6-v1
+      - name: Start an emulator to keep
+        if: ${{ (env.SECTIONS != 'none' || env.PAGES != 'none') && steps.avd-cache.outputs.cache-hit != 'true' }}
+        continue-on-error: true
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: playstore
+          arch: x86_64
+          profile: pixel_6
+          force-avd-creation: false
+          disable-animations: false
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          script: echo "Emulator saved for the next builds"
       - name: Capture screenshots
         if: ${{ env.SECTIONS != 'none' || env.PAGES != 'none' }}
         continue-on-error: true
@@ -123,8 +147,9 @@ jobs:
           target: playstore
           arch: x86_64
           profile: pixel_6
+          force-avd-creation: false
           disable-animations: true
-          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          emulator-options: -no-snapshot-save -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
           script: bash .github/screenshots/capture.sh
       - name: Store screenshots
         if: always()

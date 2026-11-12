@@ -231,7 +231,7 @@ fi
 
 if want home; then
 # Home screen.
-home; sleep 20
+home; sleep 8
 shot 01-home
 long_xy 540 1200
 shot 02-home-menu
