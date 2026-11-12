@@ -140,6 +140,8 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           [ -d shots ] || exit 0
+          git config user.name bornaradusin
+          git config user.email 43745159+bornaradusin@users.noreply.github.com
           grep -v '^#' .github/screenshots/wiki-images.txt | while read -r shot image; do
             [ -n "$shot" ] && [ -f "shots/$shot.png" ] && cp "shots/$shot.png" "wiki/images/$image"
           done

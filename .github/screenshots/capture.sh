@@ -144,6 +144,9 @@ if scroll_to 'Material card'; then
   total=$(( 10#${now%%:*} * 60 + 10#${now##*:} + 40 ))
   adb shell am start -a android.intent.action.SET_ALARM --ei android.intent.extra.alarm.HOUR $(( (total / 60) % 24 )) --ei android.intent.extra.alarm.MINUTES $(( total % 60 )) --ez android.intent.extra.alarm.SKIP_UI true >/dev/null
   sleep 3
+  # The alarm is due within the hour, so the one-row card turns to it by itself; a swipe goes back.
+  home; sleep 8; shot 29a-glance-urgent
+  adb shell input swipe 800 420 200 420 250; sleep 2; shot 29b-glance-swiped
   adb emu power ac on
   adb emu power status charging
   settings smartspace
