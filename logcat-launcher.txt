@@ -1,0 +1,311 @@
+11-12 16:35:44.749   502   567 I ActivityTaskManager: START u0 {act=android.intent.action.VIEW dat=thelauncher://settings/... flg=0x10008000 cmp=app.thelauncher/.ui.preferences.PreferenceActivity} with LAUNCH_MULTIPLE from uid 2000 (BAL_ALLOW_PERMISSION) result code=0
+11-12 16:35:44.760   791   826 V WindowManagerShell: Transition requested: android.os.BinderProxy@9595f6c TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=9 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.VIEW dat=thelauncher://settings/... flg=0x10008000 cmp=app.thelauncher/.ui.preferences.PreferenceActivity } baseActivity=ComponentInfo{app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity} topActivity=ComponentInfo{app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity} origActivity=null realActivity=ComponentInfo{app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity} numActivities=1 lastActiveTime=101660 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@fa8b935} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 128 - 0, 0) topActivityInfo=ActivityInfo{74331ca app.thelauncher.ui.preferences.PreferenceActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+11-12 16:35:45.324   502   520 V WindowManager: Sent Transition #10 createdAt=11-12 16:35:44.701 via request=TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=9 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.VIEW dat=thelauncher://settings/... flg=0x10008000 cmp=app.thelauncher/.ui.preferences.PreferenceActivity } baseActivity=ComponentInfo{app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity} topActivity=ComponentInfo{app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity} origActivity=null realActivity=ComponentInfo{app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity} numActivities=1 lastActiveTime=101660 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{RemoteToken{d9243d Task{49d1c45 #9 type=standard A=10190:app.thelauncher}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=Rect(0, 128 - 0, 0) topActivityInfo=ActivityInfo{9ad3432 app.thelauncher.ui.preferences.PreferenceActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=false isVisible=false isVisibleRequested=false isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+11-12 16:35:45.324   502   520 V WindowManager:     info={id=10 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{WCT{RemoteToken{d9243d Task{49d1c45 #9 type=standard A=10190:app.thelauncher}}} m=OPEN f=SHOW_WALLPAPER leash=Surface(name=Task=9)/@0x9c203da sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{WCT{RemoteToken{552a583 Task{9d220f1 #1 type=home}}} m=TO_BACK f=SHOW_WALLPAPER leash=Surface(name=Task=1)/@0x89d787d sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+11-12 16:35:45.330   502   566 D CoreBackPreview: Window{3a1e717 u0 app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@d38c739, mPriority=-1, mIsAnimationCallback=false}
+11-12 16:35:45.883   502  2123 D CoreBackPreview: Window{3a1e717 u0 app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@67fa747, mPriority=0, mIsAnimationCallback=true}
+11-12 16:35:45.897  4923  5063 I BugleDataModel: DatabaseHelperUtils: insertSelfParticipant. participantId: 1, selfParticipantId: 1, subId: -1
+11-12 16:35:45.980  4629  4669 W SQLiteLog: (28) double-quoted string literal: "com.android.cellbroadcastreceiver"
+11-12 16:35:45.980  4629  4669 W SQLiteLog: (28) double-quoted string literal: "com.android.emergency"
+11-12 16:35:45.980  4629  4669 W SQLiteLog: (28) double-quoted string literal: "com.android.healthconnect.controller"
+11-12 16:35:45.980  4629  4669 W SQLiteLog: (28) double-quoted string literal: "com.android.permissioncontroller"
+11-12 16:35:45.980  4629  4669 W SQLiteLog: (28) double-quoted string literal: "com.android.permissioncontroller.role"
+11-12 16:35:45.980  4629  4669 W SQLiteLog: (28) double-quoted string literal: "com.android.permissioncontroller.safetycenter"
+11-12 16:35:45.980  4629  4669 W SQLiteLog: (28) double-quoted string literal: "com.android.settings"
+11-12 16:35:45.980  4629  4669 W SQLiteLog: (28) double-quoted string literal: "com.android.traceur"
+11-12 16:35:45.980  4629  4669 W SQLiteLog: (28) double-quoted string literal: "com.google.android.apps.gsa.opa.AssistantSettingsProvider"
+11-12 16:35:45.980  4629  4669 W SQLiteLog: (28) double-quoted string literal: "com.google.android.apps.messaging.settings.search"
+11-12 16:35:45.981  4629  4669 W SQLiteLog: (28) double-quoted string literal: "com.google.android.apps.nexuslauncher"
+11-12 16:35:45.981  4629  4669 W SQLiteLog: (28) double-quoted string literal: "com.google.android.apps.wellbeing"
+11-12 16:35:45.981  4629  4669 W SQLiteLog: (28) double-quoted string literal: "com.google.android.gms.accountsettings.content"
+11-12 16:35:45.981  4629  4669 W SQLiteLog: (28) double-quoted string literal: "com.google.android.inputmethod.latin"
+11-12 16:35:45.981  4629  4669 W SQLiteLog: (28) double-quoted string literal: "com.google.android.settings.intelligence.provider.search"
+11-12 16:35:45.981  4629  4669 W SQLiteLog: (28) double-quoted string literal: "com.google.android.settings.intelligence.routines.impl"
+11-12 16:35:45.981  4629  4669 W SQLiteLog: (28) double-quoted string literal: "com.google.android.settings.intelligence.smartringer.impl"
+11-12 16:35:45.995  4103  4126 I app.thelauncher: Background young concurrent copying GC freed 38738(1946KB) AllocSpace objects, 47(6300KB) LOS objects, 21% free, 13MB/16MB, paused 1.301ms,16us total 311.055ms
+11-12 16:35:46.541  4923  5063 I SQLiteConnection: /data/user/0/com.google.android.apps.messaging/databases/bugle_db-wal 1190712 bytes: Bigger than 1048576; truncating
+11-12 16:35:46.541  4923  5063 I Bugle   : DatabaseHelperBasic: sqlite version is 3.39.2
+11-12 16:35:46.929   502   520 I ActivityTaskManager: Displayed app.thelauncher/.ui.preferences.PreferenceActivity for user 0: +2s310ms
+11-12 16:35:47.000   502   858 W InputManager-JNI: Input channel object '8c3d1e3 Splash Screen app.thelauncher (client)' was disposed without first being removed with the input manager!
+11-12 16:35:47.260  4103  4103 D StateManager: 	at com.android.launcher3.statemanager.StateManager.moveToRestState(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:25)
+11-12 16:35:47.260  4103  4103 D StateManager: 	at com.android.launcher3.statemanager.StateManager.moveToRestState(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:33)
+11-12 16:35:47.260  4103  4103 D StateManager: 	at com.android.launcher3.statemanager.StatefulActivity.onStop(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:34)
+11-12 16:35:47.333   502  1861 I ImeTracker: app.thelauncher:18a02e6d: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+11-12 16:35:47.334   502  1861 I ImeTracker: app.thelauncher:18a02e6d: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-12 16:35:47.336  1441  1441 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=app.thelauncher fieldId=0 fieldName=null extras=null}, false)
+11-12 16:35:48.011  4103  4126 I app.thelauncher: Background concurrent copying GC freed 87462(3911KB) AllocSpace objects, 5(132KB) LOS objects, 49% free, 12MB/25MB, paused 44us,13us total 372.643ms
+11-12 16:35:48.191  4103  4149 D AlphabeticIndexCompat: computeSectionName: cs: TheLauncher sectionName: T
+11-12 16:35:48.305  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:35:48.310  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:35:49.770  4629  4669 W SQLiteLog: (28) double-quoted string literal: "com.google.android.gms"
+11-12 16:35:51.313  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:35:51.314  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:35:52.554  2731  2746 W System  : A resource failed to call SQLiteConnectionPool.close. 
+11-12 16:35:52.554  2731  2746 W SQLiteConnectionPool: A SQLiteConnection object for database '/data/user/0/com.android.vending/databases/resource_data.db' was leaked!  Please fix your application to end transactions in progress properly and to close the database when it is no longer needed.
+11-12 16:35:52.554  2731  2746 W System  : A resource failed to call SQLiteConnection.close. 
+11-12 16:35:52.555  2731  2746 W System  : A resource failed to call SQLiteConnectionPool.close. 
+11-12 16:35:52.555  2731  2746 W SQLiteConnectionPool: A SQLiteConnection object for database '/data/user/0/com.android.vending/databases/installer_data_v2.db' was leaked!  Please fix your application to end transactions in progress properly and to close the database when it is no longer needed.
+11-12 16:35:52.555  2731  2746 W System  : A resource failed to call SQLiteConnection.close. 
+11-12 16:35:52.746  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:35:52.746  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:35:55.809   791   826 V WindowManagerShell: Transition requested: android.os.BinderProxy@9964447 TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=9 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.VIEW dat=thelauncher://settings/... flg=0x10008000 cmp=app.thelauncher/.ui.preferences.PreferenceActivity } baseActivity=ComponentInfo{app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity} topActivity=ComponentInfo{com.google.android.documentsui/com.android.documentsui.picker.PickActivity} origActivity=null realActivity=ComponentInfo{app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity} numActivities=2 lastActiveTime=112715 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{android.window.IWindowContainerToken$Stub$Proxy@3b2e474} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=null topActivityInfo=ActivityInfo{a7ecd9d com.android.documentsui.picker.PickActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=true isVisibleRequested=true isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+11-12 16:35:57.047  1533  2280 W ModernMediaScanner: android.database.sqlite.SQLiteConstraintException: UNIQUE constraint failed: files._data (code 2067 SQLITE_CONSTRAINT_UNIQUE)
+11-12 16:35:57.047  1533  2280 W ModernMediaScanner: 	at android.database.sqlite.SQLiteConnection.nativeExecuteForLastInsertedRowId(Native Method)
+11-12 16:35:57.047  1533  2280 W ModernMediaScanner: 	at android.database.sqlite.SQLiteConnection.executeForLastInsertedRowId(SQLiteConnection.java:961)
+11-12 16:35:57.047  1533  2280 W ModernMediaScanner: 	at android.database.sqlite.SQLiteSession.executeForLastInsertedRowId(SQLiteSession.java:790)
+11-12 16:35:57.047  1533  2280 W ModernMediaScanner: 	at android.database.sqlite.SQLiteStatement.executeInsert(SQLiteStatement.java:89)
+11-12 16:35:57.047  1533  2280 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.insert(SQLiteQueryBuilder.java:611)
+11-12 16:35:57.047  1533  2280 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.lambda$insert$1(SQLiteQueryBuilder.java:575)
+11-12 16:35:57.047  1533  2280 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.$r8$lambda$z6PmNgi8nEawad46M5nyYc14aRM(SQLiteQueryBuilder.java:0)
+11-12 16:35:57.047  1533  2280 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder$$ExternalSyntheticLambda4.apply(R8$$SyntheticClass:0)
+11-12 16:35:57.047  1533  2280 W ModernMediaScanner: 	at com.android.providers.media.DatabaseHelper.runWithTransaction(DatabaseHelper.java:850)
+11-12 16:35:57.047  1533  2280 W ModernMediaScanner: 	at com.android.providers.media.util.SQLiteQueryBuilder.insert(SQLiteQueryBuilder.java:574)
+11-12 16:35:57.047  1533  2280 W ModernMediaScanner: 	at com.android.providers.media.DatabaseHelper.runWithTransaction(DatabaseHelper.java:850)
+11-12 16:35:58.428  5328  5339 D SlicesDatabaseHelper: Created databases
+11-12 16:35:58.437  5328  5339 D SlicesDatabaseHelper: Created databases
+11-12 16:36:00.682   791   826 V WindowManagerShell: onTransitionReady android.os.BinderProxy@9964447: {id=11 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{null m=OPEN f=FILLS_TASK leash=Surface(name=ActivityRecord{c64697 u0 com.google.android.documentsui/com.android.documentsui.picker.PickActivity)/@0xf119212 sb=Rect(0, 0 - 0, 0) eb=Rect(0, 0 - 1080, 2400) d=-1->0 r=-1->0:-1},{null m=TO_BACK f=SHOW_WALLPAPER|FILLS_TASK leash=Surface(name=ActivityRecord{b4424bc u0 app.thelauncher/.ui.preferences.PreferenceActivity)/@0xe8dde3 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+11-12 16:36:00.683   791   826 V WindowManagerShell: Transition doesn't have explicit remote, search filters for match for {id=11 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{null m=OPEN f=FILLS_TASK leash=Surface(name=ActivityRecord{c64697 u0 com.google.android.documentsui/com.android.documentsui.picker.PickActivity)/@0xf119212 sb=Rect(0, 0 - 0, 0) eb=Rect(0, 0 - 1080, 2400) d=-1->0 r=-1->0:-1},{null m=TO_BACK f=SHOW_WALLPAPER|FILLS_TASK leash=Surface(name=ActivityRecord{b4424bc u0 app.thelauncher/.ui.preferences.PreferenceActivity)/@0xe8dde3 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+11-12 16:36:00.683   791   826 V WindowManagerShell: start default transition animation, info = {id=11 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{null m=OPEN f=FILLS_TASK leash=Surface(name=ActivityRecord{c64697 u0 com.google.android.documentsui/com.android.documentsui.picker.PickActivity)/@0xf119212 sb=Rect(0, 0 - 0, 0) eb=Rect(0, 0 - 1080, 2400) d=-1->0 r=-1->0:-1},{null m=TO_BACK f=SHOW_WALLPAPER|FILLS_TASK leash=Surface(name=ActivityRecord{b4424bc u0 app.thelauncher/.ui.preferences.PreferenceActivity)/@0xe8dde3 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+11-12 16:36:00.775   502   520 V WindowManager: Sent Transition #11 createdAt=11-12 16:35:55.780 via request=TransitionRequestInfo { type = OPEN, triggerTask = TaskInfo{userId=0 taskId=9 displayId=0 isRunning=true baseIntent=Intent { act=android.intent.action.VIEW dat=thelauncher://settings/... flg=0x10008000 cmp=app.thelauncher/.ui.preferences.PreferenceActivity } baseActivity=ComponentInfo{app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity} topActivity=ComponentInfo{com.google.android.documentsui/com.android.documentsui.picker.PickActivity} origActivity=null realActivity=ComponentInfo{app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity} numActivities=2 lastActiveTime=112715 supportsMultiWindow=true resizeMode=1 isResizeable=true minWidth=-1 minHeight=-1 defaultMinSize=220 token=WCT{RemoteToken{d9243d Task{49d1c45 #9 type=standard A=10190:app.thelauncher}}} topActivityType=1 pictureInPictureParams=null shouldDockBigOverlays=false launchIntoPipHostTaskId=-1 lastParentTaskIdBeforePip=-1 displayCutoutSafeInsets=null topActivityInfo=ActivityInfo{c75c114 com.android.documentsui.picker.PickActivity} launchCookies=[] positionInParent=Point(0, 0) parentTaskId=-1 isFocused=true isVisible=true isVisibleRequested=true isSleeping=false topActivityInSizeCompat=false topActivityEligibleForLetterboxEducation= false topActivityLetterboxed= false isFromDoubleTap= false topActivityLetterboxVerticalPosition= -1 topActivityLetterboxHorizontalPosition= -1 topActivityLetterboxWidth=-1 topActivityLetterboxHeight=-1 locusId=null displayAreaFeatureId=1 cameraCompatControlState=hidden}, remoteTransition = null, displayChange = null }
+11-12 16:36:00.779   502   520 V WindowManager:     info={id=11 t=OPEN f=0x0 trk=0 r=[0@Point(0, 0)] c=[{null m=OPEN f=FILLS_TASK leash=Surface(name=ActivityRecord{c64697 u0 com.google.android.documentsui/com.android.documentsui.picker.PickActivity)/@0x8c12f5a sb=Rect(0, 0 - 0, 0) eb=Rect(0, 0 - 1080, 2400) d=-1->0 r=-1->0:-1},{null m=TO_BACK f=SHOW_WALLPAPER|FILLS_TASK leash=Surface(name=ActivityRecord{b4424bc u0 app.thelauncher/.ui.preferences.PreferenceActivity)/@0xb30f305 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+11-12 16:36:00.854   502  1764 D CoreBackPreview: Window{3a1e717 u0 app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@6d45b03, mPriority=-1, mIsAnimationCallback=false}
+11-12 16:36:06.131  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:06.132  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:06.333  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:06.333  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:07.263  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:07.263  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:07.991  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:07.991  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:08.166  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:08.166  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:12.007  3532  4514 W SQLiteConnectionPool: The connection pool for database '/data/user/0/com.google.android.gms/databases/phenotype.db' has been unable to grant a connection to thread 134 (highpool[7]) with flags 0x2 for 30.000002 seconds.
+11-12 16:36:12.007  3532  4514 W SQLiteConnectionPool: Connections: 0 active, 1 idle, 2 available.
+11-12 16:36:12.204  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:12.205  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:12.706  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:12.706  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:13.340  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:13.340  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:13.408  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:13.408  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:13.440  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:13.440  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:14.108  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:14.109  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:15.376   502   502 V NotificationListeners: enabling notification listener for 0: ComponentInfo{com.google.android.apps.nexuslauncher/com.android.launcher3.notification.NotificationListener}
+11-12 16:36:15.376   502   502 V NotificationListeners: Not registering ComponentInfo{com.google.android.apps.nexuslauncher/com.android.launcher3.notification.NotificationListener} is already bound
+11-12 16:36:16.123   502   502 V NotificationListeners: enabling notification listener for 0: ComponentInfo{com.google.android.apps.nexuslauncher/com.android.launcher3.notification.NotificationListener}
+11-12 16:36:16.123   502   502 V NotificationListeners: Not registering ComponentInfo{com.google.android.apps.nexuslauncher/com.android.launcher3.notification.NotificationListener} is already bound
+11-12 16:36:16.381  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:16.381  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:16.490  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:16.491  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:16.776  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:16.777  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:16.910  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:16.910  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:17.073  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:17.073  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:23.236  2731  3188 I Finsky  : [56] rov.f(20): ItemStore: Not cached: app.thelauncher
+11-12 16:36:24.405  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:24.405  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:24.525  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:24.525  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:24.684   502   857 D CoreBackPreview: Window{3a1e717 u0 app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@1eee9db, mPriority=0, mIsAnimationCallback=true}
+11-12 16:36:24.858   791   826 V WindowManagerShell: onTransitionReady android.os.BinderProxy@e1252a4: {id=12 t=CLOSE f=0x0 trk=0 r=[0@Point(0, 0)] c=[{null m=CLOSE f=FILLS_TASK leash=Surface(name=ActivityRecord{c64697 u0 com.google.android.documentsui/com.android.documentsui.picker.PickActivity)/@0x1d3580d sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{null m=TO_FRONT f=SHOW_WALLPAPER|FILLS_TASK leash=Surface(name=ActivityRecord{b4424bc u0 app.thelauncher/.ui.preferences.PreferenceActivity)/@0x2dea3c2 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{null m=TO_FRONT f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{2efd81f token=android.os.Binder@bcaf1d4})/@0x8bd05d3 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+11-12 16:36:24.864   502   520 V WindowManager:     info={id=12 t=CLOSE f=0x0 trk=0 r=[0@Point(0, 0)] c=[{null m=CLOSE f=FILLS_TASK leash=Surface(name=ActivityRecord{c64697 u0 com.google.android.documentsui/com.android.documentsui.picker.PickActivity)/@0x8c12f5a sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{null m=TO_FRONT f=SHOW_WALLPAPER|FILLS_TASK leash=Surface(name=ActivityRecord{b4424bc u0 app.thelauncher/.ui.preferences.PreferenceActivity)/@0xb30f305 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{null m=TO_FRONT f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{2efd81f token=android.os.Binder@bcaf1d4})/@0x5918a80 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+11-12 16:36:24.864   791   826 V WindowManagerShell: Transition doesn't have explicit remote, search filters for match for {id=12 t=CLOSE f=0x0 trk=0 r=[0@Point(0, 0)] c=[{null m=CLOSE f=FILLS_TASK leash=Surface(name=ActivityRecord{c64697 u0 com.google.android.documentsui/com.android.documentsui.picker.PickActivity)/@0x1d3580d sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{null m=TO_FRONT f=SHOW_WALLPAPER|FILLS_TASK leash=Surface(name=ActivityRecord{b4424bc u0 app.thelauncher/.ui.preferences.PreferenceActivity)/@0x2dea3c2 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{null m=TO_FRONT f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{2efd81f token=android.os.Binder@bcaf1d4})/@0x8bd05d3 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+11-12 16:36:24.864   791   826 V WindowManagerShell: start default transition animation, info = {id=12 t=CLOSE f=0x0 trk=0 r=[0@Point(0, 0)] c=[{null m=CLOSE f=FILLS_TASK leash=Surface(name=ActivityRecord{c64697 u0 com.google.android.documentsui/com.android.documentsui.picker.PickActivity)/@0x1d3580d sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{null m=TO_FRONT f=SHOW_WALLPAPER|FILLS_TASK leash=Surface(name=ActivityRecord{b4424bc u0 app.thelauncher/.ui.preferences.PreferenceActivity)/@0x2dea3c2 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{null m=TO_FRONT f=IS_WALLPAPER leash=Surface(name=WallpaperWindowToken{2efd81f token=android.os.Binder@bcaf1d4})/@0x8bd05d3 sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+11-12 16:36:25.270  1533  1549 I MediaProvider: Open with lower FS for /storage/emulated/0/Download/hyperion_test.backup. Uid: 10083
+11-12 16:36:25.529   502  2108 I ImeTracker: app.thelauncher:56bf7771: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_UNSPECIFIED_WINDOW
+11-12 16:36:25.530   502  2108 I ImeTracker: app.thelauncher:56bf7771: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-12 16:36:25.558  1441  1441 I GoogleInputMethodService: GoogleInputMethodService.onStartInput():1877 onStartInput(EditorInfo{inputType=0x0(NULL) imeOptions=0x0 privateImeOptions=null actionName=UNSPECIFIED actionLabel=null actionId=0 initialSelStart=-1 initialSelEnd=-1 initialCapsMode=0x0 hintText=null label=null packageName=app.thelauncher fieldId=0 fieldName=null extras=null}, false)
+11-12 16:36:25.926  4103  4126 I app.thelauncher: Background young concurrent copying GC freed 83716(4307KB) AllocSpace objects, 79(7768KB) LOS objects, 43% free, 14MB/25MB, paused 61us,24us total 462.930ms
+11-12 16:36:39.750  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:39.750  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:43.431  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:43.431  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:45.300  1533  5904 I MediaProvider: Open with lower FS for /storage/emulated/0/Download/hyperion_test.backup. Uid: 10083
+11-12 16:36:45.617  4103  4199 D RestoreDbTask: No restore task pending, exiting RestoreDbTask
+11-12 16:36:45.617  4103  4103 W LoaderTask: stopLocked: Loader stopping
+11-12 16:36:45.618  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:45.618  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:45.619  4103  4199 D RestoreDbTask: performRestore: starting restore from db
+11-12 16:36:45.621  4103  4199 D RestoreDbTask: Old Launcher Database before sanitizing:
+11-12 16:36:45.621  4103  4199 D RestoreDbTask: profileId=0 title=Phone itemType=0 screen=0 container=-101 cellX=0 cellY=0 spanX=1 spanY=1 intent=#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.google.android.dialer/com.google.android.dialer.extensions.GoogleDialtactsActivity;end appWidgetProvider=null appWidgetId=-1 restored=0 
+11-12 16:36:45.621  4103  4199 D RestoreDbTask: profileId=0 title=Messages itemType=0 screen=1 container=-101 cellX=1 cellY=0 spanX=1 spanY=1 intent=#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.google.android.apps.messaging/com.google.android.apps.messaging.ui.ConversationListActivity;end appWidgetProvider=null appWidgetId=-1 restored=0 
+11-12 16:36:45.621  4103  4199 D RestoreDbTask: profileId=0 title=Chrome itemType=0 screen=2 container=-101 cellX=2 cellY=0 spanX=1 spanY=1 intent=#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.android.chrome/com.google.android.apps.chrome.Main;end appWidgetProvider=null appWidgetId=-1 restored=0 
+11-12 16:36:45.621  4103  4199 D RestoreDbTask: profileId=0 title=YouTube itemType=0 screen=3 container=-101 cellX=3 cellY=0 spanX=1 spanY=1 intent=#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.google.android.youtube/com.google.android.youtube.app.honeycomb.Shell$HomeActivity;end appWidgetProvider=null appWidgetId=-1 restored=0 
+11-12 16:36:45.621  4103  4199 D RestoreDbTask: profileId=0 title=Photos itemType=0 screen=4 container=-101 cellX=4 cellY=0 spanX=1 spanY=1 intent=#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.google.android.apps.photos/com.google.android.apps.photos.home.HomeActivity;end appWidgetProvider=null appWidgetId=-1 restored=0 
+11-12 16:36:45.621  4103  4199 D RestoreDbTask: profileId=0 title=Gmail itemType=0 screen=5 container=-101 cellX=5 cellY=0 spanX=1 spanY=1 intent=#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.google.android.gm/com.google.android.gm.ConversationListActivityGmail;end appWidgetProvider=null appWidgetId=-1 restored=0 
+11-12 16:36:45.621  4103  4199 D RestoreDbTask: profileId=0 title=Contacts itemType=0 screen=6 container=-101 cellX=6 cellY=0 spanX=1 spanY=1 intent=#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.google.android.contacts/com.android.contacts.activities.PeopleActivity;end appWidgetProvider=null appWidgetId=-1 restored=0 
+11-12 16:36:45.621  4103  4199 D RestoreDbTask: profileId=0 title=Play Store itemType=0 screen=7 container=-101 cellX=7 cellY=0 spanX=1 spanY=1 intent=#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.android.vending/com.android.vending.AssetBrowserActivity;end appWidgetProvider=null appWidgetId=-1 restored=0 
+11-12 16:36:45.621  4103  4199 D RestoreDbTask: profileId=0 title=Calendar itemType=0 screen=8 container=-101 cellX=8 cellY=0 spanX=1 spanY=1 intent=#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.google.android.calendar/com.android.calendar.AllInOneActivity;end appWidgetProvider=null appWidgetId=-1 restored=0 
+11-12 16:36:45.621  4103  4199 D RestoreDbTask: profileId=0 title=Files itemType=0 screen=9 container=-101 cellX=9 cellY=0 spanX=1 spanY=1 intent=#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.google.android.documentsui/com.android.documentsui.LauncherActivity;end appWidgetProvider=null appWidgetId=-1 restored=0 
+11-12 16:36:45.621  4103  4199 D RestoreDbTask: profileId=0 title=Camera itemType=0 screen=10 container=-101 cellX=10 cellY=0 spanX=1 spanY=1 intent=#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.android.camera2/com.android.camera.CameraLauncher;end appWidgetProvider=null appWidgetId=-1 restored=0 
+11-12 16:36:45.622  4103  4199 D RestoreDbTask: profileId=0 title=Settings itemType=0 screen=11 container=-101 cellX=11 cellY=0 spanX=1 spanY=1 intent=#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.android.settings/com.android.settings.Settings;end appWidgetProvider=null appWidgetId=-1 restored=0 
+11-12 16:36:45.622  4103  4199 D RestoreDbTask: profileId=0 title=My Maps itemType=0 screen=0 container=-100 cellX=0 cellY=7 spanX=1 spanY=1 intent=#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.google.android.apps.maps/com.google.android.maps.MapsActivity;end appWidgetProvider=null appWidgetId=-1 restored=0 
+11-12 16:36:45.622  4103  4199 D RestoreDbTask: profileId=0 title=Clock itemType=0 screen=0 container=-100 cellX=6 cellY=7 spanX=1 spanY=1 intent=#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;launchFlags=0x10200000;component=com.google.android.deskclock/com.android.deskclock.DeskClock;end appWidgetProvider=null appWidgetId=-1 restored=0 
+11-12 16:36:45.622  4103  4199 D RestoreDbTask: sanitizeDB: myProfileId= 0, oldProfileId= 0
+11-12 16:36:45.624  4103  4199 D RestoreDbTask: logFavoritesTable: No items found from query for "items to delete from unrestored profiles:"
+11-12 16:36:45.625  4103  4199 D RestoreDbTask: 0 total items from unrestored user(s) were deleted
+11-12 16:36:45.625  4103  4199 D RestoreDbTask: Removing gaps between screenIds
+11-12 16:36:45.628  4103  4199 D RestoreDbTask: Did not receive new app widget id map during Launcher restore
+11-12 16:36:45.631  4103  4149 I GridSizeMigrationDBController: Migration is needed. destDeviceState: DeviceGridState{mGridSizeString='4,6', mNumHotseat=6, mDeviceType=0, mDbFile=launcher_6_4_6.db}, srcDeviceState: DeviceGridState{mGridSizeString='7,8', mNumHotseat=6, mDeviceType=0, mDbFile=launcher_8_7_6.db}
+11-12 16:36:45.641  4103  4149 I GridSizeMigrationDBController: Migration is needed. destDeviceState: DeviceGridState{mGridSizeString='4,6', mNumHotseat=6, mDeviceType=0, mDbFile=launcher_6_4_6.db}, srcDeviceState: DeviceGridState{mGridSizeString='7,8', mNumHotseat=6, mDeviceType=0, mDbFile=launcher_8_7_6.db}
+11-12 16:36:45.642  4103  4149 D GridSizeMigrationLogic: Begin grid migration. isAfterRestore: false
+11-12 16:36:45.642  4103  4149 D GridSizeMigrationLogic: srcDeviceState: DeviceGridState{mGridSizeString='7,8', mNumHotseat=6, mDeviceType=0, mDbFile=launcher_8_7_6.db}
+11-12 16:36:45.642  4103  4149 D GridSizeMigrationLogic: destDeviceState: DeviceGridState{mGridSizeString='4,6', mNumHotseat=6, mDeviceType=0, mDbFile=launcher_6_4_6.db}
+11-12 16:36:45.642  4103  4149 D GridSizeMigrationLogic: isDestNewDb: true
+11-12 16:36:45.643  4103  4103 W LoaderTask: stopLocked: Loader stopping
+11-12 16:36:45.644  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:45.644  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:45.645  4103  4103 I ActivityThread: Schedule relaunch activity: app.thelauncher.MainLauncher
+11-12 16:36:45.646  4103  4149 E SQLiteLog: (1) no such table: from_db.favorites in "INSERT INTO favorites_tmp SELECT _id, title, intent, container, screen, cellX, cellY, spanX, spanY, itemType, appWidgetId, icon, appWidgetProvider, modified, restored, prof
+11-12 16:36:45.646  4103  4149 D ModelDbController: resetLauncherDb: Migration failed: resetting launcher database
+11-12 16:36:45.658  4103  4103 W LoaderTask: stopLocked: Loader stopping
+11-12 16:36:45.666  4103  4103 W LoaderTask: stopLocked: Loader stopping
+11-12 16:36:45.667  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:45.667  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:45.667  4103  4103 I ActivityThread: Schedule relaunch activity: app.thelauncher.MainLauncher
+11-12 16:36:45.667  4103  4103 I ActivityThread: Schedule relaunch activity: app.thelauncher.MainLauncher
+11-12 16:36:45.667  4103  4103 I ActivityThread: Schedule relaunch activity: app.thelauncher.MainLauncher
+11-12 16:36:45.667  4103  4103 I ActivityThread: Schedule relaunch activity: app.thelauncher.MainLauncher
+11-12 16:36:45.668  4103  4103 W LoaderTask: stopLocked: Loader stopping
+11-12 16:36:45.673  4103  4149 W SQLiteLog: (28) file unlinked while open: /data/data/app.thelauncher/databases/launcher_6_4_4.db
+11-12 16:36:45.674  4103  4149 E LoaderTask: Failed to migrate grid
+11-12 16:36:45.674  4103  4149 E LoaderTask: java.lang.Exception: attemptMigrateDb: Failed to migrate grid
+11-12 16:36:45.674  4103  4149 E LoaderTask: 	at com.android.launcher3.model.ModelDbController.attemptMigrateDb(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:118)
+11-12 16:36:45.674  4103  4149 E LoaderTask: 	at com.android.launcher3.model.LoaderTask.loadWorkspaceImpl(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:34)
+11-12 16:36:45.674  4103  4149 E LoaderTask: 	at com.android.launcher3.model.LoaderTask.loadAllSurfacesOrdered(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:17)
+11-12 16:36:45.674  4103  4149 E LoaderTask: 	at com.android.launcher3.model.LoaderTask.run(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:69)
+11-12 16:36:45.674  4103  4149 E LoaderTask: 	at android.os.Handler.handleCallback(Handler.java:958)
+11-12 16:36:45.674  4103  4149 E LoaderTask: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+11-12 16:36:45.674  4103  4149 E LoaderTask: 	at android.os.Looper.loopOnce(Looper.java:205)
+11-12 16:36:45.674  4103  4149 E LoaderTask: 	at android.os.Looper.loop(Looper.java:294)
+11-12 16:36:45.674  4103  4149 E LoaderTask: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+11-12 16:36:45.674  4103  4149 E LoaderTask: Caused by: android.database.sqlite.SQLiteException: no such table: from_db.favorites (code 1 SQLITE_ERROR): , while compiling: INSERT INTO favorites_tmp SELECT _id, title, intent, container, screen, cellX, cellY, spanX, spanY, itemType, appWidgetId, icon, appWidgetProvider, modified, restored, profileId, rank, options, appWidgetSource FROM from_db.favorites
+11-12 16:36:45.674  4103  4149 E LoaderTask: 	at android.database.sqlite.SQLiteConnection.nativePrepareStatement(Native Method)
+11-12 16:36:45.674  4103  4149 E LoaderTask: 	at android.database.sqlite.SQLiteConnection.acquirePreparedStatement(SQLiteConnection.java:1069)
+11-12 16:36:45.674  4103  4149 E LoaderTask: 	at android.database.sqlite.SQLiteConnection.prepare(SQLiteConnection.java:673)
+11-12 16:36:45.674  4103  4149 E LoaderTask: 	at android.database.sqlite.SQLiteSession.prepare(SQLiteSession.java:590)
+11-12 16:36:45.674  4103  4149 E LoaderTask: 	at android.database.sqlite.SQLiteProgram.<init>(SQLiteProgram.java:62)
+11-12 16:36:45.674  4103  4149 E LoaderTask: 	at android.database.sqlite.SQLiteStatement.<init>(SQLiteStatement.java:34)
+11-12 16:36:45.674  4103  4149 E LoaderTask: 	at android.database.sqlite.SQLiteDatabase.executeSql(SQLiteDatabase.java:2088)
+11-12 16:36:45.674  4103  4149 E LoaderTask: 	at android.database.sqlite.SQLiteDatabase.execSQL(SQLiteDatabase.java:2010)
+11-12 16:36:45.674  4103  4149 E LoaderTask: 	at com.android.launcher3.provider.LauncherDbUtils.copyTable(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:77)
+11-12 16:36:45.674  4103  4149 E LoaderTask: 	at com.android.launcher3.model.GridSizeMigrationLogic.migrateGrid(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:113)
+11-12 16:36:45.674  4103  4149 E LoaderTask: 	at com.android.launcher3.model.ModelDbController.attemptMigrateDb(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:98)
+11-12 16:36:45.674  4103  4149 E LoaderTask: 	... 8 more
+11-12 16:36:45.674  4103  4149 D LoaderTask: loadWorkspace: loading default favorites if necessary
+11-12 16:36:45.676  4103  4149 D ModelDbController: loading default workspace
+11-12 16:36:45.678  4103  4103 W LoaderTask: stopLocked: Loader stopping
+11-12 16:36:45.689  4103  4103 W LoaderTask: stopLocked: Loader stopping
+11-12 16:36:45.689  4103  4149 E SQLiteLog: (1032) statement aborts at 9: [DROP TABLE IF EXISTS favorites] attempt to write a readonly database
+11-12 16:36:45.690  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:45.690  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:45.691  4103  4103 I ActivityThread: Schedule relaunch activity: app.thelauncher.MainLauncher
+11-12 16:36:45.691  4103  4103 I ActivityThread: Schedule relaunch activity: app.thelauncher.MainLauncher
+11-12 16:36:45.691  4103  4103 I ActivityThread: Schedule relaunch activity: app.thelauncher.MainLauncher
+11-12 16:36:45.691  4103  4103 I ActivityThread: Schedule relaunch activity: app.thelauncher.MainLauncher
+11-12 16:36:45.691  4103  4103 I ActivityThread: Schedule relaunch activity: app.thelauncher.MainLauncher
+11-12 16:36:45.695  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:45.695  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:45.695  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:45.696  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:45.696  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:45.697  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:45.697  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:45.697  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:45.781  4103  4103 W LoaderTask: stopLocked: Loader stopping
+11-12 16:36:45.796  4103  4103 W LoaderTask: stopLocked: Loader stopping
+11-12 16:36:45.797  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:45.797  4103  4103 D AlphabeticalAppsList: addAppsWithSections: adding sectionName: T with appInfoTitle: TheLauncher
+11-12 16:36:45.798  4103  4149 E AndroidRuntime: Process: app.thelauncher, PID: 4103
+11-12 16:36:45.798  4103  4149 E AndroidRuntime: android.database.sqlite.SQLiteReadOnlyDatabaseException: attempt to write a readonly database (code 1032 SQLITE_READONLY_DBMOVED)
+11-12 16:36:45.798  4103  4149 E AndroidRuntime: 	at android.database.sqlite.SQLiteConnection.nativeExecuteForChangedRowCount(Native Method)
+11-12 16:36:45.798  4103  4149 E AndroidRuntime: 	at android.database.sqlite.SQLiteConnection.executeForChangedRowCount(SQLiteConnection.java:913)
+11-12 16:36:45.798  4103  4149 E AndroidRuntime: 	at android.database.sqlite.SQLiteSession.executeForChangedRowCount(SQLiteSession.java:756)
+11-12 16:36:45.798  4103  4149 E AndroidRuntime: 	at android.database.sqlite.SQLiteStatement.executeUpdateDelete(SQLiteStatement.java:67)
+11-12 16:36:45.798  4103  4149 E AndroidRuntime: 	at android.database.sqlite.SQLiteDatabase.executeSql(SQLiteDatabase.java:2089)
+11-12 16:36:45.798  4103  4149 E AndroidRuntime: 	at android.database.sqlite.SQLiteDatabase.execSQL(SQLiteDatabase.java:2010)
+11-12 16:36:45.798  4103  4149 E AndroidRuntime: 	at com.android.launcher3.provider.LauncherDbUtils.dropTable(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:7)
+11-12 16:36:45.798  4103  4149 E AndroidRuntime: 	at com.android.launcher3.model.DatabaseHelper.createEmptyDB(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:8)
+11-12 16:36:45.798  4103  4149 E AndroidRuntime: 	at com.android.launcher3.model.ModelDbController.loadDefaultFavoritesIfNecessary(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:130)
+11-12 16:36:45.798  4103  4149 E AndroidRuntime: 	at com.android.launcher3.model.LoaderTask.loadWorkspaceImpl(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:59)
+11-12 16:36:45.798  4103  4149 E AndroidRuntime: 	at com.android.launcher3.model.LoaderTask.loadAllSurfacesOrdered(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:17)
+11-12 16:36:45.798  4103  4149 E AndroidRuntime: 	at com.android.launcher3.model.LoaderTask.run(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:69)
+11-12 16:36:45.805  4103  4103 W LoaderTask: stopLocked: Loader stopping
+11-12 16:36:45.808  4103  4103 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=com.android.launcher3.uioverrides.QuickstepLauncher$3@aba3212
+11-12 16:36:45.810   502  1708 D CoreBackPreview: Window{ff6b54b u0 app.thelauncher/app.thelauncher.MainLauncher}: Setting back callback null
+11-12 16:36:45.812   502   516 W InputManager-JNI: Input channel object 'ff6b54b app.thelauncher/app.thelauncher.MainLauncher (client)' was disposed without first being removed with the input manager!
+11-12 16:36:45.865   502   862 W ActivityTaskManager:   Force finishing activity app.thelauncher/.ui.preferences.PreferenceActivity
+11-12 16:36:45.886   502   862 I ActivityTaskManager: Clearing package preferred activities from app.thelauncher
+11-12 16:36:45.893  4103  4103 E ThemeUtils: View class app.thelauncher.views.CustomButton is an AppCompat widget that can only be used with a Theme.AppCompat theme (or descendant).
+11-12 16:36:45.895  4103  4103 E ThemeUtils: View class app.thelauncher.views.CustomButton is an AppCompat widget that can only be used with a Theme.AppCompat theme (or descendant).
+11-12 16:36:45.896  4103  4103 E ThemeUtils: View class app.thelauncher.views.CustomButton is an AppCompat widget that can only be used with a Theme.AppCompat theme (or descendant).
+11-12 16:36:45.896  4103  4103 E ThemeUtils: View class app.thelauncher.views.CustomButton is an AppCompat widget that can only be used with a Theme.AppCompat theme (or descendant).
+11-12 16:36:45.896  4103  4103 E ThemeUtils: View class app.thelauncher.views.CustomButton is an AppCompat widget that can only be used with a Theme.AppCompat theme (or descendant).
+11-12 16:36:45.897  4103  4103 E ThemeUtils: View class app.thelauncher.views.CustomButton is an AppCompat widget that can only be used with a Theme.AppCompat theme (or descendant).
+11-12 16:36:45.968   502  1708 I ActivityManager: Process app.thelauncher (pid 4103) has died: fg  TOP 
+11-12 16:36:45.970   502  2052 I WindowManager: WIN DEATH: Window{3a1e717 u0 app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity}
+11-12 16:36:45.970   502   516 I ImeTracker: app.thelauncher:1fee33a8: onRequestHide at ORIGIN_SERVER_HIDE_INPUT reason HIDE_REMOVE_CLIENT
+11-12 16:36:45.970   502  2052 W InputManager-JNI: Input channel object '3a1e717 app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity (client)' was disposed without first being removed with the input manager!
+11-12 16:36:45.970   502   516 I ImeTracker: app.thelauncher:1fee33a8: onCancelled at PHASE_SERVER_SHOULD_HIDE
+11-12 16:36:45.990   502   530 W UsageStatsService: Unexpected activity event reported! (app.thelauncher/app.thelauncher.MainLauncher event : 23 instanceId : 140330719)
+11-12 16:36:46.013   502   532 I ActivityManager: Start proc 6639:app.thelauncher/u0a190 for top-activity {app.thelauncher/app.thelauncher.MainLauncher}
+11-12 16:36:46.026  6639  6639 I app.thelauncher: Using CollectorTypeCC GC.
+11-12 16:36:46.027  6639  6639 W app.thelauncher: Unexpected CPU variant for x86: x86_64.
+11-12 16:36:46.027  6639  6639 W app.thelauncher: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-12 16:36:46.031  6639  6639 E app.thelauncher: Not starting debugger since process cannot load the jdwp agent.
+11-12 16:36:46.062   502   502 E NotificationService: Muting recently noisy 0|app.thelauncher|0|null|10190
+11-12 16:36:46.077  6639  6639 D nativeloader: Configuring clns-6 for other apk /data/app/~~hXPeyfWifBF-pV1WgxoeRA==/app.thelauncher-gW02i1JX5lplz3aLYKWcEA==/base.apk. target_sdk_version=37, uses_libraries=, library_path=/data/app/~~hXPeyfWifBF-pV1WgxoeRA==/app.thelauncher-gW02i1JX5lplz3aLYKWcEA==/lib/x86_64:/data/app/~~hXPeyfWifBF-pV1WgxoeRA==/app.thelauncher-gW02i1JX5lplz3aLYKWcEA==/base.apk!/lib/x86_64, permitted_path=/data:/mnt/expand:/data/user/0/app.thelauncher
+11-12 16:36:46.093  6639  6639 V GraphicsEnvironment: ANGLE GameManagerService for app.thelauncher: false
+11-12 16:36:46.093  6639  6639 V GraphicsEnvironment: app.thelauncher is not listed in per-application setting
+11-12 16:36:46.374   502   523 W ActivityTaskManager: Activity top resumed state loss timeout for ActivityRecord{b4424bc u0 app.thelauncher/.ui.preferences.PreferenceActivity t9 f} isExiting}
+11-12 16:36:46.610  6639  6639 E ThemeUtils: View class app.thelauncher.views.CustomButton is an AppCompat widget that can only be used with a Theme.AppCompat theme (or descendant).
+11-12 16:36:46.611  6639  6639 E ThemeUtils: View class app.thelauncher.views.CustomButton is an AppCompat widget that can only be used with a Theme.AppCompat theme (or descendant).
+11-12 16:36:46.612  6639  6639 E ThemeUtils: View class app.thelauncher.views.CustomButton is an AppCompat widget that can only be used with a Theme.AppCompat theme (or descendant).
+11-12 16:36:46.613  6639  6639 E ThemeUtils: View class app.thelauncher.views.CustomButton is an AppCompat widget that can only be used with a Theme.AppCompat theme (or descendant).
+11-12 16:36:46.614  6639  6639 E ThemeUtils: View class app.thelauncher.views.CustomButton is an AppCompat widget that can only be used with a Theme.AppCompat theme (or descendant).
+11-12 16:36:46.614  6639  6639 E ThemeUtils: View class app.thelauncher.views.CustomButton is an AppCompat widget that can only be used with a Theme.AppCompat theme (or descendant).
+11-12 16:36:46.738  6639  6639 E ThemeUtils: View class app.thelauncher.smartspace.IcuDateTextView is an AppCompat widget that can only be used with a Theme.AppCompat theme (or descendant).
+11-12 16:36:46.746  6639  6639 D CellLayout: Adding view to ShortcutsAndWidgetsContainer: app.thelauncher.smartspace.SmartspaceViewContainer{88cbc12 V.E....L. ......I. 0,0-0,0 #7f0a030a app:id/search_container_workspace}
+11-12 16:36:46.778  6639  6661 D RestoreDbTask: No restore task pending, exiting RestoreDbTask
+11-12 16:36:46.803   502   862 W WindowManager: Failed to deliver inset control state change to w=Window{3a1e717 u0 app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity EXITING}
+11-12 16:36:46.828  6639  6661 D ModelDbController: isThereExistingDb: new DB already created, skipping migration
+11-12 16:36:46.828  6639  6661 D ModelDbController: resetLauncherDb: Migration failed: resetting launcher database
+11-12 16:36:46.858  6639  6661 D LoaderTask: loadWorkspace: loading default favorites if necessary
+11-12 16:36:46.858  6639  6661 D ModelDbController: loading default workspace
+11-12 16:36:46.859  6639  6661 E SQLiteLog: (1032) statement aborts at 9: [DROP TABLE IF EXISTS favorites] attempt to write a readonly database
+11-12 16:36:46.908  6639  6639 D TheLauncherApp: config_recentsComponentName (ComponentInfo{com.google.android.apps.nexuslauncher/com.android.quickstep.RecentsActivity}) is not TheLauncher, disabling recents
+11-12 16:36:46.908  6639  6639 W LoaderTask: stopLocked: Loader stopping
+11-12 16:36:47.155  6639  6661 E AndroidRuntime: Process: app.thelauncher, PID: 6639
+11-12 16:36:47.155  6639  6661 E AndroidRuntime: android.database.sqlite.SQLiteReadOnlyDatabaseException: attempt to write a readonly database (code 1032 SQLITE_READONLY_DBMOVED)
+11-12 16:36:47.155  6639  6661 E AndroidRuntime: 	at android.database.sqlite.SQLiteConnection.nativeExecuteForChangedRowCount(Native Method)
+11-12 16:36:47.155  6639  6661 E AndroidRuntime: 	at android.database.sqlite.SQLiteConnection.executeForChangedRowCount(SQLiteConnection.java:913)
+11-12 16:36:47.155  6639  6661 E AndroidRuntime: 	at android.database.sqlite.SQLiteSession.executeForChangedRowCount(SQLiteSession.java:756)
+11-12 16:36:47.155  6639  6661 E AndroidRuntime: 	at android.database.sqlite.SQLiteStatement.executeUpdateDelete(SQLiteStatement.java:67)
+11-12 16:36:47.155  6639  6661 E AndroidRuntime: 	at android.database.sqlite.SQLiteDatabase.executeSql(SQLiteDatabase.java:2089)
+11-12 16:36:47.155  6639  6661 E AndroidRuntime: 	at android.database.sqlite.SQLiteDatabase.execSQL(SQLiteDatabase.java:2010)
+11-12 16:36:47.155  6639  6661 E AndroidRuntime: 	at com.android.launcher3.provider.LauncherDbUtils.dropTable(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:7)
+11-12 16:36:47.155  6639  6661 E AndroidRuntime: 	at com.android.launcher3.model.DatabaseHelper.createEmptyDB(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:8)
+11-12 16:36:47.155  6639  6661 E AndroidRuntime: 	at com.android.launcher3.model.ModelDbController.loadDefaultFavoritesIfNecessary(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:130)
+11-12 16:36:47.155  6639  6661 E AndroidRuntime: 	at com.android.launcher3.model.LoaderTask.loadWorkspaceImpl(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:59)
+11-12 16:36:47.155  6639  6661 E AndroidRuntime: 	at com.android.launcher3.model.LoaderTask.loadAllSurfacesOrdered(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:17)
+11-12 16:36:47.155  6639  6661 E AndroidRuntime: 	at com.android.launcher3.model.LoaderTask.run(r8-map-id-94afbf9259d3422b8f08e16fe08c12bd32026b6441278610adc2025b5875e176:69)
+11-12 16:36:47.156   502  1861 D CoreBackPreview: Window{31af0c0 u0 app.thelauncher/app.thelauncher.MainLauncher}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@1dfd51c, mPriority=-1, mIsAnimationCallback=false}
+11-12 16:36:47.156   502  1861 D CoreBackPreview: Window{31af0c0 u0 app.thelauncher/app.thelauncher.MainLauncher}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.IOnBackInvokedCallback$Stub$Proxy@ee47525, mPriority=0, mIsAnimationCallback=true}
+11-12 16:36:47.286   502  1137 W ActivityTaskManager:   Not force finishing home activity app.thelauncher/.MainLauncher
+11-12 16:36:47.286   502  1137 W ActivityTaskManager:   Not force finishing home activity app.thelauncher/.MainLauncher
+11-12 16:36:47.286   502  1137 I ActivityTaskManager: Clearing package preferred activities from app.thelauncher
+11-12 16:36:47.298   502   521 I ActivityManager: Showing crash dialog for package app.thelauncher u0
+11-12 16:36:47.837   502   524 W WindowManager: Failed to deliver inset control state change to w=Window{3a1e717 u0 app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity EXITING}
+11-12 16:36:48.215   502   521 D CoreBackPreview: Window{f938835 u0 Application Error: app.thelauncher}: Setting back callback OnBackInvokedCallbackInfo{mCallback=android.window.WindowOnBackInvokedDispatcher$OnBackInvokedCallbackWrapper@7b7e8a5, mPriority=0, mIsAnimationCallback=false}
+11-12 16:36:50.881   502   523 I BLASTSyncEngine: Unfinished container: ActivityRecord{59d83ef u0 app.thelauncher/.MainLauncher t8}
+11-12 16:36:51.510  6639  6658 D ProfileInstaller: Skipping profile installation for app.thelauncher
+11-12 16:36:51.642   502   520 V WindowManager:     info={id=13 t=CLOSE f=0x10 trk=0 r=[0@Point(0, 0)] c=[{WCT{RemoteToken{552a583 Task{9d220f1 #1 type=home}}} m=TO_FRONT f=SHOW_WALLPAPER|MOVE_TO_TOP leash=Surface(name=Task=1)/@0x89d787d sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0},{WCT{RemoteToken{d9243d Task{49d1c45 #9 type=standard A=10190:app.thelauncher}}} m=CLOSE f=SHOW_WALLPAPER leash=Surface(name=Task=9)/@0x9c203da sb=Rect(0, 0 - 1080, 2400) eb=Rect(0, 0 - 1080, 2400) d=0}]}
+11-12 16:36:51.805   502  2123 W WindowManager: Exception thrown during dispatchAppVisibility Window{3a1e717 u0 app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity EXITING}
+11-12 16:37:01.387   502   502 V NotificationListeners: enabling notification listener for 0: ComponentInfo{com.google.android.apps.nexuslauncher/com.android.launcher3.notification.NotificationListener}
+11-12 16:37:01.387   502   502 V NotificationListeners: Not registering ComponentInfo{com.google.android.apps.nexuslauncher/com.android.launcher3.notification.NotificationListener} is already bound
