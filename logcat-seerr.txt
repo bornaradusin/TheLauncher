@@ -1,0 +1,160 @@
+--------- beginning of main
+11-12 17:28:33.450  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.450  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.450  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.450  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.450  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.450  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.450  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.450  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.451  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.451  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.451  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.451  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.451  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.451  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.451  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.451  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.451  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.452  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.452  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.452  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.452  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.452  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:33.452  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+--------- beginning of system
+11-12 17:28:33.454   503   517 W WindowManager: Cannot find window which accessibility connection is added to
+11-12 17:28:33.531   503  2221 W ActivityManager: Unable to start service Intent { cmp=com.google.android.apps.tachyon/.clientapi.ClientApiService } U=0: not found
+11-12 17:28:33.550  1584  2549 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 241] task was not run. Callback from Service received after client was disposed.
+11-12 17:28:33.550  1584  2549 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 241] task was not run. Callback from Service received after client was disposed.
+11-12 17:28:33.600  1584  2549 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 60] task was not run. Callback from Service received after client was disposed.
+11-12 17:28:33.622  1584  2549 W SearchServiceCore: Abort, client detached.
+11-12 17:28:36.320   503  2266 W ProcessStats: Tracking association SourceState{f6cfb73 com.google.android.googlequicksearchbox:search/10132 BTop #17050} whose proc state 2 is better than process ProcessState{d8a51f9 com.google.android.googlequicksearchbox:interactor/10132 pkg=com.google.android.googlequicksearchbox} proc state 4 (86 skipped)
+11-12 17:28:36.336  1482  1482 W ModuleManager: ModuleManager.loadModule():450 Module erj is not available
+11-12 17:28:36.377  5758  5758 W AutofillChimeraService: Pending fill request while another request in the same session was triggered. [CONTEXT service_id=177 ]
+11-12 17:28:36.389   503   503 W FillRequestEventLogger: Shouldn't be logging AutofillFillRequestReported again for same event
+11-12 17:28:36.389   503   503 W FillResponseEventLogger: Shouldn't be logging AutofillFillRequestReported again for same event
+11-12 17:28:36.530  1482  1482 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 159 ms
+11-12 17:28:36.686  5344  8309 E GoogleWebSearchProvider: Error during suggestion retrieval
+11-12 17:28:36.686  5344  8309 E GoogleWebSearchProvider: dy2: rv5 was cancelled; job=rv5{Cancelling}@46f4c8b
+11-12 17:28:37.072  1482  1482 W InputContextProxyV4: InputContextProxyV4.applyClientDiffInternal():897 Ignore [FetchSuggestions] diff due to stale request: 84<86, inputStateId=54, lastInputStateId=55
+11-12 17:28:37.131  5344  8307 E GoogleWebSearchProvider: Error during suggestion retrieval
+11-12 17:28:37.131  5344  8307 E GoogleWebSearchProvider: dy2: rv5 was cancelled; job=rv5{Cancelling}@80564f1
+11-12 17:28:37.268  1482  1482 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 138 ms
+11-12 17:28:37.512  1482  1482 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 231 ms
+11-12 17:28:37.833  1482  1482 W TooltipLifecycleManager: TooltipLifecycleManager.dismissTooltips():159 Tooltip with id spell_check_add_to_dictionary not found in tooltipManager.
+11-12 17:28:39.374  5344  8307 E GoogleWebSearchProvider: Error during suggestion retrieval
+11-12 17:28:39.374  5344  8307 E GoogleWebSearchProvider: dy2: rv5 was cancelled; job=rv5{Cancelling}@4c61c7a
+11-12 17:28:39.810  1482  1482 W TooltipLifecycleManager: TooltipLifecycleManager.dismissTooltips():159 Tooltip with id spell_check_add_to_dictionary not found in tooltipManager.
+11-12 17:28:40.021  1482  1482 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 206 ms
+11-12 17:28:40.314  1482  1482 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 286 ms
+11-12 17:28:40.500  1482  1482 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 185 ms
+11-12 17:28:40.573  1482  1482 W InputContextProxyV4: InputContextProxyV4.applyClientDiffInternal():897 Ignore [FetchSuggestions] diff due to stale request: 101<103, inputStateId=71, lastInputStateId=72
+11-12 17:28:40.634  5344  5353 W System  : A resource failed to call release. 
+11-12 17:28:40.635  5344  5353 W System  : A resource failed to call release. 
+11-12 17:28:40.800  1482  1482 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 227 ms
+11-12 17:28:41.034  1482  1482 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 223 ms
+11-12 17:28:41.035  1482  1482 W InputContextProxyV4: InputContextProxyV4.applyClientDiffInternal():897 Ignore [FetchSuggestions] diff due to stale request: 103<105, inputStateId=73, lastInputStateId=74
+11-12 17:28:41.153  1482  1482 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 117 ms
+11-12 17:28:41.294  1482  1482 W InputContextProxyV4: InputContextProxyV4.applyClientDiffInternal():897 Ignore [FetchSuggestions] diff due to stale request: 105<107, inputStateId=75, lastInputStateId=76
+11-12 17:28:41.527  1482  1482 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 234 ms
+11-12 17:28:41.650  1482  1482 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 121 ms
+11-12 17:28:41.979  1482  1482 W InputConnectionWrapper: InputConnectionWrapper.recordDuration():1451 IPC IC_GET_SURROUNDING_TEXT took 327 ms
+11-12 17:28:42.242  1482  1482 W TooltipLifecycleManager: TooltipLifecycleManager.dismissTooltips():159 Tooltip with id spell_check_add_to_dictionary not found in tooltipManager.
+11-12 17:28:43.558  1584  2549 W A       : Queue length for executor EventBus is now 11. Perhaps some tasks are too long, or the pool is too small.
+11-12 17:28:52.594  8352  8352 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+11-12 17:28:52.594  8352  8352 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+11-12 17:28:52.944   503  2221 W ProcessStats: Tracking association SourceState{78572f0 com.google.android.googlequicksearchbox:search/10132 BTop #17088} whose proc state 2 is better than process ProcessState{7087abb com.google.android.gms.persistent/10129 pkg=com.google.android.gms} proc state 4 (138 skipped)
+11-12 17:28:53.053  8354  8354 W app_process: Unexpected CPU variant for x86: x86_64.
+11-12 17:28:53.053  8354  8354 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-12 17:28:53.054  8354  8354 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+11-12 17:28:53.055  8354  8354 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+11-12 17:28:53.067  8354  8354 W libc    : Access denied finding property "ro.product.name_for_attestation"
+11-12 17:28:53.067  8354  8354 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+11-12 17:28:53.067  8354  8354 W libc    : Access denied finding property "ro.product.model_for_attestation"
+11-12 17:28:53.065  8354  8354 W main    : type=1400 audit(0.0:217): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=85 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-12 17:28:53.065  8354  8354 W main    : type=1400 audit(0.0:218): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=85 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-12 17:28:53.065  8354  8354 W main    : type=1400 audit(0.0:219): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=85 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-12 17:28:53.077  8354  8354 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+11-12 17:28:53.126   503  2221 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-12 17:28:53.156   503  2221 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-12 17:28:53.166   503  2261 W WindowManager: Cannot find window which accessibility connection is added to
+11-12 17:28:53.172   819   819 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+11-12 17:28:53.173   819   819 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+11-12 17:28:54.230  8354  8354 W AccessibilityNodeInfoDumper: Fetch time: 70ms
+11-12 17:28:54.233   503   516 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-12 17:28:54.237   503  2261 W WindowManager: Cannot find window which accessibility connection is added to
+11-12 17:28:54.237   819   819 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.239  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.240  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.240  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.240  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.240  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.240  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.240  1571  2091 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: Invalid input from icing corpus JSON flag.
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: android.util.MalformedJsonException: Use JsonReader.setLenient(true) to accept malformed JSON at line 123 column 2
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at android.util.JsonReader.syntaxError(JsonReader.java:1162)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at android.util.JsonReader.checkLenient(JsonReader.java:840)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at android.util.JsonReader.nextInArray(JsonReader.java:615)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at android.util.JsonReader.peek(JsonReader.java:345)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at android.util.JsonReader.hasNext(JsonReader.java:321)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at com.google.android.apps.gsa.searchbox.c.b.b.k.c(PG:7)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at com.google.android.apps.gsa.searchbox.c.b.b.k.<init>(PG:5)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at com.google.android.apps.gsa.staticplugins.searchboxroot.features.n.a.c.<init>(PG:16)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at com.google.android.apps.gsa.staticplugins.searchboxroot.b.a(PG:14)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at com.google.android.apps.gsa.staticplugins.searchboxroot.x.<init>(PG:7)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at com.google.android.apps.gsa.binaries.velvet.app.akd.b(PG:15)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at dagger.a.e.b(PG:1)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at com.google.android.apps.gsa.staticplugins.searchboxroot.a.a.a(PG:3)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at com.google.android.apps.gsa.binaries.velvet.app.ok.f(Unknown Source:2541)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at com.google.android.apps.gsa.binaries.velvet.app.ok.b(PG:1)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at com.google.android.apps.gsa.search.core.service.g.a.c.a(PG:2)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at com.google.android.libraries.gsa.k.a.f.a(PG:2)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at com.google.android.apps.gsa.shared.logger.f.a.a.l.h(PG:2)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at com.google.android.apps.gsa.shared.logger.f.a.a.h.a(Unknown Source:4)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at com.google.common.util.concurrent.dx.a(PG:1)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at com.google.common.util.concurrent.cv.run(PG:4)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at com.google.common.util.concurrent.dz.run(PG:1)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at com.google.android.libraries.i.ae.run(PG:1)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at com.google.android.libraries.i.k.run(PG:2)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at com.google.android.libraries.i.p.run(PG:4)
+11-12 17:28:54.320  1584  2485 W CorpusConfigHelper: 	at java.lang.Thread.run(Thread.java:1012)
+11-12 17:28:54.327  1584  2494 W A       : Queue length for executor EventBus is now 11. Perhaps some tasks are too long, or the pool is too small.
+11-12 17:28:54.354   503  2266 W ActivityManager: Unable to start service Intent { cmp=com.google.android.apps.tachyon/.clientapi.ClientApiService } U=0: not found
+11-12 17:28:54.355  1584  2549 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 60] task was not run. Callback from Service received after client was disposed.
+11-12 17:28:54.355  1584  2549 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 60] task was not run. Callback from Service received after client was disposed.
+11-12 17:28:54.356  1584  2549 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 105] task was not run. Callback from Service received after client was disposed.
+11-12 17:28:54.356  1584  2549 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 107] task was not run. Callback from Service received after client was disposed.
+11-12 17:28:54.356  1584  2549 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 107] task was not run. Callback from Service received after client was disposed.
+11-12 17:28:54.356  1584  2549 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 42] task was not run. Callback from Service received after client was disposed.
+11-12 17:28:54.359  1584  2549 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 67] task was not run. Callback from Service received after client was disposed.
+11-12 17:28:54.360  1584  2549 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 241] task was not run. Callback from Service received after client was disposed.
+11-12 17:28:54.360  1584  2549 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 241] task was not run. Callback from Service received after client was disposed.
+11-12 17:28:54.368  1584  2549 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 60] task was not run. Callback from Service received after client was disposed.
+11-12 17:28:54.373  1584  2549 W SearchServiceCore: Abort, client detached.
