@@ -197,9 +197,8 @@ class AllAppsSearchInput(context: Context, attrs: AttributeSet?) :
                     else -> ColorTokens.SearchboxHighlight.resolveColor(context)
                 }
 
-                val backgroundAlpha by animateIntAsState(
-                    if (isFocused || !queryEmpty) 0 else 100,
-                )
+                // The bar keeps its colour while you type, as in Hyperion, instead of fading out.
+                val backgroundAlpha = 100
 
                 // Ignore other theme attributes to preserve existing behavior
                 val style = buildQsbStyle(

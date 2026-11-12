@@ -631,10 +631,11 @@ class MainLauncher : QuickstepLauncher() {
         } else {
             0
         }
-        val attrs = window.attributes
+        val win = window ?: return
+        val attrs = win.attributes
         if (attrs.preferredDisplayModeId == modeId) return
         attrs.preferredDisplayModeId = modeId
-        window.attributes = attrs
+        win.attributes = attrs
     }
 
     override fun onScreenOnChanged(isOn: Boolean) {
