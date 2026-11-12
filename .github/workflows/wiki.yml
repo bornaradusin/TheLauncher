@@ -16,13 +16,33 @@ on:
         description: 'Optional gzip+base64 diff to build and capture instead of the release'
         type: string
         default: ''
+      retag:
+        description: 'Move a tag: name=commit'
+        type: string
+        default: ''
 
 permissions:
   contents: write
 
 jobs:
+  retag:
+    if: ${{ inputs.retag != '' }}
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Move the tag
+        env:
+          RETAG: ${{ inputs.retag }}
+        run: |
+          name="${RETAG%%=*}"; sha="${RETAG#*=}"
+          git cat-file -e "$sha^{commit}"
+          git push --force origin "$sha:refs/tags/$name"
+          git ls-remote origin "refs/tags/$name"
+
   publish:
-    if: ${{ !inputs.screenshots }}
+    if: ${{ !inputs.screenshots && inputs.retag == '' }}
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
