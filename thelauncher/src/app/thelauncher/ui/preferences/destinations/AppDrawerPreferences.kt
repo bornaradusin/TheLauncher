@@ -280,6 +280,15 @@ fun AppDrawerPreferences(
                     label = stringResource(R.string.twoline_label),
                 )
             }
+            ExpandAndShrink(
+                visible = showDrawerLabels.state.value,
+            ) {
+                SwitchPreference(
+                    adapter = prefs2.scrollLabelsDrawer.getAdapter(),
+                    label = stringResource(R.string.scroll_labels),
+                    description = stringResource(R.string.scroll_labels_desc),
+                )
+            }
         }
         PreferenceGroup(heading = stringResource(id = R.string.advanced)) {
             SwitchPreference(

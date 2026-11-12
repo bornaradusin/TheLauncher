@@ -340,6 +340,11 @@ fun HomeScreenPreferences(
                         adapter = prefs2.twoLineHome.getAdapter(),
                         label = stringResource(id = R.string.twoline_label),
                     )
+                    SwitchPreference(
+                        adapter = prefs2.scrollLabelsHome.getAdapter(),
+                        label = stringResource(id = R.string.scroll_labels),
+                        description = stringResource(id = R.string.scroll_labels_desc),
+                    )
                 }
             }
             app.thelauncher.ui.preferences.components.controls.ListPreference(

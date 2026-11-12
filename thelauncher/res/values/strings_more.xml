@@ -364,4 +364,6 @@
     <string name="drawer_navbar_tint_desc">Dark navigation line while the app drawer is open</string>
     <string name="folder_preview_inside">Icons inside the circle</string>
     <string name="folder_preview_inside_desc">Keep the preview icons within the folder circle, as Hyperion does</string>
+    <string name="scroll_labels">Scroll long names</string>
+    <string name="scroll_labels_desc">Names that don\'t fit stay on one line and scroll</string>
 </resources>

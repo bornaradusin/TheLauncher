@@ -133,6 +133,11 @@ fun FolderPreferences(
                         adapter = prefs2.twoLineFolder.getAdapter(),
                         label = stringResource(id = R.string.twoline_label),
                     )
+                    SwitchPreference(
+                        adapter = prefs2.scrollLabelsFolder.getAdapter(),
+                        label = stringResource(id = R.string.scroll_labels),
+                        description = stringResource(id = R.string.scroll_labels_desc),
+                    )
                 }
             }
         }

@@ -324,6 +324,27 @@ class PreferenceManager2 @Inject constructor(
         onSet = { reloadHelper.recreate() },
     )
 
+    /** Long names on the home screen stay on one line and scroll, instead of ending in "…". */
+    val scrollLabelsHome = preference(
+        key = booleanPreferencesKey(name = "scroll_labels_home"),
+        defaultValue = false,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    /** Long names in the app drawer stay on one line and scroll, instead of ending in "…". */
+    val scrollLabelsDrawer = preference(
+        key = booleanPreferencesKey(name = "scroll_labels_drawer"),
+        defaultValue = false,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    /** Long names in open folders stay on one line and scroll, instead of ending in "…". */
+    val scrollLabelsFolder = preference(
+        key = booleanPreferencesKey(name = "scroll_labels_folder"),
+        defaultValue = false,
+        onSet = { reloadHelper.recreate() },
+    )
+
     /** Label typeface style: 0 regular, 1 bold, 2 italic, 3 bold italic (android.graphics.Typeface). */
     val labelTextStyle = preference(
         key = intPreferencesKey(name = "label_text_style"),

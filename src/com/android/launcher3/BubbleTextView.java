@@ -341,8 +341,39 @@ public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver,
     @Override
     protected void onFocusChanged(boolean focused, int direction, Rect previouslyFocusedRect) {
         // Disable marques when not focused to that, so that updating text does not cause relayout.
-        setEllipsize(focused ? TruncateAt.MARQUEE : TruncateAt.END);
+        setEllipsize(focused || mScrollLabel ? TruncateAt.MARQUEE : TruncateAt.END);
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
+    }
+
+    // TheLauncher: a long name scrolls instead of ending in "…" ("Scroll long names").
+    private boolean mScrollLabel;
+
+    private void applyScrollLabel(int area) {
+        PreferenceManager2 prefs2 = PreferenceManager2.getInstance(getContext());
+        boolean scroll = switch (area) {
+            case TheLauncherUtilsKt.LABEL_AREA_HOME, TheLauncherUtilsKt.LABEL_AREA_DOCK ->
+                    PreferenceCacheExtensionsKt.firstCached(prefs2.getScrollLabelsHome());
+            case TheLauncherUtilsKt.LABEL_AREA_DRAWER ->
+                    PreferenceCacheExtensionsKt.firstCached(prefs2.getScrollLabelsDrawer());
+            case TheLauncherUtilsKt.LABEL_AREA_FOLDER ->
+                    PreferenceCacheExtensionsKt.firstCached(prefs2.getScrollLabelsFolder());
+            default -> false;
+        };
+        if (scroll == mScrollLabel) return;
+        mScrollLabel = scroll;
+        if (scroll) {
+            setSingleLine(true);
+            setEllipsize(TruncateAt.MARQUEE);
+            setMarqueeRepeatLimit(-1);
+            setHorizontalFadingEdgeEnabled(true);
+            setFadingEdgeLength(getResources().getDimensionPixelSize(R.dimen.label_scroll_fade));
+            // TextView only scrolls a selected (or focused) label.
+            setSelected(true);
+        } else {
+            setEllipsize(TruncateAt.END);
+            setHorizontalFadingEdgeEnabled(false);
+            setSelected(false);
+        }
     }
 
     public void setHideBadge(boolean hideBadge) {
@@ -681,6 +712,7 @@ public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver,
         }
         // TheLauncher: the label colour picked for this area (home screen, dock, drawer or folder).
         int area = labelArea(info);
+        applyScrollLabel(area);
         int labelColor = TheLauncherUtilsKt.customLabelColor(getContext(), area);
         if (labelColor != 0) {
             setTextColor(labelColor);
