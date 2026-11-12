@@ -132,6 +132,7 @@ fun About(
             Text(
                 text = stringResource(id = R.string.derived_app_name),
                 style = MaterialTheme.typography.titleLarge,
+                color = MaterialTheme.colorScheme.onSurface,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.fillMaxWidth(),
             )
@@ -196,7 +197,7 @@ fun About(
                 }
             }
         }
-        preferenceGroupItems(
+        if (uiState.coreTeam.isNotEmpty()) preferenceGroupItems(
             items = uiState.coreTeam,
             isFirstChild = false,
             heading = { stringResource(id = R.string.product) },
@@ -206,7 +207,7 @@ fun About(
                 member = it,
             )
         }
-        preferenceGroupItems(
+        if (uiState.supportAndPr.isNotEmpty()) preferenceGroupItems(
             items = uiState.supportAndPr,
             isFirstChild = false,
             heading = { stringResource(id = R.string.support_and_pr) },
@@ -216,7 +217,7 @@ fun About(
                 member = it,
             )
         }
-        preferenceGroupItems(
+        if (uiState.bottomLinks.isNotEmpty()) preferenceGroupItems(
             items = uiState.bottomLinks,
             isFirstChild = false,
             heading = { stringResource(id = R.string.community) },

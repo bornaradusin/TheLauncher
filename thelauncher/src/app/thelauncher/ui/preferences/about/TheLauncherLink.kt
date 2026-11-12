@@ -28,7 +28,6 @@ import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.foundation.layout.requiredSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -70,13 +69,14 @@ fun TheLauncherLink(
         Image(
             painterResource(id = iconResId),
             contentDescription = null,
-            colorFilter = ColorFilter.tint(color = LocalContentColor.current),
+            colorFilter = ColorFilter.tint(color = MaterialTheme.colorScheme.onSurface),
             modifier = Modifier.size(24.dp),
         )
         Spacer(modifier = Modifier.requiredHeight(4.dp))
         Text(
             text = label,
             style = MaterialTheme.typography.bodyMedium,
+            color = MaterialTheme.colorScheme.onSurface,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
         )
