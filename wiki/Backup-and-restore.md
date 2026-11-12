@@ -2,6 +2,8 @@
 
 Settings: **Home settings → Backup and restore**.
 
+<img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings-backup.png" width="260" alt="Backup and restore">
+
 ## Backing up
 
 **Create backup** saves your layout and settings into one file, with a preview of your home screen. Choose where to save it, for example a cloud drive folder, so it survives a reset or a new phone.

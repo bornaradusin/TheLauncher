@@ -9,6 +9,8 @@ Either:
 - **Home settings → Interface → App lock**, then tick the apps, or
 - long-press an app → **Customize** → turn on **Lock with biometrics**.
 
+<img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings-locked-apps.png" width="260" alt="Locked apps"> <img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/customize.png" width="260" alt="Lock with biometrics in Customize">
+
 Your phone needs a screen lock (PIN, pattern or password). Without one, TheLauncher says so and doesn't open the app.
 
 ## Re-lock timeout

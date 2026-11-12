@@ -2,6 +2,8 @@
 
 Settings: **Home settings → Gestures**.
 
+<img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings-gestures.png" width="260" alt="Gesture settings"> <img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings-gesture-actions.png" width="260" alt="Choosing an action">
+
 Set an action for each of these on the home screen:
 
 - **Double tap**

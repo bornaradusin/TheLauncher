@@ -2,9 +2,13 @@
 
 Swipe up from the home screen to open it. Settings: **Home settings → Interface → App drawer** (colours under **Colors**, icon size under **Iconography**, columns under **Grids**).
 
+<img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/drawer.png" width="260" alt="App drawer"> <img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings-app-drawer.png" width="260" alt="App drawer settings">
+
 ## Hidden apps
 
 **Hidden apps** lists every app with a checkbox. Ticked apps disappear from the drawer and from search. You can also hide one app from its long-press menu: **Customize → Hide from app drawer**.
+
+<img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings-hidden-apps.png" width="260" alt="Hidden apps">
 
 ## Drawer folders
 
@@ -15,6 +19,8 @@ Swipe up from the home screen to open it. Settings: **Home settings → Interfac
 
 **Hide folder apps** keeps apps that are in a drawer folder out of the main list, so each app shows up only once.
 
+<img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings-drawer-folders.png" width="260" alt="App drawer folders">
+
 ## Drawer tabs
 
 **Drawer tabs** adds a row of tabs at the top of the drawer, such as Work, Games or Social, next to **All**.
@@ -23,6 +29,8 @@ Swipe up from the home screen to open it. Settings: **Home settings → Interfac
 2. Tap the tab → **Manage apps** and tick the apps for that tab. Rename it from the same sheet, or delete it with the bin icon.
 
 **Remove apps from "All"** keeps apps that are in a tab out of the **All** tab.
+
+<img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings-drawer-tabs.png" width="260" alt="Drawer tabs">
 
 ## Behaviour
 

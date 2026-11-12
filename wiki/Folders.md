@@ -4,6 +4,8 @@ Drag one app onto another on the home screen or dock to make a folder. Tap the f
 
 Settings: **Home settings → Interface → Folders** (shape and opacity under **Colors**, rows and columns under **Grids**).
 
+<img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/folder.png" width="260" alt="An open folder"> <img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings-folders.png" width="260" alt="Folder settings">
+
 - **Show folder name in open folders** hides or shows the title at the bottom of an open folder.
 - **Sort folder contents** shows the apps in every folder in alphabetical order.
 - **Folder shape** picks the shape of the folder icon, or a custom one you draw in **Icon shape → Folder**.

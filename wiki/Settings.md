@@ -2,6 +2,8 @@
 
 Long-press an empty spot on the home screen and tap **Home settings**. Settings open over your wallpaper and are grouped the same way as in Hyperion:
 
+<img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings.png" width="260" alt="Settings categories"> <img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings-more.png" width="260" alt="More settings categories">
+
 | Category | What's inside |
 |---|---|
 | **Colors** | Theme, accent colour, blackout, notification dots, wallpaper dimmer and glow, dock, drawer and folder backgrounds |

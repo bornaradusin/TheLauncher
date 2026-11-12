@@ -2,6 +2,8 @@
 
 At a Glance is the line at the top of the home screen with the date and whatever's coming up. Settings: **Home settings → Widgets → At a Glance**.
 
+<img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings-at-a-glance.png" width="260" alt="At a Glance settings with preview"> <img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings-at-a-glance-more.png" width="260" alt="What to show">
+
 ## What to show
 
 Each source has its own switch under **What to show**:

@@ -2,9 +2,13 @@
 
 Settings: **Home settings → Interface → Home screen** (wallpaper under **Colors**, grid under **Grids**).
 
+<img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings-home-screen.png" width="260" alt="Home screen settings">
+
 ## Grid
 
 **Home screen → Home screen grid** sets the number of columns and rows, and how many icons fit in the dock. Changes show in a preview before you tap **Apply**. Up to 10 × 10 by default; **Experimental features → Increase maximum grid size limit** raises that to 20 × 20.
+
+<img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings-grid.png" width="260" alt="Home screen grid with preview">
 
 ## Adding and arranging
 
@@ -13,9 +17,13 @@ Settings: **Home settings → Interface → Home screen** (wallpaper under **Col
 - **Add a page:** drag an icon past the right edge of the last page.
 - **Add new apps to home screen** puts every newly installed app on the home screen by itself.
 
+<img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/home-menu.png" width="260" alt="Long-press menu"> <img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/widgets.png" width="260" alt="Widgets">
+
 ## Locking the layout
 
 **Home screen is locked** stops icons and widgets from being moved, removed or added by accident. To switch it from the home screen instead, add a lock button to the long-press menu under **Home screen → Pop-up menu**.
+
+<img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings-popup-menu.png" width="260" alt="Pop-up menu editor">
 
 ## Pages
 

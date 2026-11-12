@@ -11,6 +11,8 @@ If Android doesn't ask, set it yourself: **Settings → Apps → Default apps �
 
 Long-press an empty spot on the home screen and tap **Home settings**.
 
+<img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/home-menu.png" width="260" alt="Long-press menu with Home settings"> <img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings.png" width="260" alt="Settings">
+
 ## Updating
 
 From 1.1.0, TheLauncher updates itself. About once a day, when you open its settings, it looks on GitHub for a newer release and shows what's new, with **Update** and **Not now**:

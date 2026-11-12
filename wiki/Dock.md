@@ -2,6 +2,8 @@
 
 Settings: **Home settings → Interface → Dock** (background under **Colors**, icon size under **Iconography**, icon count under **Grids**).
 
+<img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings-dock.png" width="260" alt="Dock settings with preview"> <img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings-dock-more.png" width="260" alt="More dock settings">
+
 ## Icons and rows
 
 - **Dock icons** sets how many icons sit in each row.

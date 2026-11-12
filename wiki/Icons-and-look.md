@@ -4,11 +4,17 @@
 
 **Home settings → Iconography → Icon pack and shape** lists the icon packs on your phone. Pick one and every icon changes. Apps the pack doesn't cover keep their own icon.
 
+<img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings-icon-pack.png" width="260" alt="Icon pack picker">
+
 To change one app's icon, long-press it → **Customize** → tap the icon and pick another from any pack. **Reset to default** undoes it.
+
+<img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/app-menu.png" width="260" alt="Long-press menu on an app"> <img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/customize.png" width="260" alt="Customize sheet">
 
 ## Themed icons
 
 **Themed icons** turns icons single-coloured to match your wallpaper colours, like Android's own themed icons.
+
+<img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings-themed-icons.png" width="260" alt="Themed icons">
 
 ## Icon shape
 

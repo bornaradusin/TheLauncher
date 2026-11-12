@@ -2,6 +2,8 @@
 
 **TheLauncher** is an open-source home screen for Android phones. It's built for people who like to set their phone up exactly their way: icon packs, a two-row dock, drawer folders and tabs, gestures, locked apps, weather and calendar at the top of the screen, and a way to bring your whole setup across from Hyperion or Nova Launcher.
 
+<img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/home.png" width="260" alt="Home screen"> <img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/drawer.png" width="260" alt="App drawer">
+
 ## Getting started
 
 1. [Install TheLauncher](Install) and make it your home app
