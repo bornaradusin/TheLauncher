@@ -1,0 +1,178 @@
+--------- beginning of main
+11-12 21:29:50.262  5234  5454 W BugleRcsEngine: [83] RcsEngineImpl.e: RcsEngineImpl[DUAL_REG]:[c817adb9-3c09]: imsModule is null, shutdown not required
+11-12 21:29:50.292  8666  8737 E PhenotypeModule: PhenotypeModule.handlePhenotypeConfigurationUpdates():268 Get empty configurations.
+11-12 21:29:50.297  8321  9044 W ModuleInitIntentOp: Dropping unexpected action com.google.android.gms.phenotype.COMMITTED
+11-12 21:29:50.297  8321  9044 W ModuleInitIntentOp: Dropping unexpected action com.google.android.gms.phenotype.COMMITTED
+11-12 21:29:50.297  8321  9153 W ModuleInitIntentOp: Dropping unexpected action com.google.android.gms.phenotype.COMMITTED
+11-12 21:29:50.297  8321  9044 W ModuleInitIntentOp: Dropping unexpected action com.google.android.gms.phenotype.COMMITTED
+11-12 21:29:50.297  8321  9044 W ModuleInitIntentOp: Dropping unexpected action com.google.android.gms.phenotype.COMMITTED
+11-12 21:29:50.479   789   789 E ndroid.systemui: No package ID ff found for resource ID 0xffffffff.
+11-12 21:29:50.479   789   789 W ConstraintSet: id unknown UNKNOWN
+11-12 21:29:50.488  9197  9197 W AccessibilityNodeInfoDumper: Fetch time: 39ms
+--------- beginning of system
+11-12 21:29:50.493   496  2352 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-12 21:29:50.510  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.510  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.510  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.510  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.510  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.510  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.510  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.510  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.510  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.510  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.510  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.510  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.511  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.511  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.511  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.511  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.512  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.512  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.512  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.512  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.512  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.512  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.512  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.512  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.512  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.512  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.512  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.512  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.512  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.512  1553  1997 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 21:29:50.554   789   789 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+11-12 21:29:50.574   496  2352 W ActivityManager: Unable to start service Intent { cmp=com.google.android.apps.tachyon/.clientapi.ClientApiService } U=0: not found
+11-12 21:29:50.582  8321  9144 W ModuleInitIntentOp: Dropping unexpected action com.google.android.gms.phenotype.COMMITTED
+11-12 21:29:50.582  8321  9144 W ModuleInitIntentOp: Dropping unexpected action com.google.android.gms.phenotype.COMMITTED
+11-12 21:29:50.582  8321  9148 W ModuleInitIntentOp: Dropping unexpected action com.google.android.gms.phenotype.COMMITTED
+11-12 21:29:50.584  8321  9044 W ModuleInitIntentOp: Dropping unexpected action com.google.android.gms.phenotype.COMMITTED
+11-12 21:29:50.586  8321  8440 W ModuleInitIntentOp: Dropping unexpected action com.google.android.gms.phenotype.COMMITTED
+11-12 21:29:50.593  8269  8308 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 241] task was not run. Callback from Service received after client was disposed.
+11-12 21:29:50.593  8269  8308 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 241] task was not run. Callback from Service received after client was disposed.
+11-12 21:29:50.596  8269  8308 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 60] task was not run. Callback from Service received after client was disposed.
+11-12 21:29:50.598  8269  8308 W SearchServiceCore: Abort, client detached.
+11-12 21:29:50.600  8269  8308 W SearchServiceCore: Abort, client detached.
+11-12 21:29:50.600  8269  8308 W SearchServiceCore: Abort, client detached.
+11-12 21:29:50.603  8269  8308 W SearchServiceCore: Abort, client detached.
+11-12 21:29:50.603  8269  8308 W SearchServiceCore: Abort, client detached.
+11-12 21:29:50.663   496  2804 W JobScheduler: Job didn't exist in JobStore: d205f48 #u0a128/1 com.google.android.configupdater/.MainJobService
+11-12 21:29:50.707  8321  9138 W ModuleInitIntentOp: Dropping unexpected action com.google.android.gms.phenotype.COMMITTED
+11-12 21:29:50.707  8321  9138 W ModuleInitIntentOp: Dropping unexpected action com.google.android.gms.phenotype.COMMITTED
+11-12 21:29:50.707  8321  9138 W ModuleInitIntentOp: Dropping unexpected action com.google.android.gms.phenotype.COMMITTED
+11-12 21:29:50.715  8321  9144 W ModuleInitIntentOp: Dropping unexpected action com.google.android.gms.phenotype.COMMITTED
+11-12 21:29:50.716  8321  8442 W ModuleInitIntentOp: Dropping unexpected action com.google.android.gms.phenotype.COMMITTED
+11-12 21:29:50.775  8534  8577 W Finsky  : [62] PreloadClasses: Unable to load [androidx.compose.ui.platform.ViewCompositionStrategy$DisposeOnViewTreeLifecycleDestroyed$installFor$1, androidx.compose.ui.platform.AndroidUiDispatcher$Companion$Main$2, androidx.compose.ui.platform.AndroidCompositionLocals_androidKt$LocalConfiguration$1, androidx.compose.ui.platform.AndroidCompositionLocals_androidKt$LocalContext$1, androidx.compose.ui.platform.AndroidCompositionLocals_androidKt$LocalView$1, androidx.compose.ui.platform.DisposableSaveableStateRegistry_androidKt$DisposableSaveableStateRegistry$saveableStateRegistry$1, androidx.compose.ui.platform.DisposableSaveableStateRegistry_androidKt$DisposableSaveableStateRegistry$1, androidx.compose.ui.platform.InspectableValueKt$NoInspectorInfo$1, androidx.compose.ui.node.ComposeUiNode$Companion$SetModifier$1, androidx.compose.ui.node.ComposeUiNode$Companion$SetLayoutDirection$1, androidx.compose.ui.semantics.SemanticsProperties$ContentDescription$1, androidx.compose.ui.semantics.SemanticsPropertyKey$1, androidx.compose.ui.semantics.SemanticsProperties$PaneTitle$1, androidx.compose.ui.semantics.SemanticsProperties$InvisibleToUser$1, androidx.compose.ui.semantics.SemanticsProperties$IsPopup$1, androidx.compose.ui.semantics.SemanticsProperties$IsDialog$1, androidx.compose.ui.semantics.SemanticsProperties$Role$1, androidx.compose.ui.semantics.SemanticsProperties$TestTag$1, androidx.compose.ui.semantics.SemanticsProperties$Text$1, androidx.compose.ui.platform.ComposeView$Content$1, androidx.compose.ui.platform.CompositionLocalsKt$ProvideCommonCompositionLocals$1, androidx.compose.ui.layout.RootMeasurePolicy$measure$2, androidx.compose.ui.input.pointer.PointerInteropFilter_androidKt$pointerInteropFilter$2, androidx.compose.ui.graphics.painter.Painter$drawLambda$1, androidx.compose.ui.graphics.SimpleGraphicsLayerModifier$layerBlock$1, androidx.compose.ui.input.nestedscroll.NestedScrollDispatcher$calculateNestedScrollScope$1, androidx.compose.animation.TransitionData, androidx.compose.animation.Fade, androidx.compose.ui.layout.SubcomposeLayoutState$setRoot$1, androidx.compose.ui.layout.SubcomposeLayoutState$setMeasurePolicy$1, androidx.compose.runtime.saveable.SaveableStateRegistryImpl$registerProvider$3, androidx.compose.ui.graphics.BlockGraphicsLayerModifier$measure$1, androidx.compose.ui.text.platform.AndroidParagraphIntrinsics, androidx.compose.ui.graphics.SimpleGraphicsLayerModifier$measure$1, androidx.compose.ui.layout.SubcomposeLayoutKt$SubcomposeLayout$2, androidx.compose.ui.platform.ViewCompositionStrategy$DisposeOnDetachedFromWindowOrReleasedFromPool$installFor$1, androidx.navigation.NavControllerViewModel, androidx.navigation.NavControllerViewModel$Companion]
+11-12 21:29:50.801  8269  8315 W LocationOracle: getBestLocation(): no location is available
+11-12 21:29:50.810  8269  8305 W CronetNetworkRqstWrppr: Upload request without a content type.
+11-12 21:29:50.827   496   522 E system_server: No package ID 7f found for resource ID 0x7f080107.
+11-12 21:29:50.827   496   522 E system_server: No package ID 7f found for resource ID 0x7f150560.
+11-12 21:29:50.827  8269  8303 W LocationOracle: No location returned by GMS core getLastLocation()
+11-12 21:29:50.829  8269  8269 E A       : onError
+11-12 21:29:50.829  8269  8269 E A       : com.google.android.apps.gsa.shared.speech.a.m: errorCode: 65561, engine: 2
+11-12 21:29:50.829  8269  8269 E A       : 	at com.google.android.apps.gsa.staticplugins.dc.a.e.a(PG:3)
+11-12 21:29:50.829  8269  8269 E A       : 	at com.google.android.apps.gsa.s3.n.hh(PG:1)
+11-12 21:29:50.829  8269  8269 E A       : 	at com.google.cd.g.a.f.e(PG:2)
+11-12 21:29:50.829  8269  8269 E A       : 	at com.google.android.apps.gsa.speech.k.a.g.d(PG:22)
+11-12 21:29:50.829  8269  8269 E A       : 	at com.google.android.apps.gsa.speech.k.a.g.ks(PG:6)
+11-12 21:29:50.829  8269  8269 E A       : 	at com.google.android.apps.gsa.s3.o.e(PG:14)
+11-12 21:29:50.829  8269  8269 E A       : 	at com.google.android.apps.gsa.s3.p.run(PG:1)
+11-12 21:29:50.829  8269  8269 E A       : 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:487)
+11-12 21:29:50.829  8269  8269 E A       : 	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+11-12 21:29:50.829  8269  8269 E A       : 	at com.google.android.apps.gsa.shared.util.c.a.e.run(PG:2)
+11-12 21:29:50.829  8269  8269 E A       : 	at com.google.android.apps.gsa.shared.util.c.a.bi.run(PG:1)
+11-12 21:29:50.829  8269  8269 E A       : 	at com.google.android.apps.gsa.shared.util.c.a.bi.run(PG:1)
+11-12 21:29:50.829  8269  8269 E A       : 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 21:29:50.829  8269  8269 E A       : 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 21:29:50.829  8269  8269 E A       : 	at java.lang.Thread.run(Thread.java:1012)
+11-12 21:29:50.829  8269  8269 E A       : 	at com.google.android.apps.gsa.shared.util.c.a.l.run(PG:5)
+11-12 21:29:50.829  8269  8269 E A       : Caused by: com.google.android.apps.gsa.shared.speech.a.o: errorCode: 65586, engine: 2
+11-12 21:29:50.829  8269  8269 E A       : 	... 15 more
+11-12 21:29:50.829  8269  8269 E A       : Caused by: com.google.android.apps.gsa.shared.speech.a.k: errorCode: 401, engine: 2
+11-12 21:29:50.829  8269  8269 E A       : 	at com.google.android.apps.gsa.assistant.shared.n.h.a(PG:5)
+11-12 21:29:50.829  8269  8269 E A       : 	at com.google.android.apps.gsa.s3.producers.j.hE(PG:2)
+11-12 21:29:50.829  8269  8269 E A       : 	at com.google.android.apps.gsa.speech.k.a.g.d(PG:16)
+11-12 21:29:50.829  8269  8269 E A       : 	... 12 more
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: Exception in upload method
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: com.google.android.apps.gsa.shared.r.d: Error code: 262182
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.android.apps.gsa.shared.ab.bk.d(PG:5)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.android.libraries.gsa.c.a.ar.d(PG:1)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.android.libraries.gsa.c.a.bo.b(PG:5)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.android.libraries.gsa.c.a.e.a(PG:2)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.android.libraries.gsa.c.a.a.run(PG:2)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.bf.execute(PG:1)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.i(PG:1)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.l(PG:12)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.cancel(PG:8)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.m(PG:2)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.j.a(PG:1)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.l(PG:3)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.cancel(PG:8)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.m(PG:2)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.j.a(PG:1)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.l(PG:3)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.cancel(PG:8)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.m(PG:2)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.j.a(PG:1)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.l(PG:3)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.cancel(PG:8)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.m(PG:2)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.j.a(PG:1)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.l(PG:3)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.cancel(PG:8)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.m(PG:2)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.c.a(PG:1)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.l(PG:3)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.cancel(PG:8)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.bu.cancel(PG:1)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.cancel(PG:17)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.android.apps.gsa.staticplugins.bk.b.h.run(PG:2)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.bf.execute(PG:1)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.i(PG:1)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.l(PG:12)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.cancel(PG:8)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.m(PG:2)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.j.a(PG:1)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.l(PG:3)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.cancel(PG:8)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.android.apps.gsa.shared.util.c.aj.a(PG:2)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.l(PG:3)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.cancel(PG:8)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.m(PG:2)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.c.a(PG:1)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.l(PG:3)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.common.util.concurrent.d.cancel(PG:8)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.android.apps.gsa.s3.o.c(PG:2)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.android.apps.gsa.s3.r.a(PG:1)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.android.apps.gsa.staticplugins.dc.a.c.e(PG:2)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.android.apps.gsa.staticplugins.dc.a.c.c(PG:3)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.android.apps.gsa.staticplugins.dc.a.e.a(PG:5)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.android.apps.gsa.s3.n.hh(PG:1)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.cd.g.a.f.e(PG:2)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.android.apps.gsa.speech.k.a.g.d(PG:22)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.android.apps.gsa.speech.k.a.g.ks(PG:6)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.android.apps.gsa.s3.o.e(PG:14)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.android.apps.gsa.s3.p.run(PG:1)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:487)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.android.apps.gsa.shared.util.c.a.e.run(PG:2)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.android.apps.gsa.shared.util.c.a.bi.run(PG:1)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.android.apps.gsa.shared.util.c.a.bi.run(PG:1)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at java.lang.Thread.run(Thread.java:1012)
+11-12 21:29:50.830  8269  8304 E cr_CronetUrlRequestContext: 	at com.google.android.apps.gsa.shared.util.c.a.l.run(PG:5)
+11-12 21:29:50.847  9060  9083 W far     : <DWB> Context manager broadcast triggered power state fence restoration
+11-12 21:29:50.854  9060  9088 W AutoDndManagerModule: <DWB> Context manager broadcast triggered fence restoration
+11-12 21:29:50.854  9060  9088 W AutoDndManagerImpl: <DWB> Context manager requested to re-register fence
+11-12 21:29:50.856  8269  8269 W A       : Failed to sync device settings.
+11-12 21:29:50.863   496  1965 W JobScheduler: Job didn't exist in JobStore: f0aced1 #u0a132/-353 com.google.android.googlequicksearchbox/com.google.android.apps.gsa.tasks.BackgroundTasksJobService
+11-12 21:29:50.867  8269  8308 W SearchServiceCore: Abort, client detached.
+11-12 21:29:50.867  8269  8308 W SearchServiceCore: Abort, client detached.
+11-12 21:29:50.878  9060  9088 W faq     : <DWB> Stop listening to nest dock changes as it is disabled and ramped down.
+11-12 21:29:50.883   790  8320 E RoleControllerServiceImpl: Default/fallback role holder package doesn't qualify for the role, package: com.google.android.gms.supervision, role: android.app.role.SYSTEM_SUPERVISION
+11-12 21:29:50.884   790  8320 E RoleControllerServiceImpl: Default/fallback role holder package doesn't qualify for the role, package: com.google.android.gms, role: android.app.role.SYSTEM_CALL_STREAMING
+11-12 21:29:50.885   790  8320 W Role    : Default holder doesn't have required signing certificate: com.google.android.apps.work.clouddpc:23962F4B43B9857638EA66F4D419518EAE282491ACDA4B94707BD59003C45E58
+11-12 21:29:51.023  4447  4495 W AllAppsList: updatePackage: no Activities matched updated package, removing any AppInfo with package=com.google.android.gms, user=UserHandle{0}
+11-12 21:29:51.264  8321  9156 W ComponentChangedIO: No package name in intent data or package is not a bank app [CONTEXT service_id=469 ]
+11-12 21:29:51.265  8321  9144 W ComponentChangedIO: No package name in intent data or package is not a bank app [CONTEXT service_id=469 ]

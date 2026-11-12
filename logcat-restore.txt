@@ -1,0 +1,231 @@
+--------- beginning of main
+11-12 21:33:48.771  4447  4447 E GlanceWidgetView: No tap action can be set up
+11-12 21:33:48.771  4447  4447 E GlanceWidgetView: No tap action can be set up
+11-12 21:33:48.773  4447  4447 E GlanceWidgetView: No tap action can be set up
+11-12 21:33:48.773  4447  4447 E GlanceWidgetView: No tap action can be set up
+11-12 21:33:48.813  4447  4495 W LoaderTask: loadWorkspaceImpl: Loader stopped, skipping item processing
+11-12 21:33:48.813  4447  4495 W LoaderTask: LoaderTask cancelled
+11-12 21:33:48.919   496  2359 W InputManager-JNI: Input channel object '8b260cf app.thelauncher/app.thelauncher.MainLauncher (client)' was disposed without first being removed with the input manager!
+--------- beginning of system
+11-12 21:33:48.945   496  1961 W ActivityTaskManager: Force removing ActivityRecord{32800f6 u0 app.thelauncher/.ui.preferences.PreferenceActivity t10}: app died, no saved state
+11-12 21:33:48.951   496  1273 W InputManager-JNI: Input channel object 'bb329c9 app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity (client)' was disposed without first being removed with the input manager!
+11-12 21:33:49.006   496   524 W ActivityManager: Slow operation: 56ms so far, now at startProcess: done updating battery stats
+11-12 21:33:49.006   496   524 W ActivityManager: Slow operation: 56ms so far, now at startProcess: building log message
+11-12 21:33:49.006   496   524 W ActivityManager: Slow operation: 56ms so far, now at startProcess: starting to update pids map
+11-12 21:33:49.006   496   524 W ActivityManager: Slow operation: 57ms so far, now at startProcess: done updating pids map
+11-12 21:33:49.019 10804 10804 W app.thelauncher: Unexpected CPU variant for x86: x86_64.
+11-12 21:33:49.019 10804 10804 W app.thelauncher: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-12 21:33:49.022 10804 10804 E app.thelauncher: Not starting debugger since process cannot load the jdwp agent.
+11-12 21:33:49.188 10804 10830 W OpenGLRenderer: Failed to initialize 101010-2 format, error = EGL_SUCCESS
+11-12 21:33:49.220 10804 10830 E OpenGLRenderer: Unable to match the desired swap behavior.
+11-12 21:33:49.314   496   515 W ActivityTaskManager: Activity top resumed state loss timeout for ActivityRecord{32800f6 u0 app.thelauncher/.ui.preferences.PreferenceActivity t10 f} isExiting}
+11-12 21:33:49.332 10804 10830 E FrameEvents: updateAcquireFence: Did not find frame.
+11-12 21:33:49.337 10804 10830 E OpenGLRenderer: Unable to match the desired swap behavior.
+11-12 21:33:49.338 10804 10830 E FrameEvents: updateAcquireFence: Did not find frame.
+11-12 21:33:49.420 10804 10804 E ThemeUtils: View class app.thelauncher.views.CustomButton is an AppCompat widget that can only be used with a Theme.AppCompat theme (or descendant).
+11-12 21:33:49.420 10804 10804 E ThemeUtils: View class app.thelauncher.views.CustomButton is an AppCompat widget that can only be used with a Theme.AppCompat theme (or descendant).
+11-12 21:33:49.421 10804 10804 E ThemeUtils: View class app.thelauncher.views.CustomButton is an AppCompat widget that can only be used with a Theme.AppCompat theme (or descendant).
+11-12 21:33:49.421 10804 10804 E ThemeUtils: View class app.thelauncher.views.CustomButton is an AppCompat widget that can only be used with a Theme.AppCompat theme (or descendant).
+11-12 21:33:49.422 10804 10804 E ThemeUtils: View class app.thelauncher.views.CustomButton is an AppCompat widget that can only be used with a Theme.AppCompat theme (or descendant).
+11-12 21:33:49.422 10804 10804 E ThemeUtils: View class app.thelauncher.views.CustomButton is an AppCompat widget that can only be used with a Theme.AppCompat theme (or descendant).
+11-12 21:33:49.443 10804 10804 E RecyclerView: Cannot scroll to position a LayoutManager set. Call setLayoutManager with a non-null argument.
+11-12 21:33:49.444 10804 10804 E RecyclerView: Cannot scroll to position a LayoutManager set. Call setLayoutManager with a non-null argument.
+11-12 21:33:49.454 10804 10804 E ThemeUtils: View class app.thelauncher.smartspace.IcuDateTextView is an AppCompat widget that can only be used with a Theme.AppCompat theme (or descendant).
+11-12 21:33:49.477  8269  8269 W A       : Calling with an invalid UID, the interface will not work
+11-12 21:33:49.485 10804 10804 W LoaderTask: stopLocked: Loader stopping
+11-12 21:33:49.487  8269  8269 E A       : Only system apps are allowed to connect
+11-12 21:33:49.487  8269  8269 W A       : Unable to bind to service
+11-12 21:33:49.490 10804 10825 W LoaderTask: loadWorkspaceImpl: Loader stopped, skipping item processing
+11-12 21:33:49.490 10804 10825 W LoaderTask: LoaderTask cancelled
+11-12 21:33:49.492  8269  8269 W A       : Calling with an invalid UID, the interface will not work
+11-12 21:33:49.493  8269  8269 E A       : Only system apps are allowed to connect
+11-12 21:33:49.493  8269  8269 W A       : Unable to bind to service
+11-12 21:33:49.495 10804 10804 W PhoneWindow: Previously focused view reported id 2131362259 during save, but can't be found during restore.
+11-12 21:33:49.500 10804 10804 W OpenGLRenderer: Unknown dataspace 0
+11-12 21:33:49.584   496   516 W WindowManager: Failed to deliver inset control state change to w=Window{bb329c9 u0 app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity EXITING}
+11-12 21:33:49.584   496   516 W WindowManager: android.os.DeadObjectException
+11-12 21:33:49.584   496   516 W WindowManager: 	at android.os.BinderProxy.transactNative(Native Method)
+11-12 21:33:49.584   496   516 W WindowManager: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+11-12 21:33:49.584   496   516 W WindowManager: 	at android.view.IWindow$Stub$Proxy.insetsControlChanged(IWindow.java:479)
+11-12 21:33:49.584   496   516 W WindowManager: 	at com.android.server.wm.WindowState.notifyInsetsControlChanged(WindowState.java:3802)
+11-12 21:33:49.584   496   516 W WindowManager: 	at com.android.server.wm.InsetsStateController.lambda$notifyPendingInsetsControlChanged$3(InsetsStateController.java:343)
+11-12 21:33:49.584   496   516 W WindowManager: 	at com.android.server.wm.InsetsStateController.$r8$lambda$8yykPRG1GyNq_J17QvL9d5xANMc(InsetsStateController.java:0)
+11-12 21:33:49.584   496   516 W WindowManager: 	at com.android.server.wm.InsetsStateController$$ExternalSyntheticLambda2.run(R8$$SyntheticClass:0)
+11-12 21:33:49.584   496   516 W WindowManager: 	at com.android.server.wm.WindowAnimator.executeAfterPrepareSurfacesRunnables(WindowAnimator.java:294)
+11-12 21:33:49.584   496   516 W WindowManager: 	at com.android.server.wm.WindowAnimator.animate(WindowAnimator.java:202)
+11-12 21:33:49.584   496   516 W WindowManager: 	at com.android.server.wm.WindowAnimator.lambda$new$1(WindowAnimator.java:99)
+11-12 21:33:49.584   496   516 W WindowManager: 	at com.android.server.wm.WindowAnimator.$r8$lambda$aHNu1uhcqxihX5NZc4McDDQPAyw(WindowAnimator.java:0)
+11-12 21:33:49.584   496   516 W WindowManager: 	at com.android.server.wm.WindowAnimator$$ExternalSyntheticLambda1.doFrame(R8$$SyntheticClass:0)
+11-12 21:33:49.584   496   516 W WindowManager: 	at android.view.Choreographer$CallbackRecord.run(Choreographer.java:1337)
+11-12 21:33:49.584   496   516 W WindowManager: 	at android.view.Choreographer$CallbackRecord.run(Choreographer.java:1348)
+11-12 21:33:49.584   496   516 W WindowManager: 	at android.view.Choreographer.doCallbacks(Choreographer.java:952)
+11-12 21:33:49.584   496   516 W WindowManager: 	at android.view.Choreographer.doFrame(Choreographer.java:878)
+11-12 21:33:49.584   496   516 W WindowManager: 	at android.view.Choreographer$FrameDisplayEventReceiver.run(Choreographer.java:1322)
+11-12 21:33:49.584   496   516 W WindowManager: 	at android.os.Handler.handleCallback(Handler.java:958)
+11-12 21:33:49.584   496   516 W WindowManager: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+11-12 21:33:49.584   496   516 W WindowManager: 	at android.os.Looper.loopOnce(Looper.java:205)
+11-12 21:33:49.584   496   516 W WindowManager: 	at android.os.Looper.loop(Looper.java:294)
+11-12 21:33:49.584   496   516 W WindowManager: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+11-12 21:33:49.584   496   516 W WindowManager: 	at com.android.server.ServiceThread.run(ServiceThread.java:46)
+11-12 21:33:49.802   496   560 W Binder  : Caught a RuntimeException from the binder stub implementation.
+11-12 21:33:49.802   496   560 W Binder  : java.lang.SecurityException: Caller does not hold permission android.permission.MANAGE_ACCESSIBILITY
+11-12 21:33:49.802   496   560 W Binder  : 	at com.android.server.accessibility.AccessibilitySecurityPolicy.enforceCallingOrSelfPermission(AccessibilitySecurityPolicy.java:674)
+11-12 21:33:49.802   496   560 W Binder  : 	at com.android.server.accessibility.AccessibilityManagerService.unregisterSystemAction(AccessibilityManagerService.java:1220)
+11-12 21:33:49.802   496   560 W Binder  : 	at android.view.accessibility.IAccessibilityManager$Stub.onTransact(IAccessibilityManager.java:607)
+11-12 21:33:49.802   496   560 W Binder  : 	at android.os.Binder.execTransactInternal(Binder.java:1344)
+11-12 21:33:49.802   496   560 W Binder  : 	at android.os.Binder.execTransact(Binder.java:1275)
+11-12 21:33:50.170   496   515 W ProcessStats: Tracking association SourceState{5b67725 app.thelauncher/10190 BTop #17751} whose proc state 2 is better than process ProcessState{ea02cba com.google.android.googlequicksearchbox:search/10132 pkg=com.google.android.googlequicksearchbox} proc state 6 (10 skipped)
+11-12 21:33:50.273  1491  1499 W System  : A resource failed to call AbstractCursor.close. 
+11-12 21:33:50.274  1491  1499 W System  : A resource failed to call AbstractCursor.close. 
+11-12 21:33:50.291   496  1956 W WindowManager: Exception thrown during dispatchAppVisibility Window{bb329c9 u0 app.thelauncher/app.thelauncher.ui.preferences.PreferenceActivity EXITING}
+11-12 21:33:50.291   496  1956 W WindowManager: android.os.DeadObjectException
+11-12 21:33:50.291   496  1956 W WindowManager: 	at android.os.BinderProxy.transactNative(Native Method)
+11-12 21:33:50.291   496  1956 W WindowManager: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+11-12 21:33:50.291   496  1956 W WindowManager: 	at android.view.IWindow$Stub$Proxy.dispatchAppVisibility(IWindow.java:546)
+11-12 21:33:50.291   496  1956 W WindowManager: 	at com.android.server.wm.WindowState.sendAppVisibilityToClients(WindowState.java:3271)
+11-12 21:33:50.291   496  1956 W WindowManager: 	at com.android.server.wm.WindowContainer.sendAppVisibilityToClients(WindowContainer.java:1221)
+11-12 21:33:50.291   496  1956 W WindowManager: 	at com.android.server.wm.WindowToken.setClientVisible(WindowToken.java:409)
+11-12 21:33:50.291   496  1956 W WindowManager: 	at com.android.server.wm.ActivityRecord.setClientVisible(ActivityRecord.java:6946)
+11-12 21:33:50.291   496  1956 W WindowManager: 	at com.android.server.wm.ActivityRecord.postApplyAnimation(ActivityRecord.java:5637)
+11-12 21:33:50.291   496  1956 W WindowManager: 	at com.android.server.wm.ActivityRecord.commitVisibility(ActivityRecord.java:5580)
+11-12 21:33:50.291   496  1956 W WindowManager: 	at com.android.server.wm.Transition.finishTransition(Transition.java:1151)
+11-12 21:33:50.291   496  1956 W WindowManager: 	at com.android.server.wm.TransitionController.finishTransition(TransitionController.java:868)
+11-12 21:33:50.291   496  1956 W WindowManager: 	at com.android.server.wm.WindowOrganizerController.finishTransition(WindowOrganizerController.java:396)
+11-12 21:33:50.291   496  1956 W WindowManager: 	at android.window.IWindowOrganizerController$Stub.onTransact(IWindowOrganizerController.java:286)
+11-12 21:33:50.291   496  1956 W WindowManager: 	at com.android.server.wm.WindowOrganizerController.onTransact(WindowOrganizerController.java:181)
+11-12 21:33:50.291   496  1956 W WindowManager: 	at android.os.Binder.execTransactInternal(Binder.java:1344)
+11-12 21:33:50.291   496  1956 W WindowManager: 	at android.os.Binder.execTransact(Binder.java:1275)
+11-12 21:33:50.337   496   515 W ActivityManager: setHasOverlayUi called on unknown pid: 4447
+11-12 21:33:50.362   398   398 E BpTransactionCompletedListener: Failed to transact (-32)
+11-12 21:33:50.364 10804 10823 E SystemUiProxy: getRecentTasks() failed due to null mRecentTasks
+11-12 21:33:50.512  6129  6235 W PlayCommon: [69] No account for auth token provided
+11-12 21:33:50.513 10804 10837 W WeatherProvider: weather update failed
+11-12 21:33:50.513 10804 10837 W WeatherProvider: sb0: Child of the scoped flow was cancelled
+11-12 21:33:50.622 10804 10830 E OpenGLRenderer: Unable to match the desired swap behavior.
+11-12 21:33:50.819 10804 10830 E FrameEvents: updateAcquireFence: Did not find frame.
+11-12 21:33:50.823 10804 10830 E OpenGLRenderer: Unable to match the desired swap behavior.
+11-12 21:33:50.824 10804 10830 E FrameEvents: updateAcquireFence: Did not find frame.
+11-12 21:33:50.827 10804 10830 E OpenGLRenderer: Unable to match the desired swap behavior.
+11-12 21:33:50.828 10804 10830 E FrameEvents: updateAcquireFence: Did not find frame.
+11-12 21:33:50.832 10804 10830 E OpenGLRenderer: Unable to match the desired swap behavior.
+11-12 21:33:50.832 10804 10830 E FrameEvents: updateAcquireFence: Did not find frame.
+11-12 21:33:50.835 10804 10830 E OpenGLRenderer: Unable to match the desired swap behavior.
+11-12 21:33:50.836 10804 10830 E FrameEvents: updateAcquireFence: Did not find frame.
+11-12 21:33:50.971 10804 10825 E QuickstepModelDelegate: Failed to register launcher snapshot logging callback with StatsManager
+11-12 21:33:50.971 10804 10825 E QuickstepModelDelegate: java.lang.NullPointerException: Attempt to invoke interface method 'void android.os.IStatsManagerService.registerPullAtomCallback(int, long, long, int[], android.os.IPullAtomCallback)' on a null object reference
+11-12 21:33:50.971 10804 10825 E QuickstepModelDelegate: 	at android.app.StatsManager.setPullAtomCallback(StatsManager.java:644)
+11-12 21:33:50.971 10804 10825 E QuickstepModelDelegate: 	at com.android.launcher3.model.QuickstepModelDelegate.registerSnapshotLoggingCallback(r8-map-id-698ccd1fcc0616c64773b1fe0aff6bb144573e0a695496860ad427d5c2105da4:23)
+11-12 21:33:50.971 10804 10825 E QuickstepModelDelegate: 	at com.android.launcher3.model.QuickstepModelDelegate.modelLoadComplete(r8-map-id-698ccd1fcc0616c64773b1fe0aff6bb144573e0a695496860ad427d5c2105da4:98)
+11-12 21:33:50.971 10804 10825 E QuickstepModelDelegate: 	at xb6.modelLoadComplete(r8-map-id-698ccd1fcc0616c64773b1fe0aff6bb144573e0a695496860ad427d5c2105da4:1)
+11-12 21:33:50.971 10804 10825 E QuickstepModelDelegate: 	at com.android.launcher3.model.LoaderTask.loadAllSurfacesOrdered(r8-map-id-698ccd1fcc0616c64773b1fe0aff6bb144573e0a695496860ad427d5c2105da4:324)
+11-12 21:33:50.971 10804 10825 E QuickstepModelDelegate: 	at com.android.launcher3.model.LoaderTask.run(r8-map-id-698ccd1fcc0616c64773b1fe0aff6bb144573e0a695496860ad427d5c2105da4:69)
+11-12 21:33:50.971 10804 10825 E QuickstepModelDelegate: 	at android.os.Handler.handleCallback(Handler.java:958)
+11-12 21:33:50.971 10804 10825 E QuickstepModelDelegate: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+11-12 21:33:50.971 10804 10825 E QuickstepModelDelegate: 	at android.os.Looper.loopOnce(Looper.java:205)
+11-12 21:33:50.971 10804 10825 E QuickstepModelDelegate: 	at android.os.Looper.loop(Looper.java:294)
+11-12 21:33:50.971 10804 10825 E QuickstepModelDelegate: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+11-12 21:33:51.018 10804 10830 E OpenGLRenderer: Unable to match the desired swap behavior.
+11-12 21:33:51.021 10804 10830 E FrameEvents: updateAcquireFence: Did not find frame.
+11-12 21:33:51.038 10804 10830 E OpenGLRenderer: Unable to match the desired swap behavior.
+11-12 21:33:51.040 10804 10830 E FrameEvents: updateAcquireFence: Did not find frame.
+11-12 21:33:51.073 10804 10812 W app.thelauncher: Cleared Reference was only reachable from finalizer (only reported once)
+11-12 21:33:51.115   789   789 W WindowOnBackDispatcher: sendCancelIfRunning: isInProgress=falsecallback=android.view.ViewRootImpl$$ExternalSyntheticLambda17@77cb604
+11-12 21:33:51.117   496  1956 W InputManager-JNI: Input channel object '5077410 Toast (client)' was disposed without first being removed with the input manager!
+11-12 21:33:51.124   496  1956 W NotificationService: Toast already killed. pkg=app.thelauncher token=android.os.BinderProxy@6e10813
+11-12 21:33:51.126   789   789 E IPCThreadState: Binder transaction failure: 903331/29189/-22
+11-12 21:33:51.126   789   789 W ToastPresenter: Error calling back app.thelauncher to notify onToastHide()
+11-12 21:33:51.126   789   789 W ToastPresenter: android.os.DeadObjectException
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.os.BinderProxy.transactNative(Native Method)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.os.BinderProxy.transact(BinderProxy.java:584)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.app.ITransientNotificationCallback$Stub$Proxy.onToastHidden(ITransientNotificationCallback.java:141)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.widget.ToastPresenter.hide(ToastPresenter.java:294)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at com.android.systemui.toast.ToastUI$ToastOutAnimatorListener.onAnimationEnd(go/retraceme a73edba7e9fb2bbd2747c8d4c475588455b7e81b0cea45cc71c2bac0e3d9e61c:5)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.animation.Animator$AnimatorListener.onAnimationEnd(Animator.java:711)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.animation.Animator$AnimatorCaller$$ExternalSyntheticLambda1.call(Unknown Source:4)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.animation.Animator.callOnList(Animator.java:669)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.animation.Animator.notifyListeners(Animator.java:608)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.animation.Animator.notifyEndListeners(Animator.java:633)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.animation.AnimatorSet.endAnimation(AnimatorSet.java:1425)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.animation.AnimatorSet.end(AnimatorSet.java:525)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.animation.AnimatorSet.forceToEnd(AnimatorSet.java:448)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.animation.AnimatorSet.doAnimationFrame(AnimatorSet.java:1146)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.animation.AnimationHandler.doAnimationFrame(AnimationHandler.java:328)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.animation.AnimationHandler.-$$Nest$mdoAnimationFrame(Unknown Source:0)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.animation.AnimationHandler$1.doFrame(AnimationHandler.java:86)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.view.Choreographer$CallbackRecord.run(Choreographer.java:1337)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.view.Choreographer$CallbackRecord.run(Choreographer.java:1348)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.view.Choreographer.doCallbacks(Choreographer.java:952)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.view.Choreographer.doFrame(Choreographer.java:878)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.view.Choreographer$FrameDisplayEventReceiver.run(Choreographer.java:1322)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.os.Handler.handleCallback(Handler.java:958)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.os.Looper.loopOnce(Looper.java:205)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.os.Looper.loop(Looper.java:294)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at android.app.ActivityThread.main(ActivityThread.java:8177)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at java.lang.reflect.Method.invoke(Native Method)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:552)
+11-12 21:33:51.126   789   789 W ToastPresenter: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:971)
+11-12 21:33:51.224 10804 10830 E OpenGLRenderer: Unable to match the desired swap behavior.
+11-12 21:33:51.225 10804 10830 E FrameEvents: updateAcquireFence: Did not find frame.
+11-12 21:33:51.359 10804 10830 E OpenGLRenderer: Unable to match the desired swap behavior.
+11-12 21:33:51.360 10804 10830 E FrameEvents: updateAcquireFence: Did not find frame.
+11-12 21:33:51.449 10804 10830 E OpenGLRenderer: Unable to match the desired swap behavior.
+11-12 21:33:51.450 10804 10830 E FrameEvents: updateAcquireFence: Did not find frame.
+11-12 21:33:53.811   496  3008 E TaskPersister: File error accessing recents directory (directory doesn't exist?).
+11-12 21:33:53.832 10804 10804 W SplitSelectStateCtor: Missing session instanceIds
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: Attempting to log to ProtoLog before initializing it.
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: java.lang.IllegalStateException
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at com.android.quickstep.util.QuickstepProtoLogGroup.isProtoLogInitialized(r8-map-id-698ccd1fcc0616c64773b1fe0aff6bb144573e0a695496860ad427d5c2105da4:9)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at com.android.launcher3.util.OverviewCommandHelperProtoLogProxy.logOnNewIntent(r8-map-id-698ccd1fcc0616c64773b1fe0aff6bb144573e0a695496860ad427d5c2105da4:1)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at com.android.launcher3.uioverrides.QuickstepLauncher.logOnNewIntent(r8-map-id-698ccd1fcc0616c64773b1fe0aff6bb144573e0a695496860ad427d5c2105da4:6)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at com.android.launcher3.Launcher.onNewIntent(r8-map-id-698ccd1fcc0616c64773b1fe0aff6bb144573e0a695496860ad427d5c2105da4:95)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at com.android.launcher3.uioverrides.QuickstepLauncher.onNewIntent(r8-map-id-698ccd1fcc0616c64773b1fe0aff6bb144573e0a695496860ad427d5c2105da4:5)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at app.thelauncher.MainLauncher.onNewIntent(r8-map-id-698ccd1fcc0616c64773b1fe0aff6bb144573e0a695496860ad427d5c2105da4:94)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at android.app.Activity.performNewIntent(Activity.java:8613)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at android.app.Instrumentation.callActivityOnNewIntent(Instrumentation.java:1556)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at android.app.Instrumentation.callActivityOnNewIntent(Instrumentation.java:1569)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at android.app.ActivityThread.deliverNewIntents(ActivityThread.java:3962)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at android.app.ActivityThread.handleNewIntent(ActivityThread.java:3969)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at android.app.servertransaction.NewIntentItem.execute(NewIntentItem.java:56)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at android.app.servertransaction.ActivityTransactionItem.execute(ActivityTransactionItem.java:45)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at android.app.servertransaction.TransactionExecutor.executeCallbacks(TransactionExecutor.java:139)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at android.app.servertransaction.TransactionExecutor.execute(TransactionExecutor.java:96)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at android.app.ActivityThread$H.handleMessage(ActivityThread.java:2443)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at android.os.Handler.dispatchMessage(Handler.java:106)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at android.os.Looper.loopOnce(Looper.java:205)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at android.os.Looper.loop(Looper.java:294)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at android.app.ActivityThread.main(ActivityThread.java:8177)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at java.lang.reflect.Method.invoke(Native Method)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:552)
+11-12 21:33:53.834 10804 10804 W QuickstepProtoLogGroup: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:971)
+11-12 21:33:59.645  8269  8304 E A       : Failed updating experiments for package com.google.android.libraries.search.googleapp.user#com.google.android.googlequicksearchbox
+11-12 21:33:59.645  8269  8304 E A       : com.google.common.util.concurrent.dv: Timed out: a@90acfa6[status=PENDING, info=[inputFuture=[com.google.android.libraries.v.d@5432de7[status=PENDING, info=[com.google.android.gms.tasks.aj@d411d94]]], exceptionType=[class com.google.android.gms.common.api.n], fallback=[com.google.android.libraries.phenotype.client.a.j@23719b5]]]
+11-12 21:34:00.026   789   789 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+11-12 21:34:05.592   496   523 W ProcessStats: Tracking association SourceState{5b67725 app.thelauncher/10190 BTop #17759} whose proc state 2 is better than process ProcessState{ea02cba com.google.android.googlequicksearchbox:search/10132 pkg=com.google.android.googlequicksearchbox} proc state 6 (3 skipped)
+11-12 21:34:05.595  9697  9759 W AlarmManager: alarm window unlikely to be respected [CONTEXT service_id=231 ]
+11-12 21:34:05.595  9697  9759 W AlarmManager: java.lang.IllegalArgumentException: alarm "NetworkLocationActivityDetection" has short window length
+11-12 21:34:05.595  9697  9759 W AlarmManager: 	at dlhu.c(:com.google.android.gms@264330032@26.43.30 (190800-1006944126):32)
+11-12 21:34:05.595  9697  9759 W AlarmManager: 	at dlht.c(:com.google.android.gms@264330032@26.43.30 (190800-1006944126):18)
+11-12 21:34:05.595  9697  9759 W AlarmManager: 	at hprg.b(:com.google.android.gms@264330032@26.43.30 (190800-1006944126):134)
+11-12 21:34:05.595  9697  9759 W AlarmManager: 	at hnpc.v(:com.google.android.gms@264330032@26.43.30 (190800-1006944126):74)
+11-12 21:34:05.595  9697  9759 W AlarmManager: 	at hnpk.b(:com.google.android.gms@264330032@26.43.30 (190800-1006944126):140)
+11-12 21:34:05.595  9697  9759 W AlarmManager: 	at hpym.b(:com.google.android.gms@264330032@26.43.30 (190800-1006944126):22)
+11-12 21:34:05.595  9697  9759 W AlarmManager: 	at hpqo.b(:com.google.android.gms@264330032@26.43.30 (190800-1006944126):17)
+11-12 21:34:05.595  9697  9759 W AlarmManager: 	at hpqj.run(:com.google.android.gms@264330032@26.43.30 (190800-1006944126):333)
+11-12 21:34:05.595  9697  9759 W AlarmManager: 	at android.os.Handler.handleCallback(Handler.java:958)
+11-12 21:34:05.595  9697  9759 W AlarmManager: 	at android.os.Handler.dispatchMessage(Handler.java:99)
+11-12 21:34:05.595  9697  9759 W AlarmManager: 	at dnek.mH(:com.google.android.gms@264330032@26.43.30 (190800-1006944126):1)
+11-12 21:34:05.595  9697  9759 W AlarmManager: 	at dnek.dispatchMessage(:com.google.android.gms@264330032@26.43.30 (190800-1006944126):152)
+11-12 21:34:05.595  9697  9759 W AlarmManager: 	at android.os.Looper.loopOnce(Looper.java:205)
+11-12 21:34:05.595  9697  9759 W AlarmManager: 	at android.os.Looper.loop(Looper.java:294)
+11-12 21:34:05.595  9697  9759 W AlarmManager: 	at android.os.HandlerThread.run(HandlerThread.java:67)
+11-12 21:34:11.905  1553  1553 E GmsClientSupervisor: Timeout waiting for ServiceConnection callback com.google.android.gms.clearcut.service.START
+11-12 21:34:11.905  1553  1553 E GmsClientSupervisor: java.lang.Exception
+11-12 21:34:11.905  1553  1553 E GmsClientSupervisor: 	at com.google.android.gms.common.internal.ai.handleMessage(PG:4)
+11-12 21:34:11.905  1553  1553 E GmsClientSupervisor: 	at android.os.Handler.dispatchMessage(Handler.java:102)
+11-12 21:34:11.905  1553  1553 E GmsClientSupervisor: 	at android.os.Looper.loopOnce(Looper.java:205)
+11-12 21:34:11.905  1553  1553 E GmsClientSupervisor: 	at android.os.Looper.loop(Looper.java:294)
+11-12 21:34:11.905  1553  1553 E GmsClientSupervisor: 	at android.app.ActivityThread.main(ActivityThread.java:8177)
+11-12 21:34:11.905  1553  1553 E GmsClientSupervisor: 	at java.lang.reflect.Method.invoke(Native Method)
+11-12 21:34:11.905  1553  1553 E GmsClientSupervisor: 	at com.android.internal.os.RuntimeInit$MethodAndArgsCaller.run(RuntimeInit.java:552)
+11-12 21:34:11.905  1553  1553 E GmsClientSupervisor: 	at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:971)
