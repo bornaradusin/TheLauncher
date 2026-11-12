@@ -309,7 +309,7 @@ if want restore && [ -f "$RUNNER_TEMP/hyperion_test.backup" ]; then
   adb logcat -d | grep -i -E 'thelauncher|launcher3|ModelDb|RestoreDb|GridSize|LoaderTask|DatabaseHelper|Hyperion|SQLite' > "$OUT/logcat-launcher.txt" 2>&1
   # No Home key here: the restored setup turns a Home press into a Sesame search.
   sleep 10; shot 63-home-restored
-  long_xy 540 900; tap_text 'Apps list' || adb shell input swipe 540 1600 540 300 800; sleep 3
+  adb shell input swipe 540 1500 540 300 300; sleep 3
   shot 64-drawer-restored
   scroll; shot 65-drawer-restored-2
   back; sleep 2

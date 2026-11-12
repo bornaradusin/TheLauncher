@@ -29,11 +29,11 @@ PAGE_FILES = {
 RULES = [
     (r'smartspace|glance', ['glance'], ['smartspace']),
     (r'seerr', ['seerr'], []),
-    (r'allapps|drawer', ['drawer'], ['app-drawer']),
+    (r'allapps|drawer', ['drawer', 'restore'], ['app-drawer']),
     (r'search', ['drawer'], ['search']),
     (r'hotseat|qsb|dock', ['home', 'dock'], ['dock']),
     (r'folder', ['home'], ['folders']),
-    (r'backup|hyperion|restoredb|modeldbcontroller', ['restore'], ['backup-restore']),
+    (r'backup|hyperion|restoredb|modeldbcontroller|iconoverride', ['restore'], ['backup-restore']),
     (r'gestures', [], ['gestures']),
     (r'ui/preferences/about', [], ['about']),
     (r'ui/preferences/(components|navigation|preferenceactivity)|settingscategories|preferencesdashboard', ['settings'], []),
