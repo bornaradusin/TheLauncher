@@ -99,6 +99,11 @@ fun GeneralPreferences(modifier: Modifier = Modifier) {
                 label = stringResource(id = R.string.home_screen_rotation_label),
                 description = stringResource(id = R.string.home_screen_rotation_description),
             )
+            SwitchPreference(
+                adapter = prefs2.highRefreshRate.getAdapter(),
+                label = stringResource(id = R.string.high_refresh_rate),
+                description = stringResource(id = R.string.high_refresh_rate_desc),
+            )
         }
         PreferenceGroup(heading = stringResource(id = R.string.updater)) {
             if (BuildConfig.APPLICATION_ID.contains("nightly")) {

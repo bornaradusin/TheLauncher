@@ -979,6 +979,15 @@ class PreferenceManager2 @Inject constructor(
         defaultValue = context.resources.getBoolean(R.bool.config_default_enable_feed),
     )
 
+    /**
+     * Asks Android for the screen's highest refresh rate (120 Hz or more) while the launcher is
+     * open. Phones that only give their own list of apps the high rate otherwise keep it at 60.
+     */
+    val highRefreshRate = preference(
+        key = booleanPreferencesKey(name = "high_refresh_rate"),
+        defaultValue = true,
+    )
+
     /** The Google feed's theme: "auto" leaves it to the Google app, "light" and "dark" force one. */
     val feedTheme = preference(
         key = stringPreferencesKey(name = "feed_theme"),

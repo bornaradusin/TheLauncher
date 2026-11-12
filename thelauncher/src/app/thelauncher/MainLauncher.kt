@@ -167,6 +167,8 @@ class MainLauncher : QuickstepLauncher() {
         preferenceManager2.enableFeed.get().distinctUntilChanged().onEach { enable ->
             defaultOverlay.setEnableFeed(enable)
         }.launchIn(scope = lifecycleScope)
+        preferenceManager2.highRefreshRate.get().distinctUntilChanged().onEach { applyRefreshRate(it) }
+            .launchIn(scope = lifecycleScope)
         preferenceManager2.feedTheme.get().distinctUntilChanged().onEach { theme ->
             defaultOverlay.setFeedTheme(theme)
         }.launchIn(scope = lifecycleScope)
@@ -523,6 +525,8 @@ class MainLauncher : QuickstepLauncher() {
     override fun onResume() {
         super.onResume()
         restartIfPending()
+        // The screen's modes can change while away (a resolution switch), so ask again.
+        applyRefreshRate(preferenceManager2.highRefreshRate.firstCached())
         if (preferenceManager2.animationSpeed.firstCached() != "default") {
             applyAnimationSpeed(preferenceManager2.animationSpeed.firstCached())
         }
@@ -606,6 +610,31 @@ class MainLauncher : QuickstepLauncher() {
         ) {
             LauncherAppState.getInstance(this).model.reloadIfActive()
         }
+    }
+
+    /**
+     * With [on], asks for the fastest display mode at the current resolution, so the home screen,
+     * drawer and recents run at the phone's top refresh rate; off leaves it to Android.
+     */
+    private fun applyRefreshRate(on: Boolean) {
+        val screen: Display = if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+            getDisplay() ?: return
+        } else {
+            windowManager.defaultDisplay ?: return
+        }
+        val modeId = if (on) {
+            val current = screen.mode
+            screen.supportedModes
+                .filter { it.physicalWidth == current.physicalWidth && it.physicalHeight == current.physicalHeight }
+                .maxByOrNull { it.refreshRate }
+                ?.modeId ?: 0
+        } else {
+            0
+        }
+        val attrs = window.attributes
+        if (attrs.preferredDisplayModeId == modeId) return
+        attrs.preferredDisplayModeId = modeId
+        window.attributes = attrs
     }
 
     override fun onScreenOnChanged(isOn: Boolean) {

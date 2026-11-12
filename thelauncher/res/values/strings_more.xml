@@ -201,7 +201,7 @@
     <string name="smartspace_weather_kelvin">Use Kelvin</string>
     <string name="drawer_background_blur">Background blur</string>
     <string name="cat_entry_dots_desc">Size, colour, position and count</string>
-    <string name="cat_entry_general_desc">Rotation, updates and language</string>
+    <string name="cat_entry_general_desc">Rotation, refresh rate, updates and language</string>
     <string name="feed_theme">Feed theme</string>
     <string name="feed_theme_auto">Same as the Google app</string>
     <string name="feed_theme_light">Light</string>
@@ -210,6 +210,8 @@
     <string name="desktop_glow_bottom_color">Bottom glow colour</string>
     <string name="icon_background_color">Background colour</string>
     <string name="folder_icon_size">Folder icon size</string>
+    <string name="high_refresh_rate">Highest refresh rate</string>
+    <string name="high_refresh_rate_desc">Runs the home screen and drawer at your screen\'s top rate, like 120 Hz, even on phones that keep other apps at 60</string>
     <string name="weather_unit">Temperature unit</string>
     <string name="weather_unit_celsius">Celsius (°C)</string>
     <string name="weather_unit_fahrenheit">Fahrenheit (°F)</string>
