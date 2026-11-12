@@ -350,6 +350,17 @@ jobs:
             back; back
           fi
 
+          # At a Glance in the widget list (builds that have it).
+          home
+          long_xy 540 1200
+          if tap_text 'Widgets'; then
+            sleep 3
+            tap_field && adb shell input text 'glance' && sleep 3
+            shot 34-widget-list
+            back; back
+          fi
+          home
+
           # Seerr in search (builds that have it), against the stand-in server.
           settings seerr
           if find_xy 'Address' >/dev/null; then
