@@ -150,7 +150,7 @@ class TheLauncherBackup(
             val colorHints = WallpaperManagerCompat.INSTANCE.get(context).wallpaperColors?.colorHints ?: 0
             val wallpaperSupportsDarkText = (colorHints and WallpaperColorsCompat.HINT_SUPPORTS_DARK_TEXT) != 0
             val info = BackupInfo.newBuilder()
-                .setTheLauncherVersion(BuildConfig.VERSION_CODE)
+                .setAppVersion(BuildConfig.VERSION_CODE)
                 .setBackupVersion(BACKUP_VERSION)
                 .setCreatedAt(createdAt)
                 .setContents(contents)
