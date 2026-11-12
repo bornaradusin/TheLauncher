@@ -1,0 +1,12 @@
+/home/runner/work/TheLauncher/TheLauncher/src/com/android/launcher3/pageindicators/PageIndicatorDots.java:186: error: method does not override or implement a method from a supertype
+    @Override
+    ^
+Note: Some input files use or override a deprecated API.
+--
+* What went wrong:
+Execution failed for task ':compileOssWithQuickstepGithubReleaseJavaWithJavac' (registered by plugin 'com.android.internal.application').
+> Compilation failed; see the compiler output below.
+  /home/runner/work/TheLauncher/TheLauncher/src/com/android/launcher3/pageindicators/PageIndicatorDots.java:186: error: method does not override or implement a method from a supertype
+      @Override
+      ^
+  Note: Some input files use or override a deprecated API.
