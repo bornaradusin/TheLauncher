@@ -129,6 +129,7 @@ jobs:
           home() { adb shell input keyevent KEYCODE_HOME; sleep 2; }
           back() { adb shell input keyevent KEYCODE_BACK; sleep 1; }
           scroll() { adb shell input swipe 540 1900 540 700 500; sleep 2; }
+          nudge() { adb shell input swipe 540 1600 540 1000 500; sleep 2; }
           drawer() { home; long_xy 540 1200; tap_text 'Apps list'; sleep 3; }
           dismiss() { sleep 4; tap_text 'Cancel' || true; }
           settings() {
@@ -176,6 +177,7 @@ jobs:
           settings smartspace
           dismiss
           if scroll_to 'Bubble'; then
+            nudge
             shot 24-glance-style
             tap_text 'Bubble'
             tap_text 'Pill around the text'
@@ -190,6 +192,17 @@ jobs:
           if scroll_to 'Drawer on a sheet'; then
             tap_text 'Drawer on a sheet'
             shot 27-drawer-setting
+          fi
+          back; back
+
+          # Drawer indicator above the dock (builds that have it).
+          settings dock
+          dismiss
+          if scroll_to 'Drawer indicator'; then
+            nudge
+            tap_text 'Drawer indicator'
+            tap_text 'Arrow'
+            shot 28-dock-indicator-setting
           fi
           back; back
 
@@ -239,6 +252,8 @@ jobs:
             shot "s-$p"
             scroll
             shot "s-$p-2"
+            scroll
+            shot "s-$p-3"
           done
           settings general
           tap_text 'Icon shape'
