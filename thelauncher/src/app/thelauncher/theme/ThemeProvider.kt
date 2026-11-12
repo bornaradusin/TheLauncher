@@ -69,7 +69,7 @@ class ThemeProvider @Inject constructor(
 
     init {
         if (Utilities.ATLEAST_S) {
-            colorSchemeMap[Pair(0, Style.TONAL_SPOT)] = SystemColorScheme(context)
+            colorSchemeMap[SYSTEM_SCHEME_KEY] = SystemColorScheme(context)
             registerOverlayChangedListener()
         }
         wallpaperManager.addOnChangeListener(wallpaperColorsChangedListener)
@@ -90,8 +90,8 @@ class ThemeProvider @Inject constructor(
         packageFilter.addDataSchemeSpecificPart("android", PatternMatcher.PATTERN_LITERAL)
         val receiver = object : BroadcastReceiver() {
             override fun onReceive(context: Context, intent: Intent) {
-                colorSchemeMap[Pair(0, Style.TONAL_SPOT)] = SystemColorScheme(context)
-                if (accentColor is ColorOption.SystemAccent) {
+                colorSchemeMap[SYSTEM_SCHEME_KEY] = SystemColorScheme(context)
+                if (accentColor is ColorOption.SystemAccent || accentColor is ColorOption.Default) {
                     notifyColorSchemeChanged()
                 }
             }
@@ -110,11 +110,16 @@ class ThemeProvider @Inject constructor(
 
         is ColorOption.CustomColor -> getColorScheme(accentColor.color, colorStyle.style)
 
-        else -> getColorScheme(ColorOption.TheLauncherBlue.color, colorStyle.style)
+        // No colour picked: follow the system's wallpaper colours, like the rest of the phone.
+        else -> if (Utilities.ATLEAST_S) systemColorScheme else getColorScheme(ColorOption.TheLauncherBlue.color, colorStyle.style)
     }
 
+    /**
+     * The system's own Material You palette (Settings → Wallpaper & style). It already reflects the
+     * style picked there, so it is used as it is rather than rebuilt from a seed colour.
+     */
     private val systemColorScheme get() = when {
-        Utilities.ATLEAST_S -> getColorScheme(0, colorStyle.style)
+        Utilities.ATLEAST_S -> colorSchemeMap.getOrPut(SYSTEM_SCHEME_KEY) { SystemColorScheme(context) }
         else -> getColorScheme(context.getSystemAccent(darkTheme = false), colorStyle.style)
     }
 
@@ -155,6 +160,9 @@ class ThemeProvider @Inject constructor(
     companion object {
         @JvmField
         val INSTANCE = DaggerSingletonObject(LauncherAppComponent::getThemeProvider)
+
+        /** Where the system's palette is kept among the schemes built from seed colours. */
+        private val SYSTEM_SCHEME_KEY = Pair(0, Style.TONAL_SPOT)
     }
 
     interface ColorSchemeChangeListener {

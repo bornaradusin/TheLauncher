@@ -1,5 +1,7 @@
 package app.thelauncher.theme.color
 
+import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Color
 import androidx.compose.ui.res.stringResource
 import app.thelauncher.ui.preferences.components.colorpreference.ColorPreferenceEntry
@@ -24,6 +26,23 @@ sealed class ColorOption {
         )
 
         override fun toString() = "system_accent"
+    }
+
+    /** The system accent at its deepest tone in a dark theme and its palest in a light one. */
+    object SystemAccentDeep : ColorOption() {
+        override val isSupported = Utilities.ATLEAST_S
+
+        private fun isNight(context: Context) =
+            (context.resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES
+
+        override val colorPreferenceEntry = ColorPreferenceEntry<ColorOption>(
+            this,
+            { stringResource(id = R.string.system_accent_deep) },
+            { context -> context.getColor(if (isNight(context)) R.color.system_accent1_900 else R.color.system_accent1_100) },
+            { context -> context.getColor(R.color.system_accent1_900) },
+        )
+
+        override fun toString() = "system_accent_deep"
     }
 
     object WallpaperPrimary : ColorOption() {
@@ -77,6 +96,7 @@ sealed class ColorOption {
 
         fun fromString(stringValue: String) = when (stringValue) {
             "system_accent" -> SystemAccent
+            "system_accent_deep" -> SystemAccentDeep
             "wallpaper_primary" -> WallpaperPrimary
             "default" -> Default
             else -> instantiateCustomColor(stringValue)

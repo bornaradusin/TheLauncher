@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- How At a Glance looks in the widget list. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/glance_widget_preview_bg"
+    android:orientation="vertical"
+    android:paddingStart="18dp"
+    android:paddingTop="14dp"
+    android:paddingEnd="14dp"
+    android:paddingBottom="14dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/smartspace_widget_placeholder_date"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="22sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/glance_widget_preview_row"
+        android:gravity="center_vertical"
+        android:paddingStart="14dp"
+        android:text="@string/glance_flashlight_on"
+        android:textColor="?android:textColorPrimary"
+        android:textSize="15sp" />
+</LinearLayout>

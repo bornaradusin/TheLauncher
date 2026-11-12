@@ -7,7 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.LayoutParams.MATCH_PARENT
 import android.widget.RemoteViews
+import app.thelauncher.preferences2.PreferenceManager2
+import app.thelauncher.preferences2.firstCached
+import app.thelauncher.smartspace.GlanceWidgetView
 import app.thelauncher.smartspace.SmartspaceAppWidgetProvider
+import app.thelauncher.smartspace.model.GLANCE_STYLE_MATERIAL
 import com.android.launcher3.R
 import com.android.launcher3.util.Themes
 import com.android.launcher3.widget.LauncherAppWidgetHostView
@@ -69,6 +73,12 @@ class TheLauncherAppWidgetHostView @JvmOverloads constructor(
             val layoutId = customLayouts[info.provider] ?: return null
 
             val inflationContext = if (previewMode) Themes.createWidgetPreviewContext(context) else context
+            // At a Glance as the Material card, sized like any other widget.
+            if (info.provider == SmartspaceAppWidgetProvider.componentName &&
+                PreferenceManager2.getInstance(context).smartspaceWidgetStyle.firstCached() == GLANCE_STYLE_MATERIAL
+            ) {
+                return GlanceWidgetView(inflationContext, appWidget = true).also { it.previewMode = previewMode }
+            }
             return LayoutInflater.from(inflationContext)
                 .inflate(layoutId, null, false) as ViewGroup
         }

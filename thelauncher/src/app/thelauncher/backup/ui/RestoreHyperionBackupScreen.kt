@@ -143,10 +143,19 @@ private fun BackupInfoGroup(info: HyperionBackupInfo) {
         }
         BackupInfoStringPreference(R.string.nova_icon_pack_label, info.iconPackLabel)
         BackupInfoStringPreference(R.string.smartspace_weather_location, settings.weatherLocation)
+        BackupInfoIntPreference(R.string.hyperion_customized_apps_label, info.customizedApps)
+        BackupInfoIntPreference(R.string.hyperion_fonts_label, info.fonts)
         if (info.widgetCount > 0) {
             PreferenceTemplate(
                 title = { Text(text = stringResource(R.string.hyperion_widget_note)) },
             )
+        }
+    }
+    if (info.notCarriedOver.isNotEmpty()) {
+        PreferenceGroup(heading = stringResource(R.string.hyperion_not_carried_over)) {
+            info.notCarriedOver.forEach { label ->
+                PreferenceTemplate(title = { Text(text = label) })
+            }
         }
     }
 }

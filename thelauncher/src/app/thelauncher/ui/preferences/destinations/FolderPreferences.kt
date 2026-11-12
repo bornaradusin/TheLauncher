@@ -112,6 +112,11 @@ fun FolderPreferences(
                 showAsPercentage = true,
             )
             SwitchPreference(
+                adapter = prefs2.folderPreviewInside.getAdapter(),
+                label = stringResource(id = R.string.folder_preview_inside),
+                description = stringResource(id = R.string.folder_preview_inside_desc),
+            )
+            SwitchPreference(
                 adapter = homeScreenLabelsAdapter,
                 label = stringResource(id = R.string.show_labels),
             )

@@ -402,6 +402,18 @@ public class PreviewBackground extends DelegatedCellDrawing {
         mScale = originalScale;
     }
 
+    private final PathWrapper mInnerPath = new PathWrapper();
+
+    /** TheLauncher: the background's own outline, for previews kept inside the circle. */
+    public PathWrapper getInnerClipPath() {
+        mInnerPath.reset();
+        float radius = getScaledRadius();
+        float radiusDifference = radius - getRadius();
+        getShape().addToPath(mInnerPath, basePreviewOffsetX - radiusDifference,
+                basePreviewOffsetY - radiusDifference, radius);
+        return mInnerPath;
+    }
+
     public PathWrapper getClipPath() {
         mPath.reset();
         float radius = getScaledRadius();

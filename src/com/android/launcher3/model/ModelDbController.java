@@ -62,6 +62,7 @@ import com.android.launcher3.preview.PreviewContext;
 import com.android.launcher3.provider.LauncherDbUtils;
 import com.android.launcher3.provider.LauncherDbUtils.SQLiteTransaction;
 import com.android.launcher3.provider.RestoreDbTask;
+import app.thelauncher.backup.TheLauncherBackup;
 import com.android.launcher3.util.IntArray;
 import com.android.launcher3.util.SandboxContext;
 import com.android.launcher3.widget.LauncherWidgetHolder;
@@ -128,8 +129,16 @@ public class ModelDbController {
             }
             mOpenHelper = createDatabaseHelper(false /* forMigration */, dbFile);
             restoreTask.accept(this);
+            // TheLauncher: a converted backup (Hyperion) is swapped in on the next start, before
+            // anything has the database open, and checked here like a system restore.
+            if (mRestoredDbRenamed && TheLauncherBackup.consumePendingRestore(mContext)) {
+                RestoreDbTask.performRestore(mContext, this);
+            }
         }
     }
+
+    // TheLauncher: whether this controller's database was just replaced by a restored one.
+    private boolean mRestoredDbRenamed;
 
     protected DatabaseHelper createDatabaseHelper(boolean forMigration, String dbFile) {
         boolean isSandbox = mContext instanceof SandboxContext;
@@ -142,7 +151,12 @@ public class ModelDbController {
                 // Note: Restore into the file opened below. A restore changes grid prefs, which
                 // can move the IDP to another grid's dbFile before this runs. Rename after
                 // migrateDbName, which would otherwise move a restored launcher.db to dbName.
-                app.renameRestoredDb(dbFile);
+                if (app.renameRestoredDb(dbFile)) {
+                    mRestoredDbRenamed = true;
+                    // A grid change can mark this file as new before the restored one replaces it;
+                    // left set, the default layout would be loaded over the restored items.
+                    mPrefs.removeSync(getEmptyDbCreatedKey(dbFile));
+                }
             }
         } catch (Throwable t) {
             // LC-Ignored

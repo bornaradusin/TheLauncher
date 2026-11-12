@@ -154,11 +154,14 @@ class TheLauncherApp : LauncherApplication() {
         }
     }
 
-    fun renameRestoredDb(dbName: String) {
+    /** Puts a restored database in place of [dbName]; true when there was one. */
+    fun renameRestoredDb(dbName: String): Boolean {
         val restoredDbFile = getDatabasePath(TheLauncherBackup.RESTORED_DB_FILE_NAME)
-        if (!restoredDbFile.exists()) return
+        if (!restoredDbFile.exists()) return false
         val dbFile = getDatabasePath(dbName)
-        restoredDbFile.renameTo(dbFile)
+        // The old file's -wal/-shm/-journal would otherwise be replayed over the restored database.
+        listOf("", "-wal", "-shm", "-journal").forEach { File(dbFile.path + it).delete() }
+        return restoredDbFile.renameTo(dbFile)
     }
 
     fun migrateDbName(dbName: String) {

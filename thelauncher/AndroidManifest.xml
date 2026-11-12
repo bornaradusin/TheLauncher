@@ -19,6 +19,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Android 17: reaching Seerr on the home network (also when its address resolves to one). -->
+    <uses-permission android:name="android.permission.ACCESS_LOCAL_NETWORK" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
@@ -200,7 +202,8 @@
 
         <receiver
             android:name="app.thelauncher.smartspace.SmartspaceAppWidgetProvider"
-            android:exported="false">
+            android:exported="false"
+            android:label="@string/smartspace_widget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
             </intent-filter>

@@ -64,6 +64,7 @@ object SeerrTargets {
             when (result.kind) {
                 SearchResult.SeerrMessage.Kind.SET_UP -> R.string.seerr_message_set_up
                 SearchResult.SeerrMessage.Kind.UNREACHABLE -> R.string.seerr_message_unreachable
+                SearchResult.SeerrMessage.Kind.NO_LOCAL_NETWORK -> R.string.seerr_message_local_network
                 SearchResult.SeerrMessage.Kind.NO_MATCHES ->
                     if (result.mode == SeerrMode.ADD) R.string.seerr_message_no_matches else R.string.seerr_message_none_in_seerr
             },

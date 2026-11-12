@@ -277,8 +277,16 @@ class MainLauncher : QuickstepLauncher() {
             }
         }
 
-        super.onNewIntent(intent)
+        // A restart (after a restore, say) arrives as a Home intent; it isn't the user pressing Home.
+        restarting = intent?.getBooleanExtra(app.thelauncher.util.EXTRA_LAUNCHER_RESTART, false) == true
+        try {
+            super.onNewIntent(intent)
+        } finally {
+            restarting = false
+        }
     }
+
+    private var restarting = false
 
     override fun collectStateHandlers(out: MutableList<StateHandler<LauncherState>>) {
         super.collectStateHandlers(out)
@@ -328,6 +336,7 @@ class MainLauncher : QuickstepLauncher() {
     }
 
     override fun handleHomeTap() {
+        if (restarting) return
         gestureController.onHomePressed()
     }
 

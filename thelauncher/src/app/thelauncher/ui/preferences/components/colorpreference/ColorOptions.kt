@@ -25,3 +25,7 @@ val dynamicColors: List<ColorPreferenceEntry<ColorOption>> =
 
 val dynamicColorsWithDefault: List<ColorPreferenceEntry<ColorOption>> =
     (dynamicColors.asSequence() + ColorOption.Default.colorPreferenceEntry).toList()
+
+/** For search bars: the usual dynamic colours plus the accent's deepest tone (Hyperion's dock search bar). */
+val searchBarDynamicColors: List<ColorPreferenceEntry<ColorOption>> =
+    dynamicColorsWithDefault + listOf(ColorOption.SystemAccentDeep).filter(ColorOption::isSupported).map(ColorOption::colorPreferenceEntry)

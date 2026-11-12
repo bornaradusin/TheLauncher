@@ -336,4 +336,32 @@
         <item quantity="one">Request %1$d season</item>
         <item quantity="other">Request %1$d seasons</item>
     </plurals>
+    <string name="seerr_local_network">Allow home network access</string>
+    <string name="seerr_local_network_desc">Android 17 asks before apps reach your home network, where Seerr usually is. Tap to allow it</string>
+    <string name="seerr_message_local_network">Allow home network access in Seerr settings to reach your server</string>
+    <string name="glance_widget_picker_desc">The date, weather and what matters right now. Resize it to show more</string>
+    <string name="glance_pinned_tip">For any size, add At a Glance from the widget list (long-press the home screen, Widgets, TheLauncher) and resize it, then turn off the switch at the top of this page so it doesn\'t show twice.</string>
+    <string name="hyperion_customized_apps_label">Renamed apps or changed icons</string>
+    <string name="hyperion_fonts_label">Custom fonts</string>
+    <string name="hyperion_not_carried_over">Not carried over: this launcher has no setting for these yet</string>
+    <string name="hyperion_missing_dock_blur">Dock blur</string>
+    <string name="hyperion_missing_drawer_icon">App drawer icon in the dock</string>
+    <string name="hyperion_missing_home_search_bar">Search bar on the home screen</string>
+    <string name="hyperion_missing_glance_in_dock">At a Glance in the dock</string>
+    <string name="hyperion_missing_launch_animation">Pulse app launch animation</string>
+    <string name="hyperion_missing_folder_icon_size">Folder icon size</string>
+    <string name="hyperion_missing_glow_colors">Custom glow colours and glow overflow</string>
+    <string name="hyperion_missing_g_color">Search bar G colour</string>
+    <string name="hyperion_missing_icon_back_color">Icon shape background colour</string>
+    <string name="hyperion_missing_locked_recents">Hiding locked apps in recents</string>
+    <string name="hyperion_missing_sesame_longpress">Sesame shortcuts when long-pressing an app</string>
+    <string name="hyperion_missing_feed_theme">Google Feed theme</string>
+    <string name="hyperion_missing_glance_font">At a Glance font</string>
+    <string name="hyperion_missing_folder_covers">Folder covers</string>
+    <string name="hyperion_missing_sesame_items">Sesame shortcuts on the home screen</string>
+    <string name="system_accent_deep">System, deep</string>
+    <string name="drawer_navbar_tint">Navigation bar tint</string>
+    <string name="drawer_navbar_tint_desc">Dark navigation line while the app drawer is open</string>
+    <string name="folder_preview_inside">Icons inside the circle</string>
+    <string name="folder_preview_inside_desc">Keep the preview icons within the folder circle, as Hyperion does</string>
 </resources>

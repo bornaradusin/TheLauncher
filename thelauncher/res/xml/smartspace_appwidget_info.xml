@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- At a Glance as a widget from the widget list, resizable like any other. -->
 <appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
-    android:minWidth="40dp"
-    android:minHeight="40dp"
+    android:minWidth="180dp"
+    android:minHeight="50dp"
+    android:minResizeWidth="110dp"
+    android:minResizeHeight="40dp"
     android:targetCellWidth="4"
-    android:targetCellHeight="1"
+    android:targetCellHeight="2"
     android:updatePeriodMillis="0"
-    android:description="@string/smartspace_widget"
+    android:description="@string/glance_widget_picker_desc"
     android:configure="app.thelauncher.smartspace.SmartspacePreferencesShortcut"
     android:initialLayout="@layout/smartspace_widget_placeholder"
-    android:previewLayout="@layout/smartspace_widget_placeholder"
+    android:previewLayout="@layout/glance_widget_preview"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen"
-    android:widgetFeatures="reconfigurable|hide_from_picker|configuration_optional" />
+    android:widgetFeatures="reconfigurable|configuration_optional" />

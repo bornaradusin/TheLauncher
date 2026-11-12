@@ -194,7 +194,8 @@ private fun SmartspaceStylePreferences() {
 
     PreferenceGroup(
         heading = stringResource(id = R.string.smartspace_style),
-        description = stringResource(id = R.string.glance_widget_desc).takeIf { material },
+        description = (stringResource(id = R.string.glance_widget_desc) + "\n\n" + stringResource(id = R.string.glance_pinned_tip))
+            .takeIf { material },
         showDescription = material,
         modifier = Modifier.padding(top = 8.dp),
     ) {

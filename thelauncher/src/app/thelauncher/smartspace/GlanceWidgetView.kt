@@ -56,6 +56,8 @@ import kotlinx.coroutines.flow.onEach
 class GlanceWidgetView @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
+    /** Added from the widget list: as many rows as its size has room for, up to three. */
+    private val appWidget: Boolean = false,
 ) : FrameLayout(context, attrs) {
 
     var previewMode = false
@@ -76,9 +78,15 @@ class GlanceWidgetView @JvmOverloads constructor(
     private var style = GlanceWidgetStyle()
 
     /** One row fits in one grid row, so everything is a little smaller than in the large widget. */
-    private val compact get() = style.maxRows == 1
+    private val compact get() = !appWidget && style.maxRows == 1
+
+    private val maxRows get() = if (appWidget) APP_WIDGET_MAX_ROWS else style.maxRows
+
+    /** Shrinks the whole card, only when even the date doesn't fit; text never shrinks otherwise. */
+    private var fitScale = 1f
     private var targets: List<SmartspaceTarget> = emptyList()
     private var renderedRows: List<String> = emptyList()
+    private var wantsDetail = false
 
     init {
         clipChildren = false
@@ -149,24 +157,68 @@ class GlanceWidgetView @JvmOverloads constructor(
         val width = MeasureSpec.getSize(widthMeasureSpec)
         val heightMode = MeasureSpec.getMode(heightMeasureSpec)
         val available = MeasureSpec.getSize(heightMeasureSpec) - paddingTop - paddingBottom
-        measureChild(card, widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED))
-        val natural = card.measuredHeight
-        // Shrink the whole card when the grid row is shorter than it, rather than cutting it off.
-        val scale = if (heightMode != MeasureSpec.UNSPECIFIED && available in 1 until natural) {
-            available.toFloat() / natural
+        val innerWidth = width - paddingLeft - paddingRight
+        val unbounded = MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED)
+
+        // Work out what fits without toggling views back and forth (which would ask for layout
+        // again on every pass): drop rows from the bottom, then the weather details.
+        fun measureCard(cardWidth: Int) = card.measure(MeasureSpec.makeMeasureSpec(cardWidth, MeasureSpec.EXACTLY), unbounded)
+        val contentWidth = MeasureSpec.makeMeasureSpec(innerWidth - card.paddingLeft - card.paddingRight, MeasureSpec.EXACTLY)
+        val header = card.getChildAt(0)
+        header.measure(contentWidth, unbounded)
+        val detailHeight = if (wantsDetail) {
+            detailView.measure(unbounded, unbounded)
+            detailView.measuredHeight + (detailView.layoutParams as ViewGroup.MarginLayoutParams).topMargin
+        } else {
+            0
+        }
+        // With the details shown in the header, measure what the header would be without them.
+        val headerWithDetail = if (wantsDetail && !detailView.isVisible) header.measuredHeight + detailHeight else header.measuredHeight
+        val headerWithoutDetail = maxOf(headerWithDetail - detailHeight, weatherBox.measuredHeight)
+        val rowHeights = (0 until rows.childCount).map { i ->
+            val row = rows.getChildAt(i)
+            row.measure(contentWidth, unbounded)
+            row.measuredHeight + (row.layoutParams as ViewGroup.MarginLayoutParams).topMargin
+        }
+        var showDetail = wantsDetail
+        var visibleRows = rowHeights.size
+        if (heightMode != MeasureSpec.UNSPECIFIED && available > 0) {
+            fun total() = card.paddingTop + card.paddingBottom +
+                (if (showDetail) headerWithDetail else headerWithoutDetail) + rowHeights.take(visibleRows).sum()
+            while (total() > available && visibleRows > 0) visibleRows--
+            if (total() > available && showDetail) showDetail = false
+        }
+        for (i in 0 until rows.childCount) {
+            val visibility = if (i < visibleRows) View.VISIBLE else View.GONE
+            if (rows.getChildAt(i).visibility != visibility) rows.getChildAt(i).visibility = visibility
+        }
+        if (detailView.isVisible != showDetail) detailView.isVisible = showDetail
+        measureCard(innerWidth)
+        // Last resort for a very short space: shrink the card, keeping it the full width.
+        fitScale = if (heightMode != MeasureSpec.UNSPECIFIED && available in 1 until card.measuredHeight) {
+            available.toFloat() / card.measuredHeight
         } else {
             1f
         }
-        card.scaleX = scale
-        card.scaleY = scale
-        card.pivotX = card.measuredWidth / 2f
-        card.pivotY = natural / 2f
+        if (fitScale < 1f) measureCard((innerWidth / fitScale).toInt())
+        val natural = (card.measuredHeight * fitScale).roundToInt()
         val height = when (heightMode) {
             MeasureSpec.EXACTLY -> MeasureSpec.getSize(heightMeasureSpec)
             MeasureSpec.AT_MOST -> minOf(natural + paddingTop + paddingBottom, MeasureSpec.getSize(heightMeasureSpec))
             else -> natural + paddingTop + paddingBottom
         }
         setMeasuredDimension(width, height)
+    }
+
+    override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
+        val shown = card.measuredHeight * fitScale
+        val inner = bottom - top - paddingTop - paddingBottom
+        val y = paddingTop + ((inner - shown) / 2f).roundToInt()
+        card.layout(paddingLeft, y, paddingLeft + card.measuredWidth, y + card.measuredHeight)
+        card.pivotX = 0f
+        card.pivotY = 0f
+        card.scaleX = fitScale
+        card.scaleY = fitScale
     }
 
     private fun render(restyled: Boolean) {
@@ -213,9 +265,10 @@ class GlanceWidgetView @JvmOverloads constructor(
 
         val items = GlanceRanking.contextItems(targets, now, style.lookaheadHours)
             .filter { (it.headerAction ?: it.baseAction) != null }
-            .take(style.maxRows)
+            .take(maxRows)
         // The compact widget has room for the weather details or a row, not both.
-        detailView.isVisible = style.weatherDetails && !detail.isNullOrBlank() && (!compact || items.isEmpty())
+        wantsDetail = style.weatherDetails && !detail.isNullOrBlank() && (!compact || items.isEmpty())
+        detailView.isVisible = wantsDetail
         val rowContent = items.mapNotNull { describe(it, now) }
         val keys = rowContent.map { it.key }
         if (!restyled && keys == renderedRows) return
@@ -439,6 +492,7 @@ class GlanceWidgetView @JvmOverloads constructor(
 
     companion object {
         private const val TAG = "GlanceWidgetView"
+        private const val APP_WIDGET_MAX_ROWS = 3
     }
 }
 

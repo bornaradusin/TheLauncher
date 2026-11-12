@@ -16,6 +16,7 @@ import app.thelauncher.wallpaper.WallpaperManagerCompat
 import com.android.launcher3.BuildConfig
 import com.android.launcher3.LauncherAppState
 import com.android.launcher3.LauncherFiles
+import com.android.launcher3.LauncherPrefs
 import com.android.launcher3.R
 import com.android.launcher3.model.DeviceGridState
 import com.android.launcher3.model.ModelDbController
@@ -116,6 +117,23 @@ class TheLauncherBackup(
         const val SCREENSHOT_FILE_NAME = "screenshot.png"
         const val LAUNCHER_DB_FILE_NAME = "launcher.db"
         const val RESTORED_DB_FILE_NAME = "restored.db"
+
+        private const val PREF_PENDING_RESTORE = "pref_pendingRestoredDbCheck"
+
+        /** Marks [RESTORED_DB_FILE_NAME] to be swapped in and checked when the launcher next starts. */
+        @JvmStatic
+        fun setPendingRestore(context: Context) {
+            LauncherPrefs.getPrefs(context).edit().putBoolean(PREF_PENDING_RESTORE, true).commit()
+        }
+
+        /** True once after [setPendingRestore]. */
+        @JvmStatic
+        fun consumePendingRestore(context: Context): Boolean {
+            val prefs = LauncherPrefs.getPrefs(context)
+            if (!prefs.getBoolean(PREF_PENDING_RESTORE, false)) return false
+            prefs.edit().remove(PREF_PENDING_RESTORE).commit()
+            return true
+        }
 
         const val INCLUDE_LAYOUT_AND_SETTINGS = 1 shl 0
         const val INCLUDE_WALLPAPER = 1 shl 1

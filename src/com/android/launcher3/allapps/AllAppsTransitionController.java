@@ -170,6 +170,8 @@ public class AllAppsTransitionController
     private final int mNavScrimFlag;
     // TheLauncher: status bar icon colour while the drawer is open (Hyperion's setting).
     private int mDrawerStatusFlag;
+    // Dark navigation line while the drawer is open ("Navigation bar tint"), or 0 to follow the scrim.
+    private int mDrawerNavFlag;
 
     @Nullable private Animator.AnimatorListener mAllAppsSearchBackAnimationListener;
 
@@ -210,6 +212,8 @@ public class AllAppsTransitionController
             case "light" -> com.android.launcher3.util.SystemUiController.FLAG_DARK_STATUS;
             default -> 0;
         };
+        mDrawerNavFlag = Boolean.TRUE.equals(PreferenceCacheExtensionsKt.firstCached(
+                PreferenceManager2.getInstance(l).getDrawerNavBarTint())) ? FLAG_LIGHT_NAV : 0;
 
         setShiftRange(dp.allAppsShiftRange);
         mAllAppScale.value = 1;
@@ -253,9 +257,10 @@ public class AllAppsTransitionController
 
         boolean hasScrim = progress < NAV_BAR_COLOR_FORCE_UPDATE_THRESHOLD
                 && mLauncher.getAppsView().getNavBarScrimHeight() > 0;
-        int drawerStatusFlag = progress < NAV_BAR_COLOR_FORCE_UPDATE_THRESHOLD ? mDrawerStatusFlag : 0;
-        mLauncher.getSystemUiController().updateUiState(
-                UI_STATE_ALL_APPS, (hasScrim ? mNavScrimFlag : 0) | drawerStatusFlag);
+        boolean drawerShown = progress < NAV_BAR_COLOR_FORCE_UPDATE_THRESHOLD;
+        int drawerStatusFlag = drawerShown ? mDrawerStatusFlag : 0;
+        int navFlag = drawerShown && mDrawerNavFlag != 0 ? mDrawerNavFlag : (hasScrim ? mNavScrimFlag : 0);
+        mLauncher.getSystemUiController().updateUiState(UI_STATE_ALL_APPS, navFlag | drawerStatusFlag);
     }
 
     public float getProgress() {

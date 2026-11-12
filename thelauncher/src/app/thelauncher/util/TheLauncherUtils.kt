@@ -113,7 +113,11 @@ fun restartLauncher(context: Context) {
     restartLauncher(context, intent)
 }
 
+/** Marks the Home intent of a restart, so the launcher doesn't treat it as the user pressing Home. */
+const val EXTRA_LAUNCHER_RESTART = "app.thelauncher.extra.RESTART"
+
 fun restartLauncher(context: Context, intent: Intent?) {
+    intent?.putExtra(EXTRA_LAUNCHER_RESTART, true)
     context.startActivity(intent)
 
     // Create a pending intent so the application is restarted after System.exit(0) was called.

@@ -94,10 +94,16 @@ class TheLauncherActivityCachingLogic @Inject constructor(
         }
     }
 
+    // A custom name is part of the cached entry, so a new name (such as one restored from a backup)
+    // refreshes the cached label instead of waiting for the app to update.
     override fun getFreshnessIdentifier(
         item: LauncherActivityInfo,
         provider: IconProvider,
-    ): String? = provider.getStateForApp(getApplicationInfo(item))
+    ): String? {
+        val state = provider.getStateForApp(getApplicationInfo(item))
+        val name = prefs.customAppName[ComponentKey(item.componentName, item.user)]
+        return if (name.isNullOrEmpty()) state else "$state|name:$name"
+    }
 
     override fun close() {
         TODO("Not yet implemented")

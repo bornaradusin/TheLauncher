@@ -172,6 +172,11 @@ fun AppDrawerPreferences(
                 ),
                 label = stringResource(id = R.string.drawer_status_bar_icons),
             )
+            SwitchPreference(
+                adapter = prefs2.drawerNavBarTint.getAdapter(),
+                label = stringResource(id = R.string.drawer_navbar_tint),
+                description = stringResource(id = R.string.drawer_navbar_tint_desc),
+            )
             SliderPreference(
                 label = stringResource(id = R.string.background_opacity),
                 adapter = prefs.drawerOpacity.getAdapter(),

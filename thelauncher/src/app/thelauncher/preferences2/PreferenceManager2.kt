@@ -371,6 +371,13 @@ class PreferenceManager2 @Inject constructor(
         onSet = { reloadHelper.recreate() },
     )
 
+    /** Hyperion's "Navigation bar tint": a dark navigation line while the drawer is open. */
+    val drawerNavBarTint = preference(
+        key = booleanPreferencesKey(name = "drawer_navbar_tint"),
+        defaultValue = false,
+        onSet = { reloadHelper.recreate() },
+    )
+
     /** A hint above the dock that the drawer is a swipe away: "none", "arrow" or "line". */
     val drawerIndicator = preference(
         key = stringPreferencesKey(name = "drawer_indicator"),
@@ -436,6 +443,13 @@ class PreferenceManager2 @Inject constructor(
     val folderPreviewIconScale = preference(
         key = floatPreferencesKey(name = "folder_preview_icon_scale"),
         defaultValue = 1f,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    /** Folder preview icons kept inside the folder circle, as in Hyperion; off lets them overflow it. */
+    val folderPreviewInside = preference(
+        key = booleanPreferencesKey(name = "folder_preview_inside"),
+        defaultValue = false,
         onSet = { reloadHelper.recreate() },
     )
 

@@ -5,6 +5,7 @@ import app.thelauncher.search.algorithms.engine.SearchProvider
 import app.thelauncher.search.algorithms.engine.SearchResult
 import app.thelauncher.seerr.SeerrClient
 import app.thelauncher.seerr.SeerrMode
+import app.thelauncher.seerr.SeerrNetwork
 import app.thelauncher.seerr.SeerrQuery
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -37,7 +38,12 @@ object SeerrSearchProvider : SearchProvider {
         // Wait for a pause in typing before asking the server.
         delay(TYPING_PAUSE_MS)
         val page = runCatching { client.search(seerrQuery.term) }.getOrElse {
-            emit(listOf(SearchResult.SeerrMessage(seerrQuery.mode, SearchResult.SeerrMessage.Kind.UNREACHABLE)))
+            val kind = if (SeerrNetwork.isAllowed(context)) {
+                SearchResult.SeerrMessage.Kind.UNREACHABLE
+            } else {
+                SearchResult.SeerrMessage.Kind.NO_LOCAL_NETWORK
+            }
+            emit(listOf(SearchResult.SeerrMessage(seerrQuery.mode, kind)))
             return@flow
         }
         val matches = when (seerrQuery.mode) {

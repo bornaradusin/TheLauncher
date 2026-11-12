@@ -8,6 +8,7 @@ import android.os.Process
 import android.os.UserHandle
 import app.thelauncher.icons.ClockMetadata
 import app.thelauncher.icons.CustomAdaptiveIconDrawable
+import app.thelauncher.icons.PictureIcons
 import app.thelauncher.icons.picker.IconEntry
 import app.thelauncher.icons.shouldTransparentBGIcons
 import com.android.launcher3.dagger.ApplicationContext
@@ -44,11 +45,13 @@ class IconPackProvider @Inject constructor(
     }
 
     fun getClockMetadata(iconEntry: IconEntry): ClockMetadata? {
+        if (iconEntry.packPackageName == PictureIcons.PACK) return null
         val iconPack = getIconPackOrSystem(iconEntry.packPackageName) ?: return null
         return iconPack.getClock(iconEntry)
     }
 
     fun getDrawable(iconEntry: IconEntry, iconDpi: Int, user: UserHandle): Drawable? {
+        if (iconEntry.packPackageName == PictureIcons.PACK) return PictureIcons.load(context, iconEntry.name)
         val iconPack = getIconPackOrSystem(iconEntry.packPackageName) ?: return null
         iconPack.loadBlocking()
         val drawable = iconPack.getIcon(iconEntry, iconDpi) ?: return null

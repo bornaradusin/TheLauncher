@@ -65,6 +65,7 @@ import app.thelauncher.preferences.PreferenceManager;
 public class PreviewItemManager {
 
     private final Context mContext;
+    private final boolean mPreviewInside;
     private final FolderIcon mIcon;
     @VisibleForTesting
     public final int mIconSize;
@@ -88,6 +89,8 @@ public class PreviewItemManager {
     public PreviewItemManager(FolderIcon icon) {
         mContext = icon.getContext();
         mIcon = icon;
+        mPreviewInside = Boolean.TRUE.equals(app.thelauncher.preferences2.PreferenceCacheExtensionsKt.firstCached(
+                app.thelauncher.preferences2.PreferenceManager2.getInstance(mContext).getFolderPreviewInside()));
         mIconSize = ActivityContext.lookupContext(
                 mContext).getDeviceProfile().folderChildIconSizePx;
     }
@@ -182,9 +185,10 @@ public class PreviewItemManager {
         int saveCount = canvas.getSaveCount();
         // The items are drawn in coordinates relative to the preview offset
         PreviewBackground bg = mIcon.getFolderBackground();
-        Path clipPath = bg.getClipPath().getPath();
+        // TheLauncher: Hyperion keeps the preview icons inside the circle; AOSP lets them overflow it.
+        Path clipPath = mPreviewInside ? bg.getInnerClipPath().getPath() : bg.getClipPath().getPath();
         PointF firstPageOffset = new PointF(bg.basePreviewOffsetX, bg.basePreviewOffsetY);
-        drawParams(canvas, mFirstPageParams, firstPageOffset, /* shouldClipPath */ false, clipPath);
+        drawParams(canvas, mFirstPageParams, firstPageOffset, /* shouldClipPath */ mPreviewInside, clipPath);
         canvas.restoreToCount(saveCount);
     }
 

@@ -35,7 +35,7 @@ sealed interface SearchResult {
 
     /** Why there are no Seerr matches to show. */
     data class SeerrMessage(val mode: app.thelauncher.seerr.SeerrMode, val kind: Kind) : SearchResult {
-        enum class Kind { SET_UP, UNREACHABLE, NO_MATCHES }
+        enum class Kind { SET_UP, UNREACHABLE, NO_LOCAL_NETWORK, NO_MATCHES }
     }
     sealed interface Action : SearchResult {
         data class MarketSearch(val query: String) : Action

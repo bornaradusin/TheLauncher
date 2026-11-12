@@ -45,12 +45,12 @@ import app.thelauncher.ui.preferences.components.HiddenAppsInSearch
 import app.thelauncher.util.kotlinxJson
 import com.android.launcher3.GridType
 import com.android.launcher3.InvariantDeviceProfile
+import com.android.launcher3.LauncherAppState
+import com.android.launcher3.LauncherPrefs
 import com.android.launcher3.LauncherSettings.Favorites
 import com.android.launcher3.model.DatabaseHelper
 import com.android.launcher3.model.DeviceGridState
-import com.android.launcher3.model.ModelDbController
 import com.android.launcher3.pm.UserCache
-import com.android.launcher3.provider.RestoreDbTask
 import com.android.launcher3.util.ComponentKey
 import java.io.File
 import java.io.FileInputStream
@@ -64,6 +64,13 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.encodeToString
 import org.json.JSONArray
+import app.thelauncher.data.iconoverride.IconOverrideRepository
+import app.thelauncher.font.FontCache
+import app.thelauncher.icons.PictureIcons
+import app.thelauncher.icons.picker.IconPickerItem
+import app.thelauncher.icons.picker.IconType
+import com.android.launcher3.R
+import org.json.JSONObject
 import org.w3c.dom.Element
 
 class HyperionBackupConverter(
@@ -75,6 +82,11 @@ class HyperionBackupConverter(
         private const val TAG = "HyperionBackupConverter"
         private const val PREFS_XML = "projekt.launcher_preferences.xml"
         private const val LAUNCHER_DB = "launcher.db"
+        private const val APP_ICONS_DB = "app_icons.db"
+        private const val PRIMARY_FONT = "primary_font.ttf"
+        private const val SECONDARY_FONT = "secondary_font.ttf"
+        private const val SMARTSPACE_FONT = "smartspace_font.ttf"
+        private val FONT_FILES = setOf(PRIMARY_FONT, SECONDARY_FONT, SMARTSPACE_FONT)
         private const val TEMP_DIR_PREFIX = "hyperion_"
         private const val STAGED_DB = "hyperion_workspace.db"
         private const val CONTAINER_DESKTOP = -100
@@ -83,8 +95,8 @@ class HyperionBackupConverter(
 
         // Hyperion sizes its icons from a different base than this launcher; these turn Hyperion's
         // 100% into the size it actually draws (measured on a 7-column grid, 6-icon two-row dock).
-        private const val HOME_ICON_SCALE = 0.83f
-        private const val DRAWER_ICON_SCALE = 0.79f
+        private const val HOME_ICON_SCALE = 0.77f
+        private const val DRAWER_ICON_SCALE = 0.75f
         private const val DOCK_ICON_SCALE = 0.93f
 
         // Hyperion's drawer opacity lets more wallpaper through than the same number here.
@@ -94,7 +106,16 @@ class HyperionBackupConverter(
         private const val HYPERION_UNSET_COLOR = Int.MAX_VALUE
 
         // Hyperion's folder preview icons next to this launcher's (measured from screenshots).
-        private const val HYPERION_FOLDER_PREVIEW_SCALE = 1.15f
+        private const val HYPERION_FOLDER_PREVIEW_SCALE = 0.9f
+
+        // Hyperion's drawer labels are smaller than this launcher's at the same percentage.
+        private const val DRAWER_LABEL_SCALE = 0.9f
+
+        // Hyperion's drawer blur is lighter than this launcher's at the same strength.
+        private const val DRAWER_BLUR_SCALE = 0.5f
+
+        // How opaque Hyperion's dock search bar is when no colour was picked (measured from screenshots).
+        private const val HYPERION_DOCK_QSB_ALPHA = 70
 
         // Hyperion's "rounded rectangle" search bar, as a share of a fully round corner.
         private const val ROUNDED_RECT_QSB_RADIUS = 0.3f
@@ -144,6 +165,9 @@ class HyperionBackupConverter(
         val widgetCount: Int,
         val shortcutCount: Int,
         val iconPackLabel: String?,
+        val customizedApps: Int = 0,
+        val fonts: Int = 0,
+        val notCarriedOver: List<String> = emptyList(),
     ) {
         val columns get() = settings.columns
         val rows get() = settings.rows
@@ -152,18 +176,29 @@ class HyperionBackupConverter(
 
     private data class ItemCounts(val apps: Int, val folders: Int, val widgets: Int, val shortcuts: Int)
 
+    /** A name or icon the user gave an app in Hyperion. */
+    private data class AppCustomization(
+        val name: String? = null,
+        val iconPack: String? = null,
+        val iconName: String? = null,
+        val picture: ByteArray? = null,
+    ) {
+        val isEmpty get() = name == null && iconName == null && picture == null
+    }
+
     private val user = Process.myUserHandle()
 
     suspend fun parseInfo(): HyperionBackupInfo = withContext(Dispatchers.IO) {
         val tempDir = File(context.cacheDir, "$TEMP_DIR_PREFIX${UUID.randomUUID()}")
         tempDir.mkdirs()
         try {
-            extractFromZip(uri, tempDir, setOf(PREFS_XML, LAUNCHER_DB))
+            extractFromZip(uri, tempDir, setOf(PREFS_XML, LAUNCHER_DB, APP_ICONS_DB) + FONT_FILES)
             val xmlFile = File(tempDir, PREFS_XML)
             val dbFile = File(tempDir, LAUNCHER_DB)
             require(xmlFile.exists() && dbFile.exists()) { "Missing $PREFS_XML or $LAUNCHER_DB" }
             val settings = parseSettings(xmlFile)
             val counts = countItems(dbFile)
+            val fonts = FONT_FILES.filter { File(tempDir, it).isFile }.toSet()
             HyperionBackupInfo(
                 settings = settings,
                 appCount = counts.apps,
@@ -171,6 +206,9 @@ class HyperionBackupConverter(
                 widgetCount = counts.widgets,
                 shortcutCount = counts.shortcuts,
                 iconPackLabel = settings.iconPackPackage?.let { resolveLabel(it) },
+                customizedApps = readCustomizations(File(tempDir, APP_ICONS_DB), dbFile).size,
+                fonts = (fonts - SMARTSPACE_FONT).size,
+                notCarriedOver = notCarriedOver(settings, dbFile, fonts),
             )
         } finally {
             tempDir.deleteRecursively()
@@ -181,14 +219,14 @@ class HyperionBackupConverter(
         val tempDir = File(context.cacheDir, "$TEMP_DIR_PREFIX${UUID.randomUUID()}")
         tempDir.mkdirs()
         try {
-            extractFromZip(uri, tempDir, setOf(LAUNCHER_DB))
+            extractFromZip(uri, tempDir, setOf(LAUNCHER_DB, APP_ICONS_DB) + FONT_FILES)
             val sourceDb = File(tempDir, LAUNCHER_DB)
             require(sourceDb.exists()) { "Missing $LAUNCHER_DB" }
 
             val settings = info.settings
             val hotseatColumns = settings.hotseatColumns
             val stagedDb = File(tempDir, STAGED_DB)
-            createRestoredDb(sourceDb, stagedDb, hotseatColumns ?: 5, settings.twoRowDock)
+            createRestoredDb(sourceDb, stagedDb, hotseatColumns ?: 5, settings.twoRowDock, dockPages(settings))
 
             val columns = settings.columns
             val rows = settings.rows
@@ -208,18 +246,25 @@ class HyperionBackupConverter(
                 )
                 gridState.writeToPrefs(context, true)
                 gridState.writeToPrefs(context)
+                // Saved now: the launcher restarts right after, before a delayed write would land.
+                LauncherPrefs.get(context).putSync(LauncherPrefs.DB_FILE.to(gridInfo.dbFile))
                 InvariantDeviceProfile.INSTANCE.get(context).dbFile = gridInfo.dbFile
             }
 
             runCatching { writeSettings(settings) }.onFailure { Log.w(TAG, "Settings import failed", it) }
             runCatching { importDrawerFolders(settings.drawerFolders) }.onFailure { Log.w(TAG, "Drawer folder import failed", it) }
             runCatching { importDrawerTabs(settings.drawerTabs) }.onFailure { Log.w(TAG, "Drawer tab import failed", it) }
+            runCatching { importCustomizations(readCustomizations(File(tempDir, APP_ICONS_DB), sourceDb)) }
+                .onFailure { Log.w(TAG, "App name and icon import failed", it) }
+            runCatching { importFonts(tempDir) }.onFailure { Log.w(TAG, "Font import failed", it) }
 
             val restoredDbFile = context.getDatabasePath(TheLauncherBackup.RESTORED_DB_FILE_NAME)
             restoredDbFile.parentFile?.mkdirs()
+            // The restored home screen is swapped in when the launcher restarts, before anything opens
+            // the database; doing it now would race the running launcher, which may already have made
+            // an empty database for the new grid.
+            TheLauncherBackup.setPendingRestore(context)
             stagedDb.copyTo(restoredDbFile, overwrite = true)
-
-            RestoreDbTask.performRestore(context, ModelDbController(context))
         } finally {
             tempDir.deleteRecursively()
         }
@@ -251,7 +296,8 @@ class HyperionBackupConverter(
         }
 
         val migratedSize = strings["migration_src_workspace_size"]?.split(",")?.mapNotNull { it.trim().toIntOrNull() }
-        val weatherAuto = bools["pref_weather_location_auto"] ?: true
+        // Hyperion uses the typed-in location unless "Automatic location" was switched on (off by default).
+        val weatherAuto = bools["pref_weather_location_auto"] ?: false
         val weatherLocation = strings["pref_weather_owm_location"]?.trim()?.takeIf { !weatherAuto && it.isNotEmpty() }
 
         return HyperionSettings(
@@ -362,7 +408,7 @@ class HyperionBackupConverter(
             settings.iconPackPackage?.let { putString(prefs.iconPackPackage.key, it) }
             settings.themedIcons?.let { putBoolean(prefs.themedIcons.key, it) }
             settings.drawerOpacity?.let { putFloat(prefs.drawerOpacity.key, (it / 100f * DRAWER_OPACITY_SCALE).coerceIn(0f, 1f)) }
-            putInt(prefs.dockPages.key, (settings.int("pref_hotseat_pages") ?: 1).coerceAtLeast(1))
+            putInt(prefs.dockPages.key, dockPages(settings))
             settings.bool("pref_allowRotation")?.let { putBoolean(prefs.allowRotation.key, it) }
             settings.bool("pages_enable_drawer_blur")?.let { putBoolean(prefs.enableWallpaperBlur.key, it) }
             when (settings.string("dark_mode")) {
@@ -376,10 +422,12 @@ class HyperionBackupConverter(
             putBoolean(prefs.addIconToHome.key, settings.bool("pref_add_icon_to_home") ?: true)
             putBoolean(prefs.wallpaperScrolling.key, settings.bool("key_scroll_wallpaper") ?: false)
             putBoolean(prefs.folderApps.key, !(settings.bool("pref_show_apps_in_folders_in_app_list") ?: true))
-            putInt(prefs.wallpaperBlur.key, (settings.int("pages_drawer_blur_strength") ?: 50).coerceIn(0, 100))
+            putInt(prefs.wallpaperBlur.key, ((settings.int("pages_drawer_blur_strength") ?: 50) * DRAWER_BLUR_SCALE).toInt().coerceIn(0, 100))
             val themed = settings.themedIcons ?: false
             putBoolean(prefs.drawerThemedIcons.key, themed && !(settings.bool("themed_icons_desktop_only") ?: false))
             putFloat(prefs.hotseatQsbCornerRadius.key, if (settings.bool("qsb_new_style") == true) ROUNDED_RECT_QSB_RADIUS else 1f)
+            val customDockQsb = hyperionColor(settings, "pref_workspace_qsb_color", "pref_workspace_qsb_color_toggle") != null
+            putInt(prefs.hotseatQsbAlpha.key, if (customDockQsb) 100 else HYPERION_DOCK_QSB_ALPHA)
             val dockColor = hyperionColor(settings, "pref_dock_background_color", "pref_dock_background_color_toggle")
             putBoolean(prefs.hotseatBG.key, dockColor != null)
             hyperionDockShape(settings).let { shape ->
@@ -412,8 +460,9 @@ class HyperionBackupConverter(
                         store[prefs2.appLockTimeoutSeconds.key] = (it * 60).coerceIn(0, MAX_LOCK_TIMEOUT_SECONDS)
                     }
                 }
-                settings.feedEnabled?.let { store[prefs2.enableFeed.key] = it }
-                settings.smartspaceEnabled?.let { store[prefs2.enableSmartspace.key] = it }
+                // Hyperion has the feed on and At a Glance off unless they were changed.
+                store[prefs2.enableFeed.key] = settings.feedEnabled ?: true
+                store[prefs2.enableSmartspace.key] = settings.smartspaceEnabled ?: false
                 settings.smartspaceShowWeather?.let { store[prefs2.smartspaceWeather.key] = it }
                 settings.smartspaceShowEvents?.let { store[prefs2.smartspaceCalendarEvents.key] = it }
                 settings.weatherLocation?.let { store[prefs2.smartspaceWeatherLocation.key] = it }
@@ -471,7 +520,7 @@ class HyperionBackupConverter(
                 store[prefs2.drawerIconSizeFactor.key] = DRAWER_ICON_SCALE * drawerPercent
                 store[prefs2.homeIconLabelSizeFactor.key] = (settings.int("pref_custom_workspace_icon_text_scale") ?: 100) / 100f
                 store[prefs2.homeIconLabelFolderSizeFactor.key] = (settings.int("pref_custom_folder_icon_text_scale") ?: 100) / 100f
-                store[prefs2.drawerIconLabelSizeFactor.key] = (settings.int("pref_custom_icon_text_scale") ?: 100) / 100f
+                store[prefs2.drawerIconLabelSizeFactor.key] = DRAWER_LABEL_SCALE * (settings.int("pref_custom_icon_text_scale") ?: 100) / 100f
                 store[prefs2.drawerCellHeightFactor.key] = (settings.int("pref_drawer_row_height_scale") ?: 100) / 100f
 
                 // Labels, with Hyperion's defaults for anything not saved.
@@ -504,9 +553,9 @@ class HyperionBackupConverter(
                 }
                 // "Comfortable view" adds side padding to the home screen; off removes it.
                 if (settings.bool("pref_padding_page") == false) store[prefs2.workspacePaddingHorizontalFactor.key] = 0f
-                // Hyperion draws a plain (monochrome) G unless the coloured or original G is picked.
-                store[prefs2.themedHotseatQsb.key] =
-                    !(settings.bool("pref_show_search_bar_colored_g") ?: false) && !(settings.bool("pref_show_search_bar_original_g") ?: false)
+                // Hyperion's "coloured" G is the provider icon tinted with the accent (as themed icons are
+                // here); only the "original" G keeps the provider's own colours.
+                store[prefs2.themedHotseatQsb.key] = !(settings.bool("pref_show_search_bar_original_g") ?: false)
                 hyperionIconShape(settings.string("pref_override_icon_shape"))?.let { store[prefs2.iconShape.key] = it }
                 settings.bool("pref_enable_icon_text_shadow")?.let { store[prefs2.desktopTextShadow.key] = it }
 
@@ -548,18 +597,21 @@ class HyperionBackupConverter(
                     store[prefs2.appDrawerBackgroundColor.key] = it.toString()
                 }
                 // Search bars: Hyperion's colours, its assistant (✦) button, and the provider icon in the drawer.
-                hyperionColor(settings, "pref_workspace_qsb_color", "pref_workspace_qsb_color_toggle")?.let {
-                    store[prefs2.hotseatQsbColor.key] = it.toString()
-                }
-                hyperionColor(settings, "pref_drawer_qsb_color", "pref_drawer_qsb_color_toggle")?.let {
-                    store[prefs2.drawerQsbColor.key] = it.toString()
-                }
+                // Unset, Hyperion's dock search bar is the accent's deepest tone, slightly see-through.
+                val dockQsbColor = hyperionColor(settings, "pref_workspace_qsb_color", "pref_workspace_qsb_color_toggle")
+                store[prefs2.hotseatQsbColor.key] = (
+                    dockQsbColor ?: ColorOption.SystemAccentDeep.takeIf { it.isSupported } ?: ColorOption.Default
+                    ).toString()
+                // Unset, Hyperion fills the drawer's search bar with the accent colour.
+                store[prefs2.drawerQsbColor.key] =
+                    (hyperionColor(settings, "pref_drawer_qsb_color", "pref_drawer_qsb_color_toggle") ?: ColorOption.SystemAccent).toString()
                 store[prefs2.qsbEndButton.key] = if (settings.bool("pref_show_search_bar_mic") ?: true) QSB_END_ASSISTANT else QSB_END_NONE
                 store[prefs2.drawerQsbProviderIcons.key] = true
                 // Hyperion's drawer is full screen, not a sheet.
                 store[prefs2.drawerOnSheet.key] = false
                 // Hyperion's folder previews have bigger icons that fill the circle.
                 store[prefs2.folderPreviewIconScale.key] = HYPERION_FOLDER_PREVIEW_SCALE
+                store[prefs2.folderPreviewInside.key] = true
 
                 // Label colours: Hyperion turns each on with either of two switches.
                 fun labelColor(key: String, vararg toggles: String): String {
@@ -593,12 +645,14 @@ class HyperionBackupConverter(
                 // draws counts above 9 as "9+".
                 store[prefs2.notificationDotFromIcon.key] = badgeColor == null
                 store[prefs2.notificationCountShort.key] = true
-                when (settings.string("theme_color_mode")) {
-                    "wallpaper" -> store[prefs2.accentColor.key] = ColorOption.WallpaperPrimary.toString()
-                    "follow_system" -> store[prefs2.accentColor.key] = ColorOption.SystemAccent.toString()
-                    "custom" -> settings.int("theme_color_seed")?.let {
-                        store[prefs2.accentColor.key] = ColorOption.CustomColor(it).toString()
-                    }
+                // Hyperion's "follow system" and "wallpaper" colours both come from the wallpaper; the
+                // system's own Material You palette is what matches the rest of the phone.
+                val hyperionSeed = settings.int("theme_color_seed")
+                store[prefs2.accentColor.key] = when {
+                    settings.string("theme_color_mode") == "custom" && hyperionSeed != null ->
+                        ColorOption.CustomColor(hyperionSeed).toString()
+                    android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S -> ColorOption.SystemAccent.toString()
+                    else -> ColorOption.WallpaperPrimary.toString()
                 }
 
                 // Interface settings with a direct counterpart, using Hyperion's defaults.
@@ -618,6 +672,7 @@ class HyperionBackupConverter(
                 } else {
                     HiddenAppsInSearch.IF_NAME_TYPED
                 }
+                store[prefs2.drawerNavBarTint.key] = settings.bool("pages_enable_drawer_navbar_tint") ?: true
                 store[prefs2.drawerStatusBarIcons.key] = when (settings.string("status_bar_icon_drawer_color")) {
                     "status_bar_dark" -> "dark"
                     "status_bar_light" -> "light"
@@ -653,6 +708,11 @@ class HyperionBackupConverter(
                 // The app tapping the date opens, kept as a component or a package.
                 settings.string("pref_calendar_app")?.takeIf { it.isNotBlank() }?.let {
                     store[prefs2.smartspaceCalendarApp.key] = it.substringBefore('/')
+                }
+                // Newer Hyperion keeps that app as "custom_app;<package>" under the At a Glance tap action.
+                settings.string("smartspace_calendar_click_action")?.takeIf { it.startsWith("custom_app;") }?.let {
+                    it.substringAfter(';').substringBefore('/').takeIf { pkg -> pkg.isNotBlank() }
+                        ?.let { pkg -> store[prefs2.smartspaceCalendarApp.key] = pkg }
                 }
                 store[prefs2.hiddenDashboards.key] = when (settings.string("pref_hidden_dashboards")) {
                     "icon_pack_dashboards" -> HIDDEN_DASHBOARDS_ICON_PACKS
@@ -776,6 +836,163 @@ class HyperionBackupConverter(
         prefs2.drawerTabs.set(kept + imported)
     }
 
+    /**
+     * Names and icons the user gave apps in Hyperion: from its icon database (changed from the drawer)
+     * and from home screen items edited one by one, which win as they're what the home screen showed.
+     */
+    private fun readCustomizations(appIconsDb: File, launcherDb: File): Map<ComponentName, AppCustomization> {
+        val result = mutableMapOf<ComponentName, AppCustomization>()
+        val mySerial = UserCache.INSTANCE.get(context).getSerialNumberForUser(user).toInt()
+        if (appIconsDb.isFile) {
+            runCatching {
+                SQLiteDatabase.openDatabase(appIconsDb.path, null, SQLiteDatabase.OPEN_READONLY).use { db ->
+                    db.rawQuery("SELECT * FROM icons WHERE has_custom_title != 0 OR has_custom_icon != 0", null).use { c ->
+                        while (c.moveToNext()) {
+                            val profile = int(c, "profileId")
+                            if (profile != 0 && profile != mySerial) continue
+                            val component = string(c, "componentName")?.let { ComponentName.unflattenFromString(it) } ?: continue
+                            var app = result[component] ?: AppCustomization()
+                            if (int(c, "has_custom_title") != 0) {
+                                string(c, "label")?.trim()?.takeIf { it.isNotEmpty() }?.let { app = app.copy(name = it) }
+                            }
+                            if (int(c, "has_custom_icon") != 0) app = withIcon(app, string(c, "custom_icon_package_name"), string(c, "custom_icon_NAME"), blob(c, "icon"))
+                            result[component] = app
+                        }
+                    }
+                }
+            }.onFailure { Log.w(TAG, "Could not read $APP_ICONS_DB", it) }
+        }
+        runCatching {
+            SQLiteDatabase.openDatabase(launcherDb.path, null, SQLiteDatabase.OPEN_READONLY).use { db ->
+                val placedFolders = placedFolderIds(db)
+                db.rawQuery("SELECT * FROM favorites", null).use { c ->
+                    while (c.moveToNext()) {
+                        if (!isPlaced(int(c, "container"), placedFolders)) continue
+                        val intent = string(c, "intent")
+                        if (!isAppLaunchIntent(intent)) continue
+                        val component = runCatching { Intent.parseUri(intent, 0).component }.getOrNull() ?: continue
+                        var app = result[component] ?: AppCustomization()
+                        string(c, "titleAlias")?.trim()?.takeIf { it.isNotEmpty() && it != appLabel(component) }?.let {
+                            app = app.copy(name = it)
+                        }
+                        app = withIcon(app, string(c, "iconPackName"), string(c, "iconName"), blob(c, "customIcon"))
+                        if (!app.isEmpty) result[component] = app
+                    }
+                }
+            }
+        }.onFailure { Log.w(TAG, "Could not read home screen customisations", it) }
+        return result.filterValues { !it.isEmpty }
+    }
+
+    private fun withIcon(app: AppCustomization, pack: String?, name: String?, picture: ByteArray?): AppCustomization = when {
+        !pack.isNullOrBlank() && !name.isNullOrBlank() -> app.copy(iconPack = pack, iconName = name.substringAfterLast('/'), picture = null)
+        picture != null && picture.isNotEmpty() -> app.copy(iconPack = null, iconName = null, picture = picture)
+        else -> app
+    }
+
+    private fun appLabel(component: ComponentName): String? = runCatching {
+        launcherApps?.getActivityList(component.packageName, user)
+            ?.firstOrNull { it.componentName == component }?.label?.toString()
+    }.getOrNull()
+
+    private suspend fun importCustomizations(apps: Map<ComponentName, AppCustomization>) {
+        if (apps.isEmpty()) return
+        val prefs = PreferenceManager.getInstance(context)
+        val overrides = IconOverrideRepository.INSTANCE.get(context)
+        val names = JSONObject(prefs.sp.getString(prefs.customAppName.key, null) ?: "{}")
+        apps.forEach { (saved, app) ->
+            val key = ComponentKey(installedComponent(saved), user)
+            app.name?.let {
+                names.put(key.toString(), it)
+                prefs.customAppName[key] = it
+            }
+            runCatching {
+                val icon = when {
+                    app.iconPack != null && app.iconName != null ->
+                        IconPickerItem(app.iconPack, app.iconName, app.name.orEmpty(), IconType.Normal)
+                    app.picture != null -> PictureIcons.save(context, key.toString(), app.picture)
+                        ?.let { IconPickerItem(PictureIcons.PACK, it, app.name.orEmpty(), IconType.Normal) }
+                    else -> null
+                }
+                icon?.let { overrides.setOverride(key, it) }
+            }.onFailure { Log.w(TAG, "Could not import the icon for $saved", it) }
+        }
+        prefs.sp.edit().putString(prefs.customAppName.key, names.toString()).commit()
+        // Refresh the cached names and icons now, so the drawer shows them straight after the restart.
+        val model = LauncherAppState.INSTANCE.get(context).model
+        apps.keys.map { installedComponent(it).packageName }.distinct().forEach { pkg ->
+            runCatching { model.onAppIconChanged(pkg, user) }
+        }
+    }
+
+    /** Hyperion's own font files: primary for tab and folder titles, secondary for app names and the rest. */
+    private fun importFonts(dir: File) {
+        val prefs = PreferenceManager.getInstance(context)
+        val editor = prefs.sp.edit()
+        fun copyFont(fileName: String, savedName: String, vararg targets: String) {
+            val source = File(dir, fileName)
+            if (!source.isFile) return
+            val target = FontCache.TTFFont.getFile(context, savedName)
+            source.copyTo(target, overwrite = true)
+            if (FontCache.TTFFont.createTypeface(target) == null) {
+                target.delete()
+                return
+            }
+            val json = FontCache.TTFFont(context, target).toJsonString()
+            targets.forEach { editor.putString(it, json) }
+        }
+        copyFont(PRIMARY_FONT, "Hyperion primary.ttf", prefs.fontHeading.key, prefs.fontHeadingMedium.key)
+        copyFont(SECONDARY_FONT, "Hyperion secondary.ttf", prefs.fontWorkspace.key, prefs.fontBody.key, prefs.fontBodyMedium.key)
+        editor.commit()
+    }
+
+    /**
+     * Hyperion features in use in this backup that this launcher has no counterpart for, so the restore
+     * screen can say so instead of dropping them silently. Hyperion's default applies when a key is absent.
+     */
+    private fun notCarriedOver(settings: HyperionSettings, launcherDb: File, fonts: Set<String>): List<String> {
+        val missing = mutableListOf<Int>()
+        fun on(key: String, default: Boolean = false) = settings.bool(key) ?: default
+        if (on("pages_enable_dock_blur")) missing += R.string.hyperion_missing_dock_blur
+        if (on("pages_show_app_drawer_icon")) missing += R.string.hyperion_missing_drawer_icon
+        if (on("pref_show_workspace_search_bar")) missing += R.string.hyperion_missing_home_search_bar
+        if (on("pref_show_smartspace_in_dock")) missing += R.string.hyperion_missing_glance_in_dock
+        if ((settings.string("pref_app_launch_animation") ?: "default") != "default") missing += R.string.hyperion_missing_launch_animation
+        if ((settings.int("pref_custom_folder_icon_size") ?: 100) != 100) missing += R.string.hyperion_missing_folder_icon_size
+        if (on("pref_enable_custom_gradient_top_glow_color") || on("pref_enable_custom_gradient_bottom_glow_color") || on("pref_glow_overflow")) {
+            missing += R.string.hyperion_missing_glow_colors
+        }
+        if (listOf("pref_gicon_qsb_color", "pref_gicon_qsb_drawer_color").any { (settings.int(it) ?: HYPERION_UNSET_COLOR) != HYPERION_UNSET_COLOR }) {
+            missing += R.string.hyperion_missing_g_color
+        }
+        val shapeColorMode = settings.string("pref_draw_icon_shape_color_mode") ?: "static"
+        val shapeColor = settings.int("pref_draw_icon_shape_color_mode_color") ?: -1
+        if (on("pref_draw_icon_back_shape") && (shapeColorMode != "static" || shapeColor != -1)) missing += R.string.hyperion_missing_icon_back_color
+        if (on("hide_locked_apps_on_recents")) missing += R.string.hyperion_missing_locked_recents
+        if (on("pref_enable_sesame_longpress")) missing += R.string.hyperion_missing_sesame_longpress
+        if (on("pref_enable_minus_one", default = true) && (settings.string("pref_minus_one_theme") ?: "auto") != "auto") {
+            missing += R.string.hyperion_missing_feed_theme
+        }
+        if (SMARTSPACE_FONT in fonts) missing += R.string.hyperion_missing_glance_font
+        runCatching {
+            SQLiteDatabase.openDatabase(launcherDb.path, null, SQLiteDatabase.OPEN_READONLY).use { db ->
+                val placedFolders = placedFolderIds(db)
+                var covers = false
+                var sesame = false
+                db.rawQuery("SELECT * FROM favorites", null).use { c ->
+                    while (c.moveToNext()) {
+                        if (!isPlaced(int(c, "container"), placedFolders)) continue
+                        if (int(c, "isFolderMask") != 0) covers = true
+                        if (int(c, "sesameShortcut") != 0) sesame = true
+                    }
+                }
+                if (covers) missing += R.string.hyperion_missing_folder_covers
+                if (sesame) missing += R.string.hyperion_missing_sesame_items
+            }
+        }
+        return missing.map { context.getString(it) }
+    }
+
     private fun countItems(dbFile: File): ItemCounts {
         val db = SQLiteDatabase.openDatabase(dbFile.absolutePath, null, SQLiteDatabase.OPEN_READONLY)
         return db.use {
@@ -824,7 +1041,9 @@ class HyperionBackupConverter(
         return ranks
     }
 
-    private fun createRestoredDb(sourceFile: File, targetFile: File, hotseatColumns: Int, twoRowDock: Boolean) {
+    private fun dockPages(settings: HyperionSettings) = (settings.int("pref_hotseat_pages") ?: 1).coerceIn(1, 5)
+
+    private fun createRestoredDb(sourceFile: File, targetFile: File, hotseatColumns: Int, twoRowDock: Boolean, dockPages: Int) {
         val profileId = UserCache.INSTANCE.get(context).getSerialNumberForUser(user)
         SQLiteDatabase.openOrCreateDatabase(targetFile, null).use { target ->
             target.version = DatabaseHelper.SCHEMA_VERSION
@@ -834,7 +1053,7 @@ class HyperionBackupConverter(
                 val screens = screenRanks(src)
                 target.beginTransaction()
                 try {
-                    copyItems(src, target, profileId, placedFolders, screens, hotseatColumns, twoRowDock)
+                    copyItems(src, target, profileId, placedFolders, screens, hotseatColumns, twoRowDock, dockPages)
                     target.setTransactionSuccessful()
                 } finally {
                     target.endTransaction()
@@ -851,8 +1070,10 @@ class HyperionBackupConverter(
         screens: Map<Int, Int>,
         hotseatColumns: Int,
         twoRowDock: Boolean,
+        dockPages: Int,
     ) {
         val now = System.currentTimeMillis()
+        val dockRows = if (twoRowDock) 2 else 1
         val usedHotseatSlots = mutableSetOf<Int>()
         src.rawQuery("SELECT * FROM favorites ORDER BY container, screen, cellY, cellX", null).use { cursor ->
             while (cursor.moveToNext()) {
@@ -877,7 +1098,9 @@ class HyperionBackupConverter(
                 when (container) {
                     CONTAINER_HOTSEAT -> {
                         val row = if (twoRowDock) cellY.coerceIn(0, 1) else 0
-                        var slot = row * hotseatColumns + cellX.coerceIn(0, hotseatColumns - 1)
+                        // Each dock page holds columns x rows slots, one page after another.
+                        val page = int(cursor, "itemHotseatPageId").coerceIn(0, dockPages - 1)
+                        var slot = page * hotseatColumns * dockRows + row * hotseatColumns + cellX.coerceIn(0, hotseatColumns - 1)
                         while (slot in usedHotseatSlots) slot++
                         usedHotseatSlots.add(slot)
                         screen = slot

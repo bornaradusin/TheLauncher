@@ -161,7 +161,8 @@ class TheLauncherIconProvider @Inject constructor(
         val iconPackIcon = iconPackEntry?.let { iconPackProvider.getDrawable(it, iconDpi, user) }
         val baseIcon = iconPackIcon ?: super.getIcon(info, appInfo, iconDpi)
 
-        if (!themedIconsEnabled || iconEntry == null) {
+        // A picture chosen for the app stays as it is, even with themed icons on.
+        if (!themedIconsEnabled || iconEntry == null || iconEntry.packPackageName == PictureIcons.PACK) {
             return baseIcon
         }
 

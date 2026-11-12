@@ -78,7 +78,7 @@ class ColorPreferenceModelList @Inject constructor(
                 ColorPreferenceModel(
                     prefObject = it,
                     labelRes = R.string.qsb_background_color,
-                    dynamicEntries = dynamicColorsWithDefault,
+                    dynamicEntries = searchBarDynamicColors,
                 ),
             )
         }

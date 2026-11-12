@@ -105,7 +105,7 @@ class SeerrResultView(context: Context, attrs: AttributeSet?) :
                 title.text = target.searchAction?.title
                 subtitle.isVisible = false
                 action.isVisible = false
-                val setUp = term == "SET_UP" || term == "UNREACHABLE"
+                val setUp = term == "SET_UP" || term == "UNREACHABLE" || term == "NO_LOCAL_NETWORK"
                 setOnClickListener(
                     if (setUp) {
                         OnClickListener { context.startActivity(PreferenceActivity.createIntent(context, SeerrSettings)) }
