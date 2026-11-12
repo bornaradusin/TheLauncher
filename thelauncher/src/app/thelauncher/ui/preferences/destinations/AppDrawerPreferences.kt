@@ -80,11 +80,25 @@ fun AppDrawerPreferences(
         Column {
             DrawerLayoutPreference(drawerListAdapter)
             ExpandAndShrink(visible = drawerListAdapter.state.value) {
-                AppDrawerFolderPreferenceItem()
+                Column {
+                    AppDrawerFolderPreferenceItem()
+                    PreferenceGroup {
+                        SwitchPreference(
+                            adapter = prefs2.drawerFoldersFirst.getAdapter(),
+                            label = stringResource(id = R.string.drawer_folders_first),
+                            description = stringResource(id = R.string.drawer_folders_first_desc),
+                        )
+                    }
+                }
             }
         }
         val hiddenApps = prefs2.hiddenApps.getAdapter().state.value
         PreferenceGroup(heading = stringResource(id = R.string.general_label)) {
+            SwitchPreference(
+                adapter = prefs2.drawerOnSheet.getAdapter(),
+                label = stringResource(id = R.string.drawer_on_sheet),
+                description = stringResource(id = R.string.drawer_on_sheet_desc),
+            )
             SwitchPreference(
                 adapter = prefs2.closeDrawerOnLaunch.getAdapter(),
                 label = stringResource(id = R.string.close_drawer_on_launch),
@@ -131,10 +145,33 @@ fun AppDrawerPreferences(
                 label = stringResource(R.string.suggestion_pref_screen_title),
                 destination = Predictions,
             )
+            app.thelauncher.ui.preferences.components.controls.ListPreference(
+                adapter = prefs2.drawerSuggestionsDivider.getAdapter(),
+                entries = listOf(
+                    app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry(app.thelauncher.util.SUGGESTIONS_DIVIDER_AUTO) { stringResource(id = R.string.suggestions_divider_auto) },
+                    app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry(app.thelauncher.util.SUGGESTIONS_DIVIDER_LABEL) { stringResource(id = R.string.suggestions_divider_label) },
+                    app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry(app.thelauncher.util.SUGGESTIONS_DIVIDER_NONE) { stringResource(id = R.string.suggestions_divider_none) },
+                ),
+                label = stringResource(id = R.string.suggestions_divider),
+            )
+            SwitchPreference(
+                adapter = prefs2.showWorkTab.getAdapter(),
+                label = stringResource(id = R.string.show_work_tab),
+                description = stringResource(id = R.string.show_work_tab_desc),
+            )
             AppDrawerHapticFeedbackPreference()
         }
         PreferenceGroup(heading = stringResource(R.string.style)) {
             ColorPreference(preference = prefs2.appDrawerBackgroundColor)
+            app.thelauncher.ui.preferences.components.controls.ListPreference(
+                adapter = prefs2.drawerStatusBarIcons.getAdapter(),
+                entries = listOf(
+                    app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry("auto") { stringResource(id = R.string.status_bar_icons_auto) },
+                    app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry("dark") { stringResource(id = R.string.status_bar_icons_dark) },
+                    app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry("light") { stringResource(id = R.string.status_bar_icons_light) },
+                ),
+                label = stringResource(id = R.string.drawer_status_bar_icons),
+            )
             SliderPreference(
                 label = stringResource(id = R.string.background_opacity),
                 adapter = prefs.drawerOpacity.getAdapter(),
@@ -207,6 +244,7 @@ fun AppDrawerPreferences(
         }
         val showDrawerLabels = prefs2.showIconLabelsInDrawer.getAdapter()
         PreferenceGroup(heading = stringResource(id = R.string.icons)) {
+            ColorPreference(preference = prefs2.drawerLabelColor)
             SliderPreference(
                 label = stringResource(id = R.string.icon_sizes),
                 adapter = prefs2.drawerIconSizeFactor.getAdapter(),
@@ -244,12 +282,33 @@ fun AppDrawerPreferences(
                 description = stringResource(id = R.string.pref_all_apps_remember_position_description),
                 adapter = prefs2.rememberPosition.getAdapter(),
             )
+            val showScrollbar = prefs2.showScrollbar.getAdapter()
             SwitchPreference(
                 label = stringResource(id = R.string.pref_all_apps_show_scrollbar_title),
-                adapter = prefs2.showScrollbar.getAdapter(),
+                adapter = showScrollbar,
             )
+            ExpandAndShrink(visible = showScrollbar.state.value) {
+                ColorPreference(preference = prefs2.drawerScrollbarColor)
+            }
+            HiddenDashboardsPreference()
         }
     }
+}
+
+/** Hide the launcher icons of icon packs and themes, which only open their own dashboards. */
+@Composable
+private fun HiddenDashboardsPreference() {
+    val entries = listOf(
+        app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry(app.thelauncher.allapps.HIDDEN_DASHBOARDS_NONE) { stringResource(id = R.string.hidden_dashboards_none) },
+        app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry(app.thelauncher.allapps.HIDDEN_DASHBOARDS_ICON_PACKS) { stringResource(id = R.string.hidden_dashboards_icon_packs) },
+        app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry(app.thelauncher.allapps.HIDDEN_DASHBOARDS_THEMES) { stringResource(id = R.string.hidden_dashboards_themes) },
+        app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry(app.thelauncher.allapps.HIDDEN_DASHBOARDS_ALL) { stringResource(id = R.string.hidden_dashboards_all) },
+    )
+    app.thelauncher.ui.preferences.components.controls.ListPreference(
+        adapter = preferenceManager2().hiddenDashboards.getAdapter(),
+        entries = entries,
+        label = stringResource(id = R.string.hidden_dashboards),
+    )
 }
 
 @Composable

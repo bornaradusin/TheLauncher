@@ -73,6 +73,52 @@ class ColorPreferenceModelList @Inject constructor(
                 dynamicEntries = dynamicColorsWithDefault,
             ),
         )
+        listOf(prefs.hotseatQsbColor, prefs.drawerQsbColor).forEach {
+            registerModel(
+                ColorPreferenceModel(
+                    prefObject = it,
+                    labelRes = R.string.qsb_background_color,
+                    dynamicEntries = dynamicColorsWithDefault,
+                ),
+            )
+        }
+        listOf(prefs.homeLabelColor, prefs.dockLabelColor, prefs.drawerLabelColor, prefs.folderLabelColor).forEach {
+            registerModel(
+                ColorPreferenceModel(
+                    prefObject = it,
+                    labelRes = R.string.label_color,
+                    dynamicEntries = dynamicColorsWithDefault,
+                ),
+            )
+        }
+        registerModel(
+            ColorPreferenceModel(
+                prefObject = prefs.drawerIndicatorColor,
+                labelRes = R.string.drawer_indicator_color,
+                dynamicEntries = dynamicColorsWithDefault,
+            ),
+        )
+        registerModel(
+            ColorPreferenceModel(
+                prefObject = prefs.drawerScrollbarColor,
+                labelRes = R.string.drawer_scrollbar_color,
+                dynamicEntries = dynamicColorsWithDefault,
+            ),
+        )
+        registerModel(
+            ColorPreferenceModel(
+                prefObject = prefs.smartspaceBubbleColor,
+                labelRes = R.string.smartspace_bubble_color,
+                dynamicEntries = dynamicColors,
+            ),
+        )
+        registerModel(
+            ColorPreferenceModel(
+                prefObject = prefs.smartspaceTextColor,
+                labelRes = R.string.smartspace_text_color,
+                dynamicEntries = dynamicColorsWithDefault,
+            ),
+        )
     }
 
     operator fun get(key: String): ColorPreferenceModel = models.getValue(key)

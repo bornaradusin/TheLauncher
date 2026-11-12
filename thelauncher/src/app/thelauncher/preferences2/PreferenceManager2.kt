@@ -48,6 +48,14 @@ import app.thelauncher.smartspace.model.SmartspaceMode
 import app.thelauncher.smartspace.model.SmartspaceTimeFormat
 import app.thelauncher.theme.color.ColorMode
 import app.thelauncher.theme.color.ColorOption
+import app.thelauncher.allapps.HIDDEN_DASHBOARDS_NONE
+import app.thelauncher.util.DOT_PLACEMENT_TOP_RIGHT
+import app.thelauncher.util.DRAWER_INDICATOR_NONE
+import app.thelauncher.util.SUGGESTIONS_DIVIDER_AUTO
+import app.thelauncher.qsb.QSB_END_VOICE
+import app.thelauncher.smartspace.model.SMARTSPACE_BUBBLE_OFF
+import app.thelauncher.smartspace.model.SMARTSPACE_DATE_LONG
+import app.thelauncher.smartspace.model.SMARTSPACE_LAYOUT_ONE_CARD
 import app.thelauncher.theme.color.ColorStyle
 import app.thelauncher.ui.popup.LauncherOptionsPopup
 import app.thelauncher.ui.popup.toOptionOrderString
@@ -298,6 +306,230 @@ class PreferenceManager2 @Inject constructor(
     val showNotificationCount = preference(
         key = booleanPreferencesKey(name = "show_notification_count"),
         defaultValue = context.resources.getBoolean(R.bool.config_default_show_notification_count),
+        onSet = { reloadHelper.reloadGrid() },
+    )
+
+    /** Labels on the home screen wrap onto a second line when they don't fit. */
+    val twoLineHome = preference(
+        key = booleanPreferencesKey(name = "two_line_home"),
+        defaultValue = false,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    /** Labels in open folders wrap onto a second line when they don't fit. */
+    val twoLineFolder = preference(
+        key = booleanPreferencesKey(name = "two_line_folder"),
+        defaultValue = false,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    /** Label typeface style: 0 regular, 1 bold, 2 italic, 3 bold italic (android.graphics.Typeface). */
+    val labelTextStyle = preference(
+        key = intPreferencesKey(name = "label_text_style"),
+        defaultValue = 0,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    val dockTextShadow = preference(
+        key = booleanPreferencesKey(name = "dock_text_shadow"),
+        defaultValue = true,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    val dockIconLabelSizeFactor = preference(
+        key = floatPreferencesKey(name = "dock_icon_label_size_factor"),
+        defaultValue = 1f,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    /** Drawer folders above the apps; off sorts them in among the apps by name. */
+    val drawerFoldersFirst = preference(
+        key = booleanPreferencesKey(name = "drawer_folders_first"),
+        defaultValue = true,
+        onSet = { reloadHelper.reloadGrid() },
+    )
+
+    /** With a work profile, its apps get their own tab; off lists them with the rest. */
+    val showWorkTab = preference(
+        key = booleanPreferencesKey(name = "show_work_tab"),
+        defaultValue = true,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    /** What separates suggested apps from the list: "auto", "label" (All apps) or "none". */
+    val drawerSuggestionsDivider = preference(
+        key = stringPreferencesKey(name = "drawer_suggestions_divider"),
+        defaultValue = SUGGESTIONS_DIVIDER_AUTO,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    /** Status bar icons while the drawer is open: "auto", "dark" or "light". */
+    val drawerStatusBarIcons = preference(
+        key = stringPreferencesKey(name = "drawer_status_bar_icons"),
+        defaultValue = "auto",
+        onSet = { reloadHelper.recreate() },
+    )
+
+    /** A hint above the dock that the drawer is a swipe away: "none", "arrow" or "line". */
+    val drawerIndicator = preference(
+        key = stringPreferencesKey(name = "drawer_indicator"),
+        defaultValue = DRAWER_INDICATOR_NONE,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    val drawerIndicatorColor = preference(
+        key = stringPreferencesKey(name = "drawer_indicator_color"),
+        parse = ColorOption::fromString,
+        save = ColorOption::toString,
+        onSet = { reloadHelper.recreate() },
+        defaultValue = ColorOption.Default,
+    )
+
+    /** Which corner of the icon the notification dot sits in, using Hyperion's names. */
+    val notificationDotPlacement = preference(
+        key = stringPreferencesKey(name = "notification_dot_placement"),
+        defaultValue = DOT_PLACEMENT_TOP_RIGHT,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    /** The app At a Glance's date opens; empty opens the default calendar. */
+    val smartspaceCalendarApp = preference(
+        key = stringPreferencesKey("smartspace_calendar_app"),
+        defaultValue = "",
+    )
+
+    val smartspaceWeatherKelvin = preference(
+        key = booleanPreferencesKey("smartspace_weather_kelvin"),
+        defaultValue = false,
+    )
+
+    /** Hides icon packs' and themes' own apps ("dashboards") from the drawer. */
+    val hiddenDashboards = preference(
+        key = stringPreferencesKey("hidden_dashboards"),
+        defaultValue = HIDDEN_DASHBOARDS_NONE,
+    )
+
+    val drawerScrollbarColor = preference(
+        key = stringPreferencesKey(name = "drawer_scrollbar_color"),
+        parse = ColorOption::fromString,
+        save = ColorOption::toString,
+        onSet = { reloadHelper.recreate() },
+        defaultValue = ColorOption.Default,
+    )
+
+    /** Hyperion's "Line" page indicator instead of dots. */
+    val pageIndicatorLine = preference(
+        key = booleanPreferencesKey(name = "page_indicator_line"),
+        defaultValue = false,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    /** Hides the page indicator under a dock that has more than one page. */
+    val dockPageIndicatorHidden = preference(
+        key = booleanPreferencesKey(name = "dock_page_indicator_hidden"),
+        defaultValue = false,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    /** Size of the icons inside a folder's preview; 1 keeps the normal size. */
+    val folderPreviewIconScale = preference(
+        key = floatPreferencesKey(name = "folder_preview_icon_scale"),
+        defaultValue = 1f,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    /** The drawer on a rounded sheet with a handle; off opens it full screen, as in Hyperion. */
+    val drawerOnSheet = preference(
+        key = booleanPreferencesKey(name = "drawer_on_sheet"),
+        defaultValue = true,
+        onSet = { reloadHelper.recreate() },
+    )
+
+    /** Search bar colours. "Default" keeps the normal colour. */
+    val hotseatQsbColor = preference(
+        key = stringPreferencesKey(name = "hotseat_qsb_color"),
+        parse = ColorOption::fromString,
+        save = ColorOption::toString,
+        defaultValue = ColorOption.Default,
+    )
+
+    val drawerQsbColor = preference(
+        key = stringPreferencesKey(name = "drawer_qsb_color"),
+        parse = ColorOption::fromString,
+        save = ColorOption::toString,
+        defaultValue = ColorOption.Default,
+    )
+
+    /** The button at the end of the search bars: "voice", "assistant" or "none". */
+    val qsbEndButton = preference(
+        key = stringPreferencesKey(name = "qsb_end_button"),
+        defaultValue = QSB_END_VOICE,
+    )
+
+    /** The search provider's icon and the end button on the drawer's search bar. */
+    val drawerQsbProviderIcons = preference(
+        key = booleanPreferencesKey(name = "drawer_qsb_provider_icons"),
+        defaultValue = false,
+    )
+
+    /** Label colours for each area. "Default" keeps the theme's colour. */
+    val homeLabelColor = preference(
+        key = stringPreferencesKey(name = "home_label_color"),
+        parse = ColorOption::fromString,
+        save = ColorOption::toString,
+        onSet = { reloadHelper.recreate() },
+        defaultValue = ColorOption.Default,
+    )
+
+    val dockLabelColor = preference(
+        key = stringPreferencesKey(name = "dock_label_color"),
+        parse = ColorOption::fromString,
+        save = ColorOption::toString,
+        onSet = { reloadHelper.recreate() },
+        defaultValue = ColorOption.Default,
+    )
+
+    val drawerLabelColor = preference(
+        key = stringPreferencesKey(name = "drawer_label_color"),
+        parse = ColorOption::fromString,
+        save = ColorOption::toString,
+        onSet = { reloadHelper.recreate() },
+        defaultValue = ColorOption.Default,
+    )
+
+    val folderLabelColor = preference(
+        key = stringPreferencesKey(name = "folder_label_color"),
+        parse = ColorOption::fromString,
+        save = ColorOption::toString,
+        onSet = { reloadHelper.recreate() },
+        defaultValue = ColorOption.Default,
+    )
+
+    /** Scales the height of each dock row; 1 keeps the normal height. */
+    val dockHeightFactor = preference(
+        key = floatPreferencesKey(name = "dock_height_factor"),
+        defaultValue = 1f,
+        onSet = { reloadHelper.reloadGrid() },
+    )
+
+    /** Dock rows as tall as home screen rows, the way Hyperion lays out the dock. */
+    val dockRowsMatchHome = preference(
+        key = booleanPreferencesKey(name = "dock_rows_match_home"),
+        defaultValue = false,
+        onSet = { reloadHelper.reloadGrid() },
+    )
+
+    /** Each app's dot takes its colour from the app's icon, as in Hyperion. */
+    val notificationDotFromIcon = preference(
+        key = booleanPreferencesKey(name = "notification_dot_from_icon"),
+        defaultValue = false,
+        onSet = { reloadHelper.reloadGrid() },
+    )
+
+    /** Counts above 9 show as "9+". */
+    val notificationCountShort = preference(
+        key = booleanPreferencesKey(name = "notification_count_short"),
+        defaultValue = false,
         onSet = { reloadHelper.reloadGrid() },
     )
 
@@ -892,6 +1124,63 @@ class PreferenceManager2 @Inject constructor(
     val smartspaceCalendarIds = preference(
         key = stringSetPreferencesKey("smartspace_calendar_ids"),
         defaultValue = setOf(),
+    )
+
+    /** "one_card": the date line plus a details line. "pages": one swipeable card per item. */
+    val smartspaceLayout = preference(
+        key = stringPreferencesKey("smartspace_layout"),
+        defaultValue = SMARTSPACE_LAYOUT_ONE_CARD,
+    )
+
+    val smartspacePageDots = preference(
+        key = booleanPreferencesKey("smartspace_page_dots"),
+        defaultValue = false,
+    )
+
+    /** "off", "pill" (fits the text) or "card" (full width). */
+    val smartspaceBubble = preference(
+        key = stringPreferencesKey("smartspace_bubble"),
+        defaultValue = SMARTSPACE_BUBBLE_OFF,
+    )
+
+    val smartspaceBubbleColor = preference(
+        key = stringPreferencesKey("smartspace_bubble_color"),
+        parse = ColorOption::fromString,
+        save = ColorOption::toString,
+        defaultValue = ColorOption.CustomColor(0xFF000000),
+    )
+
+    val smartspaceBubbleOpacity = preference(
+        key = floatPreferencesKey("smartspace_bubble_opacity"),
+        defaultValue = 0.35f,
+    )
+
+    val smartspaceBubbleRadius = preference(
+        key = floatPreferencesKey("smartspace_bubble_radius"),
+        defaultValue = 28f,
+    )
+
+    val smartspaceTextScale = preference(
+        key = floatPreferencesKey("smartspace_text_scale"),
+        defaultValue = 1f,
+    )
+
+    val smartspaceTextColor = preference(
+        key = stringPreferencesKey("smartspace_text_color"),
+        parse = ColorOption::fromString,
+        save = ColorOption::toString,
+        defaultValue = ColorOption.Default,
+    )
+
+    /** "short" (Thu, 12 Nov), "long" (Thursday, 12 Nov) or "full" (Thursday, 12 November). */
+    val smartspaceDateStyle = preference(
+        key = stringPreferencesKey("smartspace_date_style"),
+        defaultValue = SMARTSPACE_DATE_LONG,
+    )
+
+    val smartspaceNextAlarm = preference(
+        key = booleanPreferencesKey("enable_smartspace_next_alarm"),
+        defaultValue = true,
     )
 
     val lockedApps = preference(

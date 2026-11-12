@@ -32,6 +32,7 @@ class SmartspaceProvider @Inject constructor(
         BatteryStatusProvider(context),
         TorchProvider(context),
         NowPlayingProvider(context),
+        NextAlarmProvider(context),
         OnboardingProvider(context),
     )
 
@@ -46,13 +47,24 @@ class SmartspaceProvider @Inject constructor(
     val targets = state
         .map {
             if (it.requiresSetup.isNotEmpty()) {
-                listOf(setupTarget) + it.targets
+                listOf(setupTarget) + it.targets.withOneDateCard()
             } else {
-                it.targets
+                it.targets.withOneDateCard()
             }
         }
     val previewTargets = state
-        .map { it.targets }
+        .map { it.targets.withOneDateCard() }
+
+    /**
+     * Both weather sources (Open-Meteo and the Google app's At a Glance) produce a date card. Only one
+     * is ever shown: the one that has weather on it, otherwise the first.
+     */
+    private fun List<SmartspaceTarget>.withOneDateCard(): List<SmartspaceTarget> {
+        val dateCards = filter { it.featureType == SmartspaceTarget.FeatureType.FEATURE_WEATHER }
+        if (dateCards.size <= 1) return this
+        val keep = dateCards.firstOrNull { !it.headerAction?.subtitle.isNullOrEmpty() } ?: dateCards.first()
+        return filter { it.featureType != SmartspaceTarget.FeatureType.FEATURE_WEATHER || it === keep }
+    }
 
     private val setupTarget = SmartspaceTarget(
         id = "smartspaceSetup",

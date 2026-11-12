@@ -26,7 +26,14 @@ public class ClippedFolderIconLayoutRule {
     private float mIconSize;
     private boolean mIsRtl;
     private float mBaselineIconScale;
+    // TheLauncher: bigger or smaller icons in the folder preview (1 = normal).
+    private float mPreviewIconScale = 1f;
     private int mNumFolderColumns;
+
+    /** TheLauncher: scales the preview icons; the circle they sit on grows with them. */
+    public void setPreviewIconScale(float scale) {
+        mPreviewIconScale = scale;
+    }
 
     /**
      * initialize the layout rule
@@ -176,6 +183,10 @@ public class ClippedFolderIconLayoutRule {
     }
 
     private float getRadius(int numItems) {
+        return getBaseRadius(numItems) * (1 + (mPreviewIconScale - 1) * 0.8f);
+    }
+
+    private float getBaseRadius(int numItems) {
         float radiusDilation = Flags.enableLauncherIconShapes() ? radiusDilationForItems(numItems)
                 : MAX_RADIUS_DILATION;
         if (Flags.enableLauncherIconShapes()) {
@@ -203,7 +214,7 @@ public class ClippedFolderIconLayoutRule {
         } else {
             scale = MIN_SCALE;
         }
-        return scale * mBaselineIconScale;
+        return scale * mBaselineIconScale * mPreviewIconScale;
     }
 
     private float radiusDilationForItems(int numItems) {

@@ -187,7 +187,13 @@ fun InterfaceCategory() = CategoryScreen(
                 ),
             ),
         )
-        add(Entry(R.string.dock_label, R.string.cat_entry_dock_desc, section("dock", R.string.dock_label, R.string.preview_label, untitled = true)))
+        add(
+            Entry(
+                R.string.dock_label,
+                R.string.cat_entry_dock_desc,
+                section("dock", R.string.dock_label, R.string.layout, R.string.search_bar_label),
+            ),
+        )
         add(
             Entry(
                 R.string.app_drawer_label,

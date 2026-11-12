@@ -69,6 +69,7 @@ import app.thelauncher.hotseat.TheLauncherHotseat;
 import app.thelauncher.preferences.PreferenceManager;
 import app.thelauncher.preferences2.PreferenceCacheExtensionsKt;
 import app.thelauncher.preferences2.PreferenceManager2;
+import app.thelauncher.util.TheLauncherUtilsKt;
 
 /**
  * View class that represents the bottom dock of the home screen.
@@ -125,6 +126,10 @@ public class Hotseat extends FrameLayout implements Insettable {
     PreferenceManager preferenceManager;
     private boolean mDockShadow;
     private final Paint mDockShadowPaint = new Paint(Paint.DITHER_FLAG);
+    // TheLauncher: Hyperion's drawer indicator, an arrow or a short line above the dock.
+    private String mDrawerIndicator = TheLauncherUtilsKt.DRAWER_INDICATOR_NONE;
+    private final Paint mDrawerIndicatorPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final android.graphics.Path mDrawerIndicatorPath = new android.graphics.Path();
 
     public Hotseat(Context context) {
         this(context, null);
@@ -208,6 +213,7 @@ public class Hotseat extends FrameLayout implements Insettable {
         if (mDockShadow) {
             setWillNotDraw(false);
         }
+        setUpDrawerIndicator(preferenceManager2);
         setClipToPadding(false);
     }
 
@@ -524,7 +530,12 @@ public class Hotseat extends FrameLayout implements Insettable {
         int paddingBottom = getPaddingBottom();
 
         DeviceProfile dp = mActivity.getDeviceProfile();
-        boolean showIndicator = mPagedView.isPagingEnabled() && !dp.isVerticalBarLayout();
+        app.thelauncher.preferences2.PreferenceManager2 prefs2 =
+                app.thelauncher.preferences2.PreferenceManager2.getInstance(getContext());
+        boolean showIndicator = mPagedView.isPagingEnabled() && !dp.isVerticalBarLayout()
+                && !app.thelauncher.preferences2.PreferenceCacheExtensionsKt.firstCached(prefs2.getDockPageIndicatorHidden());
+        mPageIndicator.setLineStyle(
+                app.thelauncher.preferences2.PreferenceCacheExtensionsKt.firstCached(prefs2.getPageIndicatorLine()));
         int indicatorSpace = showIndicator ? mPageIndicatorHeight : 0;
 
         int pagerWidth = widthSize - paddingLeft - paddingRight;
@@ -571,6 +582,50 @@ public class Hotseat extends FrameLayout implements Insettable {
             canvas.drawRect(0, 0, getWidth(), getHeight(), mDockShadowPaint);
         }
         super.dispatchDraw(canvas);
+        drawDrawerIndicator(canvas);
+    }
+
+    private void setUpDrawerIndicator(PreferenceManager2 prefs2) {
+        mDrawerIndicator = PreferenceCacheExtensionsKt.firstCached(prefs2.getDrawerIndicator());
+        if (TheLauncherUtilsKt.DRAWER_INDICATOR_NONE.equals(mDrawerIndicator)) return;
+        setWillNotDraw(false);
+        app.thelauncher.theme.color.ColorOption color =
+                PreferenceCacheExtensionsKt.firstCached(prefs2.getDrawerIndicatorColor());
+        int indicatorColor = color instanceof app.thelauncher.theme.color.ColorOption.Default
+                ? com.android.launcher3.util.Themes.getAttrColor(getContext(), R.attr.workspaceTextColor)
+                : color.getColorPreferenceEntry().getLightColor().invoke(getContext());
+        mDrawerIndicatorPaint.setColor(indicatorColor);
+        mDrawerIndicatorPaint.setAlpha(Math.min(Color.alpha(indicatorColor), 0xCC));
+        mDrawerIndicatorPaint.setStyle(Paint.Style.STROKE);
+        mDrawerIndicatorPaint.setStrokeCap(Paint.Cap.ROUND);
+        mDrawerIndicatorPaint.setStrokeJoin(Paint.Join.ROUND);
+        mDrawerIndicatorPaint.setStrokeWidth(dpToPx(2.5f));
+    }
+
+    private void drawDrawerIndicator(Canvas canvas) {
+        if (TheLauncherUtilsKt.DRAWER_INDICATOR_NONE.equals(mDrawerIndicator) || getWidth() == 0) {
+            return;
+        }
+        float centerX = getWidth() / 2f;
+        float centerY = Math.max(dpToPx(6), getPaddingTop() / 2f);
+        if (TheLauncherUtilsKt.DRAWER_INDICATOR_ARROW.equals(mDrawerIndicator)) {
+            float halfWidth = dpToPx(9);
+            float height = dpToPx(3.5f);
+            mDrawerIndicatorPath.reset();
+            mDrawerIndicatorPath.moveTo(centerX - halfWidth, centerY + height);
+            mDrawerIndicatorPath.lineTo(centerX, centerY - height);
+            mDrawerIndicatorPath.lineTo(centerX + halfWidth, centerY + height);
+            canvas.drawPath(mDrawerIndicatorPath, mDrawerIndicatorPaint);
+        } else {
+            float halfWidth = dpToPx(12);
+            canvas.drawLine(centerX - halfWidth, centerY, centerX + halfWidth, centerY,
+                    mDrawerIndicatorPaint);
+        }
+    }
+
+    private float dpToPx(float dp) {
+        return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp,
+                getResources().getDisplayMetrics());
     }
 
     @Override

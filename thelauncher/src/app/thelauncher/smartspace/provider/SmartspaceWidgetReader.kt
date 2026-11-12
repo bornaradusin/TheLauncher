@@ -29,7 +29,7 @@ import kotlinx.coroutines.flow.map
 class SmartspaceWidgetReader(context: Context) :
     SmartspaceDataSource(
         context,
-        R.string.smartspace_weather,
+        R.string.smartspace_weather_google,
         { smartspaceAagWidget },
     ) {
     override val isAvailable: Boolean

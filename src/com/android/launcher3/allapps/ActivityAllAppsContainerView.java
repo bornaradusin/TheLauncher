@@ -744,7 +744,10 @@ public class ActivityAllAppsContainerView<T extends Context & ActivityContext>
         } else {
             mainRecyclerView = findViewById(R.id.apps_list_view);
             workRecyclerView = null;
-            mAH.get(AdapterHolder.MAIN).setup(mainRecyclerView, mPersonalMatcher);
+            // TheLauncher: with the work tab turned off, work apps are listed with the rest.
+            mAH.get(AdapterHolder.MAIN).setup(mainRecyclerView, mHasWorkApps
+                    ? mPersonalMatcher.or(mWorkManager.getItemInfoMatcher())
+                    : mPersonalMatcher);
             mAH.get(AdapterHolder.WORK).mRecyclerView = null;
         }
         setUpCustomRecyclerViewPool(
@@ -1498,7 +1501,8 @@ public class ActivityAllAppsContainerView<T extends Context & ActivityContext>
      * Returns true if the container has work apps.
      */
     public boolean shouldShowTabs() {
-        return mHasWorkApps;
+        return mHasWorkApps && PreferenceCacheExtensionsKt.firstCached(
+                PreferenceManager2.getInstance(getContext()).getShowWorkTab());
     }
 
     // Used by tests only

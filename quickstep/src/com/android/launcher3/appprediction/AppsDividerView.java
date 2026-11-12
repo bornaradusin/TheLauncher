@@ -40,6 +40,10 @@ import com.android.launcher3.allapps.FloatingHeaderRow;
 import com.android.launcher3.allapps.FloatingHeaderView;
 import com.android.launcher3.util.Themes;
 
+import app.thelauncher.preferences2.PreferenceCacheExtensionsKt;
+import app.thelauncher.preferences2.PreferenceManager2;
+import app.thelauncher.util.TheLauncherUtilsKt;
+
 /**
  * A view which shows a horizontal divider
  */
@@ -143,7 +147,14 @@ public class AppsDividerView extends View implements FloatingHeaderRow {
                 }
             }
 
-            if (mShowAllAppsLabel && sectionCount > 0) {
+            // TheLauncher: Hyperion's "App suggestions divider" can force the label or hide it.
+            String dividerPref = PreferenceCacheExtensionsKt.firstCached(
+                    PreferenceManager2.getInstance(getContext()).getDrawerSuggestionsDivider());
+            boolean showLabel = mShowAllAppsLabel
+                    || TheLauncherUtilsKt.SUGGESTIONS_DIVIDER_LABEL.equals(dividerPref);
+            if (TheLauncherUtilsKt.SUGGESTIONS_DIVIDER_NONE.equals(dividerPref)) {
+                dividerType = DividerType.NONE;
+            } else if (showLabel && sectionCount > 0) {
                 dividerType = DividerType.ALL_APPS_LABEL;
             } else if (sectionCount == 1) {
                 dividerType = DividerType.LINE;

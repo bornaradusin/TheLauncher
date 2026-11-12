@@ -1532,6 +1532,9 @@ public class Workspace<T extends View & PageIndicator> extends PagedView<T>
             var isHotseatEnabled = PreferenceCacheExtensionsKt.firstCached(mPreferenceManager2.isHotseatEnabled());
             var pageIndicatorHidden = PreferenceCacheExtensionsKt.firstCached(mPreferenceManager2.getPageIndicatorHidden());
             mPageIndicator.setVisibility(isHotseatEnabled && !pageIndicatorHidden ? VISIBLE : INVISIBLE);
+            if (mPageIndicator instanceof com.android.launcher3.pageindicators.PageIndicatorDots dots) {
+                dots.setLineStyle(PreferenceCacheExtensionsKt.firstCached(mPreferenceManager2.getPageIndicatorLine()));
+            }
         }
     }
 

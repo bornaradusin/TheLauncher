@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- At a Glance as one card: the date and weather, with a details line under it. -->
+<app.thelauncher.smartspace.BcSmartspaceCard xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="top|start"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/enhanced_smartspace_padding_top">
+
+    <LinearLayout
+        android:id="@+id/smartspace_bubble"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/smartspace_primary_row"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <app.thelauncher.smartspace.IcuDateTextView
+                android:id="@+id/date"
+                style="@style/EnhancedSmartspaceTextTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1" />
+
+            <app.thelauncher.smartspace.DoubleShadowTextView
+                android:id="@+id/subtitle_text"
+                style="@style/EnhancedSmartspaceTextTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:maxLines="1" />
+        </LinearLayout>
+
+        <app.thelauncher.smartspace.DoubleShadowTextView
+            android:id="@+id/smartspace_details"
+            style="@style/EnhancedSmartspaceTextSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/enhanced_smartspace_subtitle_margin_top"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:visibility="gone" />
+    </LinearLayout>
+</app.thelauncher.smartspace.BcSmartspaceCard>

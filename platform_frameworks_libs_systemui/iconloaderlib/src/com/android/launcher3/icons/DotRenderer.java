@@ -71,6 +71,19 @@ public class DotRenderer {
     private final Rect mTextRect = new Rect();
 
     private static final int MIN_DOT_SIZE = 1;
+
+    // TheLauncher: counts above 9 drawn as "9+".
+    private boolean mShortCount;
+
+    /**
+     * TheLauncher: applies the dot colour, counter colour and short counts. Renderers are cached by
+     * size, so this runs every time one is handed out to keep it in step with the settings.
+     */
+    public void setStyle(@ColorInt int color, @ColorInt int counterColor, boolean shortCount) {
+        mColor = color;
+        mCounterColor = counterColor;
+        mShortCount = shortCount;
+    }
     
     /**
      * AOSP's dot renderer with TheLauncher related change to show notification count on a dot.
@@ -172,14 +185,18 @@ public class DotRenderer {
         Rect iconBounds = params.iconBounds;
         float[] dotPosition = params.leftAlign ? mLeftDotPosition : mRightDotPosition;
         float dotCenterX = iconBounds.left + iconBounds.width() * dotPosition[0];
-        float dotCenterY = iconBounds.top + iconBounds.height() * dotPosition[1];
+        float dotCenterY = params.bottomAlign
+                ? iconBounds.bottom - iconBounds.height() * dotPosition[1]
+                : iconBounds.top + iconBounds.height() * dotPosition[1];
 
         // Ensure dot fits entirely in canvas clip bounds.
         Rect canvasBounds = canvas.getClipBounds();
         float offsetX = params.leftAlign
             ? Math.max(0, canvasBounds.left - (dotCenterX + mBitmapOffset))
             : Math.min(0, canvasBounds.right - (dotCenterX - mBitmapOffset));
-        float offsetY = Math.max(0, canvasBounds.top - (dotCenterY + mBitmapOffset));
+        float offsetY = params.bottomAlign
+                ? Math.min(0, canvasBounds.bottom - (dotCenterY - mBitmapOffset))
+                : Math.max(0, canvasBounds.top - (dotCenterY + mBitmapOffset));
 
         // We draw the dot relative to its center.
         canvas.translate(dotCenterX + offsetX, dotCenterY + offsetY);
@@ -199,9 +216,10 @@ public class DotRenderer {
                 counterColor = getCounterTextColor(params.dotColor);
             }
             mTextPaint.setColor(counterColor);
-            String text = String.valueOf(Math.min(numNotifications, MAX_COUNT));
+            boolean overNine = mShortCount && numNotifications > 9;
+            String text = overNine ? "9+" : String.valueOf(Math.min(numNotifications, MAX_COUNT));
             mTextPaint.getTextBounds(text, 0, text.length(), mTextRect);
-            float x = (-mTextRect.width() / 2f - mTextRect.left) * getAdjustment(numNotifications);
+            float x = (-mTextRect.width() / 2f - mTextRect.left) * (overNine ? 1f : getAdjustment(numNotifications));
             float y = mTextRect.height() / 2f - mTextRect.bottom;
             canvas.drawText(text, x, y, mTextPaint);
         }
@@ -224,14 +242,18 @@ public class DotRenderer {
         Rect iconBounds = params.iconBounds;
         float[] dotPosition = params.leftAlign ? mLeftDotPosition : mRightDotPosition;
         float dotCenterX = iconBounds.left + iconBounds.width() * dotPosition[0];
-        float dotCenterY = iconBounds.top + iconBounds.height() * dotPosition[1];
+        float dotCenterY = params.bottomAlign
+                ? iconBounds.bottom - iconBounds.height() * dotPosition[1]
+                : iconBounds.top + iconBounds.height() * dotPosition[1];
 
         // Ensure dot fits entirely in canvas clip bounds.
         Rect canvasBounds = canvas.getClipBounds();
         float offsetX = params.leftAlign
                 ? Math.max(0, canvasBounds.left - (dotCenterX + mBitmapOffset))
                 : Math.min(0, canvasBounds.right - (dotCenterX - mBitmapOffset));
-        float offsetY = Math.max(0, canvasBounds.top - (dotCenterY + mBitmapOffset));
+        float offsetY = params.bottomAlign
+                ? Math.min(0, canvasBounds.bottom - (dotCenterY - mBitmapOffset))
+                : Math.max(0, canvasBounds.top - (dotCenterY + mBitmapOffset));
 
         // We draw the dot relative to its center.
         canvas.translate(dotCenterX + offsetX, dotCenterY + offsetY);
@@ -285,5 +307,8 @@ public class DotRenderer {
         /** Whether the dot should align to the top left of the icon rather than the top right. */
         @ViewDebug.ExportedProperty(category = "notification dot")
         public boolean leftAlign;
+        /** Whether the dot should sit on the bottom edge of the icon rather than the top. */
+        @ViewDebug.ExportedProperty(category = "notification dot")
+        public boolean bottomAlign;
     }
 }

@@ -8,6 +8,10 @@ import androidx.annotation.DrawableRes
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.core.graphics.createBitmap
 import app.thelauncher.gestures.handlers.GestureHandler
+import app.thelauncher.gestures.handlers.GoToDefaultPageHandler
+import app.thelauncher.gestures.handlers.OpenIconPackPickerHandler
+import app.thelauncher.gestures.handlers.OpenLauncherSettingsHandler
+import app.thelauncher.gestures.handlers.ToggleHomeContentHandler
 import app.thelauncher.gestures.handlers.NoOpGestureHandler
 import app.thelauncher.gestures.handlers.OpenAppDrawerGestureHandler
 import app.thelauncher.gestures.handlers.OpenAppGestureHandler
@@ -128,6 +132,30 @@ sealed class GestureHandlerConfig {
         Simple(R.string.gesture_handler_open_assistant, ::OpenAssistantHandler) {
         override val iconRes = R.drawable.ic_mic_flat
     }
+
+    @Serializable
+    @SerialName("openLauncherSettings")
+    data object OpenLauncherSettings :
+        Simple(R.string.gesture_handler_launcher_settings, ::OpenLauncherSettingsHandler) {
+        override val iconRes = R.drawable.ic_setting
+    }
+
+    @Serializable
+    @SerialName("goToDefaultPage")
+    data object GoToDefaultPage :
+        Simple(R.string.gesture_handler_default_page, ::GoToDefaultPageHandler)
+
+    @Serializable
+    @SerialName("openIconPackPicker")
+    data object OpenIconPackPicker :
+        Simple(R.string.gesture_handler_icon_pack, ::OpenIconPackPickerHandler) {
+        override val iconRes = R.drawable.ic_apps
+    }
+
+    @Serializable
+    @SerialName("toggleHomeContent")
+    data object ToggleHomeContent :
+        Simple(R.string.gesture_handler_toggle_home, ::ToggleHomeContentHandler)
 
     @Serializable
     @SerialName("openApp")

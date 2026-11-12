@@ -745,7 +745,10 @@ public class DeviceProfile {
 
         // Load dot color
         ColorOption dotColorOption = PreferenceCacheExtensionsKt.firstCached(preferenceManager2.getNotificationDotColor());
-        int dotColor = dotColorOption.getColorPreferenceEntry().getLightColor().invoke(context);
+        // 0 makes each icon's dot use its own colour (see BubbleTextView), which "from app icon" needs.
+        boolean dotFromIcon = PreferenceCacheExtensionsKt.firstCached(preferenceManager2.getNotificationDotFromIcon());
+        boolean shortCount = PreferenceCacheExtensionsKt.firstCached(preferenceManager2.getNotificationCountShort());
+        int dotColor = dotFromIcon ? 0 : dotColorOption.getColorPreferenceEntry().getLightColor().invoke(context);
 
         // Load counter color
         ColorOption counterColorOption = PreferenceCacheExtensionsKt
@@ -753,9 +756,9 @@ public class DeviceProfile {
         int countColor = counterColorOption.getColorPreferenceEntry().getLightColor().invoke(context);
 
         // This is done last, after iconSizePx is calculated above.
-        mDotRendererWorkSpace = createDotRenderer(themeManager, iconSizePx, dotRendererCache, showNotificationCount, typeface, dotColor, countColor);
+        mDotRendererWorkSpace = createDotRenderer(themeManager, iconSizePx, dotRendererCache, showNotificationCount, typeface, dotColor, countColor, shortCount);
         mDotRendererAllApps = createDotRenderer(themeManager,
-                getAllAppsProfile().getIconSizePx(), dotRendererCache, showNotificationCount, typeface, dotColor, countColor);
+                getAllAppsProfile().getIconSizePx(), dotRendererCache, showNotificationCount, typeface, dotColor, countColor, shortCount);
     }
 
     public DeviceProperties getDeviceProperties() {
@@ -808,7 +811,7 @@ public class DeviceProfile {
 
     // TheLauncher
     private static DotRenderer createDotRenderer(
-        @NonNull ThemeManager themeManager, int size, @NonNull SparseArray<DotRenderer> cache, boolean showNotificationCount, Typeface typeface, int dotColor, int countColor) {
+        @NonNull ThemeManager themeManager, int size, @NonNull SparseArray<DotRenderer> cache, boolean showNotificationCount, Typeface typeface, int dotColor, int countColor, boolean shortCount) {
         DotRenderer renderer = cache.get(size);
 
         if (renderer == null) {
@@ -822,6 +825,7 @@ public class DeviceProfile {
                 countColor);
             cache.put(size, renderer);
         }
+        renderer.setStyle(dotColor, countColor, shortCount);
         return renderer;
     }
 
@@ -903,6 +907,13 @@ public class DeviceProfile {
         // Note: Hidden dock labels need no text space; keep the minimum touch target.
         hotseatCellHeightPx = app.thelauncher.util.DockCellSize.calculate(
                 hotseatIconSizePx, iconTextHeight, isLabelInDock, pxFromDp(48, mMetrics));
+        // TheLauncher: dock height. Rows can match the home screen's rows, as Hyperion lays them out.
+        boolean dockRowsMatchHome = PreferenceCacheExtensionsKt.firstCached(preferenceManager2.getDockRowsMatchHome());
+        if (dockRowsMatchHome && cellHeightPx > hotseatCellHeightPx) {
+            hotseatCellHeightPx = cellHeightPx;
+        }
+        float dockHeightFactor = PreferenceCacheExtensionsKt.firstCached(preferenceManager2.getDockHeightFactor());
+        hotseatCellHeightPx = Math.round(hotseatCellHeightPx * dockHeightFactor);
         hotseatQsbSpace = mHotseatQsbSpaceBase;
         hotseatQsbSpace += isQsbEnable && isLabelInDock ? (iconTextHeight / 2) : 0;
         
@@ -1471,7 +1482,13 @@ public class DeviceProfile {
 
     /** Whether All Apps should be presented on a bottom sheet. */
     public boolean shouldShowAllAppsOnSheet() {
-        return mDeviceProperties.isTablet() || Flags.allAppsSheetForHandheld();
+        if (mDeviceProperties.isTablet()) {
+            return true;
+        }
+        // TheLauncher: on phones the drawer can open full screen instead, as Hyperion shows it.
+        boolean onSheet = preferenceManager2 == null
+                || PreferenceCacheExtensionsKt.firstCached(preferenceManager2.getDrawerOnSheet());
+        return Flags.allAppsSheetForHandheld() && onSheet;
     }
 
     private void setupAllAppsStyle(Context context) {

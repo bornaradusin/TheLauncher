@@ -30,6 +30,13 @@ class PageIndicator @JvmOverloads constructor(
     private var diameter = 0f
     private var gapWidth = 0f
 
+    /** Off hides the dots whatever the number of cards. */
+    var dotsAllowed = true
+        set(value) {
+            field = value
+            isVisible = value && numPages >= 2
+        }
+
     fun setNumPages(numPages: Int) {
         if (this.numPages != numPages) {
             this.numPages = numPages
@@ -37,7 +44,7 @@ class PageIndicator @JvmOverloads constructor(
             requestLayout()
             invalidate()
         }
-        isVisible = numPages >= 2
+        isVisible = dotsAllowed && numPages >= 2
     }
 
     fun setPageOffset(position: Int, positionOffset: Float) {

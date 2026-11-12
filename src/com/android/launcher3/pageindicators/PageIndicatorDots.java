@@ -145,6 +145,8 @@ public class PageIndicatorDots extends View implements Insettable, PageIndicator
      * 1.0  => Active dot is at position 1
      */
     private float mCurrentPosition;
+    // TheLauncher: draw a line with a sliding segment instead of dots, as Hyperion's "Line" style.
+    private boolean mLineStyle;
     private int mLastPosition;
     private float mFinalPosition;
     private boolean mIsScrollPaused;
@@ -179,6 +181,34 @@ public class PageIndicatorDots extends View implements Insettable, PageIndicator
                 : DOT_GAP_FACTOR * mDotRadius;
         setOutlineProvider(new MyOutlineProver());
         mIsRtl = Utilities.isRtl(getResources());
+    }
+
+    /** TheLauncher: switches between dots and Hyperion's line. */
+    public void setLineStyle(boolean lineStyle) {
+        if (mLineStyle != lineStyle) {
+            mLineStyle = lineStyle;
+            invalidate();
+        }
+    }
+
+    /** TheLauncher: a faint track with a segment for the current page that slides with the scroll. */
+    private void drawLine(Canvas canvas) {
+        float trackWidth = Math.min(getWidth() * 0.6f, mNumPages * mDotRadius * 12);
+        float left = (getWidth() - trackWidth) / 2f;
+        float centerY = getHeight() / 2f;
+        float thickness = mDotRadius * 1.2f;
+        int alpha = mPaginationPaint.getAlpha();
+
+        sTempRect.set(left, centerY - thickness / 2, left + trackWidth, centerY + thickness / 2);
+        mPaginationPaint.setAlpha(DOT_ALPHA * alpha / 255);
+        canvas.drawRoundRect(sTempRect, thickness / 2, thickness / 2, mPaginationPaint);
+
+        float segment = trackWidth / mNumPages;
+        float position = mIsRtl ? (mNumPages - 1 - mCurrentPosition) : mCurrentPosition;
+        sTempRect.set(left + segment * position, centerY - thickness / 2,
+                left + segment * (position + 1), centerY + thickness / 2);
+        mPaginationPaint.setAlpha(alpha);
+        canvas.drawRoundRect(sTempRect, thickness / 2, thickness / 2, mPaginationPaint);
     }
 
     @Override
@@ -491,6 +521,11 @@ public class PageIndicatorDots extends View implements Insettable, PageIndicator
 
         if (mShouldAutoHide && mTotalScroll == 0) {
             mPaginationPaint.setAlpha(INVISIBLE_ALPHA);
+            return;
+        }
+
+        if (mLineStyle) {
+            drawLine(canvas);
             return;
         }
 

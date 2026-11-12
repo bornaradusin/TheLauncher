@@ -583,7 +583,15 @@ public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver,
                 ? info.newIcon(getContext(), flags, shouldUseTheme())
                 : info.newIcon(getContext(), flags);
         mDotParams.appColor = iconDrawable.getIconColor();
-        mDotParams.dotColor = Themes.getAttrColor(getContext(), R.attr.notificationDotColor);
+        boolean dotFromIcon = PreferenceCacheExtensionsKt.firstCached(
+                PreferenceManager2.getInstance(getContext()).getNotificationDotFromIcon());
+        mDotParams.dotColor = dotFromIcon
+                ? mDotParams.appColor
+                : Themes.getAttrColor(getContext(), R.attr.notificationDotColor);
+        String dotPlacement = PreferenceCacheExtensionsKt.firstCached(
+                PreferenceManager2.getInstance(getContext()).getNotificationDotPlacement());
+        mDotParams.leftAlign = dotPlacement.endsWith("left");
+        mDotParams.bottomAlign = dotPlacement.startsWith("bottom");
         if (isPrivateSpaceIcon) {
             iconDrawable.setAnimationEnabled(false);
         }
@@ -609,6 +617,19 @@ public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver,
         // text.
         if (mDisplay == DISPLAY_ALL_APPS || mDisplay == DISPLAY_PREDICTION_ROW) {
             return mDeviceProfile.inv.enableTwoLinesInAllApps;
+        }
+        // TheLauncher: two-line labels on the home screen and in folders, when there is room.
+        if (getTag() instanceof ItemInfo info) {
+            int area = labelArea(info);
+            PreferenceManager2 prefs2 = PreferenceManager2.getInstance(getContext());
+            if (area == TheLauncherUtilsKt.LABEL_AREA_HOME
+                    && PreferenceCacheExtensionsKt.firstCached(prefs2.getTwoLineHome())) {
+                return true;
+            }
+            if (area == TheLauncherUtilsKt.LABEL_AREA_FOLDER
+                    && PreferenceCacheExtensionsKt.firstCached(prefs2.getTwoLineFolder())) {
+                return true;
+            }
         }
 
         // Otherwise, show two lines if the cell declares it can fit two line label.
@@ -658,6 +679,43 @@ public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver,
                     ? getContext().getString(R.string.disabled_app_label, info.contentDescription)
                     : info.contentDescription);
         }
+        // TheLauncher: the label colour picked for this area (home screen, dock, drawer or folder).
+        int area = labelArea(info);
+        int labelColor = TheLauncherUtilsKt.customLabelColor(getContext(), area);
+        if (labelColor != 0) {
+            setTextColor(labelColor);
+        }
+        PreferenceManager2 prefs2 = PreferenceManager2.getInstance(getContext());
+        // TheLauncher: bold / italic labels, as in Hyperion.
+        int textStyle = PreferenceCacheExtensionsKt.firstCached(prefs2.getLabelTextStyle());
+        if (textStyle != android.graphics.Typeface.NORMAL) {
+            setTypeface(getTypeface(), textStyle);
+        }
+        // TheLauncher: the dock's own label size.
+        if (area == TheLauncherUtilsKt.LABEL_AREA_DOCK) {
+            float dockLabelScale = PreferenceCacheExtensionsKt.firstCached(
+                    prefs2.getDockIconLabelSizeFactor());
+            if (dockLabelScale != 1f) {
+                setTextSize(TypedValue.COMPLEX_UNIT_PX, mDeviceProfile.iconTextSizePx * dockLabelScale);
+            }
+        }
+    }
+
+    /** TheLauncher: which area this icon sits in, for its label colour. */
+    protected int labelArea(ItemInfo info) {
+        if (mDisplay == DISPLAY_ALL_APPS || mDisplay == DISPLAY_PREDICTION_ROW
+                || mDisplay == DISPLAY_DRAWER_FOLDER) {
+            return TheLauncherUtilsKt.LABEL_AREA_DRAWER;
+        }
+        if (mDisplay == DISPLAY_FOLDER) {
+            return TheLauncherUtilsKt.LABEL_AREA_FOLDER;
+        }
+        if (mDisplay == DISPLAY_WORKSPACE) {
+            return info.container == com.android.launcher3.LauncherSettings.Favorites.CONTAINER_HOTSEAT
+                    ? TheLauncherUtilsKt.LABEL_AREA_DOCK
+                    : TheLauncherUtilsKt.LABEL_AREA_HOME;
+        }
+        return -1;
     }
 
     @Override
@@ -1121,9 +1179,13 @@ public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver,
         }
         // Only apply two line for all_apps and device search only if necessary.
         if (shouldUseTwoLine() && (mLastOriginalText != null)) {
+            boolean allAppsLabel = mDisplay == DISPLAY_ALL_APPS || mDisplay == DISPLAY_PREDICTION_ROW
+                    || mDisplay == DISPLAY_SEARCH_RESULT || mDisplay == DISPLAY_SEARCH_RESULT_SMALL
+                    || mDisplay == DISPLAY_SEARCH_RESULT_APP_ROW;
             int allowedVerticalSpace = height - getPaddingTop() - getPaddingBottom()
-                    - mDeviceProfile.getAllAppsProfile().getIconSizePx()
-                    - mDeviceProfile.getAllAppsProfile().getIconDrawablePaddingPx();
+                    - (allAppsLabel ? mDeviceProfile.getAllAppsProfile().getIconSizePx() : mIconSize)
+                    - (allAppsLabel ? mDeviceProfile.getAllAppsProfile().getIconDrawablePaddingPx()
+                            : getCompoundDrawablePadding());
             CharSequence modifiedString = modifyTitleToSupportMultiLine(
                     MeasureSpec.getSize(widthMeasureSpec) - getCompoundPaddingLeft()
                             - getCompoundPaddingRight(),

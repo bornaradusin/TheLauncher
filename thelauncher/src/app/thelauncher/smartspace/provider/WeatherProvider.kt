@@ -44,12 +44,16 @@ class WeatherProvider(context: Context) :
     @OptIn(ExperimentalCoroutinesApi::class)
     override val internalTargets = combine(
         prefs.smartspaceWeatherFahrenheit.get(),
+        prefs.smartspaceWeatherKelvin.get(),
         prefs.smartspaceWeatherLocation.get(),
-    ) { fahrenheit, place -> fahrenheit to place.trim() }.flatMapLatest { (fahrenheit, place) ->
+    ) { fahrenheit, kelvin, place ->
+        // Kelvin wins over Fahrenheit; both off is Celsius.
+        Pair(if (kelvin) UNIT_KELVIN else if (fahrenheit) UNIT_FAHRENHEIT else UNIT_CELSIUS, place.trim())
+    }.flatMapLatest { (unit, place) ->
         flow {
             var last: SmartspaceTarget? = null
             while (true) {
-                val target = runCatching { fetchTarget(fahrenheit, place) }
+                val target = runCatching { fetchTarget(unit, place) }
                     .onFailure { Log.w(TAG, "weather update failed", it) }
                     .getOrNull()
                 if (target != null) last = target
@@ -59,10 +63,12 @@ class WeatherProvider(context: Context) :
         }.flowOn(Dispatchers.IO)
     }
 
-    private suspend fun fetchTarget(fahrenheit: Boolean, place: String): SmartspaceTarget? {
+    private suspend fun fetchTarget(displayUnit: String, place: String): SmartspaceTarget? {
         val location = if (place.isNotEmpty()) geocode(place) else lastKnownLocation()
         if (location == null) return null
-        val unit = if (fahrenheit) "fahrenheit" else "celsius"
+        // Open-Meteo has no Kelvin, so Kelvin is fetched in Celsius and converted.
+        val unit = if (displayUnit == UNIT_FAHRENHEIT) "fahrenheit" else "celsius"
+        fun shown(value: Double) = if (displayUnit == UNIT_KELVIN) value + 273.15 else value
         val url = String.format(
             Locale.US,
             "https://api.open-meteo.com/v1/forecast?latitude=%.3f&longitude=%.3f" +
@@ -75,14 +81,18 @@ class WeatherProvider(context: Context) :
         val body = withContext(Dispatchers.IO) { download(url) }
         val json = JSONObject(body)
         val current = json.getJSONObject("current")
-        val temp = current.getDouble("temperature_2m").roundToInt()
+        val temp = shown(current.getDouble("temperature_2m")).roundToInt()
         val code = current.getInt("weather_code")
         val isDay = current.optInt("is_day", 1) == 1
         val daily = json.optJSONObject("daily")
-        val high = daily?.optJSONArray("temperature_2m_max")?.optDouble(0)
-        val low = daily?.optJSONArray("temperature_2m_min")?.optDouble(0)
+        val high = daily?.optJSONArray("temperature_2m_max")?.optDouble(0)?.let(::shown)
+        val low = daily?.optJSONArray("temperature_2m_min")?.optDouble(0)?.let(::shown)
         val condition = WeatherCondition.fromWmoCode(code, isDay)
-        val symbol = if (fahrenheit) "°F" else "°C"
+        val symbol = when (displayUnit) {
+            UNIT_FAHRENHEIT -> "°F"
+            UNIT_KELVIN -> "K"
+            else -> "°C"
+        }
         val subtitle = buildString {
             append(context.getString(condition.label))
             if (high != null && low != null && !high.isNaN() && !low.isNaN()) {
@@ -180,6 +190,9 @@ class WeatherProvider(context: Context) :
     }
 
     companion object {
+        private const val UNIT_CELSIUS = "c"
+        private const val UNIT_FAHRENHEIT = "f"
+        private const val UNIT_KELVIN = "k"
         private const val TAG = "WeatherProvider"
         private const val REFRESH_MS = 30 * 60 * 1000L
         private const val RETRY_MS = 5 * 60 * 1000L

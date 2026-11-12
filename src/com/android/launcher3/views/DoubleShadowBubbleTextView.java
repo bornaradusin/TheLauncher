@@ -46,7 +46,7 @@ import app.thelauncher.preferences2.PreferenceManager2;
 public class DoubleShadowBubbleTextView extends BubbleTextView {
 
     public final ShadowInfo mShadowInfo;
-    private final boolean mTextShadowEnabled;
+    private boolean mTextShadowEnabled;
 
     public DoubleShadowBubbleTextView(Context context) {
         this(context, null);
@@ -141,6 +141,26 @@ public class DoubleShadowBubbleTextView extends BubbleTextView {
 
         drawDotIfNecessary(canvas);
         drawRunningAppIndicatorIfNecessary(canvas);
+    }
+
+    /** TheLauncher: dock labels follow their own shadow setting. */
+    @Override
+    public void applyLabel(com.android.launcher3.model.data.ItemInfo info) {
+        super.applyLabel(info);
+        PreferenceManager2 prefs2 = PreferenceManager2.getInstance(getContext());
+        boolean enabled = labelArea(info) == app.thelauncher.util.TheLauncherUtilsKt.LABEL_AREA_DOCK
+                ? PreferenceCacheExtensionsKt.firstCached(prefs2.getDockTextShadow())
+                : PreferenceCacheExtensionsKt.firstCached(prefs2.getDesktopTextShadow());
+        if (enabled != mTextShadowEnabled) {
+            mTextShadowEnabled = enabled;
+            if (enabled) {
+                setShadowLayer(mShadowInfo.getAmbientShadowBlur(), 0, 0,
+                        mShadowInfo.getAmbientShadowColor());
+            } else {
+                setShadowLayer(0, 0, 0, Color.TRANSPARENT);
+            }
+            invalidate();
+        }
     }
 
     private boolean skipDoubleShadow() {

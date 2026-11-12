@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
+import app.thelauncher.smartspace.model.SmartspaceStyle
 import app.thelauncher.smartspace.model.SmartspaceTarget
 import com.android.launcher3.R
 import com.android.launcher3.util.Themes
@@ -18,17 +19,29 @@ class CardPagerAdapter(context: Context) : PagerAdapter() {
     private val targets = mutableListOf<SmartspaceTarget>()
     private var smartspaceTargets = targets
     private val holders = SparseArray<ViewHolder>()
+    private var extras: List<SmartspaceTarget> = emptyList()
+    private var styleVersion = 0
 
-    fun setTargets(newTargets: List<SmartspaceTarget>) {
+    /** Changing the style rebuilds every card on the next update. */
+    var style = SmartspaceStyle()
+        set(value) {
+            if (field != value) {
+                field = value
+                styleVersion++
+            }
+        }
+
+    fun setTargets(newTargets: List<SmartspaceTarget>, newExtras: List<SmartspaceTarget> = emptyList()) {
         targets.clear()
         targets.addAll(newTargets)
+        extras = newExtras
         notifyDataSetChanged()
     }
 
     override fun instantiateItem(container: ViewGroup, position: Int): ViewHolder {
         val target = smartspaceTargets[position]
         val card = createBaseCard(container, getFeatureType(target))
-        val viewHolder = ViewHolder(position, card, target)
+        val viewHolder = ViewHolder(position, card, target, styleVersion)
         onBindViewHolder(viewHolder)
         container.addView(card)
         holders.put(position, viewHolder)
@@ -47,8 +60,11 @@ class CardPagerAdapter(context: Context) : PagerAdapter() {
 
     override fun getItemPosition(obj: Any): Int {
         val viewHolder = obj as ViewHolder
+        if (viewHolder.styleVersion != styleVersion) return POSITION_NONE
         val target = getTargetAtPosition(viewHolder.position)
         if (viewHolder.target === target) {
+            // The details line can change while the date card stays the same.
+            if (style.oneCard) onBindViewHolder(viewHolder)
             return POSITION_UNCHANGED
         }
         if (target == null ||
@@ -72,8 +88,11 @@ class CardPagerAdapter(context: Context) : PagerAdapter() {
     private fun onBindViewHolder(viewHolder: ViewHolder) {
         val target = smartspaceTargets[viewHolder.position]
         val card = viewHolder.card
-        card.setSmartspaceTarget(target, smartspaceTargets.size > 1)
-        card.setPrimaryTextColor(currentTextColor)
+        val textColor = style.textColor ?: currentTextColor
+        card.setSmartspaceTarget(target, smartspaceTargets.size > 1 && !style.oneCard)
+        card.setPrimaryTextColor(textColor)
+        card.applyStyle(style)
+        if (style.oneCard) card.setDetails(extras, textColor)
     }
 
     override fun getCount() = smartspaceTargets.size
@@ -87,8 +106,9 @@ class CardPagerAdapter(context: Context) : PagerAdapter() {
         featureType: SmartspaceTarget.FeatureType,
     ): BcSmartspaceCard {
         val centered = PreferenceManager2.getInstance(container.context).smartspaceCenteredDate.firstCached()
-        val layout = when (featureType) {
-            SmartspaceTarget.FeatureType.FEATURE_WEATHER ->
+        val layout = when {
+            style.oneCard -> R.layout.smartspace_card_combined
+            featureType == SmartspaceTarget.FeatureType.FEATURE_WEATHER ->
                 if (centered) R.layout.smartspace_card_date_inline else R.layout.smartspace_card_date
             else -> R.layout.smartspace_card
         }
@@ -102,5 +122,6 @@ class CardPagerAdapter(context: Context) : PagerAdapter() {
         val position: Int,
         val card: BcSmartspaceCard,
         var target: SmartspaceTarget,
+        val styleVersion: Int,
     )
 }

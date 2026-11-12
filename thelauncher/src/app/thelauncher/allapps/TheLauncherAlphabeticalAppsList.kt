@@ -23,6 +23,7 @@ import com.android.launcher3.allapps.PrivateProfileManager
 import com.android.launcher3.allapps.WorkProfileManager
 import com.android.launcher3.model.data.AppInfo
 import com.android.launcher3.model.data.FolderInfo
+import com.android.launcher3.allapps.AlphabeticalAppsList.FastScrollSectionInfo
 import com.android.launcher3.model.data.ItemInfo
 import com.android.launcher3.util.ComponentKey
 import com.android.launcher3.views.ActivityContext
@@ -41,6 +42,7 @@ class TheLauncherAlphabeticalAppsList<T>(
     where T : Context, T : ActivityContext {
 
     private var hiddenApps: Set<String> = setOf()
+    private var hiddenDashboardPackages: Set<String> = setOf()
 
     private var drawerTabs: List<DrawerTab> = emptyList()
     private var removeTabAppsFromAll = false
@@ -66,6 +68,14 @@ class TheLauncherAlphabeticalAppsList<T>(
             }
         } catch (t: Throwable) {
             Log.w(TAG, "Failed to initialize hidden apps", t)
+        }
+        try {
+            prefs2.hiddenDashboards.onEach(launchIn = context.launcher.lifecycleScope) { mode ->
+                hiddenDashboardPackages = dashboardPackages(context, mode)
+                updateItemFilter(baseItemFilter)
+            }
+        } catch (t: Throwable) {
+            Log.w(TAG, "Failed to initialize hidden dashboards", t)
         }
         try {
             prefs2.drawerTabs.onEach(launchIn = context.launcher.lifecycleScope) {
@@ -104,6 +114,7 @@ class TheLauncherAlphabeticalAppsList<T>(
             val componentKey = info.toComponentKey().toString()
             (itemFilter?.test(info) != false) &&
                 !hiddenApps.contains(componentKey) &&
+                info.componentName?.packageName !in hiddenDashboardPackages &&
                 passesTabFilter(componentKey)
         }
         onAppsUpdated()
@@ -157,11 +168,19 @@ class TheLauncherAlphabeticalAppsList<T>(
                 position++
             }
         } else {
+            val drawerFolders = mutableListOf<FolderInfo>()
             folderList.forEach { folderEntry ->
                 val resolvedApps = folderEntry.itemComponentKeys.mapNotNull { keyString ->
                     val componentKey = ComponentKey.fromString(keyString) ?: return@mapNotNull null
-                    appsStore.getApp(componentKey) as? AppInfo
-                }
+                    // Apps rename their launch activity in updates; fall back to the same app's
+                    // current entry so it stays in its folder.
+                    (appsStore.getApp(componentKey) as? AppInfo)
+                        ?: appList.firstOrNull { app ->
+                            app != null &&
+                                app.componentName?.packageName == componentKey.componentName.packageName &&
+                                app.user == componentKey.user
+                        }
+                }.distinct()
 
                 if (resolvedApps.size > 1) {
                     val folderInfo = FolderInfo().apply {
@@ -169,8 +188,7 @@ class TheLauncherAlphabeticalAppsList<T>(
                         title = folderEntry.title
                         resolvedApps.forEach { add(it) }
                     }
-                    mAdapterItems.add(AdapterItem.asFolder(folderInfo))
-                    position++
+                    drawerFolders.add(folderInfo)
 
                     if (prefs.folderApps.get()) {
                         filteredList.addAll(resolvedApps)
@@ -178,9 +196,50 @@ class TheLauncherAlphabeticalAppsList<T>(
                 }
             }
             val remainingApps = appList.filterNot { app -> filteredList.contains(app) && prefs.folderApps.get() }
-            position = super.addAppsWithSections(remainingApps, position)
+            if (prefs2.drawerFoldersFirst.firstCached()) {
+                drawerFolders.forEach {
+                    mAdapterItems.add(AdapterItem.asFolder(it))
+                    position++
+                }
+                position = super.addAppsWithSections(remainingApps, position)
+            } else {
+                position = addAppsAndFoldersByName(remainingApps.filterNotNull(), drawerFolders, position)
+            }
         }
 
+        return position
+    }
+
+    /** Lists drawer folders among the apps by name, as Hyperion does unless "Show first" is on. */
+    private fun addAppsAndFoldersByName(apps: List<AppInfo>, folders: List<FolderInfo>, startPosition: Int): Int {
+        val collator = java.text.Collator.getInstance()
+        val sortedFolders = folders.sortedWith { a, b -> collator.compare(a.title?.toString().orEmpty(), b.title?.toString().orEmpty()) }
+        var position = startPosition
+        var nextFolder = 0
+        var lastSectionName: String? = null
+        fun addSection(name: String?) {
+            if (name != null && name != lastSectionName) {
+                lastSectionName = name
+                fastScrollerSections.add(FastScrollSectionInfo(name, position))
+            }
+        }
+        apps.forEach { app ->
+            val appTitle = app.title?.toString().orEmpty()
+            while (nextFolder < sortedFolders.size &&
+                collator.compare(sortedFolders[nextFolder].title?.toString().orEmpty(), appTitle) <= 0
+            ) {
+                addSection(app.sectionName)
+                mAdapterItems.add(AdapterItem.asFolder(sortedFolders[nextFolder++]))
+                position++
+            }
+            addSection(app.sectionName)
+            mAdapterItems.add(AdapterItem.asApp(app))
+            position++
+        }
+        while (nextFolder < sortedFolders.size) {
+            mAdapterItems.add(AdapterItem.asFolder(sortedFolders[nextFolder++]))
+            position++
+        }
         return position
     }
 

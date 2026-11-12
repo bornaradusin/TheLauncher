@@ -93,7 +93,16 @@ sealed class BasePreferenceManager(private val context: Context) : SharedPrefere
         }
     }
 
+    /** Puts every setting back to its default, except the keys given (such as the grid). */
+    fun resetAll(except: Set<String>) {
+        prefsMap.values.toList().forEach { pref ->
+            if (pref.key !in except) pref.reset()
+        }
+    }
+
     abstract inner class BasePref<T>(override val key: String, private val primaryListener: ChangeListener?) : PrefEntry<T> {
+        fun reset() = set(defaultValue)
+
         protected var loaded = false
         private val listeners = CopyOnWriteArraySet<PreferenceChangeListener>()
 

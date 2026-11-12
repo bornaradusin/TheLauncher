@@ -16,11 +16,13 @@
 
 package app.thelauncher.ui.preferences.destinations
 
+import app.thelauncher.ui.preferences.components.colorpreference.ColorPreference
 import app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry
 import android.content.Context
 import android.hardware.Sensor
 import android.hardware.SensorManager
 import android.widget.Toast
+import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -139,6 +141,16 @@ fun HomeScreenPreferences(
                 adapter = prefs2.pageIndicatorHidden.getAdapter(),
                 label = stringResource(id = R.string.page_indicator_hide),
                 description = stringResource(id = R.string.page_indicator_hide_desc),
+            )
+            SwitchPreference(
+                adapter = prefs2.dockPageIndicatorHidden.getAdapter(),
+                label = stringResource(id = R.string.dock_page_indicator_hide),
+                description = stringResource(id = R.string.dock_page_indicator_hide_desc),
+            )
+            SwitchPreference(
+                adapter = prefs2.pageIndicatorLine.getAdapter(),
+                label = stringResource(id = R.string.page_indicator_line),
+                description = stringResource(id = R.string.page_indicator_line_desc),
             )
             SwitchPreference(
                 adapter = prefs2.fadeOnSwipe.getAdapter(),
@@ -303,6 +315,7 @@ fun HomeScreenPreferences(
         }
         val homeScreenLabelsAdapter = prefs2.showIconLabelsOnHomeScreen.getAdapter()
         PreferenceGroup(heading = stringResource(id = R.string.icons)) {
+            ColorPreference(preference = prefs2.homeLabelColor)
             SliderPreference(
                 label = stringResource(id = R.string.icon_sizes),
                 adapter = prefs2.homeIconSizeFactor.getAdapter(),
@@ -315,14 +328,31 @@ fun HomeScreenPreferences(
                 label = stringResource(id = R.string.show_labels),
             )
             ExpandAndShrink(visible = homeScreenLabelsAdapter.state.value) {
-                SliderPreference(
-                    label = stringResource(id = R.string.label_size),
-                    adapter = prefs2.homeIconLabelSizeFactor.getAdapter(),
-                    step = 0.1f,
-                    valueRange = 0.5F..1.5F,
-                    showAsPercentage = true,
-                )
+                Column {
+                    SliderPreference(
+                        label = stringResource(id = R.string.label_size),
+                        adapter = prefs2.homeIconLabelSizeFactor.getAdapter(),
+                        step = 0.1f,
+                        valueRange = 0.5F..1.5F,
+                        showAsPercentage = true,
+                    )
+                    SwitchPreference(
+                        adapter = prefs2.twoLineHome.getAdapter(),
+                        label = stringResource(id = R.string.twoline_label),
+                    )
+                }
             }
+            app.thelauncher.ui.preferences.components.controls.ListPreference(
+                adapter = prefs2.labelTextStyle.getAdapter(),
+                entries = listOf(
+                    app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry(android.graphics.Typeface.NORMAL) { stringResource(id = R.string.label_style_regular) },
+                    app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry(android.graphics.Typeface.BOLD) { stringResource(id = R.string.label_style_bold) },
+                    app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry(android.graphics.Typeface.ITALIC) { stringResource(id = R.string.label_style_italic) },
+                    app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry(android.graphics.Typeface.BOLD_ITALIC) { stringResource(id = R.string.label_style_bold_italic) },
+                ),
+                label = stringResource(id = R.string.label_style),
+                description = stringResource(id = R.string.label_style_desc),
+            )
         }
         val overrideRepo = IconOverrideRepository.INSTANCE.get(LocalContext.current)
         val customIconsCount by remember { overrideRepo.observeCount() }.collectAsStateBlocking()

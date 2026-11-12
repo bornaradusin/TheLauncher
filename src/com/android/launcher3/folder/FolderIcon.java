@@ -168,6 +168,8 @@ public class FolderIcon extends FrameLayout implements FloatingIconViewCompanion
     private void init() {
         mLongPressHelper = new CheckLongPressHelper(this);
         mPreviewLayoutRule = new ClippedFolderIconLayoutRule();
+        mPreviewLayoutRule.setPreviewIconScale(app.thelauncher.preferences2.PreferenceCacheExtensionsKt.firstCached(
+                app.thelauncher.preferences2.PreferenceManager2.getInstance(getContext()).getFolderPreviewIconScale()));
         mPreviewItemManager = new PreviewItemManager(this);
         mDotParams = new DotRenderer.DrawParams();
     }
@@ -208,6 +210,16 @@ public class FolderIcon extends FrameLayout implements FloatingIconViewCompanion
         icon.setClipToPadding(false);
         icon.mFolderName = icon.findViewById(R.id.folder_icon_name);
         icon.mFolderName.setText(folderInfo.title);
+        // TheLauncher: the label colour for where the folder sits.
+        int labelArea = folderInfo.container == ItemInfo.NO_ID
+                ? app.thelauncher.util.TheLauncherUtilsKt.LABEL_AREA_DRAWER
+                : folderInfo.container == com.android.launcher3.LauncherSettings.Favorites.CONTAINER_HOTSEAT
+                        ? app.thelauncher.util.TheLauncherUtilsKt.LABEL_AREA_DOCK
+                        : app.thelauncher.util.TheLauncherUtilsKt.LABEL_AREA_HOME;
+        int folderLabelColor = app.thelauncher.util.TheLauncherUtilsKt.customLabelColor(icon.getContext(), labelArea);
+        if (folderLabelColor != 0) {
+            icon.mFolderName.setTextColor(folderLabelColor);
+        }
         icon.mFolderName.setCompoundDrawablePadding(0);
         FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) icon.mFolderName.getLayoutParams();
         if (folderInfo.container == ItemInfo.NO_ID) {

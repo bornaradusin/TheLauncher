@@ -1,5 +1,6 @@
 package app.thelauncher.qsb
 
+import app.thelauncher.theme.color.ColorOption
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -83,17 +84,24 @@ class ThemedQsbLayout(context: Context, attrs: AttributeSet?) : FrameLayout(cont
                             if (supportsLens) getLensIntent(context) else null
                         }
 
+                        val endButton by prefs2.qsbEndButton.asState()
+                        val customColor by prefs2.hotseatQsbColor.asState()
                         val state = rememberHotseatQsbState(
                             searchProvider = searchProvider,
                             themed = themed,
                             showMic = voiceIntent != null,
                             showLens = lensIntent != null,
+                            endButton = endButton,
                         )
 
                         val style = buildQsbStyle(
                             context = LocalContext.current,
                             themed = themed,
-                            backgroundColor = getHotseatBackgroundColor(context, themed),
+                            backgroundColor = if (customColor is ColorOption.Default) {
+                                getHotseatBackgroundColor(context, themed)
+                            } else {
+                                customColor.colorPreferenceEntry.lightColor(context)
+                            },
                             backgroundAlpha = prefs.hotseatQsbAlpha.observeAsState().value,
                             cornerRadius = prefs.hotseatQsbCornerRadius.observeAsState().value,
                             // Use light color as strokeColor is a static color that doesn't use darkColor
@@ -122,6 +130,7 @@ class ThemedQsbLayout(context: Context, attrs: AttributeSet?) : FrameLayout(cont
                                     when (id) {
                                         QsbIconId.MIC -> voiceIntent?.let { context.startActivity(it) }
                                         QsbIconId.LENS -> lensIntent?.let { context.startActivity(it) }
+                                        QsbIconId.ASSISTANT -> launchAssistant(context)
                                         else -> null
                                     }
                                 }

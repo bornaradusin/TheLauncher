@@ -1,6 +1,7 @@
 package app.thelauncher.qsb
 
 import android.content.Context
+import android.content.Intent
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.AnimatedContent
@@ -63,7 +64,28 @@ enum class QsbIconId {
     MIC,
     LENS,
     CLEAR,
+    ASSISTANT,
 }
+
+const val QSB_END_VOICE = "voice"
+const val QSB_END_ASSISTANT = "assistant"
+const val QSB_END_NONE = "none"
+
+/** Opens the phone's assistant (Gemini, Google Assistant or whichever is set). */
+fun launchAssistant(context: Context) {
+    runCatching {
+        context.startActivity(Intent(Intent.ACTION_ASSIST).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+    }
+}
+
+private fun assistantIcon(label: String, visible: Boolean) = QsbIconState(
+    id = QsbIconId.ASSISTANT,
+    resId = R.drawable.ic_qsb_assistant,
+    themed = true,
+    method = ThemingMethod.TINT,
+    contentDescription = label,
+    visible = visible,
+)
 
 /**
  * Represents the state and visual configuration of an individual icon within the Quick Search Bar (QSB).
@@ -183,12 +205,14 @@ fun rememberHotseatQsbState(
     themed: Boolean,
     showMic: Boolean,
     showLens: Boolean,
+    endButton: String = QSB_END_VOICE,
 ): QsbState {
     val searchLabel = stringResource(R.string.label_search)
     val voiceSearchLabel = stringResource(R.string.label_voice_search)
     val lensLabel = stringResource(R.string.label_lens)
+    val assistantLabel = stringResource(R.string.qsb_assistant)
 
-    return remember(searchProvider, themed, showMic, showLens, searchLabel, voiceSearchLabel, lensLabel) {
+    return remember(searchProvider, themed, showMic, showLens, endButton, searchLabel, voiceSearchLabel, lensLabel, assistantLabel) {
         val iconRes = if (themed) searchProvider.themedIcon else searchProvider.icon
         val isGoogleProvider = searchProvider == Google || searchProvider == GoogleGo || searchProvider == PixelSearch
 
@@ -208,8 +232,9 @@ fun rememberHotseatQsbState(
                     themed = (isGoogleProvider && themed) || !isGoogleProvider,
                     method = if (isGoogleProvider) ThemingMethod.THEME_BY_LAYER_ID else ThemingMethod.TINT,
                     contentDescription = voiceSearchLabel,
-                    visible = showMic,
+                    visible = showMic && endButton == QSB_END_VOICE,
                 ),
+                assistantIcon(assistantLabel, visible = endButton == QSB_END_ASSISTANT),
                 QsbIconState(
                     id = QsbIconId.LENS,
                     resId = R.drawable.ic_lens_color,
@@ -245,13 +270,15 @@ fun rememberAllAppsQsbState(
     queryEmpty: Boolean,
     showMic: Boolean,
     showLens: Boolean,
+    endButton: String = QSB_END_VOICE,
 ): QsbState {
     val searchLabel = stringResource(R.string.label_search)
     val voiceSearchLabel = stringResource(R.string.label_voice_search)
     val lensLabel = stringResource(R.string.label_lens)
     val clearLabel = stringResource(R.string.search_input_action_clear_results)
+    val assistantLabel = stringResource(R.string.qsb_assistant)
 
-    return remember(searchProvider, themed, shouldShowIcons, queryEmpty, showMic, showLens, searchLabel, voiceSearchLabel, lensLabel, clearLabel) {
+    return remember(searchProvider, themed, shouldShowIcons, queryEmpty, showMic, showLens, endButton, searchLabel, voiceSearchLabel, lensLabel, clearLabel, assistantLabel) {
         val iconRes = if (themed && shouldShowIcons) searchProvider.themedIcon else searchProvider.icon
         val resId = if (shouldShowIcons) iconRes else R.drawable.ic_qsb_search
         val isGoogleProvider = searchProvider == Google || searchProvider == GoogleGo || searchProvider == PixelSearch
@@ -272,8 +299,9 @@ fun rememberAllAppsQsbState(
                     themed = (isGoogleProvider && themed) || !isGoogleProvider,
                     method = if (isGoogleProvider) ThemingMethod.THEME_BY_LAYER_ID else ThemingMethod.TINT,
                     contentDescription = voiceSearchLabel,
-                    visible = shouldShowIcons && showMic && queryEmpty,
+                    visible = shouldShowIcons && showMic && queryEmpty && endButton == QSB_END_VOICE,
                 ),
+                assistantIcon(assistantLabel, visible = shouldShowIcons && queryEmpty && endButton == QSB_END_ASSISTANT),
                 QsbIconState(
                     id = QsbIconId.LENS,
                     resId = R.drawable.ic_lens_color,

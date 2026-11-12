@@ -11,6 +11,7 @@ import android.util.AttributeSet
 import app.thelauncher.preferences2.PreferenceManager2
 import app.thelauncher.smartspace.model.SmartspaceCalendar
 import app.thelauncher.smartspace.model.SmartspaceTimeFormat
+import app.thelauncher.smartspace.model.smartspaceDateSkeleton
 import app.thelauncher.util.broadcastReceiverFlow
 import app.thelauncher.util.repeatOnAttached
 import app.thelauncher.util.subscribeBlocking
@@ -103,9 +104,9 @@ class IcuDateTextView @JvmOverloads constructor(
                     else -> R.string.smartspace_icu_date_pattern_gregorian_time_12h
                 },
             )
-            if (dateTimeOptions.showDate) format += context.getString(R.string.smartspace_icu_date_pattern_gregorian_date)
+            if (dateTimeOptions.showDate) format += " " + smartspaceDateSkeleton(dateTimeOptions.dateStyle)
         } else {
-            format = context.getString(R.string.smartspace_icu_date_pattern_gregorian_wday_month_day_no_year)
+            format = smartspaceDateSkeleton(dateTimeOptions.dateStyle)
         }
 
         val chineseLocale = Locale.Builder()
@@ -129,9 +130,9 @@ class IcuDateTextView @JvmOverloads constructor(
                     else -> R.string.smartspace_icu_date_pattern_gregorian_time_12h
                 },
             )
-            if (dateTimeOptions.showDate) format = context.getString(R.string.smartspace_icu_date_pattern_gregorian_date) + format
+            if (dateTimeOptions.showDate) format = smartspaceDateSkeleton(dateTimeOptions.dateStyle) + " " + format
         } else {
-            format = context.getString(R.string.smartspace_icu_date_pattern_gregorian_wday_month_day_no_year)
+            format = smartspaceDateSkeleton(dateTimeOptions.dateStyle)
         }
         val persianLocale = Locale.Builder()
             .setLanguage("fa") // Mimic old Solar Hijri behaviour using Farsi script
@@ -153,9 +154,9 @@ class IcuDateTextView @JvmOverloads constructor(
                     else -> R.string.smartspace_icu_date_pattern_gregorian_time_12h
                 },
             )
-            if (dateTimeOptions.showDate) format += context.getString(R.string.smartspace_icu_date_pattern_gregorian_date)
+            if (dateTimeOptions.showDate) format += " " + smartspaceDateSkeleton(dateTimeOptions.dateStyle)
         } else {
-            format = context.getString(R.string.smartspace_icu_date_pattern_gregorian_wday_month_day_no_year)
+            format = smartspaceDateSkeleton(dateTimeOptions.dateStyle)
         }
         val formatter = DateFormat.getInstanceForSkeleton(format, Locale.getDefault())
         formatter.setContext(DisplayContext.CAPITALIZATION_FOR_STANDALONE)
@@ -181,14 +182,16 @@ data class DateTimeOptions(
     val showDate: Boolean,
     val showTime: Boolean,
     val timeFormat: SmartspaceTimeFormat,
+    val dateStyle: String,
 ) {
     companion object {
         fun fromPrefs(prefs: PreferenceManager2) = combine(
             prefs.smartspaceShowDate.get(),
             prefs.smartspaceShowTime.get(),
             prefs.smartspaceTimeFormat.get(),
-        ) { showDate, showTime, timeFormat ->
-            DateTimeOptions(showDate, showTime, timeFormat)
+            prefs.smartspaceDateStyle.get(),
+        ) { showDate, showTime, timeFormat, dateStyle ->
+            DateTimeOptions(showDate, showTime, timeFormat, dateStyle)
         }
     }
 }

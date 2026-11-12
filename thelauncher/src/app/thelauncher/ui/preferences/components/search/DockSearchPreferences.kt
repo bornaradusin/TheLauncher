@@ -114,6 +114,9 @@ fun DockSearchPreference(
                                 adapter = themeQsbAdapter,
                                 label = stringResource(id = R.string.apply_accent_color_label),
                             )
+                            ColorPreference(preference = prefs2.hotseatQsbColor)
+                            QsbEndButtonPreference()
+                            ChangeAssistantPreference()
                             SliderPreference(
                                 label = stringResource(id = R.string.corner_radius_label),
                                 adapter = qsbCornerAdapter,
@@ -260,5 +263,40 @@ private fun getThemedQsbBackgroundColor(): Int {
     return ColorTokens.ColorBackground.resolveColor(
         LocalContext.current,
         if (isSelectedThemeDark) UiColorMode.Dark else UiColorMode.Light,
+    )
+}
+
+/** The button at the end of the search bars: voice search, the assistant, or nothing. */
+@Composable
+fun QsbEndButtonPreference(modifier: Modifier = Modifier) {
+    ListPreference(
+        adapter = preferenceManager2().qsbEndButton.getAdapter(),
+        entries = remember {
+            listOf(
+                ListPreferenceEntry(app.thelauncher.qsb.QSB_END_VOICE) { stringResource(id = R.string.qsb_end_voice) },
+                ListPreferenceEntry(app.thelauncher.qsb.QSB_END_ASSISTANT) { stringResource(id = R.string.qsb_end_assistant) },
+                ListPreferenceEntry(app.thelauncher.qsb.QSB_END_NONE) { stringResource(id = R.string.qsb_end_none) },
+            )
+        },
+        label = stringResource(id = R.string.qsb_end_button),
+        modifier = modifier,
+    )
+}
+
+/** Opens Android's setting for which app is the assistant. */
+@Composable
+fun ChangeAssistantPreference(modifier: Modifier = Modifier) {
+    val context = androidx.compose.ui.platform.LocalContext.current
+    app.thelauncher.ui.preferences.components.controls.ClickablePreference(
+        label = stringResource(id = R.string.qsb_change_assistant),
+        modifier = modifier,
+        onClick = {
+            runCatching {
+                context.startActivity(
+                    android.content.Intent(android.provider.Settings.ACTION_VOICE_INPUT_SETTINGS)
+                        .addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK),
+                )
+            }
+        },
     )
 }

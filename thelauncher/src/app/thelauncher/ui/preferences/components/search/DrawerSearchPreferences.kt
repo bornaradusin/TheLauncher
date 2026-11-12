@@ -62,6 +62,13 @@ fun DrawerSearchPreference(
                 description = stringResource(R.string.allapps_match_qsb_style_description),
                 adapter = prefs2.matchHotseatQsbStyle.getAdapter(),
             )
+            SwitchPreference(
+                label = stringResource(R.string.drawer_qsb_provider_icons),
+                description = stringResource(R.string.drawer_qsb_provider_icons_desc),
+                adapter = prefs2.drawerQsbProviderIcons.getAdapter(),
+            )
+            QsbEndButtonPreference()
+            app.thelauncher.ui.preferences.components.colorpreference.ColorPreference(preference = prefs2.drawerQsbColor)
         }
 
         val searchAlgorithm = preferenceManager2().searchAlgorithm.getAdapter().state.value

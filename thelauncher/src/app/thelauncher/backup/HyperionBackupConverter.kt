@@ -11,10 +11,37 @@ import android.os.Process
 import android.util.Log
 import androidx.datastore.preferences.core.edit
 import app.thelauncher.DeviceProfileOverrides
+import app.thelauncher.allapps.HIDDEN_DASHBOARDS_ALL
+import app.thelauncher.allapps.HIDDEN_DASHBOARDS_ICON_PACKS
+import app.thelauncher.allapps.HIDDEN_DASHBOARDS_NONE
+import app.thelauncher.allapps.HIDDEN_DASHBOARDS_THEMES
+import app.thelauncher.hotseat.DOCK_SHAPE_FLAT
+import app.thelauncher.hotseat.DOCK_SHAPE_ROUND
+import app.thelauncher.hotseat.DockShape
+import app.thelauncher.hotseat.dockShapePresets
+import app.thelauncher.util.DOT_PLACEMENT_BOTTOM_LEFT
+import app.thelauncher.util.DOT_PLACEMENT_BOTTOM_RIGHT
+import app.thelauncher.util.DOT_PLACEMENT_TOP_LEFT
+import app.thelauncher.util.DOT_PLACEMENT_TOP_RIGHT
+import app.thelauncher.util.DRAWER_INDICATOR_ARROW
+import app.thelauncher.util.DRAWER_INDICATOR_LINE
+import app.thelauncher.util.DRAWER_INDICATOR_NONE
+import app.thelauncher.util.SUGGESTIONS_DIVIDER_LABEL
+import app.thelauncher.util.SUGGESTIONS_DIVIDER_NONE
 import app.thelauncher.data.folder.service.FolderService
 import app.thelauncher.gestures.config.GestureHandlerConfig
+import app.thelauncher.gestures.handlers.OpenAppTarget
+import app.thelauncher.gestures.handlers.SleepMode
 import app.thelauncher.preferences.PreferenceManager
+import app.thelauncher.extras.DrawerTab
 import app.thelauncher.preferences2.PreferenceManager2
+import app.thelauncher.preferences2.firstCached
+import app.thelauncher.qsb.QSB_END_ASSISTANT
+import app.thelauncher.qsb.QSB_END_NONE
+import app.thelauncher.smartspace.model.SMARTSPACE_DATE_LONG
+import app.thelauncher.smartspace.model.SMARTSPACE_LAYOUT_ONE_CARD
+import app.thelauncher.theme.color.ColorOption
+import app.thelauncher.ui.preferences.components.HiddenAppsInSearch
 import app.thelauncher.util.kotlinxJson
 import com.android.launcher3.GridType
 import com.android.launcher3.InvariantDeviceProfile
@@ -62,6 +89,15 @@ class HyperionBackupConverter(
 
         // Hyperion's drawer opacity lets more wallpaper through than the same number here.
         private const val DRAWER_OPACITY_SCALE = 0.65f
+
+        // Hyperion saves Int.MAX_VALUE for a colour that was never picked.
+        private const val HYPERION_UNSET_COLOR = Int.MAX_VALUE
+
+        // Hyperion's folder preview icons next to this launcher's (measured from screenshots).
+        private const val HYPERION_FOLDER_PREVIEW_SCALE = 1.15f
+
+        // Hyperion's "rounded rectangle" search bar, as a share of a fully round corner.
+        private const val ROUNDED_RECT_QSB_RADIUS = 0.3f
     }
 
     data class HyperionDrawerFolder(val title: String, val components: List<String>)
@@ -90,8 +126,11 @@ class HyperionBackupConverter(
         val dockShadow: Boolean?,
         val notificationCount: Boolean?,
         val drawerFolders: List<HyperionDrawerFolder>,
+        val drawerTabs: List<HyperionDrawerFolder> = emptyList(),
         val raw: Map<String, Any> = emptyMap(),
+        val rawSets: Map<String, Set<String>> = emptyMap(),
     ) {
+        fun set(key: String): Set<String>? = rawSets[key]
         fun int(key: String): Int? = raw[key] as? Int
         fun bool(key: String): Boolean? = raw[key] as? Boolean
         fun string(key: String): String? = raw[key] as? String
@@ -174,6 +213,7 @@ class HyperionBackupConverter(
 
             runCatching { writeSettings(settings) }.onFailure { Log.w(TAG, "Settings import failed", it) }
             runCatching { importDrawerFolders(settings.drawerFolders) }.onFailure { Log.w(TAG, "Drawer folder import failed", it) }
+            runCatching { importDrawerTabs(settings.drawerTabs) }.onFailure { Log.w(TAG, "Drawer tab import failed", it) }
 
             val restoredDbFile = context.getDatabasePath(TheLauncherBackup.RESTORED_DB_FILE_NAME)
             restoredDbFile.parentFile?.mkdirs()
@@ -238,15 +278,21 @@ class HyperionBackupConverter(
             dockShadow = bools["pages_enable_dock_shadow"],
             notificationCount = (strings["pref_icon_badging_style"] ?: "dot") == "text",
             drawerFolders = parseDrawerFolders(strings["drawer_folders"]),
+            drawerTabs = parseDrawerFolders(strings["drawer_tabs"]),
             raw = buildMap<String, Any> {
                 putAll(strings)
                 putAll(ints)
                 putAll(bools)
                 putAll(floats)
             },
+            rawSets = sets,
         )
     }
 
+    /**
+     * Reads Hyperion's drawer folders or drawer tabs. Hyperion has saved these two ways: a list of
+     * flattened components under "apps", or full item objects under "contents".
+     */
     private fun parseDrawerFolders(json: String?): List<HyperionDrawerFolder> {
         if (json.isNullOrBlank()) return emptyList()
         return try {
@@ -254,9 +300,26 @@ class HyperionBackupConverter(
             (0 until array.length()).mapNotNull { i ->
                 val obj = array.optJSONObject(i) ?: return@mapNotNull null
                 val title = obj.optString("title").trim()
-                val apps = obj.optJSONArray("apps")
-                val components = if (apps == null) emptyList() else (0 until apps.length()).map { apps.optString(it) }
-                if (title.isEmpty()) null else HyperionDrawerFolder(title, components.filter { it.isNotBlank() })
+                val components = mutableListOf<String>()
+                obj.optJSONArray("apps")?.let { apps ->
+                    for (j in 0 until apps.length()) components.add(apps.optString(j))
+                }
+                obj.optJSONArray("contents")?.let { contents ->
+                    for (j in 0 until contents.length()) {
+                        val item = contents.optJSONObject(j)
+                        if (item == null) {
+                            components.add(contents.optString(j))
+                            continue
+                        }
+                        val component = item.optString("componentName").ifBlank {
+                            item.optString("intent").let { uri ->
+                                runCatching { Intent.parseUri(uri, 0).component?.flattenToString() }.getOrNull().orEmpty()
+                            }
+                        }
+                        components.add(component)
+                    }
+                }
+                if (title.isEmpty()) null else HyperionDrawerFolder(title, components.filter { it.isNotBlank() }.distinct())
             }
         } catch (t: Throwable) {
             Log.w(TAG, "Could not read drawer folders", t)
@@ -264,9 +327,26 @@ class HyperionBackupConverter(
         }
     }
 
+    private val launcherApps by lazy { context.getSystemService(android.content.pm.LauncherApps::class.java) }
+    private val launchActivities = mutableMapOf<String, List<ComponentName>>()
+
     private fun toComponentKey(flattened: String): String? {
         val component = ComponentName.unflattenFromString(flattened.substringBefore('#')) ?: return null
-        return ComponentKey(component, user).toString()
+        return ComponentKey(installedComponent(component), user).toString()
+    }
+
+    /**
+     * Hyperion saved the activity an app was launched with at the time. Apps rename that activity in
+     * updates, so when it no longer exists the app's current launch activity is used instead.
+     */
+    private fun installedComponent(component: ComponentName): ComponentName {
+        val activities = launchActivities.getOrPut(component.packageName) {
+            runCatching {
+                launcherApps?.getActivityList(component.packageName, user)?.map { it.componentName }
+            }.getOrNull().orEmpty()
+        }
+        if (activities.isEmpty() || component in activities) return component
+        return activities.first()
     }
 
     private suspend fun writeSettings(settings: HyperionSettings) {
@@ -289,6 +369,24 @@ class HyperionBackupConverter(
                 "light" -> putString(prefs.launcherTheme.key, "light")
                 "dark" -> putString(prefs.launcherTheme.key, "dark")
                 "follow_system" -> putString(prefs.launcherTheme.key, "system")
+            }
+            // Everything below uses Hyperion's default when the backup doesn't have it, so the result
+            // looks like the Hyperion setup rather than this launcher's defaults.
+            putBoolean(prefs.wrapAdaptiveIcons.key, settings.bool("pref_draw_icon_back_shape") ?: false)
+            putBoolean(prefs.addIconToHome.key, settings.bool("pref_add_icon_to_home") ?: true)
+            putBoolean(prefs.wallpaperScrolling.key, settings.bool("key_scroll_wallpaper") ?: false)
+            putBoolean(prefs.folderApps.key, !(settings.bool("pref_show_apps_in_folders_in_app_list") ?: true))
+            putInt(prefs.wallpaperBlur.key, (settings.int("pages_drawer_blur_strength") ?: 50).coerceIn(0, 100))
+            val themed = settings.themedIcons ?: false
+            putBoolean(prefs.drawerThemedIcons.key, themed && !(settings.bool("themed_icons_desktop_only") ?: false))
+            putFloat(prefs.hotseatQsbCornerRadius.key, if (settings.bool("qsb_new_style") == true) ROUNDED_RECT_QSB_RADIUS else 1f)
+            val dockColor = hyperionColor(settings, "pref_dock_background_color", "pref_dock_background_color_toggle")
+            putBoolean(prefs.hotseatBG.key, dockColor != null)
+            hyperionDockShape(settings).let { shape ->
+                putInt(prefs.hotseatBGHorizontalInsetLeft.key, shape.insetLeft)
+                putInt(prefs.hotseatBGVerticalInsetTop.key, shape.insetTop)
+                putInt(prefs.hotseatBGHorizontalInsetRight.key, shape.insetRight)
+                putInt(prefs.hotseatBGVerticalInsetBottom.key, shape.insetBottom)
             }
             }.commit()
         }.onFailure { Log.w(TAG, "Could not import layout settings", it) }
@@ -316,7 +414,6 @@ class HyperionBackupConverter(
                 }
                 settings.feedEnabled?.let { store[prefs2.enableFeed.key] = it }
                 settings.smartspaceEnabled?.let { store[prefs2.enableSmartspace.key] = it }
-                settings.smartspaceShowTime?.let { store[prefs2.smartspaceShowTime.key] = it }
                 settings.smartspaceShowWeather?.let { store[prefs2.smartspaceWeather.key] = it }
                 settings.smartspaceShowEvents?.let { store[prefs2.smartspaceCalendarEvents.key] = it }
                 settings.weatherLocation?.let { store[prefs2.smartspaceWeatherLocation.key] = it }
@@ -325,7 +422,7 @@ class HyperionBackupConverter(
                 settings.notificationCount?.let { store[prefs2.showNotificationCount.key] = it }
                 fun gesture(hyperionKey: String, key: androidx.datastore.preferences.core.Preferences.Key<String>) {
                     val value = settings.string(hyperionKey) ?: return
-                    val handler = gestureFor(value) ?: return
+                    val handler = gestureFor(value) ?: customAppGesture(settings, hyperionKey, value) ?: return
                     store[key] = kotlinxJson.encodeToString(handler)
                 }
                 gesture("pref_home_down_action", prefs2.homePressGestureHandler.key)
@@ -337,7 +434,11 @@ class HyperionBackupConverter(
                 gesture("pref_back_down_action", prefs2.backPressGestureHandler.key)
                 gesture("pref_two_finger_double_tap_action", prefs2.twoFingerDoubleTapGestureHandler.key)
 
-                settings.string("page_indicator_mode")?.let { store[prefs2.pageIndicatorHidden.key] = it == "hidden" }
+                // Page indicators: Hyperion shows them on the home screen, the dock, both ("shared") or neither.
+                val indicatorMode = settings.string("page_indicator_mode") ?: "shared"
+                store[prefs2.pageIndicatorHidden.key] = indicatorMode == "hidden" || indicatorMode == "dock"
+                store[prefs2.dockPageIndicatorHidden.key] = indicatorMode == "hidden" || indicatorMode == "workspace"
+                store[prefs2.pageIndicatorLine.key] = (settings.string("page_indicator_style") ?: "line") == "line"
                 settings.bool("blackout_dark_mode")?.let { store[prefs2.blackoutDarkMode.key] = it }
                 settings.bool("pref_fade_on_desktop_swipe")?.let { store[prefs2.fadeOnSwipe.key] = it }
                 settings.bool("pages_enable_bounce_physics")?.let { store[prefs2.drawerOverscroll.key] = it }
@@ -379,6 +480,34 @@ class HyperionBackupConverter(
                 store[prefs2.enableLabelInDock.key] = settings.bool("pref_enable_dock_icon_text") ?: false
                 store[prefs2.showIconLabelsInDrawer.key] = settings.bool("pref_enable_app_drawer_label_label") ?: true
                 store[prefs2.twoLineAllApps.key] = settings.bool("pref_enable_icon_multiple_lines") ?: false
+                store[prefs2.twoLineHome.key] = settings.bool("pref_enable_icon_multiple_lines_workspace") ?: false
+                store[prefs2.twoLineFolder.key] = settings.bool("pref_enable_icon_multiple_lines_folder") ?: false
+                store[prefs2.labelTextStyle.key] = (settings.string("pref_text_style")?.toIntOrNull() ?: 0).coerceIn(0, 3)
+                store[prefs2.dockTextShadow.key] = settings.bool("pref_enable_icon_text_shadow_dock") ?: true
+                store[prefs2.dockIconLabelSizeFactor.key] = ((settings.int("pref_custom_dock_icon_text_scale") ?: 100) / 100f).coerceIn(0.5f, 1.5f)
+                // Drawer layout options, with Hyperion's defaults.
+                store[prefs2.drawerFoldersFirst.key] = settings.bool("pref_show_folders_first") ?: false
+                store[prefs2.showWorkTab.key] = settings.bool("pref_show_work_tab") ?: true
+                store[prefs2.drawerTabsRemoveFromAll.key] = settings.bool("pref_hide_apps_main_page") ?: false
+                store[prefs2.drawerSuggestionsDivider.key] =
+                    if (settings.bool("app_search_prediction_divider_enabled") ?: true) SUGGESTIONS_DIVIDER_LABEL else SUGGESTIONS_DIVIDER_NONE
+                store[prefs2.drawerIndicator.key] = when {
+                    !(settings.bool("pages_show_drawer_indicator") ?: true) -> DRAWER_INDICATOR_NONE
+                    settings.string("pages_style_indicator") == "indicator_line" -> DRAWER_INDICATOR_LINE
+                    else -> DRAWER_INDICATOR_ARROW
+                }
+                hyperionColor(settings, "pref_dock_indicator_color", "pref_dock_indicator_color_toggle")?.let {
+                    store[prefs2.drawerIndicatorColor.key] = it.toString()
+                }
+                if (settings.bool("pref_enable_custom_notification_dot_size") == true) {
+                    store[prefs2.notificationDotSizeFactor.key] = ((settings.int("pref_notification_dot_size") ?: 100) / 100f).coerceIn(0.5f, 2f)
+                }
+                // "Comfortable view" adds side padding to the home screen; off removes it.
+                if (settings.bool("pref_padding_page") == false) store[prefs2.workspacePaddingHorizontalFactor.key] = 0f
+                // Hyperion draws a plain (monochrome) G unless the coloured or original G is picked.
+                store[prefs2.themedHotseatQsb.key] =
+                    !(settings.bool("pref_show_search_bar_colored_g") ?: false) && !(settings.bool("pref_show_search_bar_original_g") ?: false)
+                hyperionIconShape(settings.string("pref_override_icon_shape"))?.let { store[prefs2.iconShape.key] = it }
                 settings.bool("pref_enable_icon_text_shadow")?.let { store[prefs2.desktopTextShadow.key] = it }
 
                 // Drawer and search
@@ -389,10 +518,152 @@ class HyperionBackupConverter(
                 store[prefs2.smartspaceCenteredDate.key] = true
                 if (settings.bool("pref_show_dock_search_bar") == false) store[prefs2.hotseatMode.key] = "disabled"
                 settings.bool("pages_lock_desktop")?.let { store[prefs2.lockHomeScreen.key] = it }
-                settings.bool("pref_smartspace_show_date")?.let { store[prefs2.smartspaceShowDate.key] = it }
-                settings.string("pref_temperature_unit")?.let {
-                    store[prefs2.smartspaceWeatherFahrenheit.key] = it.contains("f", ignoreCase = true) && !it.contains("c", ignoreCase = true)
+                // At a Glance the way Hyperion draws it: with calendar events on it shows the date only;
+                // otherwise "Display time" shows the time and "Display both time and date" shows both.
+                val glanceEvents = settings.bool("pref_smartspace_show_events") ?: false
+                val glanceTime = settings.bool("pref_smartspace_show_time") ?: false
+                val glanceBoth = settings.bool("pref_smartspace_show_date") ?: false
+                store[prefs2.smartspaceShowTime.key] = !glanceEvents && (glanceTime || glanceBoth)
+                store[prefs2.smartspaceShowDate.key] = glanceEvents || glanceBoth || !glanceTime
+                store[prefs2.smartspaceLayout.key] = SMARTSPACE_LAYOUT_ONE_CARD
+                store[prefs2.smartspacePageDots.key] = false
+                store[prefs2.smartspaceDateStyle.key] = SMARTSPACE_DATE_LONG
+                hyperionColor(settings, "pref_smartspace_color", "pref_smartspace_color_toggle")?.let {
+                    store[prefs2.smartspaceTextColor.key] = it.toString()
                 }
+                // Hyperion has its own weather; the Google app's would only add a second date card.
+                if (settings.smartspaceShowWeather == true) store[prefs2.smartspaceAagWidget.key] = false
+                settings.set("pref_calendar_events_values")?.takeIf { it.isNotEmpty() }?.let {
+                    store[prefs2.smartspaceCalendarIds.key] = it
+                }
+
+                // Colours Hyperion keeps as a custom colour plus a switch.
+                hyperionColor(settings, "pref_dock_background_color", "pref_dock_background_color_toggle")?.let {
+                    store[prefs2.hotseatBackgroundColor.key] = it.toString()
+                }
+                hyperionColor(settings, "pref_folder_background_color", "pref_folder_background_color_toggle")?.let {
+                    store[prefs2.folderColor.key] = it.toString()
+                }
+                hyperionColor(settings, "pref_custom_drawer_background_color", "pref_enable_custom_drawer_background")?.let {
+                    store[prefs2.appDrawerBackgroundColor.key] = it.toString()
+                }
+                // Search bars: Hyperion's colours, its assistant (✦) button, and the provider icon in the drawer.
+                hyperionColor(settings, "pref_workspace_qsb_color", "pref_workspace_qsb_color_toggle")?.let {
+                    store[prefs2.hotseatQsbColor.key] = it.toString()
+                }
+                hyperionColor(settings, "pref_drawer_qsb_color", "pref_drawer_qsb_color_toggle")?.let {
+                    store[prefs2.drawerQsbColor.key] = it.toString()
+                }
+                store[prefs2.qsbEndButton.key] = if (settings.bool("pref_show_search_bar_mic") ?: true) QSB_END_ASSISTANT else QSB_END_NONE
+                store[prefs2.drawerQsbProviderIcons.key] = true
+                // Hyperion's drawer is full screen, not a sheet.
+                store[prefs2.drawerOnSheet.key] = false
+                // Hyperion's folder previews have bigger icons that fill the circle.
+                store[prefs2.folderPreviewIconScale.key] = HYPERION_FOLDER_PREVIEW_SCALE
+
+                // Label colours: Hyperion turns each on with either of two switches.
+                fun labelColor(key: String, vararg toggles: String): String {
+                    val on = toggles.any { settings.bool(it) == true }
+                    return (if (on) hyperionColor(settings, key, null) else null)?.toString() ?: ColorOption.Default.toString()
+                }
+                store[prefs2.homeLabelColor.key] = labelColor(
+                    "pref_custom_workspace_icon_text_color",
+                    "pref_custom_workspace_icon_text_color_toggle",
+                    "pref_enable_custom_workspace_icon_text_color",
+                )
+                store[prefs2.dockLabelColor.key] = labelColor(
+                    "pref_custom_dock_icon_text_color",
+                    "pref_custom_dock_icon_text_color_toggle",
+                    "pref_enable_custom_dock_icon_text_color",
+                )
+                store[prefs2.drawerLabelColor.key] = labelColor(
+                    "pref_custom_icon_text_color",
+                    "pref_custom_icon_text_color_toggle",
+                    "pref_enable_custom_icon_text_color",
+                )
+                store[prefs2.folderLabelColor.key] = labelColor(
+                    "pref_custom_folder_icon_text_color",
+                    "pref_custom_folder_icon_text_color_toggle",
+                    "pref_enable_custom_folder_tweaks",
+                )
+
+                val badgeColor = hyperionColor(settings, "pref_notification_badge_color", "pref_notification_badge_color_toggle")
+                badgeColor?.let { store[prefs2.notificationDotColor.key] = it.toString() }
+                // Without a badge colour of its own, Hyperion colours each dot from the app's icon, and it
+                // draws counts above 9 as "9+".
+                store[prefs2.notificationDotFromIcon.key] = badgeColor == null
+                store[prefs2.notificationCountShort.key] = true
+                when (settings.string("theme_color_mode")) {
+                    "wallpaper" -> store[prefs2.accentColor.key] = ColorOption.WallpaperPrimary.toString()
+                    "follow_system" -> store[prefs2.accentColor.key] = ColorOption.SystemAccent.toString()
+                    "custom" -> settings.int("theme_color_seed")?.let {
+                        store[prefs2.accentColor.key] = ColorOption.CustomColor(it).toString()
+                    }
+                }
+
+                // Interface settings with a direct counterpart, using Hyperion's defaults.
+                store[prefs2.showScrollbar.key] = settings.bool("pages_show_drawer_scroll_indicator") ?: true
+                val wallpaperGradient = settings.bool("pages_dark_mode_gradient_summary") ?: true
+                store[prefs2.showTopShadow.key] = wallpaperGradient
+                store[prefs2.systemBarGradient.key] = wallpaperGradient
+                store[prefs2.wallpaperDepthEffect.key] = settings.bool("wallpaper_zoom") ?: true
+                store[prefs2.isHotseatEnabled.key] = settings.bool("pages_enable_dock") ?: true
+                // Hyperion's dock rows are home screen rows, scaled by its "Dock height" (100% by default).
+                store[prefs2.dockRowsMatchHome.key] = true
+                store[prefs2.dockHeightFactor.key] = ((settings.int("dock_height") ?: 100) / 100f).coerceIn(0.5f, 2f)
+                store[prefs2.roundedWidgets.key] = settings.bool("enforce_widget_rounded_corners") ?: true
+                if (settings.bool("pref_full_width_widgets") == true) store[prefs2.widgetPaddingFactor.key] = 0f
+                store[prefs2.hiddenAppsInSearch.key] = if (settings.bool("hidden_apps_search") == true) {
+                    HiddenAppsInSearch.NEVER
+                } else {
+                    HiddenAppsInSearch.IF_NAME_TYPED
+                }
+                store[prefs2.drawerStatusBarIcons.key] = when (settings.string("status_bar_icon_drawer_color")) {
+                    "status_bar_dark" -> "dark"
+                    "status_bar_light" -> "light"
+                    else -> "auto"
+                }
+                when (settings.string("status_bar_icon_color")) {
+                    "status_bar_dark" -> store[prefs2.darkStatusBar.key] = true
+                    "status_bar_light" -> store[prefs2.darkStatusBar.key] = false
+                }
+                when (settings.string("pref_lock_screen_mode")) {
+                    "screen_lock_accessibility" -> store[prefs2.sleepMode.key] = SleepMode.ACCESSIBILITY.toString()
+                    "screen_lock_device_admin", "device_admin" -> store[prefs2.sleepMode.key] = SleepMode.DEVICE_ADMIN.toString()
+                    "screen_lock_root", "root" -> store[prefs2.sleepMode.key] = SleepMode.ROOT.toString()
+                }
+                when (settings.string("pref_temperature_unit")) {
+                    "use_fahrenheit" -> {
+                        store[prefs2.smartspaceWeatherFahrenheit.key] = true
+                        store[prefs2.smartspaceWeatherKelvin.key] = false
+                    }
+                    "use_kelvin" -> {
+                        store[prefs2.smartspaceWeatherFahrenheit.key] = false
+                        store[prefs2.smartspaceWeatherKelvin.key] = true
+                    }
+                    "use_celsius" -> {
+                        store[prefs2.smartspaceWeatherFahrenheit.key] = false
+                        store[prefs2.smartspaceWeatherKelvin.key] = false
+                    }
+                }
+                // Dot corner: Hyperion's names are the ones this launcher uses.
+                settings.string("pref_icon_badging_placement")?.takeIf {
+                    it in setOf(DOT_PLACEMENT_TOP_RIGHT, DOT_PLACEMENT_TOP_LEFT, DOT_PLACEMENT_BOTTOM_LEFT, DOT_PLACEMENT_BOTTOM_RIGHT)
+                }?.let { store[prefs2.notificationDotPlacement.key] = it }
+                // The app tapping the date opens, kept as a component or a package.
+                settings.string("pref_calendar_app")?.takeIf { it.isNotBlank() }?.let {
+                    store[prefs2.smartspaceCalendarApp.key] = it.substringBefore('/')
+                }
+                store[prefs2.hiddenDashboards.key] = when (settings.string("pref_hidden_dashboards")) {
+                    "icon_pack_dashboards" -> HIDDEN_DASHBOARDS_ICON_PACKS
+                    "substratum_dashboards" -> HIDDEN_DASHBOARDS_THEMES
+                    "all_dashboards" -> HIDDEN_DASHBOARDS_ALL
+                    else -> HIDDEN_DASHBOARDS_NONE
+                }
+                hyperionColor(settings, "pref_drawer_scroll_indicator", "pref_drawer_scroll_indicator_toggle")?.let {
+                    store[prefs2.drawerScrollbarColor.key] = it.toString()
+                }
+                store[prefs2.hotseatBackgroundCornerRadius.key] = hyperionDockShape(settings).cornerRadiusDp
 
                 // Wallpaper dimmer: Hyperion's strength defaults to 20%.
                 store[prefs2.wallpaperDimAmount.key] = if (settings.bool("wallpaper_dimmer_toggle") == true) {
@@ -402,6 +673,60 @@ class HyperionBackupConverter(
                 }
             }
         }.onFailure { Log.w(TAG, "Could not import settings", it) }
+
+        // "Force English": Android 13 and up keep a language per app.
+        if (settings.bool("force_english_locale") == true && android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            runCatching {
+                context.getSystemService(android.app.LocaleManager::class.java).applicationLocales =
+                    android.os.LocaleList.forLanguageTags("en")
+            }.onFailure { Log.w(TAG, "Could not force English", it) }
+        }
+    }
+
+    /** Hyperion keeps its icon shape as an SVG path; these are the paths of its ten shapes. */
+    private fun hyperionIconShape(path: String?): String? {
+        if (path == null) return null
+        val p = path.replace(" ", "").lowercase()
+        return when {
+            p.isEmpty() -> "system"
+            p.startsWith("m50,0l100,0") -> "sharpSquare"
+            p.startsWith("m250c50") -> "roundedSquare"
+            p.startsWith("m34.042") -> "cupertino"
+            p.startsWith("m20,080,0") -> "octagon"
+            p.startsWith("m50,0c10,0") -> "squircle"
+            p.startsWith("m500a50") -> "circle"
+            p.startsWith("m50,0a50,50") -> "teardrop"
+            p.startsWith("mm55,0") || p.startsWith("m55,0") -> "pebble"
+            p.startsWith("m12.97,0") -> "vessel"
+            else -> null
+        }
+    }
+
+    /** Hyperion's "Flat" (dock_o) and "Round" (dock_p, its default) dock styles. */
+    private fun hyperionDockShape(settings: HyperionSettings): DockShape =
+        dockShapePresets.getValue(if (settings.string("pages_style_dock") == "dock_o") DOCK_SHAPE_FLAT else DOCK_SHAPE_ROUND)
+
+    /** Hyperion's "Launch app" gesture keeps the app under the matching "_package" key. */
+    private fun customAppGesture(settings: HyperionSettings, actionKey: String, action: String): GestureHandlerConfig? {
+        if (!action.startsWith("custom_app")) return null
+        val saved = settings.string(actionKey.replace("_action", "_package")).orEmpty()
+            .ifBlank { action.substringAfter(';', "") }
+        if (saved.isBlank()) return null
+        val component = ComponentName.unflattenFromString(saved)
+            ?: runCatching { launcherApps?.getActivityList(saved, user)?.firstOrNull()?.componentName }.getOrNull()
+            ?: return null
+        val installed = installedComponent(component)
+        return GestureHandlerConfig.OpenApp(
+            resolveLabel(installed.packageName),
+            OpenAppTarget.App(ComponentKey(installed, user)),
+        )
+    }
+
+    /** A colour Hyperion keeps as "custom colour" plus an on/off switch, or null when not in use. */
+    private fun hyperionColor(settings: HyperionSettings, key: String, toggle: String?): ColorOption? {
+        if (toggle != null && settings.bool(toggle) != true) return null
+        val value = settings.int(key) ?: return null
+        return if (value == HYPERION_UNSET_COLOR) null else ColorOption.CustomColor(value)
     }
 
     private fun gestureFor(action: String): GestureHandlerConfig? = when (action.substringBefore(';')) {
@@ -414,22 +739,41 @@ class HyperionBackupConverter(
         "qs_pulldown" -> GestureHandlerConfig.OpenNotifications
         "qs_expand" -> GestureHandlerConfig.OpenQuickSettings
         "show_recent_apps", "show_overview" -> GestureHandlerConfig.Recents
+        "default_page" -> GestureHandlerConfig.GoToDefaultPage
+        "hide_content" -> GestureHandlerConfig.ToggleHomeContent
+        "launcher_settings" -> GestureHandlerConfig.OpenLauncherSettings
+        "show_iconpack" -> GestureHandlerConfig.OpenIconPackPicker
         else -> null
     }
 
+    /**
+     * Brings Hyperion's drawer folders across. A folder that already exists with the same name (from
+     * an earlier restore) gets the backup's apps, so restoring again always matches the backup.
+     */
     private suspend fun importDrawerFolders(folders: List<HyperionDrawerFolder>) {
         if (folders.isEmpty()) return
         val service = FolderService.INSTANCE.get(context)
-        val existingTitles = runCatching { service.getFoldersFlow().first().map { it.title.trim() }.toSet() }
-            .getOrDefault(emptySet())
+        val existing = runCatching { service.getFoldersFlow().first() }.getOrDefault(emptyList())
+            .associateBy { it.title.trim() }
         folders.forEach { folder ->
-            if (folder.title in existingTitles) return@forEach
             val keys = folder.components.mapNotNull { toComponentKey(it) }.distinct()
             runCatching {
-                val id = service.saveFolderInfo(folder.title).toInt()
+                val id = existing[folder.title]?.id ?: service.saveFolderInfo(folder.title).toInt()
                 service.updateFolderWithItems(id, folder.title, keys)
             }.onFailure { Log.w(TAG, "Could not import drawer folder ${folder.title}", it) }
         }
+    }
+
+    /** Hyperion's drawer tabs become drawer tabs here, replacing tabs with the same name. */
+    private suspend fun importDrawerTabs(tabs: List<HyperionDrawerFolder>) {
+        if (tabs.isEmpty()) return
+        val prefs2 = PreferenceManager2.getInstance(context)
+        val imported = tabs.map { tab ->
+            DrawerTab(name = tab.title, apps = tab.components.mapNotNull { toComponentKey(it) }.toSet())
+        }
+        val importedNames = imported.map { it.name }.toSet()
+        val kept = prefs2.drawerTabs.firstCached().filter { it.name !in importedNames }
+        prefs2.drawerTabs.set(kept + imported)
     }
 
     private fun countItems(dbFile: File): ItemCounts {

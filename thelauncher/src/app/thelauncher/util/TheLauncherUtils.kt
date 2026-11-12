@@ -158,6 +158,38 @@ fun supportsRoundedCornersOnWindows(context: Context): Boolean {
     }
 }
 
+const val SUGGESTIONS_DIVIDER_AUTO = "auto"
+const val SUGGESTIONS_DIVIDER_LABEL = "label"
+const val SUGGESTIONS_DIVIDER_NONE = "none"
+
+const val DRAWER_INDICATOR_NONE = "none"
+const val DRAWER_INDICATOR_ARROW = "arrow"
+const val DRAWER_INDICATOR_LINE = "line"
+
+const val DOT_PLACEMENT_TOP_RIGHT = "top_right"
+const val DOT_PLACEMENT_TOP_LEFT = "top_left"
+const val DOT_PLACEMENT_BOTTOM_LEFT = "bottom_left"
+const val DOT_PLACEMENT_BOTTOM_RIGHT = "bottom_right"
+
+const val LABEL_AREA_HOME = 0
+const val LABEL_AREA_DOCK = 1
+const val LABEL_AREA_DRAWER = 2
+const val LABEL_AREA_FOLDER = 3
+
+/** The label colour picked for an area of the launcher, or 0 to keep the theme's colour. */
+fun customLabelColor(context: Context, area: Int): Int {
+    val prefs2 = PreferenceManager2.getInstance(context)
+    val preference = when (area) {
+        LABEL_AREA_HOME -> prefs2.homeLabelColor
+        LABEL_AREA_DOCK -> prefs2.dockLabelColor
+        LABEL_AREA_DRAWER -> prefs2.drawerLabelColor
+        LABEL_AREA_FOLDER -> prefs2.folderLabelColor
+        else -> return 0
+    }
+    val option = preference.firstCached()
+    return if (option is ColorOption.Default) 0 else option.colorPreferenceEntry.lightColor(context)
+}
+
 fun overrideAllAppsTextColor(textView: TextView) {
     val context = textView.context
     val luminance = getAllAppsBaseColor(context, ColorTokens.AllAppsScrimColor.resolveColor(context)).luminance

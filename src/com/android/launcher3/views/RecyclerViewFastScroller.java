@@ -128,7 +128,7 @@ public class RecyclerViewFastScroller extends View {
     private final Point mThumbDrawOffset = new Point();
 
     private final Paint mTrackPaint;
-    private final int mThumbColor;
+    private int mThumbColor;
     private final int mThumbLetterScrollerColor;
 
     private float mLastTouchY;
@@ -182,6 +182,13 @@ public class RecyclerViewFastScroller extends View {
         mTrackPaint.setAlpha(MAX_TRACK_ALPHA);
 
         mThumbColor = Themes.getColorAccent(context);
+        // TheLauncher: the drawer's scroll indicator colour, when one is picked.
+        app.thelauncher.theme.color.ColorOption scrollbarColor =
+                app.thelauncher.preferences2.PreferenceCacheExtensionsKt.firstCached(
+                        app.thelauncher.preferences2.PreferenceManager2.getInstance(context).getDrawerScrollbarColor());
+        if (!(scrollbarColor instanceof app.thelauncher.theme.color.ColorOption.Default)) {
+            mThumbColor = scrollbarColor.getColorPreferenceEntry().getLightColor().invoke(context);
+        }
         mThumbLetterScrollerColor = context.getColor(R.color.materialColorSurfaceBright);
         mThumbPaint = new Paint();
         mThumbPaint.setAntiAlias(true);

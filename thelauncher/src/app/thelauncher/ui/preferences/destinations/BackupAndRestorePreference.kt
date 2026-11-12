@@ -9,6 +9,9 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalContext
 import app.thelauncher.backup.SavedLayouts
+import app.thelauncher.preferences.PreferenceManager
+import app.thelauncher.preferences2.PreferenceManager2
+import androidx.datastore.preferences.core.edit
 import app.thelauncher.util.restartLauncher
 import com.android.launcher3.LauncherAppState
 import com.android.launcher3.util.Executors
@@ -128,6 +131,66 @@ fun BackupAndRestorePreference(
                     Toast.makeText(context, R.string.reset_icon_cache_done, Toast.LENGTH_SHORT).show()
                 },
             )
+            ClickablePreference(
+                label = stringResource(R.string.restart_launcher),
+                onClick = { restartLauncher(context) },
+            )
+            ClickablePreference(
+                label = stringResource(R.string.reset_home_screen),
+                subtitle = stringResource(R.string.reset_home_screen_desc),
+                confirmationText = stringResource(R.string.reset_home_screen_confirm),
+                onClick = {
+                    Executors.MODEL_EXECUTOR.execute {
+                        LauncherAppState.INSTANCE.get(context).model.modelDbController.createEmptyDB()
+                        Executors.MAIN_EXECUTOR.execute { restartLauncher(context) }
+                    }
+                },
+            )
+            ClickablePreference(
+                label = stringResource(R.string.reset_settings),
+                subtitle = stringResource(R.string.reset_settings_desc),
+                confirmationText = stringResource(R.string.reset_settings_confirm),
+                onClick = {
+                    if (!busy) {
+                        busy = true
+                        scope.launch {
+                            resetAllSettings(context)
+                            restartLauncher(context)
+                        }
+                    }
+                },
+            )
+            ClickablePreference(
+                label = stringResource(R.string.reset_fonts),
+                onClick = {
+                    val prefs = PreferenceManager.getInstance(context)
+                    listOf(prefs.fontWorkspace, prefs.fontHeading, prefs.fontHeadingMedium, prefs.fontBody, prefs.fontBodyMedium)
+                        .forEach { it.reset() }
+                    Toast.makeText(context, R.string.reset_fonts_done, Toast.LENGTH_SHORT).show()
+                },
+            )
+        }
+    }
+}
+
+/**
+ * Puts every setting back to its default. The grid, hidden and locked apps, drawer tabs and the
+ * weather location are kept: they are the user's data rather than how the launcher looks.
+ */
+private suspend fun resetAllSettings(context: android.content.Context) {
+    val prefs = PreferenceManager.getInstance(context)
+    val keepPrefs = listOf(
+        prefs.workspaceColumns, prefs.workspaceRows, prefs.hotseatColumns, prefs.hotseatColumnsUnfolded,
+        prefs.hotseatRows, prefs.dockPages, prefs.hasOpenedSettings, prefs.theLauncherMajorVersion,
+    ).map { it.key }.toSet()
+    runCatching { prefs.resetAll(except = keepPrefs) }
+    val keepPrefs2 = setOf(
+        "hidden_apps", "locked_apps", "drawer_tabs", "legacy_popup_options_migrated",
+        "smartspace_weather_location", "smartspace_calendar_ids",
+    )
+    runCatching {
+        PreferenceManager2.getInstance(context).preferencesDataStore.edit { store ->
+            store.asMap().keys.filter { it.name !in keepPrefs2 }.forEach { store.remove(it) }
         }
     }
 }

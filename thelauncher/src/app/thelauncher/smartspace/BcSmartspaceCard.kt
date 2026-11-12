@@ -1,6 +1,12 @@
 package app.thelauncher.smartspace
 
 import android.content.Context
+import android.graphics.drawable.GradientDrawable
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.style.ImageSpan
+import android.util.TypedValue
+import android.view.Gravity
 import android.text.TextUtils
 import android.util.AttributeSet
 import android.view.View
@@ -11,7 +17,12 @@ import android.widget.TextView
 import androidx.core.text.layoutDirection
 import androidx.core.view.isInvisible
 import androidx.core.view.isVisible
+import app.thelauncher.preferences2.PreferenceManager2
+import app.thelauncher.preferences2.firstCached
+import app.thelauncher.smartspace.model.SMARTSPACE_BUBBLE_CARD
+import app.thelauncher.smartspace.model.SMARTSPACE_BUBBLE_OFF
 import app.thelauncher.smartspace.model.SmartspaceAction
+import app.thelauncher.smartspace.model.SmartspaceStyle
 import app.thelauncher.smartspace.model.SmartspaceTarget
 import app.thelauncher.smartspace.model.hasIntent
 import com.android.launcher3.R
@@ -36,6 +47,9 @@ class BcSmartspaceCard @JvmOverloads constructor(
     private var titleTextView: TextView? = null
     private var topPadding = 0
     private var usePageIndicatorUi = false
+    private var detailsView: TextView? = null
+    private var bubbleView: LinearLayout? = null
+    private val baseTextSizes = mutableMapOf<TextView, Float>()
 
     override fun onFinishInflate() {
         super.onFinishInflate()
@@ -45,6 +59,10 @@ class BcSmartspaceCard @JvmOverloads constructor(
         baseActionIconSubtitleView = findViewById(R.id.base_action_icon_subtitle)
         extrasGroup = findViewById(R.id.smartspace_extras_group)
         topPadding = paddingTop
+        detailsView = findViewById(R.id.smartspace_details)
+        bubbleView = findViewById(R.id.smartspace_bubble)
+        listOfNotNull(dateView, titleTextView, subtitleTextView, baseActionIconSubtitleView, detailsView)
+            .forEach { baseTextSizes[it] = it.textSize }
         extrasGroup?.let {
             dndImageView = it.findViewById(R.id.dnd_icon)
             nextAlarmImageView = it.findViewById(R.id.alarm_icon)
@@ -98,10 +116,15 @@ class BcSmartspaceCard @JvmOverloads constructor(
         }
 
         dateView?.let {
+            // The date opens the app picked in settings, or the default calendar.
+            val calendarApp = PreferenceManager2.getInstance(context).smartspaceCalendarApp.firstCached()
+            val calendarIntent = calendarApp.takeIf { it.isNotBlank() }
+                ?.let { context.packageManager.getLaunchIntentForPackage(it) }
+                ?: BcSmartSpaceUtil.getOpenCalendarIntent()
             val calendarAction = SmartspaceAction(
                 id = headerAction?.id ?: baseAction?.id ?: UUID.randomUUID().toString(),
                 title = "unusedTitle",
-                intent = BcSmartSpaceUtil.getOpenCalendarIntent(),
+                intent = calendarIntent,
             )
             BcSmartSpaceUtil.setOnClickListener(it, calendarAction, null, "BcSmartspaceCard")
         }
@@ -121,11 +144,75 @@ class BcSmartspaceCard @JvmOverloads constructor(
         }
     }
 
+    /** Text size, alignment and the optional bubble behind the text. */
+    fun applyStyle(style: SmartspaceStyle) {
+        baseTextSizes.forEach { (view, size) ->
+            view.setTextSize(TypedValue.COMPLEX_UNIT_PX, size * style.textScale)
+        }
+        val bubble = bubbleView ?: return
+        val horizontalGravity = if (style.centered) Gravity.CENTER_HORIZONTAL else Gravity.START
+        gravity = Gravity.TOP or horizontalGravity
+        bubble.gravity = horizontalGravity
+        (bubble.layoutParams as? LinearLayout.LayoutParams)?.let { lp ->
+            lp.width = if (style.bubble == SMARTSPACE_BUBBLE_CARD) ViewGroup.LayoutParams.MATCH_PARENT else ViewGroup.LayoutParams.WRAP_CONTENT
+            lp.gravity = horizontalGravity
+            bubble.layoutParams = lp
+        }
+        if (style.bubble == SMARTSPACE_BUBBLE_OFF) {
+            bubble.background = null
+            bubble.setPadding(0, 0, 0, 0)
+        } else {
+            val density = resources.displayMetrics.density
+            bubble.background = GradientDrawable().apply {
+                setColor(style.bubbleColor)
+                cornerRadius = style.bubbleRadiusDp * density
+            }
+            val horizontal = (18 * density).toInt()
+            val vertical = (10 * density).toInt()
+            bubble.setPadding(horizontal, vertical, horizontal, vertical)
+        }
+    }
+
+    /** The details line under the date: the most important other items, each with its icon. */
+    fun setDetails(extras: List<SmartspaceTarget>, textColor: Int) {
+        val view = detailsView ?: return
+        val iconSize = view.textSize.toInt()
+        val text = SpannableStringBuilder()
+        var tapAction: SmartspaceAction? = null
+        extras.take(MAX_DETAILS).forEach { target ->
+            val action = target.headerAction ?: target.baseAction ?: return@forEach
+            val label = listOf(action.title, action.subtitle)
+                .filter { !it.isNullOrBlank() }
+                .joinToString(" · ")
+            if (label.isEmpty()) return@forEach
+            if (text.isNotEmpty()) text.append("   ")
+            BcSmartSpaceUtil.getIconDrawable(action.icon, context)?.mutate()?.let { icon ->
+                icon.setBounds(0, 0, iconSize, iconSize)
+                if (target.featureType != SmartspaceTarget.FeatureType.FEATURE_MEDIA) icon.setTint(textColor)
+                val start = text.length
+                text.append(" ")
+                text.setSpan(ImageSpan(icon, ImageSpan.ALIGN_BOTTOM), start, start + 1, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+                text.append(" ")
+            }
+            text.append(label)
+            if (tapAction == null) tapAction = action
+        }
+        view.text = text
+        view.setTextColor(textColor)
+        view.isVisible = text.isNotEmpty()
+        if (tapAction != null) {
+            BcSmartSpaceUtil.setOnClickListener(view, tapAction, null, "BcSmartspaceCard")
+        } else {
+            view.setOnClickListener(null)
+        }
+    }
+
     fun setPrimaryTextColor(textColor: Int) {
         titleTextView?.setTextColor(textColor)
         dateView?.setTextColor(textColor)
         subtitleTextView?.setTextColor(textColor)
         baseActionIconSubtitleView?.setTextColor(textColor)
+        detailsView?.setTextColor(textColor)
         iconTintColor = textColor
         updateIconTint()
     }
@@ -190,5 +277,9 @@ class BcSmartspaceCard @JvmOverloads constructor(
             SmartspaceTarget.FeatureType.FEATURE_WEATHER -> icon.setTintList(null)
             else -> icon.setTint(iconTintColor)
         }
+    }
+
+    companion object {
+        private const val MAX_DETAILS = 2
     }
 }

@@ -19,6 +19,7 @@ package app.thelauncher.ui.preferences.destinations
 import app.thelauncher.ui.preferences.components.controls.SliderPreference
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -55,6 +56,10 @@ import app.thelauncher.ui.preferences.navigation.GeneralIconPack
 import app.thelauncher.ui.preferences.navigation.GeneralIconShape
 import app.thelauncher.ui.preferences.navigation.GeneralThemedIcons
 import com.android.launcher3.BuildConfig
+import app.thelauncher.util.DOT_PLACEMENT_TOP_RIGHT
+import app.thelauncher.util.DOT_PLACEMENT_TOP_LEFT
+import app.thelauncher.util.DOT_PLACEMENT_BOTTOM_LEFT
+import app.thelauncher.util.DOT_PLACEMENT_BOTTOM_RIGHT
 import com.android.launcher3.R
 import com.android.launcher3.Utilities
 
@@ -204,13 +209,40 @@ fun GeneralPreferences(modifier: Modifier = Modifier) {
                     showAsPercentage = true,
                 )
             }
+            val dotFromIconAdapter = prefs2.notificationDotFromIcon.getAdapter()
             ExpandAndShrink(visible = canDisplayNotificationDot) {
+                SwitchPreference(
+                    adapter = dotFromIconAdapter,
+                    label = stringResource(id = R.string.notification_dot_from_icon),
+                    description = stringResource(id = R.string.notification_dot_from_icon_desc),
+                )
+            }
+            ExpandAndShrink(visible = canDisplayNotificationDot && !dotFromIconAdapter.state.value) {
                 ColorPreference(preference = prefs2.notificationDotColor)
+            }
+            ExpandAndShrink(visible = canDisplayNotificationDot) {
+                ListPreference(
+                    adapter = prefs2.notificationDotPlacement.getAdapter(),
+                    entries = listOf(
+                        ListPreferenceEntry(DOT_PLACEMENT_TOP_RIGHT) { stringResource(id = R.string.dot_placement_top_right) },
+                        ListPreferenceEntry(DOT_PLACEMENT_TOP_LEFT) { stringResource(id = R.string.dot_placement_top_left) },
+                        ListPreferenceEntry(DOT_PLACEMENT_BOTTOM_LEFT) { stringResource(id = R.string.dot_placement_bottom_left) },
+                        ListPreferenceEntry(DOT_PLACEMENT_BOTTOM_RIGHT) { stringResource(id = R.string.dot_placement_bottom_right) },
+                    ),
+                    label = stringResource(id = R.string.dot_placement),
+                )
             }
             ExpandAndShrink(visible = canDisplayNotificationDot) {
                 SwitchPreference(
                     adapter = showNotificationCountAdapter,
                     label = stringResource(id = R.string.show_notification_count),
+                )
+            }
+            ExpandAndShrink(visible = canDisplayNotificationDot && showNotificationCount) {
+                SwitchPreference(
+                    adapter = prefs2.notificationCountShort.getAdapter(),
+                    label = stringResource(id = R.string.notification_count_short),
+                    description = stringResource(id = R.string.notification_count_short_desc),
                 )
             }
             ExpandAndShrink(visible = canDisplayNotificationDot && showNotificationCount) {
@@ -221,6 +253,11 @@ fun GeneralPreferences(modifier: Modifier = Modifier) {
                     dotColor = dotColor,
                     dotTextColor = dotTextColor,
                 )
+            }
+        }
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.TIRAMISU) {
+            PreferenceGroup(heading = stringResource(id = R.string.language_label)) {
+                ForceEnglishPreference()
             }
         }
     }
@@ -276,4 +313,30 @@ private fun NotificationDotColorContrastWarnings(
             modifier = modifier,
         )
     }
+}
+
+/** Shows the launcher in English whatever the phone's language, as Hyperion's "Force English language". */
+@androidx.annotation.RequiresApi(android.os.Build.VERSION_CODES.TIRAMISU)
+@Composable
+private fun ForceEnglishPreference() {
+    val context = LocalContext.current
+    val localeManager = remember { context.getSystemService(android.app.LocaleManager::class.java) }
+    var forced by remember {
+        androidx.compose.runtime.mutableStateOf(
+            localeManager.applicationLocales.toLanguageTags().startsWith("en"),
+        )
+    }
+    SwitchPreference(
+        checked = forced,
+        onCheckedChange = { on ->
+            localeManager.applicationLocales = if (on) {
+                android.os.LocaleList.forLanguageTags("en")
+            } else {
+                android.os.LocaleList.getEmptyLocaleList()
+            }
+            forced = on
+        },
+        label = stringResource(id = R.string.force_english),
+        description = stringResource(id = R.string.force_english_desc),
+    )
 }

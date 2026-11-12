@@ -16,6 +16,7 @@
 
 package app.thelauncher.ui.preferences.destinations
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -102,18 +103,32 @@ fun FolderPreferences(
 
         val homeScreenLabelsAdapter = prefs2.showIconLabelsOnHomeScreenFolder.getAdapter()
         PreferenceGroup(heading = stringResource(id = R.string.icons)) {
+            ColorPreference(preference = prefs2.folderLabelColor)
+            SliderPreference(
+                label = stringResource(id = R.string.folder_preview_icon_size),
+                adapter = prefs2.folderPreviewIconScale.getAdapter(),
+                step = 0.05f,
+                valueRange = 0.8F..1.3F,
+                showAsPercentage = true,
+            )
             SwitchPreference(
                 adapter = homeScreenLabelsAdapter,
                 label = stringResource(id = R.string.show_labels),
             )
             ExpandAndShrink(visible = homeScreenLabelsAdapter.state.value) {
-                SliderPreference(
-                    label = stringResource(id = R.string.label_size),
-                    adapter = prefs2.homeIconLabelFolderSizeFactor.getAdapter(),
-                    step = 0.1f,
-                    valueRange = 0.5F..1.5F,
-                    showAsPercentage = true,
-                )
+                Column {
+                    SliderPreference(
+                        label = stringResource(id = R.string.label_size),
+                        adapter = prefs2.homeIconLabelFolderSizeFactor.getAdapter(),
+                        step = 0.1f,
+                        valueRange = 0.5F..1.5F,
+                        showAsPercentage = true,
+                    )
+                    SwitchPreference(
+                        adapter = prefs2.twoLineFolder.getAdapter(),
+                        label = stringResource(id = R.string.twoline_label),
+                    )
+                }
             }
         }
     }

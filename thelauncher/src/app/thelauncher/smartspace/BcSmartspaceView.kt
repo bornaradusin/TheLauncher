@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
+import android.graphics.drawable.GradientDrawable
 import android.util.AttributeSet
 import android.view.View
 import android.view.View.MeasureSpec.EXACTLY
@@ -12,11 +13,15 @@ import android.view.View.MeasureSpec.makeMeasureSpec
 import android.view.ViewGroup
 import android.widget.FrameLayout
 import androidx.viewpager.widget.ViewPager
+import app.thelauncher.preferences2.PreferenceManager2
+import app.thelauncher.smartspace.model.SMARTSPACE_BUBBLE_OFF
+import app.thelauncher.smartspace.model.SmartspaceStyle
 import app.thelauncher.smartspace.model.SmartspaceTarget
 import app.thelauncher.smartspace.provider.SmartspaceProvider
 import app.thelauncher.util.repeatOnAttached
 import com.android.launcher3.R
 import kotlin.math.roundToInt
+import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 
@@ -34,6 +39,7 @@ class BcSmartspaceView @JvmOverloads constructor(
     private var scrollState = ViewPager.SCROLL_STATE_IDLE
     private var pendingTargets: List<SmartspaceTarget>? = null
     private var runningAnimation: Animator? = null
+    private var style = SmartspaceStyle()
 
     override fun onFinishInflate() {
         super.onFinishInflate()
@@ -65,10 +71,14 @@ class BcSmartspaceView @JvmOverloads constructor(
         })
 
         val targets = if (previewMode) provider.previewTargets else provider.targets
+        val styles = SmartspaceStyle.flow(context, PreferenceManager2.getInstance(context))
         repeatOnAttached {
             viewPager.adapter = adapter
-            targets
-                .onEach(::onSmartspaceTargetsUpdate)
+            combine(targets, styles) { items, itemStyle -> items to itemStyle }
+                .onEach { (items, newStyle) ->
+                    applyStyle(newStyle)
+                    onSmartspaceTargetsUpdate(items)
+                }
                 .launchIn(this)
         }
     }
@@ -100,9 +110,36 @@ class BcSmartspaceView @JvmOverloads constructor(
         viewPager.setOnLongClickListener(l)
     }
 
+    private fun applyStyle(newStyle: SmartspaceStyle) {
+        style = newStyle
+        adapter.style = newStyle
+        indicator.dotsAllowed = !newStyle.oneCard && newStyle.pageDots
+        // In one-card layout the bubble wraps the text inside the card; with swipeable cards it sits
+        // behind the whole area.
+        background = if (!newStyle.oneCard && newStyle.bubble != SMARTSPACE_BUBBLE_OFF) {
+            GradientDrawable().apply {
+                setColor(newStyle.bubbleColor)
+                cornerRadius = newStyle.bubbleRadiusDp * resources.displayMetrics.density
+            }
+        } else {
+            null
+        }
+    }
+
     private fun onSmartspaceTargetsUpdate(targets: List<SmartspaceTarget>) {
         if (adapter.count > 1 && scrollState != ViewPager.SCROLL_STATE_IDLE) {
             pendingTargets = targets
+            return
+        }
+
+        if (style.oneCard) {
+            val sorted = targets.sortedByDescending { it.score }
+            val primary = sorted.firstOrNull { it.featureType == SmartspaceTarget.FeatureType.FEATURE_WEATHER }
+                ?: sorted.firstOrNull()
+            val extras = sorted.filter { it !== primary && it.featureType != SmartspaceTarget.FeatureType.FEATURE_WEATHER }
+            adapter.setTargets(listOfNotNull(primary), extras)
+            indicator.setNumPages(1)
+            if (viewPager.currentItem != 0) viewPager.setCurrentItem(0, false)
             return
         }
 

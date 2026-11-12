@@ -50,7 +50,9 @@ import app.thelauncher.qsb.QsbIconId
 import app.thelauncher.qsb.buildQsbStyle
 import app.thelauncher.qsb.providers.Google
 import app.thelauncher.qsb.providers.PixelSearch
+import app.thelauncher.qsb.launchAssistant
 import app.thelauncher.qsb.rememberAllAppsQsbState
+import app.thelauncher.theme.color.ColorOption
 import app.thelauncher.search.TheLauncherRecentSuggestionProvider
 import app.thelauncher.search.algorithms.TheLauncherSearchAlgorithm
 import app.thelauncher.theme.color.tokens.ColorTokens
@@ -165,7 +167,11 @@ class AllAppsSearchInput(context: Context, attrs: AttributeSet?) :
                     getSearchProvider(context, searchProviderPref)
                 }
                 val themedQsb by prefs2.themedHotseatQsb.asState()
-                val shouldShowIcons by prefs2.matchHotseatQsbStyle.asState()
+                val matchDockStyle by prefs2.matchHotseatQsbStyle.asState()
+                val providerIcons by prefs2.drawerQsbProviderIcons.asState()
+                val shouldShowIcons = matchDockStyle || providerIcons
+                val endButton by prefs2.qsbEndButton.asState()
+                val customColor by prefs2.drawerQsbColor.asState()
 
                 val supportsLens = searchProvider == Google || searchProvider == PixelSearch
                 val voiceIntent = remember(searchProvider, context) {
@@ -182,12 +188,13 @@ class AllAppsSearchInput(context: Context, attrs: AttributeSet?) :
                     queryEmpty = queryEmpty,
                     showMic = voiceIntent != null,
                     showLens = lensIntent != null,
+                    endButton = endButton,
                 )
 
-                val backgroundColor = if (supportBlur) {
-                    ColorTokens.SearchboxHighlightBlur.resolveColor(context)
-                } else {
-                    ColorTokens.SearchboxHighlight.resolveColor(context)
+                val backgroundColor = when {
+                    customColor !is ColorOption.Default -> customColor.colorPreferenceEntry.lightColor(context)
+                    supportBlur -> ColorTokens.SearchboxHighlightBlur.resolveColor(context)
+                    else -> ColorTokens.SearchboxHighlight.resolveColor(context)
                 }
 
                 val backgroundAlpha by animateIntAsState(
@@ -228,6 +235,8 @@ class AllAppsSearchInput(context: Context, attrs: AttributeSet?) :
                             QsbIconId.MIC -> voiceIntent?.let { context.startActivity(it) }
 
                             QsbIconId.LENS -> lensIntent?.let { context.startActivity(it) }
+
+                            QsbIconId.ASSISTANT -> launchAssistant(context)
 
                             QsbIconId.CLEAR -> {
                                 input.reset()

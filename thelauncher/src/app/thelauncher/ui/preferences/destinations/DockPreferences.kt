@@ -17,6 +17,7 @@
 package app.thelauncher.ui.preferences.destinations
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -29,6 +30,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import app.thelauncher.hotseat.DOCK_SHAPE_CUSTOM
+import app.thelauncher.hotseat.DOCK_SHAPE_FLAT
+import app.thelauncher.hotseat.DOCK_SHAPE_ROUND
+import app.thelauncher.hotseat.DockShape
+import app.thelauncher.hotseat.dockShapePresets
+import app.thelauncher.hotseat.presetName
+import app.thelauncher.ui.preferences.components.controls.ListPreference
+import app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry
 import app.thelauncher.preferences.PreferenceManager
 import app.thelauncher.preferences.getAdapter
 import app.thelauncher.preferences.preferenceManager
@@ -68,6 +77,25 @@ fun DockPreferences(modifier: Modifier = Modifier) {
 
         MainSwitchPreference(adapter = prefs2.isHotseatEnabled.getAdapter(), label = stringResource(id = R.string.show_hotseat_title)) {
             DockPreferencesPreview()
+            PreferenceGroup(heading = stringResource(id = R.string.layout)) {
+                SliderPreference(
+                    label = stringResource(id = R.string.dock_height),
+                    adapter = prefs2.dockHeightFactor.getAdapter(),
+                    step = 0.05f,
+                    valueRange = 0.5F..2F,
+                    showAsPercentage = true,
+                )
+                SwitchPreference(
+                    adapter = prefs2.dockRowsMatchHome.getAdapter(),
+                    label = stringResource(id = R.string.dock_rows_match_home),
+                    description = stringResource(id = R.string.dock_rows_match_home_desc),
+                )
+                SwitchPreference(
+                    adapter = prefs2.dockShadow.getAdapter(),
+                    label = stringResource(id = R.string.dock_shadow_label),
+                    description = stringResource(id = R.string.dock_shadow_description),
+                )
+            }
             PreferenceGroup(heading = stringResource(id = R.string.style)) {
                 SwitchPreference(
                     adapter = hotseatBgAdapter,
@@ -85,19 +113,45 @@ fun DockPreferences(modifier: Modifier = Modifier) {
                     valueRange = 0.5F..1.5F,
                     showAsPercentage = true,
                 )
-                SwitchPreference(
-                    adapter = prefs2.dockShadow.getAdapter(),
-                    label = stringResource(id = R.string.dock_shadow_label),
-                    description = stringResource(id = R.string.dock_shadow_description),
+                val drawerIndicator = prefs2.drawerIndicator.getAdapter()
+                ListPreference(
+                    adapter = drawerIndicator,
+                    entries = listOf(
+                        ListPreferenceEntry(app.thelauncher.util.DRAWER_INDICATOR_NONE) { stringResource(id = R.string.drawer_indicator_none) },
+                        ListPreferenceEntry(app.thelauncher.util.DRAWER_INDICATOR_ARROW) { stringResource(id = R.string.drawer_indicator_arrow) },
+                        ListPreferenceEntry(app.thelauncher.util.DRAWER_INDICATOR_LINE) { stringResource(id = R.string.drawer_indicator_line) },
+                    ),
+                    label = stringResource(id = R.string.drawer_indicator),
+                    description = stringResource(id = R.string.drawer_indicator_desc),
                 )
+                ExpandAndShrink(visible = drawerIndicator.state.value != app.thelauncher.util.DRAWER_INDICATOR_NONE) {
+                    ColorPreference(preference = prefs2.drawerIndicatorColor)
+                }
             }
             SearchBarPreference(SearchRoute.DOCK_SEARCH)
             GridSettings(prefs, prefs2)
             PreferenceGroup(heading = stringResource(id = R.string.icons)) {
+                ColorPreference(preference = prefs2.dockLabelColor)
+                val dockLabels = prefs2.enableLabelInDock.getAdapter()
                 SwitchPreference(
-                    adapter = prefs2.enableLabelInDock.getAdapter(),
+                    adapter = dockLabels,
                     label = stringResource(id = R.string.show_labels),
                 )
+                ExpandAndShrink(visible = dockLabels.state.value) {
+                    Column {
+                        SliderPreference(
+                            label = stringResource(id = R.string.label_size),
+                            adapter = prefs2.dockIconLabelSizeFactor.getAdapter(),
+                            step = 0.1f,
+                            valueRange = 0.5F..1.5F,
+                            showAsPercentage = true,
+                        )
+                        SwitchPreference(
+                            adapter = prefs2.dockTextShadow.getAdapter(),
+                            label = stringResource(id = R.string.desktop_text_shadow_label),
+                        )
+                    }
+                }
             }
         }
     }
@@ -106,6 +160,7 @@ fun DockPreferences(modifier: Modifier = Modifier) {
 @Composable
 fun HotseatBackgroundSettings(prefs: PreferenceManager, prefs2: PreferenceManager2) {
     DividerColumn {
+        DockShapePreference(prefs, prefs2)
         ColorPreference(preference = prefs2.hotseatBackgroundColor)
         SliderPreference(
             label = stringResource(id = R.string.hotseat_bg_corner_radius),
@@ -249,6 +304,8 @@ fun ColumnScope.DockPreferencesPreview(modifier: Modifier = Modifier) {
             prefs2.hotseatBackgroundColor.getAdapter(),
             prefs2.hotseatBackgroundCornerRadius.getAdapter(),
             prefs.hotseatBGAlpha.getAdapter(),
+            prefs2.dockHeightFactor.getAdapter(),
+            prefs2.dockRowsMatchHome.getAdapter(),
         )
 
         PreferenceGroupHeading(
@@ -279,4 +336,33 @@ fun ColumnScope.DockPreferencesPreview(modifier: Modifier = Modifier) {
             }
         }
     }
+}
+
+/** Hyperion's Flat / Round dock styles, applied to the radius and inset sliders below. */
+@Composable
+private fun DockShapePreference(prefs: PreferenceManager, prefs2: PreferenceManager2) {
+    val radius = prefs2.hotseatBackgroundCornerRadius.getAdapter()
+    val left = prefs.hotseatBGHorizontalInsetLeft.getAdapter()
+    val top = prefs.hotseatBGVerticalInsetTop.getAdapter()
+    val right = prefs.hotseatBGHorizontalInsetRight.getAdapter()
+    val bottom = prefs.hotseatBGVerticalInsetBottom.getAdapter()
+    val current = DockShape(radius.state.value, left.state.value, top.state.value, right.state.value, bottom.state.value).presetName()
+    ListPreference(
+        entries = listOf(
+            ListPreferenceEntry(DOCK_SHAPE_FLAT) { stringResource(id = R.string.dock_shape_flat) },
+            ListPreferenceEntry(DOCK_SHAPE_ROUND) { stringResource(id = R.string.dock_shape_round) },
+            ListPreferenceEntry(DOCK_SHAPE_CUSTOM, enabled = false) { stringResource(id = R.string.dock_shape_custom) },
+        ),
+        value = current,
+        onValueChange = { name ->
+            dockShapePresets[name]?.let { shape ->
+                radius.onChange(shape.cornerRadiusDp)
+                left.onChange(shape.insetLeft)
+                top.onChange(shape.insetTop)
+                right.onChange(shape.insetRight)
+                bottom.onChange(shape.insetBottom)
+            }
+        },
+        label = stringResource(id = R.string.dock_shape),
+    )
 }
