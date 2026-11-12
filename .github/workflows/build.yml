@@ -1,15 +1,20 @@
 name: Build
 run-name: Build ${{ github.run_number }}
 
+# Every push to main builds the signed app once. When version.txt names a version
+# that has no release yet, the same build publishes it as a GitHub release.
 on:
   push:
     branches: [ main ]
-    paths-ignore: [ '**.md', 'LICENSE*', '.github/workflows/release.yml' ]
+    paths-ignore: [ '**.md', 'LICENSE*' ]
   workflow_dispatch:
 
 concurrency:
   group: build-${{ github.ref }}
   cancel-in-progress: false
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -37,8 +42,29 @@ jobs:
           echo "$KEYSTORE" | base64 --decode > key.jks
       - name: Build APK
         run: ./gradlew assembleOssWithQuickstepGithubRelease --stacktrace
+      - name: Prepare APK
+        id: apk
+        run: |
+          VERSION=$(tr -d '[:space:]' < version.txt)
+          APK=$(find build/outputs/apk -name '*.apk' | head -1)
+          cp "$APK" "TheLauncher-v$VERSION.apk"
+          sha256sum "TheLauncher-v$VERSION.apk" > SHA256SUMS.txt
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
       - name: Upload APK
         uses: actions/upload-artifact@v7
         with:
           name: TheLauncher
-          path: build/outputs/apk/**/*.apk
+          path: |
+            TheLauncher-v*.apk
+            SHA256SUMS.txt
+      - name: Publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: v${{ steps.apk.outputs.version }}
+        run: |
+          if gh release view "$TAG" > /dev/null 2>&1; then
+            echo "$TAG is already released"
+            exit 0
+          fi
+          gh release create "$TAG" "TheLauncher-$TAG.apk" SHA256SUMS.txt --title "TheLauncher $TAG" \
+            --target "${{ github.sha }}" --generate-notes

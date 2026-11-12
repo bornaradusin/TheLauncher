@@ -18,7 +18,7 @@ Open-source Android home screen launcher.
 
 ## Building
 
-Every push to `main` builds a signed APK on GitHub Actions. Running the Release workflow (or pushing a `v*` tag) also publishes a GitHub release with the APK.
+Every push to `main` builds the signed APK once on GitHub Actions. To release, set the new version in `version.txt`: the build for that push publishes it as a GitHub release with the APK and its checksum.
 
 Locally: `./gradlew assembleOssWithQuickstepGithubRelease` (JDK 21, Android SDK, `keystore.properties` for signing).
 
