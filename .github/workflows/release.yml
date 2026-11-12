@@ -1,0 +1,56 @@
+name: Release
+
+# Push a tag like v1.0.0 (or run manually) to build a release APK and create a draft GitHub release.
+on:
+  push:
+    tags: [ 'v*' ]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag (e.g. v1.0.0)'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: true
+      - uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: 21
+      - uses: gradle/actions/setup-gradle@v4
+      - name: Use private signing key
+        env:
+          KEYSTORE: ${{ secrets.KEYSTORE }}
+        run: |
+          if [ -z "$KEYSTORE" ]; then
+            echo "::error::Release signing secrets are not set (KEYSTORE, KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD)"
+            exit 1
+          fi
+          if [ -n "$KEYSTORE" ]; then
+            echo storePassword='${{ secrets.KEYSTORE_PASSWORD }}' >> keystore.properties
+            echo keyAlias='${{ secrets.KEY_ALIAS }}' >> keystore.properties
+            echo keyPassword='${{ secrets.KEY_PASSWORD }}' >> keystore.properties
+            echo storeFile='${{ github.workspace }}/key.jks' >> keystore.properties
+            echo "$KEYSTORE" | base64 --decode > key.jks
+          fi
+      - name: Build release APK
+        env:
+          RELEASE_TAG: ${{ github.event.inputs.tag || github.ref_name }}
+        run: ./gradlew assembleOssWithQuickstepGithubRelease --stacktrace
+      - name: Create draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.inputs.tag || github.ref_name }}
+        run: |
+          APK=$(find build/outputs/apk -name '*.apk' | head -1)
+          cp "$APK" "TheLauncher-$TAG.apk"
+          gh release create "$TAG" "TheLauncher-$TAG.apk" --draft --title "TheLauncher $TAG" \
+            --target "${{ github.sha }}" --generate-notes

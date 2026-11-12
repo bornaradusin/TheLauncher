@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="smartspace_weather_open_meteo">Weather (Open-Meteo, uses location)</string>
+    <string name="smartspace_weather_fahrenheit">Use Fahrenheit</string>
+    <string name="smartspace_weather_high_low">H:<xliff:g id="high">%1$d</xliff:g>° L:<xliff:g id="low">%2$d</xliff:g>°</string>
+    <string name="weather_clear">Clear</string>
+    <string name="weather_partly_cloudy">Partly cloudy</string>
+    <string name="weather_cloudy">Cloudy</string>
+    <string name="weather_fog">Fog</string>
+    <string name="weather_drizzle">Drizzle</string>
+    <string name="weather_rain">Rain</string>
+    <string name="weather_snow">Snow</string>
+    <string name="weather_storm">Thunderstorm</string>
+    <string name="smartspace_calendar_events">Calendar events</string>
+    <string name="smartspace_calendar_untitled">(No title)</string>
+    <string name="smartspace_calendar_now">Now</string>
+    <string name="smartspace_calendars_to_show">Calendars to be shown</string>
+    <string name="smartspace_calendars_to_show_description">Events will only show from the selected calendars</string>
+    <string name="app_lock_label">Locked apps</string>
+    <string name="app_lock_label_with_count">Locked apps (<xliff:g id="count">%1$d</xliff:g>)</string>
+    <string name="app_lock_timeout">App re-lock timeout</string>
+    <string name="app_lock_this_app">Lock with biometrics</string>
+    <string name="app_lock_needs_screen_lock">Set up a screen lock in system settings to use app lock</string>
+    <string name="app_lock_prompt_title">Unlock <xliff:g id="app">%1$s</xliff:g></string>
+    <string name="app_lock_prompt_subtitle">This app is locked by the launcher</string>
+    <string name="hide_duplicate_apps">Hide duplicate apps</string>
+    <string name="hide_duplicate_apps_description">Only show one icon when an app has several launcher entries with the same name</string>
+    <string name="system_bar_gradient_label">Navigation bar gradient</string>
+    <string name="system_bar_gradient_description">Also darken the area above the navigation bar when using gesture navigation</string>
+    <string name="wallpaper_dim_label">Wallpaper dimmer strength</string>
+    <string name="dim_wallpaper_dark_theme_label">Dark theme dims wallpaper</string>
+    <string name="dim_wallpaper_dark_theme_description">Dim the desktop wallpaper when the system dark theme is on</string>
+    <string name="desktop_text_shadow_label">Label shadow</string>
+    <string name="desktop_text_shadow_description">Displays a dark shadow to emphasize the text</string>
+    <string name="reset_page_on_screen_off_label">Return to first page on screen off</string>
+    <string name="reset_page_on_screen_off_description">Go back to the default home screen page after turning off the screen</string>
+    <string name="dock_shadow_label">Dock shadow</string>
+    <string name="dock_shadow_description">Displays a shadow behind the dock to separate it from the wallpaper</string>
+    <string name="sort_folder_contents_label">Sort folder contents</string>
+    <string name="sort_folder_contents_description">Show apps inside folders in alphabetical order</string>
+    <string name="drawer_tab_all">All</string>
+    <string name="drawer_tabs_label">Drawer tabs</string>
+    <string name="drawer_tab_add">Add tab</string>
+    <string name="drawer_tab_new">New tab</string>
+    <string name="drawer_tabs_remove_from_all">Remove apps from \"All\"</string>
+    <string name="drawer_tabs_remove_from_all_description">Apps added to a tab no longer show in the All tab</string>
+    <plurals name="drawer_tabs_count">
+        <item quantity="one">%d tab</item>
+        <item quantity="other">%d tabs</item>
+    </plurals>
+</resources>
