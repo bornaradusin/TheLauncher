@@ -146,7 +146,7 @@ if scroll_to 'Material card'; then
   sleep 3
   # The alarm is due within the hour, so the one-row card turns to it by itself; a swipe goes back.
   home; sleep 8; shot 29a-glance-urgent
-  adb shell input swipe 800 420 200 420 250; sleep 2; shot 29b-glance-swiped
+  adb shell input swipe 850 290 200 290 250; sleep 2; shot 29b-glance-swiped
   adb emu power ac on
   adb emu power status charging
   settings smartspace
