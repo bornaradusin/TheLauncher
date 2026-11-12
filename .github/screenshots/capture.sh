@@ -100,7 +100,7 @@ demo network -e wifi show -e level 4
 demo network -e mobile show -e datatype none -e level 4
 demo notifications -e visible false
 home; sleep 8
-shot 00-home-first 2
+want home-first && shot 00-home-first 2
 
 if want glance; then
 # At a Glance: Open-Meteo weather on, onboarding card off.

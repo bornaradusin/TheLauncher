@@ -8,7 +8,8 @@ run-name: Build ${{ github.run_number }}
 on:
   push:
     branches: [ main ]
-    paths-ignore: [ '**.md', 'LICENSE*', 'wiki/**', '.github/workflows/wiki.yml' ]
+    # Changes to the build itself or the screenshot scripts don't need a new APK.
+    paths-ignore: [ '**.md', 'LICENSE*', 'wiki/**', '.github/workflows/**', '.github/screenshots/**' ]
   workflow_dispatch:
     inputs:
       screenshots:
@@ -106,13 +107,15 @@ jobs:
               echo all > changed.txt
             fi
           fi
-          python3 .github/screenshots/sections.py < changed.txt | tee -a "$GITHUB_ENV"
+          # A release only retakes the wiki's pictures that its changes touch, nothing else.
+          python3 .github/screenshots/sections.py ${RELEASED:+--release} < changed.txt | tee -a "$GITHUB_ENV"
           cp "TheLauncher-v${{ steps.apk.outputs.version }}.apk" TheLauncher.apk
           nohup python3 .github/screenshots/seerr.py > "$RUNNER_TEMP/seerr.log" 2>&1 &
           python3 .github/screenshots/make_backup.py "$RUNNER_TEMP/hyperion_test.backup"
           sleep 2
           curl -s localhost:5055/api/v1/status
       - name: Capture screenshots
+        if: ${{ env.SECTIONS != 'none' || env.PAGES != 'none' }}
         continue-on-error: true
         uses: reactivecircus/android-emulator-runner@v2
         with:

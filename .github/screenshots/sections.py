@@ -1,5 +1,6 @@
 # Works out which screens a change needs captured, from the changed file paths on stdin.
-# Prints SECTIONS=... and PAGES=... for $GITHUB_ENV. "all" anywhere captures everything.
+# Prints SECTIONS=... and PAGES=... for $GITHUB_ENV: "all" captures everything, "none" nothing.
+# With --release, only the wiki's pictures (home screen, drawer, settings pages).
 import re
 import sys
 
@@ -56,11 +57,18 @@ for path in (line.strip() for line in sys.stdin):
     if 'preferences/destinations/' in path and name in PAGE_FILES:
         pages.add(PAGE_FILES[name])
 
+# On a release only the wiki's pictures matter: the home screen, drawer and settings pages.
+# Nothing left means no emulator at all.
+release = '--release' in sys.argv
 if 'all' in sections:
     print('SECTIONS=all')
     print('PAGES=all')
 else:
-    # A quick look at the home screen is always useful; it costs a few seconds.
-    sections.add('home-first')
-    print('SECTIONS=' + ' '.join(sorted(sections)))
-    print('PAGES=' + ' '.join(sorted(pages)))
+    if release:
+        sections &= {'home', 'drawer', 'settings'}
+    else:
+        # A quick look at the home screen is always useful; it costs a few seconds.
+        sections.add('home-first')
+    # "none", not empty: the capture script reads an empty list as everything.
+    print('SECTIONS=' + (' '.join(sorted(sections)) or 'none'))
+    print('PAGES=' + (' '.join(sorted(pages)) or 'none'))
