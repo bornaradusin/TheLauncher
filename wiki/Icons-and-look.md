@@ -1,0 +1,44 @@
+# Icons and look
+
+## Icon packs
+
+**Home settings → General → Icon pack** lists the icon packs on your phone. Pick one and every icon changes. Apps the pack doesn't cover keep their own icon.
+
+To change one app's icon, long-press it → **Customize** → tap the icon and pick another from any pack. **Reset to default** undoes it.
+
+## Themed icons
+
+**Themed icons** turns icons single-coloured to match your wallpaper colours, like Android's own themed icons.
+
+## Icon shape
+
+**Icon shape** changes the shape of every adaptive icon: circle, squircle, rounded square, teardrop and many more. Under **Custom** you can draw your own by setting each corner. **Folder** sets the folder shape separately.
+
+## Sizes and labels
+
+| Where | Settings |
+|---|---|
+| Home screen | **Home screen → Icons**: icon size, show labels, label size |
+| Dock | **Dock → Show labels** |
+| App drawer | **App drawer → Icons**: icon size, show labels, label size, use multiple lines |
+| Folders | **Folders → Icons**: show labels, label size |
+
+Sizes are percentages of the normal size for your grid, so 100% fills the cell nicely and smaller or bigger values scale from there.
+
+## Renaming an app
+
+Long-press it → **Customize**, then type a new name. Leave it empty to go back to the app's own name.
+
+## Notification dots
+
+**General → Notification dots** shows a dot on apps with notifications. **Show notification counter** puts the number of notifications in the dot instead.
+
+## Colours, theme and font
+
+- **General → Colors** sets the accent colour, or follows your wallpaper.
+- **Color style** chooses how much of the wallpaper colour the launcher uses.
+- **Font (experimental)** changes the font across the launcher. **Add fonts** takes OTF and TTF files.
+
+## Wallpaper dimmer and shadows
+
+Under [Home screen → Wallpaper](Home-screen#wallpaper): the dimmer, dimming in dark theme, the top shadow and the navigation bar gradient. The [dock shadow](Dock#look) is under Dock.

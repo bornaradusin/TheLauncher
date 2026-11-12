@@ -6,7 +6,7 @@ run-name: Build ${{ github.run_number }}
 on:
   push:
     branches: [ main ]
-    paths-ignore: [ '**.md', 'LICENSE*' ]
+    paths-ignore: [ '**.md', 'LICENSE*', 'wiki/**', '.github/workflows/wiki.yml' ]
   workflow_dispatch:
 
 concurrency:
