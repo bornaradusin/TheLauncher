@@ -54,6 +54,7 @@ import app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry
 import app.thelauncher.ui.preferences.components.controls.MainSwitchPreference
 import app.thelauncher.ui.preferences.components.controls.SliderPreference
 import app.thelauncher.ui.preferences.components.controls.SwitchPreference
+import app.thelauncher.ui.preferences.components.controls.TextPreference
 import app.thelauncher.ui.preferences.components.layout.ExpandAndShrink
 import app.thelauncher.ui.preferences.components.layout.PreferenceGroup
 import app.thelauncher.ui.preferences.components.layout.PreferenceLayout
@@ -161,6 +162,12 @@ private fun ExtraSmartspacePreferences() {
             SwitchPreference(
                 adapter = preferenceManager2.smartspaceWeatherFahrenheit.getAdapter(),
                 label = stringResource(id = R.string.smartspace_weather_fahrenheit),
+            )
+            val automaticLocation = stringResource(id = R.string.smartspace_weather_location_auto)
+            TextPreference(
+                adapter = preferenceManager2.smartspaceWeatherLocation.getAdapter(),
+                label = stringResource(id = R.string.smartspace_weather_location),
+                description = { it.ifBlank { automaticLocation } },
             )
         }
     }

@@ -106,8 +106,8 @@ fun AppDrawerPreferences(
                 SliderPreference(
                     label = stringResource(id = R.string.app_lock_timeout),
                     adapter = prefs2.appLockTimeoutSeconds.getAdapter(),
-                    step = 15,
-                    valueRange = 0..600,
+                    step = 30,
+                    valueRange = 0..1800,
                     showUnit = "s",
                 )
             }

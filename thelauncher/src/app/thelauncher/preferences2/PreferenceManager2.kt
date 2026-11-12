@@ -785,6 +785,11 @@ class PreferenceManager2 @Inject constructor(
         defaultValue = false,
     )
 
+    val smartspaceWeatherLocation = preference(
+        key = stringPreferencesKey("smartspace_weather_location"),
+        defaultValue = "",
+    )
+
     val smartspaceCalendarEvents = preference(
         key = booleanPreferencesKey("enable_smartspace_calendar_events"),
         defaultValue = false,

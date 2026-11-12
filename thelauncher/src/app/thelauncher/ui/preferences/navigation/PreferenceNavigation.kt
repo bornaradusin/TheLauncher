@@ -15,6 +15,7 @@ import androidx.navigation.navDeepLink
 import androidx.navigation.toRoute
 import app.thelauncher.backup.ui.CreateBackupScreen
 import app.thelauncher.backup.ui.restoreBackupGraph
+import app.thelauncher.backup.ui.restoreHyperionBackupGraph
 import app.thelauncher.backup.ui.restoreNovaBackupGraph
 import app.thelauncher.preferences.BasePreferenceManager
 import app.thelauncher.preferences.preferenceManager
@@ -263,5 +264,6 @@ fun PreferenceNavigation(
 
         restoreBackupGraph()
         restoreNovaBackupGraph()
+        restoreHyperionBackupGraph()
     }
 }

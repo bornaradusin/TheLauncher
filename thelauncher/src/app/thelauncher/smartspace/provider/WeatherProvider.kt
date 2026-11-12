@@ -24,6 +24,8 @@ import kotlin.math.roundToInt
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.combine
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.flatMapLatest
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
@@ -40,11 +42,14 @@ class WeatherProvider(context: Context) :
     private val prefs = PreferenceManager2.getInstance(context)
 
     @OptIn(ExperimentalCoroutinesApi::class)
-    override val internalTargets = prefs.smartspaceWeatherFahrenheit.get().flatMapLatest { fahrenheit ->
+    override val internalTargets = combine(
+        prefs.smartspaceWeatherFahrenheit.get(),
+        prefs.smartspaceWeatherLocation.get(),
+    ) { fahrenheit, place -> fahrenheit to place.trim() }.flatMapLatest { (fahrenheit, place) ->
         flow {
             var last: SmartspaceTarget? = null
             while (true) {
-                val target = runCatching { fetchTarget(fahrenheit) }
+                val target = runCatching { fetchTarget(fahrenheit, place) }
                     .onFailure { Log.w(TAG, "weather update failed", it) }
                     .getOrNull()
                 if (target != null) last = target
@@ -54,8 +59,9 @@ class WeatherProvider(context: Context) :
         }.flowOn(Dispatchers.IO)
     }
 
-    private suspend fun fetchTarget(fahrenheit: Boolean): SmartspaceTarget? {
-        val location = lastKnownLocation() ?: return null
+    private suspend fun fetchTarget(fahrenheit: Boolean, place: String): SmartspaceTarget? {
+        val location = if (place.isNotEmpty()) geocode(place) else lastKnownLocation()
+        if (location == null) return null
         val unit = if (fahrenheit) "fahrenheit" else "celsius"
         val url = String.format(
             Locale.US,
@@ -104,6 +110,21 @@ class WeatherProvider(context: Context) :
             .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
     }
 
+    private var geocodeCache: Pair<String, Location>? = null
+
+    private fun geocode(place: String): Location? {
+        geocodeCache?.let { (name, location) -> if (name == place) return location }
+        val url = "https://geocoding-api.open-meteo.com/v1/search?count=1&name=" + Uri.encode(place)
+        val results = JSONObject(download(url)).optJSONArray("results") ?: return null
+        val first = results.optJSONObject(0) ?: return null
+        val location = Location("geocoding").apply {
+            latitude = first.getDouble("latitude")
+            longitude = first.getDouble("longitude")
+        }
+        geocodeCache = place to location
+        return location
+    }
+
     @SuppressLint("MissingPermission")
     private fun lastKnownLocation(): Location? {
         if (!PermissionRequestActivity.hasPermissions(context, Manifest.permission.ACCESS_COARSE_LOCATION)) return null
@@ -124,7 +145,8 @@ class WeatherProvider(context: Context) :
         }
     }
 
-    override suspend fun requiresSetup(): Boolean = !PermissionRequestActivity.hasPermissions(context, Manifest.permission.ACCESS_COARSE_LOCATION)
+    override suspend fun requiresSetup(): Boolean = prefs.smartspaceWeatherLocation.get().first().isBlank() &&
+        !PermissionRequestActivity.hasPermissions(context, Manifest.permission.ACCESS_COARSE_LOCATION)
 
     override suspend fun startSetup(activity: Activity) {
         PermissionRequestActivity.request(activity, Manifest.permission.ACCESS_COARSE_LOCATION)

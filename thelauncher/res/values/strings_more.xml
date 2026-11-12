@@ -48,4 +48,14 @@
         <item quantity="one">%d tab</item>
         <item quantity="other">%d tabs</item>
     </plurals>
+    <string name="smartspace_weather_location">Weather location</string>
+    <string name="smartspace_weather_location_auto">Automatic (uses your location)</string>
+    <string name="restore_hyperion_backup">Restore Hyperion backup</string>
+    <string name="restore_hyperion_backup_description">Import layout and settings from a Hyperion Launcher backup</string>
+    <string name="invalid_hyperion_backup_file">Invalid Hyperion backup file</string>
+    <string name="hyperion_drawer_folders_label">Drawer folders</string>
+    <string name="hyperion_hidden_apps_label">Hidden apps</string>
+    <string name="hyperion_locked_apps_label">Locked apps</string>
+    <string name="hyperion_dock_rows_value">%1$d × %2$d</string>
+    <string name="hyperion_widget_note">Widgets need one tap each to set up again after restoring</string>
 </resources>
