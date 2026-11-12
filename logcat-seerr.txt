@@ -1,0 +1,213 @@
+--------- beginning of main
+11-12 20:18:56.728  5928  8135 W PhenotypeConfigurationU: Update for unknown DeviceConfig package com.google.android.gms.phenotype [CONTEXT service_id=204 ]
+11-12 20:18:56.728  5928  8135 W PhenotypeConfigurationU: bwix: No package exists for config package: com.google.android.gms.phenotype
+11-12 20:18:56.728  5928  8135 W PhenotypeConfigurationU: 	at com.google.android.gms.platformconfigurator.PhenotypeConfigurationUpdateListener.b(:com.google.android.gms@231818047@23.18.18 (190800-535401451):6)
+11-12 20:18:56.728  5928  8135 W PhenotypeConfigurationU: 	at com.google.android.gms.platformconfigurator.PhenotypeConfigurationUpdateListener.a(:com.google.android.gms@231818047@23.18.18 (190800-535401451):4)
+11-12 20:18:56.728  5928  8135 W PhenotypeConfigurationU: 	at com.google.android.gms.platformconfigurator.PhenotypeConfigurationUpdateListener.onHandleIntent(:com.google.android.gms@231818047@23.18.18 (190800-535401451):21)
+11-12 20:18:56.728  5928  8135 W PhenotypeConfigurationU: 	at com.google.android.chimera.IntentOperation.onHandleIntent(:com.google.android.gms@231818047@23.18.18 (190800-535401451):2)
+11-12 20:18:56.728  5928  8135 W PhenotypeConfigurationU: 	at zhv.onHandleIntent(:com.google.android.gms@231818047@23.18.18 (190800-535401451):4)
+11-12 20:18:56.728  5928  8135 W PhenotypeConfigurationU: 	at hjm.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):3)
+11-12 20:18:56.728  5928  8135 W PhenotypeConfigurationU: 	at hjl.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):11)
+11-12 20:18:56.728  5928  8135 W PhenotypeConfigurationU: 	at dfhf.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):2)
+11-12 20:18:56.728  5928  8135 W PhenotypeConfigurationU: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 20:18:56.728  5928  8135 W PhenotypeConfigurationU: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 20:18:56.728  5928  8135 W PhenotypeConfigurationU: 	at java.lang.Thread.run(Thread.java:1012)
+11-12 20:18:56.731  6021  8181 W ModuleInitIntentOp: Dropping unexpected action com.google.android.gms.phenotype.COMMITTED
+11-12 20:18:56.731  6021  8180 W ModuleInitIntentOp: Dropping unexpected action com.google.android.gms.phenotype.COMMITTED
+11-12 20:18:56.732  6021  8186 W ModuleInitIntentOp: Dropping unexpected action com.google.android.gms.phenotype.COMMITTED
+11-12 20:18:56.734  5928  8203 W PhenotypeConfigurationU: Update for unknown DeviceConfig package com.google.lighter.android#com.google.android.gms [CONTEXT service_id=204 ]
+11-12 20:18:56.734  5928  8203 W PhenotypeConfigurationU: bwix: No package exists for config package: com.google.lighter.android#com.google.android.gms
+11-12 20:18:56.734  5928  8203 W PhenotypeConfigurationU: 	at com.google.android.gms.platformconfigurator.PhenotypeConfigurationUpdateListener.b(:com.google.android.gms@231818047@23.18.18 (190800-535401451):6)
+11-12 20:18:56.734  5928  8203 W PhenotypeConfigurationU: 	at com.google.android.gms.platformconfigurator.PhenotypeConfigurationUpdateListener.a(:com.google.android.gms@231818047@23.18.18 (190800-535401451):4)
+11-12 20:18:56.734  5928  8203 W PhenotypeConfigurationU: 	at com.google.android.gms.platformconfigurator.PhenotypeConfigurationUpdateListener.onHandleIntent(:com.google.android.gms@231818047@23.18.18 (190800-535401451):21)
+11-12 20:18:56.734  5928  8203 W PhenotypeConfigurationU: 	at com.google.android.chimera.IntentOperation.onHandleIntent(:com.google.android.gms@231818047@23.18.18 (190800-535401451):2)
+11-12 20:18:56.734  5928  8203 W PhenotypeConfigurationU: 	at zhv.onHandleIntent(:com.google.android.gms@231818047@23.18.18 (190800-535401451):4)
+11-12 20:18:56.734  5928  8203 W PhenotypeConfigurationU: 	at hjm.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):3)
+11-12 20:18:56.734  5928  8203 W PhenotypeConfigurationU: 	at hjl.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):11)
+11-12 20:18:56.734  5928  8203 W PhenotypeConfigurationU: 	at dfhf.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):2)
+11-12 20:18:56.734  5928  8203 W PhenotypeConfigurationU: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 20:18:56.734  5928  8203 W PhenotypeConfigurationU: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 20:18:56.734  5928  8203 W PhenotypeConfigurationU: 	at java.lang.Thread.run(Thread.java:1012)
+11-12 20:18:56.735  6021  8188 W ModuleInitIntentOp: Dropping unexpected action com.google.android.gms.phenotype.COMMITTED
+11-12 20:18:56.740  5928  8141 W PhenotypeConfigurationU: Update for unknown DeviceConfig package com.google.android.gms.people [CONTEXT service_id=204 ]
+11-12 20:18:56.740  5928  8141 W PhenotypeConfigurationU: bwix: No package exists for config package: com.google.android.gms.people
+11-12 20:18:56.740  5928  8141 W PhenotypeConfigurationU: 	at com.google.android.gms.platformconfigurator.PhenotypeConfigurationUpdateListener.b(:com.google.android.gms@231818047@23.18.18 (190800-535401451):6)
+11-12 20:18:56.740  5928  8141 W PhenotypeConfigurationU: 	at com.google.android.gms.platformconfigurator.PhenotypeConfigurationUpdateListener.a(:com.google.android.gms@231818047@23.18.18 (190800-535401451):4)
+11-12 20:18:56.740  5928  8141 W PhenotypeConfigurationU: 	at com.google.android.gms.platformconfigurator.PhenotypeConfigurationUpdateListener.onHandleIntent(:com.google.android.gms@231818047@23.18.18 (190800-535401451):21)
+11-12 20:18:56.740  5928  8141 W PhenotypeConfigurationU: 	at com.google.android.chimera.IntentOperation.onHandleIntent(:com.google.android.gms@231818047@23.18.18 (190800-535401451):2)
+11-12 20:18:56.740  5928  8141 W PhenotypeConfigurationU: 	at zhv.onHandleIntent(:com.google.android.gms@231818047@23.18.18 (190800-535401451):4)
+11-12 20:18:56.740  5928  8141 W PhenotypeConfigurationU: 	at hjm.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):3)
+11-12 20:18:56.740  5928  8141 W PhenotypeConfigurationU: 	at hjl.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):11)
+11-12 20:18:56.740  5928  8141 W PhenotypeConfigurationU: 	at dfhf.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):2)
+11-12 20:18:56.740  5928  8141 W PhenotypeConfigurationU: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 20:18:56.740  5928  8141 W PhenotypeConfigurationU: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 20:18:56.740  5928  8141 W PhenotypeConfigurationU: 	at java.lang.Thread.run(Thread.java:1012)
+11-12 20:18:56.745  5928  8176 W PhenotypeConfigurationU: Update for unknown DeviceConfig package com.google.android.westworld [CONTEXT service_id=204 ]
+11-12 20:18:56.745  5928  8176 W PhenotypeConfigurationU: bwix: No package exists for config package: com.google.android.westworld
+11-12 20:18:56.745  5928  8176 W PhenotypeConfigurationU: 	at com.google.android.gms.platformconfigurator.PhenotypeConfigurationUpdateListener.b(:com.google.android.gms@231818047@23.18.18 (190800-535401451):6)
+11-12 20:18:56.745  5928  8176 W PhenotypeConfigurationU: 	at com.google.android.gms.platformconfigurator.PhenotypeConfigurationUpdateListener.a(:com.google.android.gms@231818047@23.18.18 (190800-535401451):4)
+11-12 20:18:56.745  5928  8176 W PhenotypeConfigurationU: 	at com.google.android.gms.platformconfigurator.PhenotypeConfigurationUpdateListener.onHandleIntent(:com.google.android.gms@231818047@23.18.18 (190800-535401451):21)
+11-12 20:18:56.745  5928  8176 W PhenotypeConfigurationU: 	at com.google.android.chimera.IntentOperation.onHandleIntent(:com.google.android.gms@231818047@23.18.18 (190800-535401451):2)
+11-12 20:18:56.745  5928  8176 W PhenotypeConfigurationU: 	at zhv.onHandleIntent(:com.google.android.gms@231818047@23.18.18 (190800-535401451):4)
+11-12 20:18:56.745  5928  8176 W PhenotypeConfigurationU: 	at hjm.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):3)
+11-12 20:18:56.745  5928  8176 W PhenotypeConfigurationU: 	at hjl.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):11)
+11-12 20:18:56.745  5928  8176 W PhenotypeConfigurationU: 	at dfhf.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):2)
+11-12 20:18:56.745  5928  8176 W PhenotypeConfigurationU: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 20:18:56.745  5928  8176 W PhenotypeConfigurationU: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 20:18:56.745  5928  8176 W PhenotypeConfigurationU: 	at java.lang.Thread.run(Thread.java:1012)
+11-12 20:18:56.785  5928  8204 W PhenotypeConfigurationU: Update for unknown DeviceConfig package com.google.android.libraries.consentverifier#com.google.android.gms [CONTEXT service_id=204 ]
+11-12 20:18:56.785  5928  8204 W PhenotypeConfigurationU: bwix: No package exists for config package: com.google.android.libraries.consentverifier#com.google.android.gms
+11-12 20:18:56.785  5928  8204 W PhenotypeConfigurationU: 	at com.google.android.gms.platformconfigurator.PhenotypeConfigurationUpdateListener.b(:com.google.android.gms@231818047@23.18.18 (190800-535401451):6)
+11-12 20:18:56.785  5928  8204 W PhenotypeConfigurationU: 	at com.google.android.gms.platformconfigurator.PhenotypeConfigurationUpdateListener.a(:com.google.android.gms@231818047@23.18.18 (190800-535401451):4)
+11-12 20:18:56.785  5928  8204 W PhenotypeConfigurationU: 	at com.google.android.gms.platformconfigurator.PhenotypeConfigurationUpdateListener.onHandleIntent(:com.google.android.gms@231818047@23.18.18 (190800-535401451):21)
+11-12 20:18:56.785  5928  8204 W PhenotypeConfigurationU: 	at com.google.android.chimera.IntentOperation.onHandleIntent(:com.google.android.gms@231818047@23.18.18 (190800-535401451):2)
+11-12 20:18:56.785  5928  8204 W PhenotypeConfigurationU: 	at zhv.onHandleIntent(:com.google.android.gms@231818047@23.18.18 (190800-535401451):4)
+11-12 20:18:56.785  5928  8204 W PhenotypeConfigurationU: 	at hjm.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):3)
+11-12 20:18:56.785  5928  8204 W PhenotypeConfigurationU: 	at hjl.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):11)
+11-12 20:18:56.785  5928  8204 W PhenotypeConfigurationU: 	at dfhf.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):2)
+11-12 20:18:56.785  5928  8204 W PhenotypeConfigurationU: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 20:18:56.785  5928  8204 W PhenotypeConfigurationU: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 20:18:56.785  5928  8204 W PhenotypeConfigurationU: 	at java.lang.Thread.run(Thread.java:1012)
+11-12 20:18:56.789  5928  8205 W PhenotypeConfigurationU: Update for unknown DeviceConfig package com.google.android.gms.dtdi_logging#com.google.android.gms [CONTEXT service_id=204 ]
+11-12 20:18:56.789  5928  8205 W PhenotypeConfigurationU: bwix: No package exists for config package: com.google.android.gms.dtdi_logging#com.google.android.gms
+11-12 20:18:56.789  5928  8205 W PhenotypeConfigurationU: 	at com.google.android.gms.platformconfigurator.PhenotypeConfigurationUpdateListener.b(:com.google.android.gms@231818047@23.18.18 (190800-535401451):6)
+11-12 20:18:56.789  5928  8205 W PhenotypeConfigurationU: 	at com.google.android.gms.platformconfigurator.PhenotypeConfigurationUpdateListener.a(:com.google.android.gms@231818047@23.18.18 (190800-535401451):4)
+11-12 20:18:56.789  5928  8205 W PhenotypeConfigurationU: 	at com.google.android.gms.platformconfigurator.PhenotypeConfigurationUpdateListener.onHandleIntent(:com.google.android.gms@231818047@23.18.18 (190800-535401451):21)
+11-12 20:18:56.789  5928  8205 W PhenotypeConfigurationU: 	at com.google.android.chimera.IntentOperation.onHandleIntent(:com.google.android.gms@231818047@23.18.18 (190800-535401451):2)
+11-12 20:18:56.789  5928  8205 W PhenotypeConfigurationU: 	at zhv.onHandleIntent(:com.google.android.gms@231818047@23.18.18 (190800-535401451):4)
+11-12 20:18:56.789  5928  8205 W PhenotypeConfigurationU: 	at hjm.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):3)
+11-12 20:18:56.789  5928  8205 W PhenotypeConfigurationU: 	at hjl.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):11)
+11-12 20:18:56.789  5928  8205 W PhenotypeConfigurationU: 	at dfhf.run(:com.google.android.gms@231818047@23.18.18 (190800-535401451):2)
+11-12 20:18:56.789  5928  8205 W PhenotypeConfigurationU: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 20:18:56.789  5928  8205 W PhenotypeConfigurationU: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 20:18:56.789  5928  8205 W PhenotypeConfigurationU: 	at java.lang.Thread.run(Thread.java:1012)
+--------- beginning of system
+11-12 20:18:57.216   498  2193 W JobScheduler: Job didn't exist in JobStore: 2068807 #u0a136/7 com.google.android.contacts/com.google.android.apps.contacts.shortcut.ShortcutJobService
+11-12 20:18:58.206   498   577 W ProcessStats: Tracking association SourceState{ca822cb com.google.android.contacts/10136 ImpBg #14232} whose proc state 6 is better than process ProcessState{bb11ef7 android.process.acore/10089 pkg=com.android.providers.contacts (sub)} proc state 13 (5814 skipped)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: Could not register for notifications with InnerTube: 
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: abqx: zvm: Precondition check failed.
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at abqn.apply(Unknown Source:4)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at yyi.r(PG:5)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at yyi.b(PG:2)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at abqp.d(PG:4)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at agsb.c(PG:63)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at agsb.i(PG:4)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at agsb.c(PG:92)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at agsb.j(PG:38)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at agsb.d(PG:3)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at agrz.run(Unknown Source:2)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:487)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at smg.run(PG:2)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at java.lang.Thread.run(Thread.java:1012)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at snu.run(PG:5)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: Caused by: zvm: Precondition check failed.
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at abpb.e(PG:5)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at zhp.f(PG:1)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at zhp.e(PG:1)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at zgl.run(PG:19)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at aosb.run(PG:3)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at yxr.run(PG:11)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at java.lang.Thread.run(Thread.java:1012)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: Caused by: efc
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	at zgl.run(PG:13)
+11-12 20:18:58.361  1687  2536 W YouTubeMusic: 	... 5 more
+11-12 20:18:59.281   498   528 E system_server: No package ID 7f found for resource ID 0x7f080107.
+11-12 20:18:59.281   498   528 E system_server: No package ID 7f found for resource ID 0x7f150560.
+11-12 20:18:59.867  5928  6626 W ChimeraUtils: Module com.google.android.gms.nearby_en missing resource null(0)
+11-12 20:18:59.870  5928  6626 W ChimeraUtils: Module com.google.android.gms.nearby_en missing resource null(0)
+11-12 20:19:00.047   795   795 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+11-12 20:19:00.053  4438  4446 W System  : A resource failed to call release. 
+11-12 20:19:00.053  4438  4446 W System  : A resource failed to call release. 
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: Could not register for notifications with InnerTube: 
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: abqx: zvm: Precondition check failed.
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at abqn.apply(Unknown Source:4)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at yyi.r(PG:5)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at yyi.b(PG:2)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at abqp.d(PG:4)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at agsb.c(PG:63)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at agsb.i(PG:4)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at agsb.c(PG:92)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at agsb.j(PG:38)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at agsb.d(PG:3)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at agrz.run(Unknown Source:2)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:487)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at java.util.concurrent.FutureTask.run(FutureTask.java:264)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at smg.run(PG:2)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at java.lang.Thread.run(Thread.java:1012)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at snu.run(PG:5)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: Caused by: zvm: Precondition check failed.
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at abpb.e(PG:5)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at zhp.f(PG:1)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at zhp.e(PG:1)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at zgl.run(PG:19)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at aosb.run(PG:3)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:644)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at yxr.run(PG:11)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at java.lang.Thread.run(Thread.java:1012)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: Caused by: efc
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	at zgl.run(PG:13)
+11-12 20:19:02.972  1687  2536 W YouTubeMusic: 	... 5 more
+11-12 20:19:03.528   498   719 E WifiStaIfaceAidlImpl: installApfPacketFilter failed with service-specific exception: android.os.ServiceSpecificException:  (code 4)
+11-12 20:19:03.588  8222  8222 W BpBinder: Linking to death on android.gui.ISurfaceComposer but there are no threads (yet?) listening to incoming transactions. See ProcessState::startThreadPool and ProcessState::setThreadPoolMaxThreadCount. Generally you should setup the binder threadpool before other initialization steps.
+11-12 20:19:03.588  8222  8222 W ProcessState: Extra binder thread started, but 0 threads requested. Do not use *startThreadPool when zero threads are requested.
+11-12 20:19:04.215  8224  8224 W app_process: Unexpected CPU variant for x86: x86_64.
+11-12 20:19:04.215  8224  8224 W app_process: Known variants: atom, sandybridge, silvermont, goldmont, goldmont-plus, tremont, kabylake, default
+11-12 20:19:04.224  8224  8224 W app_process: ClassLoaderContext shared library size mismatch. Expected=2, found=0 (PCL[]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]} | PCL[])
+11-12 20:19:04.226  8224  8224 W app_process: ClassLoaderContext classpath size mismatch. expected=0, found=1 (PCL[]{PCL[/system/framework/android.test.runner.jar*4168958247]{PCL[/system/framework/android.test.base.jar*836642756]#PCL[/system/framework/android.test.mock.jar*3186112116]}#PCL[/system/framework/android.test.base.jar*836642756]} | PCL[/system/framework/android.test.runner.jar*4168958247])
+11-12 20:19:04.295  8224  8224 W libc    : Access denied finding property "ro.product.name_for_attestation"
+11-12 20:19:04.296  8224  8224 W libc    : Access denied finding property "ro.product.brand_for_attestation"
+11-12 20:19:04.296  8224  8224 W libc    : Access denied finding property "ro.product.model_for_attestation"
+11-12 20:19:04.294  8224  8224 W main    : type=1400 audit(0.0:222): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=85 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-12 20:19:04.294  8224  8224 W main    : type=1400 audit(0.0:223): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=85 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-12 20:19:04.312  8224  8224 W UiAutomation: Created with deprecatead constructor, assumes DEFAULT_DISPLAY
+11-12 20:19:04.294  8224  8224 W main    : type=1400 audit(0.0:224): avc:  denied  { read } for  name="u:object_r:build_attestation_prop:s0" dev="tmpfs" ino=85 scontext=u:r:shell:s0 tcontext=u:object_r:build_attestation_prop:s0 tclass=file permissive=0
+11-12 20:19:04.343   498  2620 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-12 20:19:04.377   498  2124 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-12 20:19:04.412   795   795 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+11-12 20:19:04.412   795   795 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+11-12 20:19:05.463  8224  8224 W AccessibilityNodeInfoDumper: Fetch time: 79ms
+11-12 20:19:05.465   498  1304 W WindowMagnificationMgr: requestConnection duplicated request: connect=false, mConnectionState=DISCONNECTED
+11-12 20:19:05.487   795   795 W PageIndicator: Total number of pages invalid: 0. Assuming 1 page.
+11-12 20:19:05.475  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.493  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.494  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.494  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.494  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.494  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.494  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.494  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.494  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.494  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.494  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.494  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.494  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.494  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.494  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.494  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.495  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.495  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.495  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.495  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.495  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.495  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.495  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.495  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.496  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.496  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.496  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.496  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.496  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.496  1568  2129 W A       : Disposing empty manager. Did you forgot to subscribe observables?
+11-12 20:19:05.572   498   564 W ActivityManager: Unable to start service Intent { cmp=com.google.android.apps.tachyon/.clientapi.ClientApiService } U=0: not found
+11-12 20:19:05.587  1711  2789 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 241] task was not run. Callback from Service received after client was disposed.
+11-12 20:19:05.588  1711  2789 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 241] task was not run. Callback from Service received after client was disposed.
+11-12 20:19:05.590  1711  2789 W A       : UiCallbackStub-onGenericEvent[ServiceEvent = 60] task was not run. Callback from Service received after client was disposed.
+11-12 20:19:05.591  1711  2789 W SearchServiceCore: Abort, client detached.
