@@ -25,6 +25,7 @@ import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -171,15 +172,44 @@ fun HomeScreenPreferences(
                 },
             )
         }
-        val feedAvailable = OverlayCallbackImpl.minusOneAvailable(LocalContext.current)
+        val feedContext = LocalContext.current
+        val feedAvailable = OverlayCallbackImpl.minusOneAvailable(feedContext)
         val enableFeedAdapter = prefs2.enableFeed.getAdapter()
+        // A release build reaches the Google feed only through the TheLauncher Feed companion app;
+        // checked again on return, in case it was just installed.
+        var needsCompanion by androidx.compose.runtime.remember {
+            androidx.compose.runtime.mutableStateOf(app.thelauncher.FeedBridge.getInstance(feedContext).needsCompanionApp())
+        }
+        androidx.lifecycle.compose.LifecycleResumeEffect(Unit) {
+            needsCompanion = app.thelauncher.FeedBridge.getInstance(feedContext).needsCompanionApp()
+            onPauseOrDispose { }
+        }
         PreferenceGroup(heading = stringResource(id = R.string.minus_one)) {
             SwitchPreference(
                 adapter = enableFeedAdapter,
                 label = stringResource(id = R.string.minus_one_enable),
-                description = if (feedAvailable) null else stringResource(id = R.string.minus_one_unavailable),
+                description = when {
+                    !feedAvailable -> stringResource(id = R.string.minus_one_unavailable)
+                    needsCompanion -> stringResource(id = R.string.feed_needs_companion)
+                    else -> null
+                },
                 enabled = feedAvailable,
             )
+            ExpandAndShrink(visible = feedAvailable && needsCompanion) {
+                ClickablePreference(
+                    label = stringResource(id = R.string.feed_get_companion),
+                    subtitle = stringResource(id = R.string.feed_get_companion_desc),
+                ) {
+                    runCatching {
+                        feedContext.startActivity(
+                            android.content.Intent(
+                                android.content.Intent.ACTION_VIEW,
+                                android.net.Uri.parse(FEED_COMPANION_URL),
+                            ).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK),
+                        )
+                    }
+                }
+            }
             ExpandAndShrink(visible = feedAvailable && enableFeedAdapter.state.value) {
                 FeedPreference()
             }
@@ -450,3 +480,7 @@ fun HomeScreenTextColorPreference(
         modifier = modifier,
     )
 }
+
+/** The TheLauncher Feed companion app, attached to every release. */
+private const val FEED_COMPANION_URL =
+    "https://github.com/bornaradusin/TheLauncher/releases/latest/download/TheLauncher-Feed.apk"

@@ -212,6 +212,9 @@
     <string name="folder_icon_size">Folder icon size</string>
     <string name="high_refresh_rate">Highest refresh rate</string>
     <string name="high_refresh_rate_desc">Runs the home screen and drawer at your screen\'s top rate, like 120 Hz, even on phones that keep other apps at 60</string>
+    <string name="feed_needs_companion">Needs the TheLauncher Feed app to reach the Google feed</string>
+    <string name="feed_get_companion">Get TheLauncher Feed</string>
+    <string name="feed_get_companion_desc">A small free app from TheLauncher\'s releases. Install it, then swipe right on the home screen</string>
     <string name="weather_unit">Temperature unit</string>
     <string name="weather_unit_celsius">Celsius (°C)</string>
     <string name="weather_unit_fahrenheit">Fahrenheit (°F)</string>

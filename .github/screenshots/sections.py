@@ -30,6 +30,7 @@ PAGE_FILES = {
 RULES = [
     (r'smartspace|glance', ['glance'], ['smartspace']),
     (r'seerr', ['seerr'], []),
+    (r'feedbridge|nexuslauncher|launcherclient|feedpreference', ['feed'], []),
     (r'allapps|drawer', ['drawer', 'restore'], ['app-drawer']),
     (r'search', ['drawer'], ['search']),
     (r'hotseat|qsb|dock', ['home', 'dock'], ['dock']),
@@ -68,7 +69,7 @@ else:
         wiki = sections & {'home', 'drawer', 'settings'}
         # When the emulator runs for the wiki anyway, a changed At a Glance gets its few checking
         # shots too; they stay out of the wiki.
-        sections = wiki | ((sections & {'glance'}) if (wiki or pages) else set())
+        sections = wiki | ((sections & {'glance', 'feed'}) if (wiki or pages) else set())
     else:
         # A quick look at the home screen is always useful; it costs a few seconds.
         sections.add('home-first')

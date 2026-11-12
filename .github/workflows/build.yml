@@ -50,13 +50,17 @@ jobs:
           echo "$KEYSTORE" | base64 --decode > key.jks
       - name: Build APK
         run: ./gradlew assembleOssWithQuickstepGithubRelease --stacktrace
+      # TheLauncher Feed: the small companion app that reaches the Google feed (see feedbridge/).
+      - name: Build TheLauncher Feed
+        run: ./gradlew -p feedbridge assembleDebug --stacktrace
       - name: Prepare APK
         id: apk
         run: |
           VERSION=$(tr -d '[:space:]' < version.txt)
           APK=$(find build/outputs/apk -name '*.apk' | head -1)
           cp "$APK" "TheLauncher-v$VERSION.apk"
-          sha256sum "TheLauncher-v$VERSION.apk" > SHA256SUMS.txt
+          cp "$(find feedbridge/build/outputs/apk -name '*.apk' | head -1)" TheLauncher-Feed.apk
+          sha256sum "TheLauncher-v$VERSION.apk" TheLauncher-Feed.apk > SHA256SUMS.txt
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
       - name: Upload APK
         uses: actions/upload-artifact@v7
@@ -64,6 +68,7 @@ jobs:
           name: TheLauncher
           path: |
             TheLauncher-v*.apk
+            TheLauncher-Feed.apk
             SHA256SUMS.txt
       - name: Publish release
         id: release
@@ -79,7 +84,7 @@ jobs:
           # Written notes for this version, if there are any; otherwise GitHub's list of changes.
           NOTES=(--generate-notes)
           [ -f ".github/release-notes/$TAG.md" ] && NOTES=(--notes-file ".github/release-notes/$TAG.md")
-          gh release create "$TAG" "TheLauncher-$TAG.apk" SHA256SUMS.txt --title "TheLauncher $TAG" \
+          gh release create "$TAG" "TheLauncher-$TAG.apk" TheLauncher-Feed.apk SHA256SUMS.txt --title "TheLauncher $TAG" \
             --target "${{ github.sha }}" "${NOTES[@]}"
           echo "released=true" >> "$GITHUB_OUTPUT"
 

@@ -1,0 +1,54 @@
+plugins {
+    id 'com.android.application' version '9.5.1'
+}
+
+// The Google app only shows its feed to debuggable apps, so this app is built debuggable (the
+// debug build), but signed with TheLauncher's own key: it serves only apps signed the same way.
+def keystoreFile = new File(rootDir, '../keystore.properties')
+
+android {
+    namespace = 'app.thelauncher.feed'
+    compileSdk = 36
+
+    defaultConfig {
+        applicationId = 'app.thelauncher.feed'
+        minSdk = 26
+        targetSdk = 36
+        versionCode = 1
+        versionName = '1.0'
+    }
+
+    buildFeatures {
+        aidl = true
+        buildConfig = false
+    }
+
+    signingConfigs {
+        if (keystoreFile.exists()) {
+            theLauncher {
+                def props = new Properties()
+                keystoreFile.withInputStream { props.load(it) }
+                keyAlias props['keyAlias']
+                keyPassword props['keyPassword']
+                storeFile file(props['storeFile'])
+                storePassword props['storePassword']
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            if (keystoreFile.exists()) signingConfig = signingConfigs.theLauncher
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    lint {
+        abortOnError = false
+        checkReleaseBuilds = false
+    }
+}

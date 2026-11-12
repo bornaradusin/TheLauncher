@@ -293,6 +293,24 @@ if want_page general; then settings general; tap_text 'Icon shape'; shot s-icon-
 if want_page gestures; then settings gestures; tap_text 'Double tap'; shot s-gesture-picker; fi
 home
 
+# Google feed through the TheLauncher Feed companion: settings first, then a swipe right on the home screen.
+if want feed && [ -f TheLauncher-Feed.apk ]; then
+  settings home-screen
+  scroll_to 'Show feed' && tap_text 'Show feed'
+  shot 70-feed-settings 1
+  adb install -r TheLauncher-Feed.apk
+  adb shell am force-stop $PKG
+  sleep 2; home; sleep 6
+  settings home-screen
+  scroll_to 'Show feed'
+  shot 71-feed-settings-installed 1
+  home; sleep 3
+  adb shell input swipe 60 1200 900 1200 400
+  sleep 6; shot 72-feed
+  adb logcat -d | grep -i -E 'TheLauncherFeed|FeedBridge|LauncherClient|DrawerOverlayClient|overlay' > "$OUT/logcat-feed.txt" 2>&1
+  home
+fi
+
 # Hyperion restore, last as it replaces the whole setup: a stand-in backup shaped like a real one.
 if want restore && [ -f "$RUNNER_TEMP/hyperion_test.backup" ]; then
   adb push "$RUNNER_TEMP/hyperion_test.backup" /sdcard/Download/hyperion_test.backup

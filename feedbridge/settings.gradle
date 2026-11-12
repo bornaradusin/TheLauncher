@@ -1,0 +1,19 @@
+// TheLauncher Feed: a small companion app that lets TheLauncher show the Google feed.
+// Built on its own: ./gradlew -p feedbridge assembleDebug
+pluginManagement {
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+rootProject.name = "feedbridge"

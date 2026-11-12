@@ -38,8 +38,12 @@ class FeedBridge(private val context: Context) {
 
     private val shouldUseFeed = context.applicationInfo.flags and (FLAG_DEBUGGABLE or FLAG_SYSTEM) == 0
     private val prefs by lazy { PreferenceManager.getInstance(context) }
+    /** TheLauncher Feed, the companion app released with TheLauncher and signed with its key. */
+    private val ownBridge by lazy { OwnBridgeInfo(OWN_BRIDGE_PACKAGE) }
+
     private val bridgePackages by lazy {
         listOf(
+            ownBridge,
             PixelBridgeInfo("com.google.android.apps.nexuslauncher", R.integer.bridge_signature_hash),
             BridgeInfo("app.lawnchair.lawnfeed", R.integer.lawnfeed_signature_hash),
         )
@@ -50,11 +54,16 @@ class FeedBridge(private val context: Context) {
         val customBridge = customBridgeOrNull(customPackage)
         val feedProvider = customPackage.toBoolean()
         return when {
+            // Picking the Google app itself can't work from a release build; the companion can.
+            customBridge != null && customBridge.packageName == GOOGLE_APP && shouldUseFeed && ownBridge.isAvailable() -> ownBridge
             customBridge != null -> customBridge
             !shouldUseFeed && !feedProvider -> null
             else -> bridgePackages.firstOrNull { it.isAvailable() }
         }
     }
+
+    /** True when the feed is on its way to failing: no companion app installed to reach the Google app. */
+    fun needsCompanionApp(): Boolean = shouldUseFeed && resolveBridge().let { it == null || it.packageName == GOOGLE_APP }
 
     private fun customBridgeOrNull(customPackage: String = prefs.feedProvider.get()): CustomBridgeInfo? {
         return if (customPackage.isNotBlank()) {
@@ -143,6 +152,13 @@ class FeedBridge(private val context: Context) {
         }
     }
 
+    /** Trusted when it is signed with the same key as this launcher. */
+    private inner class OwnBridgeInfo(packageName: String) : BridgeInfo(packageName, 0) {
+        override fun isSigned(): Boolean = runCatching {
+            context.packageManager.checkSignatures(context.packageName, packageName) == PackageManager.SIGNATURE_MATCH
+        }.getOrDefault(false)
+    }
+
     private inner class PixelBridgeInfo(packageName: String, signatureHashRes: Int) : BridgeInfo(packageName, signatureHashRes) {
         override val supportsSmartspace get() = isAvailable()
     }
@@ -154,6 +170,8 @@ class FeedBridge(private val context: Context) {
     ) {
         private const val TAG = "FeedBridge"
         private const val OVERLAY_ACTION = "com.android.launcher3.WINDOW_OVERLAY"
+        private const val GOOGLE_APP = "com.google.android.googlequicksearchbox"
+        const val OWN_BRIDGE_PACKAGE = "app.thelauncher.feed"
 
         private val whitelist = mutableMapOf<String, Long?>()
 
@@ -164,6 +182,8 @@ class FeedBridge(private val context: Context) {
             whitelist["launcher.libre.dev"] = 0x2e9dbab5
             whitelist[SmartspacerConstants.SMARTSPACER_PACKAGE_NAME] = 0x15c6e36f
             whitelist["amirz.aidlbridge"] = 0xb662cc2f
+            // TheLauncher Feed carries this launcher's own signature.
+            whitelist[OWN_BRIDGE_PACKAGE] = getSignatureHash(context, context.packageName)
             whitelist["com.google.android.googlequicksearchbox"] = 0xe3ca78d8
             whitelist["com.google.android.apps.nexuslauncher"] = 0xb662cc2f
         }

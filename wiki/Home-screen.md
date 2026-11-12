@@ -34,7 +34,15 @@ Settings: **Home settings → Interface → Home screen** (wallpaper under **Col
 
 ## The feed
 
-**Show feed** puts Google Discover (or another feed app) on a page to the left of your first page. It needs a feed app installed, such as Lawnfeed.
+**Show feed** puts Google Discover (or another feed app) on a page to the left of your first page.
+
+The Google app only shows its feed to specially built apps, so TheLauncher reaches it through a small companion app, **TheLauncher Feed**:
+
+1. Download [TheLauncher-Feed.apk](https://github.com/bornaradusin/TheLauncher/releases/latest/download/TheLauncher-Feed.apk) from the latest release and install it. It has no icon; it works in the background.
+2. Turn on **Show feed**.
+3. Swipe right on your first home screen page.
+
+Until it's installed, the feed settings say **Needs the TheLauncher Feed app** and offer the download. It only works with TheLauncher. **Feed theme** picks light, dark, or the Google app's own setting.
 
 ## Wallpaper
 
