@@ -75,7 +75,6 @@
     <string name="dt2s_admin_warning">Ketuk Dua Kali untuk Tidur akan dimatikan.</string>
     <string name="dt2s_a11y_hint_title">Aktifkan Layanan Aksesibilitas</string>
     <string name="dt2s_a11y_hint">Untuk menggunakan Ketuk Dua Kali untuk Tidur, aktifkan layanan aksesibilitas TheLauncher. Ketuk \"Buka Pengaturan,\" lalu pilih \"TheLauncher\" dan aktifkan \"Gunakan TheLauncher\".</string>
-    <string name="dt2s_warning_open_settings">Buka Pengaturan</string>
     <string name="minus_one_enable">Umpan</string>
     <string name="minus_one_unavailable">Tidak ada umpan terpasang.</string>
     <string name="fuzzy_search_title">Pencarian Fuzzy</string>

@@ -78,7 +78,6 @@
     <string name="dt2s_admin_warning">Double Tap to Sleep will be disabled.</string>
     <string name="dt2s_a11y_hint_title">Accessibility service required</string>
     <string name="dt2s_a11y_hint">To use Double-Tap to Sleep, turn on the TheLauncher accessibility service. Tap Open Settings, then select TheLauncher and turn on Use TheLauncher.</string>
-    <string name="dt2s_warning_open_settings">פתיחת הגדרות</string>
     <string name="minus_one_enable">פיד</string>
     <string name="minus_one_unavailable">ההזנה אינה מותקנת.</string>
     <string name="fuzzy_search_title">חיפוש מקורב</string>

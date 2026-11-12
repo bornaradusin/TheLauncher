@@ -435,7 +435,6 @@
 
     <string name="d2ts_recents_a11y_hint_title">Turn on accessibility service</string>
     <string name="dt2s_a11y_hint">To use Double-Tap to Sleep, turn on the TheLauncher accessibility service. Tap \"Open settings\", select \"TheLauncher\" and turn on \"Use TheLauncher.\"\n\nTheLauncher uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, TheLauncher is not configured for that functionality and receives no events.</string>
-    <string name="dt2s_recents_warning_open_settings">Open settings</string>
 
 <string name="recents_a11y_hint">To use Open Recents, turn on the TheLauncher accessibility service. Tap \"Open settings\", select \"TheLauncher\" and turn on \"Use TheLauncher.\"\n\nTheLauncher uses Accessibility\'s `performGlobalAction` method to perform this action. This is a sensitive permission that allows monitoring other apps. However, TheLauncher is not configured for that functionality and receives no events.</string>
 

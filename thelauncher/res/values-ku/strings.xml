@@ -76,7 +76,6 @@
     <string name="dt2s_admin_warning">Double-Tap to Sleep will be turned off.</string>
     <string name="dt2s_a11y_hint_title">Turn on Accessibility Service</string>
     <string name="dt2s_a11y_hint">To use Double-Tap to Sleep, turn on the TheLauncher accessibility service. Tap Open Settings, then select TheLauncher and turn on Use TheLauncher.</string>
-    <string name="dt2s_warning_open_settings">Open Settings</string>
     <string name="minus_one_enable">Feed</string>
     <string name="minus_one_unavailable">No feed installed.</string>
     <string name="fuzzy_search_title">Fuzzy Search</string>
