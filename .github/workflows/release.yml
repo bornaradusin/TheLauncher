@@ -1,4 +1,5 @@
 name: Release
+run-name: Release ${{ github.event.inputs.tag || github.ref_name }}
 
 # Push a tag like v1.0.0 (or run manually) to build a release APK and create a draft GitHub release.
 on:
