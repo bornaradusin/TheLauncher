@@ -78,6 +78,10 @@ settings() {
   sleep 3
 }
 
+# Which screens to capture: SECTIONS and PAGES (settings pages) name them, "all" or unset for everything.
+want() { [ -z "$SECTIONS" ] || [ "$SECTIONS" = "all" ] || [[ " $SECTIONS " == *" $1 "* ]]; }
+want_page() { [ -z "$PAGES" ] || [ "$PAGES" = "all" ] || [[ " $PAGES " == *" $1 "* ]]; }
+
 # Device setup: dark theme, gesture navigation, clean status bar, on battery.
 adb install -r -g TheLauncher.apk
 adb shell cmd role add-role-holder android.app.role.HOME $PKG
@@ -98,6 +102,7 @@ demo notifications -e visible false
 home; sleep 8
 shot 00-home-first 2
 
+if want glance; then
 # At a Glance: Open-Meteo weather on, onboarding card off.
 settings smartspace
 dismiss
@@ -164,9 +169,11 @@ if tap_text 'Widgets'; then
 fi
 home
 
+fi
+
 # Seerr in search (builds that have it), against the stand-in server.
-settings seerr
-if find_xy 'Address' >/dev/null; then
+want seerr && settings seerr
+if want seerr && find_xy 'Address' >/dev/null; then
   type_setting 'Address' 'http://10.0.2.2:5055'
   type_setting 'API key' 'stand-in-key'
   tap_text 'Test connection'; sleep 4
@@ -193,6 +200,7 @@ if find_xy 'Address' >/dev/null; then
   back; sleep 1; home
 fi
 
+if want drawer; then
 # Hyperion-style drawer (builds that have it): full screen instead of a sheet.
 settings app-drawer
 dismiss
@@ -202,6 +210,9 @@ if scroll_to 'Drawer on a sheet'; then
 fi
 back; back
 
+fi
+
+if want dock; then
 # Drawer indicator above the dock (builds that have it).
 settings dock
 dismiss
@@ -213,6 +224,9 @@ if scroll_to 'Drawer indicator'; then
 fi
 back; back
 
+fi
+
+if want home; then
 # Home screen.
 home; sleep 20
 shot 01-home
@@ -234,6 +248,9 @@ tap_text 'Widgets'
 shot 06-widgets 4
 back; back; home
 
+fi
+
+if want drawer; then
 # App drawer and search.
 drawer
 shot 07-drawer
@@ -245,6 +262,9 @@ adb shell input text 'ca'
 shot 09-search 3
 back; back; home
 
+fi
+
+if want settings; then
 # Settings.
 settings
 shot 10-settings
@@ -252,10 +272,13 @@ scroll
 shot 11-settings-more
 scroll
 shot 12-settings-end
-# Every settings page, for the wiki.
+fi
+
+# Settings pages, for the wiki.
 for p in general general-iconpack general-themedicons home-screen home-screen-grid home-screen-popup-editor \
          dock dock-search-provider app-drawer app-drawer-hidden-apps app-drawer-locked-apps app-drawer-tabs \
          app-drawer-folder search folders gestures smartspace backup-restore about experimental-features; do
+  want_page "$p" || continue
   settings "$p"
   shot "s-$p"
   scroll
@@ -263,16 +286,12 @@ for p in general general-iconpack general-themedicons home-screen home-screen-gr
   scroll
   shot "s-$p-3"
 done
-settings general
-tap_text 'Icon shape'
-shot s-icon-shape
-settings gestures
-tap_text 'Double tap'
-shot s-gesture-picker
+if want_page general; then settings general; tap_text 'Icon shape'; shot s-icon-shape; fi
+if want_page gestures; then settings gestures; tap_text 'Double tap'; shot s-gesture-picker; fi
 home
 
 # Hyperion restore, last as it replaces the whole setup: a stand-in backup shaped like a real one.
-if [ -f "$RUNNER_TEMP/hyperion_test.backup" ]; then
+if want restore && [ -f "$RUNNER_TEMP/hyperion_test.backup" ]; then
   adb push "$RUNNER_TEMP/hyperion_test.backup" /sdcard/Download/hyperion_test.backup
   adb shell am broadcast -a android.intent.action.MEDIA_SCANNER_SCAN_FILE -d file:///sdcard/Download/hyperion_test.backup >/dev/null
   sleep 3

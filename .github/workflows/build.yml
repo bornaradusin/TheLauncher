@@ -10,6 +10,11 @@ on:
     branches: [ main ]
     paths-ignore: [ '**.md', 'LICENSE*', 'wiki/**', '.github/workflows/wiki.yml' ]
   workflow_dispatch:
+    inputs:
+      screenshots:
+        description: 'Screens to capture: empty for what changed, "all" for everything'
+        type: string
+        default: ''
 
 concurrency:
   group: build-${{ github.ref }}
@@ -81,7 +86,27 @@ jobs:
           sudo udevadm control --reload-rules
           sudo udevadm trigger --name-match=kvm
       - name: Prepare the emulator run
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ASKED: ${{ inputs.screenshots }}
+          BEFORE: ${{ github.event.before }}
+          RELEASED: ${{ steps.release.outputs.released }}
         run: |
+          # Only the screens this change touches: since the last release when releasing,
+          # otherwise since the previous push.
+          if [ -n "$ASKED" ]; then
+            echo "$ASKED" | tr ' ' '\n' > changed.txt
+          else
+            if [ "$RELEASED" = "true" ]; then
+              BEFORE=$(gh release list -R "$GITHUB_REPOSITORY" --limit 2 --json tagName --jq '.[1].tagName')
+            fi
+            if [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ]; then
+              gh api "repos/$GITHUB_REPOSITORY/compare/$BEFORE...$GITHUB_SHA" --jq '.files[].filename' > changed.txt || echo all > changed.txt
+            else
+              echo all > changed.txt
+            fi
+          fi
+          python3 .github/screenshots/sections.py < changed.txt | tee -a "$GITHUB_ENV"
           cp "TheLauncher-v${{ steps.apk.outputs.version }}.apk" TheLauncher.apk
           nohup python3 .github/screenshots/seerr.py > "$RUNNER_TEMP/seerr.log" 2>&1 &
           python3 .github/screenshots/make_backup.py "$RUNNER_TEMP/hyperion_test.backup"
