@@ -92,7 +92,12 @@ jobs:
           home() { adb shell input keyevent KEYCODE_HOME; sleep 2; }
           back() { adb shell input keyevent KEYCODE_BACK; sleep 1; }
           scroll() { adb shell input swipe 540 1900 540 700 500; sleep 2; }
-          drawer() { adb shell input swipe 540 1600 540 400 250; sleep 3; }
+          drawer() {
+            adb shell input swipe 540 1200 540 300 350; sleep 3
+            if ! find_xy '(Search.*|.*[Aa]pps.*)' >/dev/null; then
+              long_xy 540 1200; tap_text 'Apps list'; sleep 2
+            fi
+          }
           settings() {
             if [ -n "$1" ]; then
               adb shell am start -W --activity-clear-task -n "$PREFS" -a android.intent.action.VIEW -d "thelauncher://settings/$1" >/dev/null
@@ -122,15 +127,17 @@ jobs:
           home; sleep 8
           shot 00-home-first 2
 
-          # At a Glance: turn weather on.
+          # At a Glance: Open-Meteo weather on, onboarding card off.
           settings smartspace
+          tap_text 'Cancel'
           shot 20-glance
           tap_text 'Weather \(Open-Meteo, uses location\)'
+          tap_text 'Cancel'
           shot 21-glance-weather
           scroll
+          tap_text 'Onboarding'
+          tap_text 'Cancel'
           shot 22-glance-more
-          tap_text 'Weather location'
-          shot 23-weather-location
           back; back; back
 
           # Home screen.
@@ -160,7 +167,7 @@ jobs:
           scroll
           shot 08-drawer-scrolled
           home; drawer
-          tap_text '(Search.*|.*apps)'
+          tap_text '(Search.*|.*[Aa]pps.*)' || adb shell input tap 540 230
           adb shell input text 'ca'
           shot 09-search 3
           back; back; home
