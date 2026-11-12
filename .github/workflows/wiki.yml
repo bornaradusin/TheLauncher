@@ -129,12 +129,8 @@ jobs:
           home() { adb shell input keyevent KEYCODE_HOME; sleep 2; }
           back() { adb shell input keyevent KEYCODE_BACK; sleep 1; }
           scroll() { adb shell input swipe 540 1900 540 700 500; sleep 2; }
-          drawer() {
-            adb shell input swipe 540 1200 540 300 350; sleep 3
-            if ! find_xy '(Search.*|.*[Aa]pps.*)' >/dev/null; then
-              long_xy 540 1200; tap_text 'Apps list'; sleep 2
-            fi
-          }
+          drawer() { home; long_xy 540 1200; tap_text 'Apps list'; sleep 3; }
+          dismiss() { sleep 4; tap_text 'Cancel' || true; }
           settings() {
             if [ -n "$1" ]; then
               adb shell am start -W --activity-clear-task -n "$PREFS" -a android.intent.action.VIEW -d "thelauncher://settings/$1" >/dev/null
@@ -166,20 +162,19 @@ jobs:
 
           # At a Glance: Open-Meteo weather on, onboarding card off.
           settings smartspace
-          tap_text 'Cancel'
+          dismiss
           shot 20-glance
-          tap_text 'Weather \(Open-Meteo, uses location\)'
-          tap_text 'Cancel'
+          scroll_to 'Weather \(Open-Meteo, uses location\)' && tap_text 'Weather \(Open-Meteo, uses location\)'
+          dismiss
           shot 21-glance-weather
-          scroll
-          tap_text 'Onboarding'
-          tap_text 'Cancel'
+          scroll_to 'Onboarding' && tap_text 'Onboarding'
+          dismiss
           shot 22-glance-more
           back; back; back
 
           # At a Glance style (builds that have it): a pill bubble behind the text.
           settings smartspace
-          tap_text 'Cancel'
+          dismiss
           if scroll_to 'Bubble'; then
             shot 24-glance-style
             tap_text 'Bubble'
@@ -216,7 +211,7 @@ jobs:
           scroll
           shot 08-drawer-scrolled
           home; drawer
-          tap_text '(Search.*|.*[Aa]pps.*)' || adb shell input tap 540 230
+          adb shell input tap 540 230; sleep 2
           adb shell input text 'ca'
           shot 09-search 3
           back; back; home
@@ -266,4 +261,4 @@ jobs:
           git init -q
           git add -A
           git -c user.name=github-actions -c user.email=github-actions@users.noreply.github.com commit -q -m "Screenshots ${{ github.run_number }}"
-          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/screenshots/latest
+          git push -q -f "https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" HEAD:refs/screenshots/latest HEAD:refs/screenshots/run-${{ github.run_number }}
