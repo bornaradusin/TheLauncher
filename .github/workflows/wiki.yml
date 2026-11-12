@@ -184,6 +184,15 @@ jobs:
           fi
           back; back; back
 
+          # Hyperion-style drawer (builds that have it): full screen instead of a sheet.
+          settings app-drawer
+          dismiss
+          if scroll_to 'Drawer on a sheet'; then
+            tap_text 'Drawer on a sheet'
+            shot 27-drawer-setting
+          fi
+          back; back
+
           # Home screen.
           home; sleep 20
           shot 01-home
