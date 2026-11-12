@@ -80,7 +80,14 @@ allprojects {
         compilerOptions {
             jvmDefault = JvmDefaultMode.ENABLE
             jvmTarget = JvmTarget.fromTarget(libs.versions.jdkRelease.get())
+            suppressWarnings = true
         }
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.compilerArgs += ['-nowarn', '-Xlint:none']
+        options.warnings = false
+        options.deprecation = false
     }
 
     ext {
