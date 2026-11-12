@@ -1,7 +1,6 @@
 name: Release
 run-name: Release ${{ github.event.inputs.tag || github.ref_name }}
 
-# Push a tag like v1.0.0 (or run manually) to build a release APK and create a draft GitHub release.
 on:
   push:
     tags: [ 'v*' ]
@@ -42,12 +41,12 @@ jobs:
         env:
           RELEASE_TAG: ${{ github.event.inputs.tag || github.ref_name }}
         run: ./gradlew assembleOssWithQuickstepGithubRelease --stacktrace
-      - name: Create draft release
+      - name: Publish release
         env:
           GH_TOKEN: ${{ github.token }}
           TAG: ${{ github.event.inputs.tag || github.ref_name }}
         run: |
           APK=$(find build/outputs/apk -name '*.apk' | head -1)
           cp "$APK" "TheLauncher-$TAG.apk"
-          gh release create "$TAG" "TheLauncher-$TAG.apk" --draft --title "TheLauncher $TAG" \
+          gh release create "$TAG" "TheLauncher-$TAG.apk" --title "TheLauncher $TAG" \
             --target "${{ github.sha }}" --generate-notes

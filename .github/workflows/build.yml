@@ -4,12 +4,12 @@ run-name: Build ${{ github.run_number }}
 on:
   push:
     branches: [ main ]
-    paths-ignore: [ '**.md', 'LICENSE*' ]
+    paths-ignore: [ '**.md', 'LICENSE*', '.github/workflows/release.yml' ]
   workflow_dispatch:
 
 concurrency:
   group: build-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   build:
