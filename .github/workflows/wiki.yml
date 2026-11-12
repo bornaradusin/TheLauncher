@@ -7,12 +7,18 @@ on:
     branches: [ main ]
     paths: [ 'wiki/**' ]
   workflow_dispatch:
+    inputs:
+      screenshots:
+        description: 'Capture screenshots of the latest release on an emulator'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
 
 jobs:
   publish:
+    if: ${{ !inputs.screenshots }}
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v7
@@ -32,3 +38,172 @@ jobs:
           fi
           git commit -m "Update wiki"
           git push
+
+  screenshots:
+    if: ${{ inputs.screenshots }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - name: Download latest release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download -R "$GITHUB_REPOSITORY" -p 'TheLauncher-v*.apk' -O TheLauncher.apk
+          ls -la TheLauncher.apk
+      - name: Enable KVM
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+      - name: Write capture script
+        run: |
+          cat > "$RUNNER_TEMP/shots.sh" <<'SCRIPT'
+          #!/bin/bash
+          set -x
+          PKG=app.thelauncher
+          PREFS="$PKG/app.thelauncher.ui.preferences.PreferenceActivity"
+          OUT="$GITHUB_WORKSPACE/shots"
+          mkdir -p "$OUT"
+
+          dump() { adb shell uiautomator dump /sdcard/ui.xml >/dev/null 2>&1 && adb pull /sdcard/ui.xml "$1" >/dev/null 2>&1; }
+          shot() { sleep "${2:-3}"; adb exec-out screencap -p > "$OUT/$1.png"; dump "$OUT/$1.xml"; }
+          find_xy() {
+            dump /tmp/ui.xml || return 1
+            python3 - "$1" <<'PY'
+          import re, sys, xml.etree.ElementTree as ET
+          pat = re.compile(sys.argv[1], re.I)
+          try:
+              root = ET.parse('/tmp/ui.xml').getroot()
+          except Exception:
+              sys.exit(1)
+          for n in root.iter('node'):
+              for k in ('text', 'content-desc'):
+                  v = n.get(k) or ''
+                  if v and pat.fullmatch(v):
+                      b = list(map(int, re.findall(r'\d+', n.get('bounds'))))
+                      print((b[0] + b[2]) // 2, (b[1] + b[3]) // 2)
+                      sys.exit(0)
+          sys.exit(1)
+          PY
+          }
+          tap_text() { xy=$(find_xy "$1") && { adb shell input tap $xy; sleep 2; return 0; }; echo "tap_text: '$1' not found"; return 1; }
+          long_text() { xy=$(find_xy "$1") && { set -- $xy; adb shell input swipe $1 $2 $1 $2 1200; sleep 2; return 0; }; echo "long_text: not found"; return 1; }
+          long_xy() { adb shell input swipe $1 $2 $1 $2 1200; sleep 2; }
+          home() { adb shell input keyevent KEYCODE_HOME; sleep 2; }
+          back() { adb shell input keyevent KEYCODE_BACK; sleep 1; }
+          scroll() { adb shell input swipe 540 1900 540 700 500; sleep 2; }
+          drawer() { adb shell input swipe 540 1600 540 400 250; sleep 3; }
+          settings() {
+            if [ -n "$1" ]; then
+              adb shell am start -W --activity-clear-task -n "$PREFS" -a android.intent.action.VIEW -d "thelauncher://settings/$1" >/dev/null
+            else
+              adb shell am start -W --activity-clear-task -n "$PREFS" >/dev/null
+            fi
+            sleep 3
+          }
+
+          # Device setup: dark theme, gesture navigation, clean status bar, on battery.
+          adb install -r -g TheLauncher.apk
+          adb shell cmd role add-role-holder android.app.role.HOME $PKG
+          adb shell cmd overlay enable com.android.internal.systemui.navbar.gestural
+          adb shell cmd uimode night yes
+          adb emu geo fix -0.1276 51.5072
+          adb emu power ac off
+          adb emu power status discharging
+          adb emu power capacity 82
+          adb shell settings put global sysui_demo_allowed 1
+          demo() { adb shell am broadcast -a com.android.systemui.demo -e command "$@" >/dev/null; }
+          demo enter
+          demo clock -e hhmm 0930
+          demo battery -e level 82 -e plugged false
+          demo network -e wifi show -e level 4
+          demo network -e mobile show -e datatype none -e level 4
+          demo notifications -e visible false
+          home; sleep 8
+          shot 00-home-first 2
+
+          # At a Glance: turn weather on.
+          settings smartspace
+          shot 20-glance
+          tap_text 'Weather \(Open-Meteo, uses location\)'
+          shot 21-glance-weather
+          scroll
+          shot 22-glance-more
+          tap_text 'Weather location'
+          shot 23-weather-location
+          back; back; back
+
+          # Home screen.
+          home; sleep 20
+          shot 01-home
+          long_xy 540 1200
+          shot 02-home-menu
+          back; home
+          long_text '.*Chrome.*'
+          shot 03-app-menu
+          tap_text '(Customize|Edit)'
+          shot 04-customize
+          back; back; home
+          tap_text '(Folder: )?Google'
+          shot 05-folder
+          back; home
+
+          # Widgets.
+          long_xy 540 1200
+          tap_text 'Widgets'
+          shot 06-widgets 4
+          back; back; home
+
+          # App drawer and search.
+          drawer
+          shot 07-drawer
+          scroll
+          shot 08-drawer-scrolled
+          home; drawer
+          tap_text '(Search.*|.*apps)'
+          adb shell input text 'ca'
+          shot 09-search 3
+          back; back; home
+
+          # Settings.
+          settings
+          shot 10-settings
+          scroll
+          shot 11-settings-more
+          scroll
+          shot 12-settings-end
+          for p in general general-iconpack general-themedicons home-screen home-screen-grid home-screen-popup-editor \
+                   dock dock-search-provider app-drawer app-drawer-hidden-apps app-drawer-locked-apps app-drawer-tabs \
+                   app-drawer-folder search folders gestures smartspace backup-restore about experimental-features; do
+            settings "$p"
+            shot "s-$p"
+            scroll
+            shot "s-$p-2"
+          done
+          settings general
+          tap_text 'Icon shape'
+          shot s-icon-shape
+          settings gestures
+          tap_text 'Double tap'
+          shot s-gesture-picker
+          home
+          adb shell am broadcast -a com.android.systemui.demo -e command exit >/dev/null
+          ls -la "$OUT"
+          SCRIPT
+          bash -n "$RUNNER_TEMP/shots.sh" && echo "script OK"
+      - name: Capture
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 34
+          target: playstore
+          arch: x86_64
+          profile: pixel_6
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          script: bash ${{ runner.temp }}/shots.sh
+      - name: Upload screenshots
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: screenshots
+          path: shots/
