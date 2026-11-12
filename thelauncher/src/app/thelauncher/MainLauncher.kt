@@ -167,6 +167,9 @@ class MainLauncher : QuickstepLauncher() {
         preferenceManager2.enableFeed.get().distinctUntilChanged().onEach { enable ->
             defaultOverlay.setEnableFeed(enable)
         }.launchIn(scope = lifecycleScope)
+        preferenceManager2.feedTheme.get().distinctUntilChanged().onEach { theme ->
+            defaultOverlay.setFeedTheme(theme)
+        }.launchIn(scope = lifecycleScope)
         launcher.stateManager.addStateListener(clearSearchStateListener)
 
         if (prefs.autoLaunchRoot.get()) {

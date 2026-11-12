@@ -117,22 +117,24 @@ fun HomeScreenPreferences(
                 label = stringResource(id = R.string.infinite_scrolling_label),
                 description = stringResource(id = R.string.infinite_scrolling_description),
             )
-        }
-        if (hasMotionSensor) {
-            PreferenceGroup {
-                SwitchPreference(
-                    adapter = panToMoveEnabledAdapter,
-                    label = stringResource(id = R.string.pan_to_move_icon_label),
-                    description = stringResource(id = R.string.pan_to_move_icon_description),
-                )
-                ExpandAndShrink(visible = panToMoveEnabledAdapter.state.value) {
-                    SliderPreference(
-                        adapter = panToMoveSensitivityAdapter,
-                        label = stringResource(id = R.string.pan_to_move_sensitivity_label),
-                        valueRange = 0f..1f,
-                        step = 0.05f,
-                        showAsPercentage = true,
+            // Tilt to swipe was in a group without a heading, which the category menus never
+            // showed; it now sits here, under Advanced.
+            if (hasMotionSensor) {
+                app.thelauncher.ui.preferences.components.layout.AdvancedSection {
+                    SwitchPreference(
+                        adapter = panToMoveEnabledAdapter,
+                        label = stringResource(id = R.string.pan_to_move_icon_label),
+                        description = stringResource(id = R.string.pan_to_move_icon_description),
                     )
+                    ExpandAndShrink(visible = panToMoveEnabledAdapter.state.value) {
+                        SliderPreference(
+                            adapter = panToMoveSensitivityAdapter,
+                            label = stringResource(id = R.string.pan_to_move_sensitivity_label),
+                            valueRange = 0f..1f,
+                            step = 0.05f,
+                            showAsPercentage = true,
+                        )
+                    }
                 }
             }
         }
@@ -181,6 +183,17 @@ fun HomeScreenPreferences(
             ExpandAndShrink(visible = feedAvailable && enableFeedAdapter.state.value) {
                 FeedPreference()
             }
+            ExpandAndShrink(visible = feedAvailable && enableFeedAdapter.state.value) {
+                app.thelauncher.ui.preferences.components.controls.ListPreference(
+                    adapter = prefs2.feedTheme.getAdapter(),
+                    entries = listOf(
+                        app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry("auto") { stringResource(id = R.string.feed_theme_auto) },
+                        app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry("light") { stringResource(id = R.string.feed_theme_light) },
+                        app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry("dark") { stringResource(id = R.string.feed_theme_dark) },
+                    ),
+                    label = stringResource(id = R.string.feed_theme),
+                )
+            }
         }
         PreferenceGroup(heading = stringResource(R.string.style)) {
             HomeScreenTextColorPreference()
@@ -213,6 +226,12 @@ fun HomeScreenPreferences(
                     valueRange = 0.1F..1F,
                     showAsPercentage = true,
                 )
+            }
+            ExpandAndShrink(visible = glowAdapter.state.value) {
+                ColorPreference(preference = prefs2.desktopGlowTopColor)
+            }
+            ExpandAndShrink(visible = glowAdapter.state.value) {
+                ColorPreference(preference = prefs2.desktopGlowBottomColor)
             }
             SwitchPreference(
                 prefs.wallpaperScrolling.getAdapter(),
@@ -375,20 +394,6 @@ fun HomeScreenPreferences(
                 adapter = prefs2.roundedWidgets.getAdapter(),
                 label = stringResource(id = R.string.force_rounded_widgets),
             )
-            SwitchPreference(
-                adapter = prefs2.allowWidgetOverlap.getAdapter(),
-                label = stringResource(id = R.string.allow_widget_overlap),
-            )
-            SwitchPreference(
-                adapter = prefs2.widgetUnlimitedSize.getAdapter(),
-                label = stringResource(id = R.string.widget_unlimited_size_label),
-                description = stringResource(id = R.string.widget_unlimited_size_description),
-            )
-            SwitchPreference(
-                adapter = prefs2.forceWidgetResize.getAdapter(),
-                label = stringResource(id = R.string.force_widget_resize_label),
-                description = stringResource(id = R.string.force_widget_resize_description),
-            )
             SliderPreference(
                 label = stringResource(id = R.string.widget_padding_label),
                 adapter = prefs2.widgetPaddingFactor.getAdapter(),
@@ -396,6 +401,22 @@ fun HomeScreenPreferences(
                 valueRange = 0F..2F,
                 showAsPercentage = true,
             )
+            app.thelauncher.ui.preferences.components.layout.AdvancedSection {
+                SwitchPreference(
+                    adapter = prefs2.allowWidgetOverlap.getAdapter(),
+                    label = stringResource(id = R.string.allow_widget_overlap),
+                )
+                SwitchPreference(
+                    adapter = prefs2.widgetUnlimitedSize.getAdapter(),
+                    label = stringResource(id = R.string.widget_unlimited_size_label),
+                    description = stringResource(id = R.string.widget_unlimited_size_description),
+                )
+                SwitchPreference(
+                    adapter = prefs2.forceWidgetResize.getAdapter(),
+                    label = stringResource(id = R.string.force_widget_resize_label),
+                    description = stringResource(id = R.string.force_widget_resize_description),
+                )
+            }
         }
     }
 }

@@ -29,6 +29,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.key
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
@@ -61,6 +62,7 @@ import app.thelauncher.ui.preferences.components.controls.MainSwitchPreference
 import app.thelauncher.ui.preferences.components.controls.SliderPreference
 import app.thelauncher.ui.preferences.components.controls.SwitchPreference
 import app.thelauncher.ui.preferences.components.controls.TextPreference
+import app.thelauncher.ui.preferences.components.layout.AdvancedSection
 import app.thelauncher.ui.preferences.components.layout.ExpandAndShrink
 import app.thelauncher.ui.preferences.components.layout.PreferenceGroup
 import app.thelauncher.ui.preferences.components.layout.PreferenceLayout
@@ -110,26 +112,19 @@ fun SmartspacePreferences(
                 if (modeIsTheLauncher) {
                     SmartspacePreview()
                 }
-                PreferenceGroup {
-                    SmartspaceProviderPreference(
-                        adapter = smartspaceModeAdapter,
-                    )
+                if (modeIsTheLauncher) {
+                    TheLauncherSmartspaceSettings(smartspaceProvider)
                 }
-
-                Crossfade(
-                    targetState = selectedMode,
-                    label = "Smartspace setting transition",
-                ) { targetState ->
-                    when (targetState) {
-                        TheLauncherSmartspace -> {
-                            TheLauncherSmartspaceSettings(smartspaceProvider)
-                        }
-
-                        Smartspacer -> {
+                // Where the glance comes from is rarely changed, so it sits under Advanced, open
+                // when another provider is in use.
+                PreferenceGroup(modifier = Modifier.padding(top = 8.dp)) {
+                    AdvancedSection(initiallyOpen = !modeIsTheLauncher) {
+                        SmartspaceProviderPreference(
+                            adapter = smartspaceModeAdapter,
+                        )
+                        if (selectedMode == Smartspacer) {
                             SmartspacerSettings()
                         }
-
-                        else -> {}
                     }
                 }
             }
@@ -321,13 +316,34 @@ private fun ExtraSmartspacePreferences() {
             heading = stringResource(id = R.string.smartspace_weather),
             modifier = Modifier.padding(top = 8.dp),
         ) {
-            SwitchPreference(
-                adapter = preferenceManager2.smartspaceWeatherFahrenheit.getAdapter(),
-                label = stringResource(id = R.string.smartspace_weather_fahrenheit),
-            )
-            SwitchPreference(
-                adapter = preferenceManager2.smartspaceWeatherKelvin.getAdapter(),
-                label = stringResource(id = R.string.smartspace_weather_kelvin),
+            val fahrenheit = preferenceManager2.smartspaceWeatherFahrenheit.getAdapter()
+            val kelvin = preferenceManager2.smartspaceWeatherKelvin.getAdapter()
+            // One choice instead of two switches that could both be on.
+            val unitAdapter = remember(fahrenheit, kelvin) {
+                object : PreferenceAdapter<String> {
+                    override val state = derivedStateOf {
+                        when {
+                            kelvin.state.value -> "k"
+                            fahrenheit.state.value -> "f"
+                            else -> "c"
+                        }
+                    }
+                    override fun onChange(newValue: String) {
+                        fahrenheit.onChange(newValue == "f")
+                        kelvin.onChange(newValue == "k")
+                    }
+                }
+            }
+            ListPreference(
+                adapter = unitAdapter,
+                entries = remember {
+                    listOf(
+                        ListPreferenceEntry("c") { stringResource(id = R.string.weather_unit_celsius) },
+                        ListPreferenceEntry("f") { stringResource(id = R.string.weather_unit_fahrenheit) },
+                        ListPreferenceEntry("k") { stringResource(id = R.string.weather_unit_kelvin) },
+                    )
+                },
+                label = stringResource(id = R.string.weather_unit),
             )
             if (preferenceManager2.smartspaceWidgetStyle.getAdapter().state.value == GLANCE_STYLE_MATERIAL) {
                 SwitchPreference(
@@ -561,23 +577,17 @@ fun SmartspacerSettings(
     val context = LocalContext.current
     val prefs2 = preferenceManager2()
 
-    Column(modifier) {
-        PreferenceGroup(
-            heading = stringResource(id = R.string.smartspacer_settings),
-        ) {
-            SliderPreference(
-                label = stringResource(R.string.maximum_number_of_targets),
-                adapter = prefs2.smartspacerMaxCount.getAdapter(),
-                valueRange = 5..15,
-                step = 1,
-            )
-            ClickablePreference(label = stringResource(R.string.open_smartspacer_settings)) {
-                val intent = context.packageManager.getLaunchIntentForPackage(
-                    SmartspacerConstants.SMARTSPACER_PACKAGE_NAME,
-                )
-                context.startActivity(intent)
-            }
-        }
+    SliderPreference(
+        label = stringResource(R.string.maximum_number_of_targets),
+        adapter = prefs2.smartspacerMaxCount.getAdapter(),
+        valueRange = 5..15,
+        step = 1,
+    )
+    ClickablePreference(label = stringResource(R.string.open_smartspacer_settings), modifier = modifier) {
+        val intent = context.packageManager.getLaunchIntentForPackage(
+            SmartspacerConstants.SMARTSPACER_PACKAGE_NAME,
+        ) ?: return@ClickablePreference
+        context.startActivity(intent)
     }
 }
 

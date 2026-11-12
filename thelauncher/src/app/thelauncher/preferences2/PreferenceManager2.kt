@@ -461,6 +461,13 @@ class PreferenceManager2 @Inject constructor(
     )
 
     /** Size of the icons inside a folder's preview; 1 keeps the normal size. */
+    /** The folder icon's size against an app icon, like Hyperion's folder icon size. */
+    val folderIconSizeFactor = preference(
+        key = floatPreferencesKey(name = "folder_icon_size_factor"),
+        defaultValue = 1f,
+        onSet = { reloadHelper.reloadGrid() },
+    )
+
     val folderPreviewIconScale = preference(
         key = floatPreferencesKey(name = "folder_preview_icon_scale"),
         defaultValue = 1f,
@@ -972,6 +979,12 @@ class PreferenceManager2 @Inject constructor(
         defaultValue = context.resources.getBoolean(R.bool.config_default_enable_feed),
     )
 
+    /** The Google feed's theme: "auto" leaves it to the Google app, "light" and "dark" force one. */
+    val feedTheme = preference(
+        key = stringPreferencesKey(name = "feed_theme"),
+        defaultValue = "auto",
+    )
+
     val showComponentNames = preference(
         key = booleanPreferencesKey(name = "show_component_names"),
         defaultValue = context.resources.getBoolean(R.bool.config_default_show_component_names),
@@ -1123,6 +1136,37 @@ class PreferenceManager2 @Inject constructor(
     val desktopGlowOpacity = preference(
         key = floatPreferencesKey("desktop_glow_opacity"),
         defaultValue = 0.5f,
+    )
+
+    /** The home screen glow's top and bottom colours; Default uses the accent colour. */
+    val desktopGlowTopColor = preference(
+        key = stringPreferencesKey("desktop_glow_top_color"),
+        parse = ColorOption::fromString,
+        save = ColorOption::toString,
+        defaultValue = ColorOption.Default,
+    )
+
+    val desktopGlowBottomColor = preference(
+        key = stringPreferencesKey("desktop_glow_bottom_color"),
+        parse = ColorOption::fromString,
+        save = ColorOption::toString,
+        defaultValue = ColorOption.Default,
+    )
+
+    /**
+     * The shape drawn behind icons that aren't adaptive: Default takes the icon's own colour,
+     * anything else paints every one the same colour, like Hyperion's static icon background.
+     * The icon loader reads the resolved colour from [PreferenceManager.iconBackgroundStaticColor].
+     */
+    val iconBackgroundColor = preference(
+        key = stringPreferencesKey("icon_background_color"),
+        parse = ColorOption::fromString,
+        save = ColorOption::toString,
+        defaultValue = ColorOption.Default,
+        onSet = { value ->
+            val color = if (value is ColorOption.Default) 0 else value.colorPreferenceEntry.lightColor(context)
+            app.thelauncher.preferences.PreferenceManager.getInstance(context).iconBackgroundStaticColor.set(color)
+        },
     )
 
     val twoFingerDoubleTapGestureHandler = serializablePreference<GestureHandlerConfig>(

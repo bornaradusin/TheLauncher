@@ -300,7 +300,7 @@ if want restore && [ -f "$RUNNER_TEMP/hyperion_test.backup" ]; then
   sleep 3
   adb logcat -c
   settings backup-restore
-  scroll_to 'Restore Hyperion backup' && tap_text 'Restore Hyperion backup'
+  scroll_to 'Restore backup' && tap_text 'Restore backup'
   sleep 4; shot 60-picker 1
   tap_text 'hyperion_test.backup' || { tap_text 'Show roots' && tap_text 'Downloads' && sleep 3 && tap_text 'hyperion_test.backup'; } || shot 60b-picker-roots 1
   sleep 6; shot 61-restore 1

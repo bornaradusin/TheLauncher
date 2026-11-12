@@ -176,34 +176,37 @@ fun HotseatBackgroundSettings(prefs: PreferenceManager, prefs2: PreferenceManage
             valueRange = 5..100,
             showUnit = "%",
         )
-        SliderPreference(
-            label = stringResource(id = R.string.hotseat_bg_horizontal_inset_left),
-            adapter = prefs.hotseatBGHorizontalInsetLeft.getAdapter(),
-            step = 5,
-            valueRange = 0..100,
-            showUnit = "px",
-        )
-        SliderPreference(
-            label = stringResource(id = R.string.hotseat_bg_horizontal_inset_right),
-            adapter = prefs.hotseatBGHorizontalInsetRight.getAdapter(),
-            step = 5,
-            valueRange = 0..100,
-            showUnit = "px",
-        )
-        SliderPreference(
-            label = stringResource(id = R.string.hotseat_bg_vertical_inset_top),
-            adapter = prefs.hotseatBGVerticalInsetTop.getAdapter(),
-            step = 5,
-            valueRange = 0..100,
-            showUnit = "px",
-        )
-        SliderPreference(
-            label = stringResource(id = R.string.hotseat_bg_vertical_inset_bottom),
-            adapter = prefs.hotseatBGVerticalInsetBottom.getAdapter(),
-            step = 5,
-            valueRange = 0..100,
-            showUnit = "px",
-        )
+        // The four margins are rarely touched, so they wait under Advanced.
+        app.thelauncher.ui.preferences.components.layout.AdvancedSection {
+            SliderPreference(
+                label = stringResource(id = R.string.hotseat_bg_horizontal_inset_left),
+                adapter = prefs.hotseatBGHorizontalInsetLeft.getAdapter(),
+                step = 5,
+                valueRange = 0..100,
+                showUnit = "px",
+            )
+            SliderPreference(
+                label = stringResource(id = R.string.hotseat_bg_horizontal_inset_right),
+                adapter = prefs.hotseatBGHorizontalInsetRight.getAdapter(),
+                step = 5,
+                valueRange = 0..100,
+                showUnit = "px",
+            )
+            SliderPreference(
+                label = stringResource(id = R.string.hotseat_bg_vertical_inset_top),
+                adapter = prefs.hotseatBGVerticalInsetTop.getAdapter(),
+                step = 5,
+                valueRange = 0..100,
+                showUnit = "px",
+            )
+            SliderPreference(
+                label = stringResource(id = R.string.hotseat_bg_vertical_inset_bottom),
+                adapter = prefs.hotseatBGVerticalInsetBottom.getAdapter(),
+                step = 5,
+                valueRange = 0..100,
+                showUnit = "px",
+            )
+        }
     }
 }
 

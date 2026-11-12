@@ -445,8 +445,9 @@ public class InvariantDeviceProfile {
         
         // Note: Not only in English. TheLauncher shows the toggle in every language, and labels
         // break at spaces or between words, which also works for other scripts.
-        enableTwoLinesInAllApps = Flags.enableTwolineToggle()
-                && mPrefs.get(ENABLE_TWOLINE_ALLAPPS_TOGGLE);
+        // TheLauncher: the drawer's "Use multiple lines" works on every device, not only where
+        // the system's own flag for it is on.
+        enableTwoLinesInAllApps = mPrefs.get(ENABLE_TWOLINE_ALLAPPS_TOGGLE);
         mLocale = context.getResources().getConfiguration().locale.toString();
 
          DeviceProfileOverrides.Options overrideOptions = DeviceProfileOverrides.INSTANCE.get(context)

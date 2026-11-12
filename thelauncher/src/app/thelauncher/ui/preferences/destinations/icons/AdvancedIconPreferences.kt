@@ -71,6 +71,12 @@ fun AdvancedIconPreferences(
                 description = stringResource(id = R.string.reshape_unthemed_icons_description),
             )
             ExpandAndShrink(visible = wrapAdaptiveIcons.state.value) {
+                app.thelauncher.ui.preferences.components.colorpreference.ColorPreference(
+                    preference = prefs2.iconBackgroundColor,
+                )
+            }
+            val ownColour = prefs2.iconBackgroundColor.getAdapter().state.value is app.thelauncher.theme.color.ColorOption.Default
+            ExpandAndShrink(visible = wrapAdaptiveIcons.state.value && ownColour) {
                 SliderPreference(
                     label = stringResource(id = R.string.background_lightness_label),
                     adapter = prefs.coloredBackgroundLightness.getAdapter(),

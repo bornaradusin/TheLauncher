@@ -105,6 +105,13 @@ fun FolderPreferences(
         PreferenceGroup(heading = stringResource(id = R.string.icons)) {
             ColorPreference(preference = prefs2.folderLabelColor)
             SliderPreference(
+                label = stringResource(id = R.string.folder_icon_size),
+                adapter = prefs2.folderIconSizeFactor.getAdapter(),
+                step = 0.05f,
+                valueRange = 0.6F..1.05F,
+                showAsPercentage = true,
+            )
+            SliderPreference(
                 label = stringResource(id = R.string.folder_preview_icon_size),
                 adapter = prefs2.folderPreviewIconScale.getAdapter(),
                 step = 0.05f,

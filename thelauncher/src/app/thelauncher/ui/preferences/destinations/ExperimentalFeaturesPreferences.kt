@@ -42,13 +42,8 @@ fun ExperimentalFeaturesPreferences(
         backArrowVisible = !LocalIsExpandedScreen.current,
         modifier = modifier,
     ) {
-        val enableWallpaperBlur = prefs.enableWallpaperBlur.getAdapter()
+        // The drawer blur moved to App drawer → Style.
         val context = LocalContext.current
-        val fileAccessManager = remember { FileAccessManager.getInstance(context) }
-        val allFilesAccessState by fileAccessManager.allFilesAccessState.collectAsStateWithLifecycle()
-        val wallpaperAccessState by fileAccessManager.wallpaperAccessState.collectAsStateWithLifecycle()
-        val hasPermission = wallpaperAccessState != FileAccessState.Denied
-        var showPermissionDialog by remember { mutableStateOf(false) }
 
         val folderIconShapeAdapter = prefs2.folderShape.getAdapter()
         val folderIconShapeSubtitle = iconShapeEntries(context)
@@ -61,11 +56,6 @@ fun ExperimentalFeaturesPreferences(
             heading = stringResource(R.string.workspace_label),
         ) {
             SwitchPreference(
-                adapter = prefs2.enableFontSelection.getAdapter(),
-                label = stringResource(id = R.string.font_picker_label),
-                description = stringResource(id = R.string.font_picker_description),
-            )
-            SwitchPreference(
                 adapter = prefs.workspaceIncreaseMaxGridSize.getAdapter(),
                 label = stringResource(id = R.string.workspace_increase_max_grid_size_label),
                 description = stringResource(id = R.string.workspace_increase_max_grid_size_description),
@@ -75,50 +65,6 @@ fun ExperimentalFeaturesPreferences(
                 label = stringResource(R.string.show_deck_layout),
                 description = stringResource(R.string.show_deck_layout_description),
             )
-            SwitchPreference(
-                checked = hasPermission && enableWallpaperBlur.state.value,
-                onCheckedChange = {
-                    if (!hasPermission) {
-                        showPermissionDialog = true
-                    } else {
-                        enableWallpaperBlur.onChange(it)
-                    }
-                },
-                label = stringResource(id = R.string.wallpaper_blur),
-            )
-
-            val canBlur = hasPermission && enableWallpaperBlur.state.value
-            ExpandAndShrink(visible = canBlur) {
-                SliderPreference(
-                    label = stringResource(id = R.string.wallpaper_background_blur),
-                    adapter = prefs.wallpaperBlur.getAdapter(),
-                    step = 5,
-                    valueRange = 0..100,
-                    showUnit = "%",
-                )
-            }
-            ExpandAndShrink(visible = canBlur) {
-                SliderPreference(
-                    label = stringResource(id = R.string.wallpaper_background_blur_factor),
-                    adapter = prefs.wallpaperBlurFactorThreshold.getAdapter(),
-                    step = 1F,
-                    valueRange = 0F..10F,
-                )
-            }
-        }
-        if (showPermissionDialog) {
-            WallpaperAccessPermissionDialog(
-                managedFilesChecked = allFilesAccessState != FileAccessState.Denied,
-                onDismiss = {
-                    showPermissionDialog = false
-                },
-                onPermissionRequest = { fileAccessManager.refresh() },
-            )
-        }
-        LifecycleResumeEffect(Unit) {
-            showPermissionDialog = false
-            fileAccessManager.refresh()
-            onPauseOrDispose { }
         }
 
         val enableGncAdapter = prefs.enableGnc.getAdapter()

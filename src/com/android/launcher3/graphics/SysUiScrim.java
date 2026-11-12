@@ -172,6 +172,24 @@ public class SysUiScrim implements View.OnAttachStateChangeListener {
                     return null;
                 });
         PreferenceExtensionsKt.onEach(
+                preferenceManager2.getDesktopGlowTopColor(),
+                ViewExtensionsKt.getViewAttachedScope(mRoot),
+                (color) -> {
+                    mGlowTopColor = color;
+                    mGlowHeight = 0;
+                    mRoot.invalidate();
+                    return null;
+                });
+        PreferenceExtensionsKt.onEach(
+                preferenceManager2.getDesktopGlowBottomColor(),
+                ViewExtensionsKt.getViewAttachedScope(mRoot),
+                (color) -> {
+                    mGlowBottomColor = color;
+                    mGlowHeight = 0;
+                    mRoot.invalidate();
+                    return null;
+                });
+        PreferenceExtensionsKt.onEach(
                 preferenceManager2.getSystemBarGradient(),
                 ViewExtensionsKt.getViewAttachedScope(mRoot),
                 (enabled) -> {
@@ -182,6 +200,10 @@ public class SysUiScrim implements View.OnAttachStateChangeListener {
                 });
     }
 
+    private app.thelauncher.theme.color.ColorOption mGlowTopColor =
+            app.thelauncher.theme.color.ColorOption.Default.INSTANCE;
+    private app.thelauncher.theme.color.ColorOption mGlowBottomColor =
+            app.thelauncher.theme.color.ColorOption.Default.INSTANCE;
     private boolean mGlowEnabled = false;
     private float mGlowOpacity = 0.5f;
     private int mGlowHeight = 0;
@@ -195,18 +217,30 @@ public class SysUiScrim implements View.OnAttachStateChangeListener {
         int glowHeight = height / 4;
         if (mGlowHeight != height) {
             mGlowHeight = height;
-            int accent = Themes.getColorAccent(mRoot.getContext());
-            int from = androidx.core.graphics.ColorUtils.setAlphaComponent(
-                    accent, Math.round(255 * Math.max(0f, Math.min(1f, mGlowOpacity))));
-            int to = androidx.core.graphics.ColorUtils.setAlphaComponent(accent, 0);
+            int alpha = Math.round(255 * Math.max(0f, Math.min(1f, mGlowOpacity)));
+            int top = glowColor(mGlowTopColor);
+            int bottom = glowColor(mGlowBottomColor);
             mGlowTopPaint.setShader(new android.graphics.LinearGradient(
-                    0, 0, 0, glowHeight, from, to, android.graphics.Shader.TileMode.CLAMP));
+                    0, 0, 0, glowHeight,
+                    androidx.core.graphics.ColorUtils.setAlphaComponent(top, alpha),
+                    androidx.core.graphics.ColorUtils.setAlphaComponent(top, 0),
+                    android.graphics.Shader.TileMode.CLAMP));
             mGlowBottomPaint.setShader(new android.graphics.LinearGradient(
-                    0, height, 0, height - glowHeight, from, to,
+                    0, height, 0, height - glowHeight,
+                    androidx.core.graphics.ColorUtils.setAlphaComponent(bottom, alpha),
+                    androidx.core.graphics.ColorUtils.setAlphaComponent(bottom, 0),
                     android.graphics.Shader.TileMode.CLAMP));
         }
         canvas.drawRect(0, 0, width, glowHeight, mGlowTopPaint);
         canvas.drawRect(0, height - glowHeight, width, height, mGlowBottomPaint);
+    }
+
+    /** A glow colour: the accent colour unless one was picked. */
+    private int glowColor(app.thelauncher.theme.color.ColorOption option) {
+        if (option instanceof app.thelauncher.theme.color.ColorOption.Default) {
+            return Themes.getColorAccent(mRoot.getContext());
+        }
+        return option.getColorPreferenceEntry().getLightColor().invoke(mRoot.getContext());
     }
 
     private float getEffectiveWallpaperDim() {

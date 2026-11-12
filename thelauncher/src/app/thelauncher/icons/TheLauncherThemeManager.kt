@@ -52,6 +52,7 @@ constructor(
         prefs1.transparentIconBackground,
         prefs1.shadowBGIcons,
         prefs1.coloredBackgroundLightness,
+        prefs1.iconBackgroundStaticColor,
         prefs1.forceIconMonochrome,
         prefs1.launcherTheme,
     )

@@ -1411,7 +1411,12 @@ public class DeviceProfile {
         updateHotseatSizes(iconSizePx);
 
         // Folder icon
-        folderIconSizePx = Math.round(iconSizePx * ICON_VISIBLE_AREA_FACTOR);
+        // TheLauncher: the folder icon can be sized against app icons, up to an app icon's size.
+        float folderIconFactor = preferenceManager2 == null ? 1f
+                : Utilities.boundToRange(PreferenceCacheExtensionsKt
+                        .firstCached(preferenceManager2.getFolderIconSizeFactor()),
+                        0.6f, 1f / ICON_VISIBLE_AREA_FACTOR);
+        folderIconSizePx = Math.round(iconSizePx * ICON_VISIBLE_AREA_FACTOR * folderIconFactor);
         folderIconOffsetYPx = (iconSizePx - folderIconSizePx) / 2;
 
         // Update widget padding:

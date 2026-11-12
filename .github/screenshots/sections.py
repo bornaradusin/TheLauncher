@@ -65,7 +65,10 @@ if 'all' in sections:
     print('PAGES=all')
 else:
     if release:
-        sections &= {'home', 'drawer', 'settings'}
+        wiki = sections & {'home', 'drawer', 'settings'}
+        # When the emulator runs for the wiki anyway, a changed At a Glance gets its few checking
+        # shots too; they stay out of the wiki.
+        sections = wiki | ((sections & {'glance'}) if (wiki or pages) else set())
     else:
         # A quick look at the home screen is always useful; it costs a few seconds.
         sections.add('home-first')

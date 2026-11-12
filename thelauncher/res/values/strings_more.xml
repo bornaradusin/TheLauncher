@@ -68,7 +68,7 @@
     <string name="cat_iconography">Iconography</string>
     <string name="cat_iconography_desc">Detailed icon customization</string>
     <string name="cat_typography">Typography</string>
-    <string name="cat_typography_desc">Font configurations</string>
+    <string name="cat_typography_desc">Fonts for app names and everything else</string>
     <string name="cat_interface">Interface</string>
     <string name="cat_interface_desc">Desktop, drawer and dock tweaks</string>
     <string name="cat_grids">Grids</string>
@@ -83,7 +83,7 @@
     <string name="cat_integrations_desc">External app integrations</string>
     <string name="cat_about_desc">Version, updates and developer</string>
     <string name="cat_entry_theme">Theme and notification dots</string>
-    <string name="cat_entry_theme_desc">Accent color, color style and dot colors</string>
+    <string name="cat_entry_theme_desc">Accent color and color style</string>
     <string name="cat_entry_wallpaper_desc">Wallpaper dimmer, shadows and gradients</string>
     <string name="cat_entry_style_desc">Background, shadow and opacity</string>
     <string name="cat_entry_icon_pack">Icon pack and shape</string>
@@ -199,6 +199,21 @@
     <string name="force_english_desc">Show TheLauncher in English whatever the phone\'s language is</string>
     <string name="qsb_change_assistant">Change assistant app</string>
     <string name="smartspace_weather_kelvin">Use Kelvin</string>
+    <string name="drawer_background_blur">Background blur</string>
+    <string name="cat_entry_dots_desc">Size, colour, position and count</string>
+    <string name="cat_entry_general_desc">Rotation, updates and language</string>
+    <string name="feed_theme">Feed theme</string>
+    <string name="feed_theme_auto">Same as the Google app</string>
+    <string name="feed_theme_light">Light</string>
+    <string name="feed_theme_dark">Dark</string>
+    <string name="desktop_glow_top_color">Top glow colour</string>
+    <string name="desktop_glow_bottom_color">Bottom glow colour</string>
+    <string name="icon_background_color">Background colour</string>
+    <string name="folder_icon_size">Folder icon size</string>
+    <string name="weather_unit">Temperature unit</string>
+    <string name="weather_unit_celsius">Celsius (°C)</string>
+    <string name="weather_unit_fahrenheit">Fahrenheit (°F)</string>
+    <string name="weather_unit_kelvin">Kelvin (K)</string>
     <string name="smartspace_calendar_app">Tapping the date opens</string>
     <string name="smartspace_calendar_app_default">Default calendar</string>
     <string name="hidden_dashboards">Hide dashboards</string>
@@ -350,7 +365,7 @@
     <string name="hyperion_missing_glance_in_dock">At a Glance in the dock</string>
     <string name="hyperion_missing_launch_animation">Pulse app launch animation</string>
     <string name="hyperion_missing_folder_icon_size">Folder icon size</string>
-    <string name="hyperion_missing_glow_colors">Custom glow colours and glow overflow</string>
+    <string name="hyperion_missing_glow_colors">Glow overflow</string>
     <string name="hyperion_missing_g_color">Search bar G colour</string>
     <string name="hyperion_missing_icon_back_color">Icon shape background colour</string>
     <string name="hyperion_missing_locked_recents">Hiding locked apps in recents</string>
@@ -366,4 +381,8 @@
     <string name="folder_preview_inside_desc">Keep the preview icons within the folder circle, as Hyperion does</string>
     <string name="scroll_labels">Scroll long names</string>
     <string name="scroll_labels_desc">Names that don\'t fit stay on one line and scroll</string>
+    <string name="restore_any_backup_description">From TheLauncher, Hyperion or Nova</string>
+    <string name="restore_unknown_backup">That file isn\'t a TheLauncher, Hyperion or Nova backup</string>
+    <string name="font_app_names">App names</string>
+    <string name="font_everything_else">Everything else</string>
 </resources>

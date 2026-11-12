@@ -140,7 +140,8 @@ private fun CategoryScreen(@StringRes label: Int, entries: List<Entry>) {
 fun ColorsCategory() = CategoryScreen(
     R.string.cat_colors,
     listOf(
-        Entry(R.string.cat_entry_theme, R.string.cat_entry_theme_desc, section("general", R.string.cat_entry_theme, R.string.colors, R.string.notification_dots)),
+        Entry(R.string.cat_entry_theme, R.string.cat_entry_theme_desc, section("general", R.string.cat_entry_theme, R.string.colors)),
+        Entry(R.string.notification_dots, R.string.cat_entry_dots_desc, section("general", R.string.notification_dots, R.string.notification_dots)),
         Entry(R.string.home_screen_label, R.string.cat_entry_wallpaper_desc, section("home", R.string.home_screen_label, R.string.wallpaper)),
         Entry(R.string.dock_label, R.string.cat_entry_style_desc, section("dock", R.string.dock_label, R.string.style)),
         Entry(R.string.app_drawer_label, R.string.cat_entry_style_desc, section("drawer", R.string.app_drawer_label, R.string.style)),
@@ -160,21 +161,33 @@ fun IconographyCategory() = CategoryScreen(
     ),
 )
 
+/** Typography holds only the fonts, so it opens them straight away. Label size and lines are under Iconography. */
 @Composable
-fun TypographyCategory() = CategoryScreen(
-    R.string.cat_typography,
-    listOf(
-        Entry(R.string.font_label, R.string.cat_entry_font_desc, section("general", R.string.font_label, R.string.font_label)),
-        Entry(R.string.home_screen_label, R.string.cat_entry_labels_desc, section("home", R.string.home_screen_label, R.string.icons)),
-        Entry(R.string.app_drawer_label, R.string.cat_entry_labels_desc, section("drawer", R.string.app_drawer_label, R.string.icons)),
-        Entry(R.string.folders_label, R.string.cat_entry_labels_desc, section("folders", R.string.folders_label, R.string.icons)),
-    ),
-)
+fun TypographyCategory() {
+    val font = stringResource(R.string.font_label)
+    androidx.compose.runtime.CompositionLocalProvider(
+        app.thelauncher.ui.preferences.components.layout.LocalSectionFilter provides
+            app.thelauncher.ui.preferences.components.layout.SectionFilter(
+                title = stringResource(R.string.cat_typography),
+                headings = setOf(font),
+            ),
+    ) {
+        GeneralPreferences()
+    }
+}
 
 @Composable
 fun InterfaceCategory() = CategoryScreen(
     R.string.cat_interface,
     buildList {
+        // Rotation, live updates and language had no way in from the phone menus.
+        add(
+            Entry(
+                R.string.general_label,
+                R.string.cat_entry_general_desc,
+                section("general", R.string.general_label, R.string.updater, R.string.language_label, untitled = true),
+            ),
+        )
         add(
             Entry(
                 R.string.home_screen_label,
@@ -225,7 +238,6 @@ fun WidgetsCategory() = CategoryScreen(
     listOf(
         Entry(R.string.smartspace_widget, R.string.smartspace_widget_description, Smartspace),
         Entry(R.string.search_bar_label, R.string.drawer_search_description, Search()),
-        Entry(R.string.minus_one, R.string.cat_entry_feed_desc, section("home", R.string.minus_one, R.string.minus_one)),
         Entry(R.string.widget_button_text, R.string.cat_entry_widgets_desc, section("home", R.string.widget_button_text, R.string.widget_button_text)),
     ),
 )
@@ -244,7 +256,6 @@ fun IntegrationsCategory() = CategoryScreen(
     R.string.cat_integrations,
     listOf(
         Entry(R.string.minus_one, R.string.cat_entry_feed_desc, section("home", R.string.minus_one, R.string.minus_one)),
-        Entry(R.string.search_bar_label, R.string.cat_entry_search_desc, Search()),
         Entry(R.string.suggestion_pref_screen_title, R.string.cat_entry_suggestions_desc, Predictions),
         Entry(R.string.seerr_label, R.string.seerr_entry_desc, app.thelauncher.ui.preferences.navigation.SeerrSettings),
         Entry(R.string.experimental_features_label, R.string.cat_entry_debug_desc, ExperimentalFeatures),

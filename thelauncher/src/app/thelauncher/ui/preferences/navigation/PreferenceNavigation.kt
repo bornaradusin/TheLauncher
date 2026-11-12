@@ -157,6 +157,11 @@ fun PreferenceNavigation(
         ) { GeneralPreferences() }
         composable<GeneralFontSelection> { backStackEntry ->
             val route: GeneralFontSelection = backStackEntry.toRoute()
+            if (route.prefKey == app.thelauncher.ui.preferences.components.FONT_EVERYTHING_ELSE) {
+                val prefs = preferenceManager()
+                FontSelection(prefs.fontHeading, linked = listOf(prefs.fontHeadingMedium, prefs.fontBody, prefs.fontBodyMedium))
+                return@composable
+            }
             val pref = preferenceManager().prefsMap[route.prefKey]
                 as? BasePreferenceManager.FontPref ?: return@composable
             FontSelection(pref)

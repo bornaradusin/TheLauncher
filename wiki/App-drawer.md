@@ -46,6 +46,7 @@ Swipe up from the home screen to open it. Settings: **Home settings → Interfac
 
 - **App drawer columns** and **Row height** set the grid.
 - **Background opacity** sets how much of the wallpaper shows through.
+- **Background blur** blurs the wallpaper behind the drawer; 0% turns it off. The first time, Android asks to let TheLauncher see the wallpaper.
 - **Icon size**, **Show labels**, **Label size** and **Use multiple lines** control the icons in the drawer.
 - **Remember scroll position** opens the drawer where you left it.
 - **Suggestions** shows a row of apps you're likely to open next.

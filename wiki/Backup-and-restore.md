@@ -22,10 +22,10 @@ Settings: **Home settings → Backup and restore**.
 
 ## Coming from Hyperion
 
-**Restore Hyperion backup** brings your Hyperion Launcher setup across.
+**Restore backup** brings your Hyperion Launcher setup across. It reads the file and works out on its own whether it came from TheLauncher, Hyperion or Nova.
 
 1. In Hyperion: **Settings → Backup and restore → Create backup**.
-2. In TheLauncher: **Restore Hyperion backup** and pick the `.backup` file.
+2. In TheLauncher: **Restore backup** and pick the `.backup` file.
 3. Check the summary, then tap **Restore**. TheLauncher restarts with your setup.
 
 What comes across:
@@ -38,6 +38,7 @@ What comes across:
 - The feed, At a Glance (date, time, weather, calendar), a fixed weather town and the temperature unit
 - Page indicator, blackout, fade on swipe, animation speed, hidden status or navigation bar, glow, drawer bounce, close drawer on launch, the All tab, folder names, two-finger double tap and gesture haptics
 - Notification dot style, dark mode, rotation, desktop lock, drawer search bar, suggestions, drawer blur and the wallpaper dimmer
+- The Google feed theme, glow colours, folder icon size and the icon background colour
 
 Settings you never changed in Hyperion come across as Hyperion's defaults, so the result looks like your Hyperion screen, not TheLauncher's defaults.
 
@@ -45,4 +46,4 @@ Widgets come back in the right place, but Android ties every widget to the launc
 
 ## Coming from Nova
 
-**Restore Nova backup** imports a Nova Launcher backup (`.novabackup`): your home screen, dock, folders, widgets, shortcuts, grid size and icon pack.
+**Restore backup** also imports a Nova Launcher backup (`.novabackup`): your home screen, dock, folders, widgets, shortcuts, grid size and icon pack.

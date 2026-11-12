@@ -124,6 +124,8 @@ class PreferenceManager @Inject constructor(
 
     val drawerOpacity = FloatPref("pref_drawerOpacity", .5f, recreate)
     val coloredBackgroundLightness = FloatPref("pref_coloredBackgroundLightness", 1F)
+    /** One colour for every icon background; 0 takes each icon's own colour. Set from PreferenceManager2.iconBackgroundColor. */
+    val iconBackgroundStaticColor = IntPref("pref_iconBackgroundStaticColor", 0)
     val feedProvider = StringPref("pref_feedProvider", "")
     val ignoreFeedWhitelist = BoolPref("pref_ignoreFeedWhitelist", false)
     val launcherTheme = StringPref("pref_launcherTheme", "system")

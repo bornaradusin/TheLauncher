@@ -184,6 +184,7 @@ fun AppDrawerPreferences(
                 valueRange = 0F..1F,
                 showAsPercentage = true,
             )
+            app.thelauncher.ui.preferences.components.DrawerBlurPreference()
             ColorPreference(preference = prefs2.workProfileTabBackgroundColor)
             SwitchPreference(
                 label = stringResource(id = R.string.work_profile_tab_container_background_label),

@@ -69,6 +69,8 @@ private enum class ContentType {
 fun FontSelection(
     fontPref: BasePreferenceManager.FontPref,
     modifier: Modifier = Modifier,
+    /** Fonts that follow [fontPref], for one choice covering several kinds of text. */
+    linked: List<BasePreferenceManager.FontPref> = emptyList(),
 ) {
     val context = LocalContext.current
     val mMSDLPlayerWrapper = MSDLPlayerWrapper.INSTANCE.get(context)
@@ -96,6 +98,12 @@ fun FontSelection(
     }
     val allItems by remember { derivedStateOf { items + customFonts } }
     val adapter = fontPref.getAdapter()
+    if (linked.isNotEmpty()) {
+        val chosen = adapter.state.value
+        androidx.compose.runtime.LaunchedEffect(chosen) {
+            linked.forEach { if (it.get() != chosen) it.set(chosen) }
+        }
+    }
     var searchQuery by remember { mutableStateOf("") }
 
     val hasFilter by remember { derivedStateOf { searchQuery.isNotEmpty() } }

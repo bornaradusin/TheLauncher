@@ -76,8 +76,11 @@ jobs:
             echo "$TAG is already released"
             exit 0
           fi
+          # Written notes for this version, if there are any; otherwise GitHub's list of changes.
+          NOTES=(--generate-notes)
+          [ -f ".github/release-notes/$TAG.md" ] && NOTES=(--notes-file ".github/release-notes/$TAG.md")
           gh release create "$TAG" "TheLauncher-$TAG.apk" SHA256SUMS.txt --title "TheLauncher $TAG" \
-            --target "${{ github.sha }}" --generate-notes
+            --target "${{ github.sha }}" "${NOTES[@]}"
           echo "released=true" >> "$GITHUB_OUTPUT"
 
       # Screenshots of this same APK.

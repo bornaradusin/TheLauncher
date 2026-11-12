@@ -34,6 +34,7 @@ import app.thelauncher.theme.color.ColorOption
 import app.thelauncher.theme.color.ColorStyle
 import app.thelauncher.ui.preferences.LocalIsExpandedScreen
 import app.thelauncher.ui.preferences.LocalPreferenceInteractor
+import app.thelauncher.ui.preferences.components.FONT_EVERYTHING_ELSE
 import app.thelauncher.ui.preferences.components.FontPreference
 import app.thelauncher.ui.preferences.components.NavigationActionPreference
 import app.thelauncher.ui.preferences.components.NotificationDotsPreference
@@ -113,29 +114,17 @@ fun GeneralPreferences(modifier: Modifier = Modifier) {
                 description = stringResource(id = R.string.live_information_description),
             )
         }
-        ExpandAndShrink(visible = prefs2.enableFontSelection.asState().value) {
-            PreferenceGroup(heading = stringResource(id = R.string.font_label)) {
-                FontPreference(
-                    fontPref = prefs.fontWorkspace,
-                    label = stringResource(R.string.fontWorkspace),
-                )
-                FontPreference(
-                    fontPref = prefs.fontHeading,
-                    label = stringResource(R.string.fontHeading),
-                )
-                FontPreference(
-                    fontPref = prefs.fontHeadingMedium,
-                    label = stringResource(R.string.fontHeadingMedium),
-                )
-                FontPreference(
-                    fontPref = prefs.fontBody,
-                    label = stringResource(R.string.fontBody),
-                )
-                FontPreference(
-                    fontPref = prefs.fontBodyMedium,
-                    label = stringResource(R.string.fontBodyMedium),
-                )
-            }
+        // Two fonts, as in Hyperion: app names, and everything else (headings and body text).
+        PreferenceGroup(heading = stringResource(id = R.string.font_label)) {
+            FontPreference(
+                fontPref = prefs.fontWorkspace,
+                label = stringResource(R.string.font_app_names),
+            )
+            FontPreference(
+                fontPref = prefs.fontHeading,
+                label = stringResource(R.string.font_everything_else),
+                routeKey = FONT_EVERYTHING_ELSE,
+            )
         }
 
         PreferenceGroup(

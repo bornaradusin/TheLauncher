@@ -18,9 +18,7 @@ import com.android.launcher3.util.Executors
 import kotlinx.coroutines.launch
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import app.thelauncher.backup.ui.restoreBackupOpener
-import app.thelauncher.backup.ui.restoreHyperionBackupOpener
-import app.thelauncher.backup.ui.restoreNovaBackupOpener
+import app.thelauncher.backup.ui.restoreAnyBackupOpener
 import app.thelauncher.ui.preferences.LocalIsExpandedScreen
 import app.thelauncher.ui.preferences.components.NavigationActionPreference
 import app.thelauncher.ui.preferences.components.controls.ClickablePreference
@@ -48,22 +46,12 @@ fun BackupAndRestorePreference(
                 subtitle = stringResource(R.string.create_backup_description),
                 destination = CreateBackup,
             )
+            // One button for every kind of backup: the file says whether it's this launcher's,
+            // Hyperion's or Nova's.
             ClickablePreference(
                 label = stringResource(R.string.restore_backup),
-                subtitle = stringResource(R.string.restore_backup_description),
-                onClick = restoreBackupOpener(),
-            )
-        }
-        PreferenceGroup {
-            ClickablePreference(
-                label = stringResource(R.string.restore_nova_backup),
-                subtitle = stringResource(R.string.restore_nova_backup_description),
-                onClick = restoreNovaBackupOpener(),
-            )
-            ClickablePreference(
-                label = stringResource(R.string.restore_hyperion_backup),
-                subtitle = stringResource(R.string.restore_hyperion_backup_description),
-                onClick = restoreHyperionBackupOpener(),
+                subtitle = stringResource(R.string.restore_any_backup_description),
+                onClick = restoreAnyBackupOpener(),
             )
         }
         PreferenceGroup(heading = stringResource(R.string.saved_layouts)) {

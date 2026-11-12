@@ -17,6 +17,8 @@ fun FontPreference(
     fontPref: BasePreferenceManager.FontPref,
     label: String,
     modifier: Modifier = Modifier,
+    /** The picker to open: [fontPref]'s own, or [FONT_EVERYTHING_ELSE] for one font for the rest. */
+    routeKey: String = fontPref.key,
 ) {
     val navController = LocalNavController.current
     val mMSDLPlayerWrapper = MSDLPlayerWrapper.INSTANCE.get(LocalContext.current)
@@ -33,7 +35,10 @@ fun FontPreference(
         },
         onClick = {
             mMSDLPlayerWrapper.playToken(MSDLToken.TAP_MEDIUM_EMPHASIS)
-            navController.navigate(route = GeneralFontSelection(fontPref.key))
+            navController.navigate(route = GeneralFontSelection(routeKey))
         },
     )
 }
+
+/** Picks one font for headings and body text together ("Everything else"). */
+const val FONT_EVERYTHING_ELSE = "font_everything_else"

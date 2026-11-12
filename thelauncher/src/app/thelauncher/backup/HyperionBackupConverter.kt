@@ -419,6 +419,7 @@ class HyperionBackupConverter(
             // Everything below uses Hyperion's default when the backup doesn't have it, so the result
             // looks like the Hyperion setup rather than this launcher's defaults.
             putBoolean(prefs.wrapAdaptiveIcons.key, settings.bool("pref_draw_icon_back_shape") ?: false)
+            putInt(prefs.iconBackgroundStaticColor.key, hyperionIconBackground(settings) ?: 0)
             putBoolean(prefs.addIconToHome.key, settings.bool("pref_add_icon_to_home") ?: true)
             putBoolean(prefs.wallpaperScrolling.key, settings.bool("key_scroll_wallpaper") ?: false)
             putBoolean(prefs.folderApps.key, !(settings.bool("pref_show_apps_in_folders_in_app_list") ?: true))
@@ -462,6 +463,11 @@ class HyperionBackupConverter(
                 }
                 // Hyperion has the feed on and At a Glance off unless they were changed.
                 store[prefs2.enableFeed.key] = settings.feedEnabled ?: true
+                store[prefs2.feedTheme.key] = when (settings.string("pref_minus_one_theme")) {
+                    "dark" -> "dark"
+                    "light" -> "light"
+                    else -> "auto"
+                }
                 store[prefs2.enableSmartspace.key] = settings.smartspaceEnabled ?: false
                 settings.smartspaceShowWeather?.let { store[prefs2.smartspaceWeather.key] = it }
                 settings.smartspaceShowEvents?.let { store[prefs2.smartspaceCalendarEvents.key] = it }
@@ -497,6 +503,19 @@ class HyperionBackupConverter(
                 settings.bool("gesture_haptic")?.let { store[prefs2.gestureHaptics.key] = it }
                 settings.bool("pref_enable_custom_gradient_glow")?.let { store[prefs2.desktopGlow.key] = it }
                 settings.int("pref_glow_opacity")?.let { store[prefs2.desktopGlowOpacity.key] = (it / 100f).coerceIn(0.1f, 1f) }
+                // Custom glow colours: each has an on/off switch and a colour in Hyperion.
+                fun glowColor(edge: String): String {
+                    if (settings.bool("pref_enable_custom_gradient_${edge}_glow_color") != true) return ColorOption.Default.toString()
+                    val color = settings.raw.entries.firstOrNull { (key, value) ->
+                        value is Int && key.contains("${edge}_glow_color") && !key.startsWith("pref_enable")
+                    }?.value as? Int ?: return ColorOption.Default.toString()
+                    return ColorOption.CustomColor(color).toString()
+                }
+                store[prefs2.desktopGlowTopColor.key] = glowColor("top")
+                store[prefs2.desktopGlowBottomColor.key] = glowColor("bottom")
+                store[prefs2.folderIconSizeFactor.key] = ((settings.int("pref_custom_folder_icon_size") ?: 100) / 100f).coerceIn(0.6f, 1.05f)
+                store[prefs2.iconBackgroundColor.key] = hyperionIconBackground(settings)?.let { ColorOption.CustomColor(it).toString() }
+                    ?: ColorOption.Default.toString()
                 settings.string("pref_animation_speed")?.let {
                     if (it == "slow" || it == "fast" || it == "default") store[prefs2.animationSpeed.key] = it
                 }
@@ -947,6 +966,15 @@ class HyperionBackupConverter(
     }
 
     /**
+     * The one colour Hyperion paints behind icons in its static mode (white unless changed), or null
+     * when each icon takes its own colour.
+     */
+    private fun hyperionIconBackground(settings: HyperionSettings): Int? {
+        if ((settings.string("pref_draw_icon_shape_color_mode") ?: "static") != "static") return null
+        return settings.int("pref_draw_icon_shape_color_mode_color") ?: -1
+    }
+
+    /**
      * Hyperion features in use in this backup that this launcher has no counterpart for, so the restore
      * screen can say so instead of dropping them silently. Hyperion's default applies when a key is absent.
      */
@@ -958,21 +986,12 @@ class HyperionBackupConverter(
         if (on("pref_show_workspace_search_bar")) missing += R.string.hyperion_missing_home_search_bar
         if (on("pref_show_smartspace_in_dock")) missing += R.string.hyperion_missing_glance_in_dock
         if ((settings.string("pref_app_launch_animation") ?: "default") != "default") missing += R.string.hyperion_missing_launch_animation
-        if ((settings.int("pref_custom_folder_icon_size") ?: 100) != 100) missing += R.string.hyperion_missing_folder_icon_size
-        if (on("pref_enable_custom_gradient_top_glow_color") || on("pref_enable_custom_gradient_bottom_glow_color") || on("pref_glow_overflow")) {
-            missing += R.string.hyperion_missing_glow_colors
-        }
+        if (on("pref_glow_overflow")) missing += R.string.hyperion_missing_glow_colors
         if (listOf("pref_gicon_qsb_color", "pref_gicon_qsb_drawer_color").any { (settings.int(it) ?: HYPERION_UNSET_COLOR) != HYPERION_UNSET_COLOR }) {
             missing += R.string.hyperion_missing_g_color
         }
-        val shapeColorMode = settings.string("pref_draw_icon_shape_color_mode") ?: "static"
-        val shapeColor = settings.int("pref_draw_icon_shape_color_mode_color") ?: -1
-        if (on("pref_draw_icon_back_shape") && (shapeColorMode != "static" || shapeColor != -1)) missing += R.string.hyperion_missing_icon_back_color
         if (on("hide_locked_apps_on_recents")) missing += R.string.hyperion_missing_locked_recents
         if (on("pref_enable_sesame_longpress")) missing += R.string.hyperion_missing_sesame_longpress
-        if (on("pref_enable_minus_one", default = true) && (settings.string("pref_minus_one_theme") ?: "auto") != "auto") {
-            missing += R.string.hyperion_missing_feed_theme
-        }
         if (SMARTSPACE_FONT in fonts) missing += R.string.hyperion_missing_glance_font
         runCatching {
             SQLiteDatabase.openDatabase(launcherDb.path, null, SQLiteDatabase.OPEN_READONLY).use { db ->

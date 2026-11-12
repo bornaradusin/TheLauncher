@@ -50,6 +50,27 @@ class OverlayCallbackImpl(private val mLauncher: MainLauncher) :
         mClient.reconnect()
     }
 
+    /**
+     * Tells the Google feed which theme to use, the way the Pixel launcher does: through the
+     * background hints sent with the window. "auto" sends none, so the Google app decides.
+     */
+    fun setFeedTheme(theme: String) {
+        val bundle = when (theme) {
+            "dark" -> Bundle().apply {
+                putBoolean("is_background_dark", true)
+                putInt("background_color_hint", 0xFF202124.toInt())
+                putInt("background_secondary_color_hint", 0xFF303134.toInt())
+            }
+            "light" -> Bundle().apply {
+                putBoolean("is_background_dark", false)
+                putInt("background_color_hint", 0xFFFFFFFF.toInt())
+                putInt("background_secondary_color_hint", 0xFFF1F3F4.toInt())
+            }
+            else -> null
+        }
+        mClient.redraw(bundle)
+    }
+
     fun setEnableFeed(enable: Boolean) {
         mClient.setEnableFeed(enable)
         reconnect()

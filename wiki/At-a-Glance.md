@@ -24,7 +24,7 @@ Weather comes from [Open-Meteo](https://open-meteo.com), which is free and needs
 
 - **Weather location** left empty uses your phone's approximate location.
 - Type a town or city instead, like *Kilmallock*, and weather uses that place. Then it doesn't need location permission at all.
-- **Use Fahrenheit** switches from °C.
+- **Temperature unit** picks °C, °F or K.
 
 Weather refreshes every 30 minutes.
 

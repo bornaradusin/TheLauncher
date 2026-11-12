@@ -6,7 +6,7 @@ TheLauncher isn't your home app. Set it under **Settings → Apps → Default ap
 
 ### "Failed to restore backup"
 
-The message after the colon says why. If the file came from Hyperion, use **Restore Hyperion backup**, not **Restore backup**; the same goes for Nova. A `.backup` file that won't open may have been only partly downloaded; copy it again and retry.
+The message after the colon says why. **Restore backup** tells TheLauncher, Hyperion and Nova files apart by what is inside; if it says the file isn't a backup it knows, the file is from another launcher or is damaged. A `.backup` file that won't open may have been only partly downloaded; copy it again and retry.
 
 ### After a Hyperion restore, widgets are blank
 
