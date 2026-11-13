@@ -51,14 +51,20 @@ sealed class ColorOption {
         override val colorPreferenceEntry = ColorPreferenceEntry<ColorOption>(
             this,
             { stringResource(id = R.string.wallpaper) },
-            { context ->
-                val wallpaperManager = WallpaperManagerCompat.INSTANCE.get(context)
-                val primaryColor = wallpaperManager.wallpaperColors?.primaryColor
-                primaryColor ?: TheLauncherBlue.color
-            },
+            // The accent Material You makes from the wallpaper, not its raw most common colour.
+            { context -> wallpaperAccent(context, dark = false) },
+            { context -> wallpaperAccent(context, dark = true) },
         )
 
         override fun toString() = "wallpaper_primary"
+
+        private fun wallpaperAccent(context: Context, dark: Boolean): Int {
+            val seed = WallpaperManagerCompat.INSTANCE.get(context).wallpaperColors?.seedColor
+                ?: return TheLauncherBlue.color
+            val accent = com.android.systemui.monet.ColorScheme(seed).accent1
+            // The same tones as the system accent: 600 on light, 100 on dark.
+            return if (dark) accent.s100 else accent.s600
+        }
     }
 
     class CustomColor(val color: Int) : ColorOption() {

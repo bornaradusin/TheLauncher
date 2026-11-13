@@ -104,7 +104,7 @@ class ThemeProvider @Inject constructor(
         is ColorOption.SystemAccent -> systemColorScheme
 
         is ColorOption.WallpaperPrimary -> {
-            val wallpaperPrimary = wallpaperManager.wallpaperColors?.primaryColor
+            val wallpaperPrimary = wallpaperManager.wallpaperColors?.seedColor
             getColorScheme(wallpaperPrimary ?: ColorOption.TheLauncherBlue.color, colorStyle.style)
         }
 

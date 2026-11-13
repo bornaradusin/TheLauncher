@@ -67,7 +67,8 @@ class AppUpdates(private val context: Context) {
             for (i in 0 until assets.length()) {
                 val asset = assets.optJSONObject(i) ?: continue
                 val name = asset.optString("name")
-                if (apk == null && name.endsWith(".apk")) apk = asset
+                // The launcher itself (TheLauncher-v1.2.3.apk), never the feed companion beside it.
+                if (apk == null && name.startsWith("TheLauncher-v") && name.endsWith(".apk")) apk = asset
                 if (name == SUMS_FILE) sums = asset.optString("browser_download_url")
             }
         }

@@ -15,9 +15,9 @@ import java.io.File
  * TheLauncher itself debuggable would slow it down, so the feed goes through this small app.
  */
 object FeedCompanion {
-    private const val ASSET = "feed/TheLauncher-Feed.apk"
+    private const val ASSET = "feed/TheLauncherFeed.apk"
     private const val DOWNLOAD_URL =
-        "https://github.com/bornaradusin/TheLauncher/releases/latest/download/TheLauncher-Feed.apk"
+        "https://github.com/bornaradusin/TheLauncher/releases/latest/download/TheLauncherFeed.apk"
 
     /** Opens Android's installer for the companion; first the "install apps" switch if it's off. */
     fun install(context: Context) {
@@ -45,7 +45,7 @@ object FeedCompanion {
 
     private fun copyOut(context: Context): File {
         val dir = File(context.cacheDir, "feed").apply { mkdirs() }
-        val target = File(dir, "TheLauncher-Feed.apk")
+        val target = File(dir, "TheLauncherFeed.apk")
         context.assets.open(ASSET).use { input -> target.outputStream().use { input.copyTo(it) } }
         return target
     }

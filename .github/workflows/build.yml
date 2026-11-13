@@ -54,7 +54,7 @@ jobs:
         run: |
           ./gradlew -p feedbridge assembleDebug --stacktrace
           mkdir -p thelauncher/assets/feed
-          cp "$(find feedbridge/build/outputs/apk -name '*.apk' | head -1)" thelauncher/assets/feed/TheLauncher-Feed.apk
+          cp "$(find feedbridge/build/outputs/apk -name '*.apk' | head -1)" thelauncher/assets/feed/TheLauncherFeed.apk
       - name: Build APK
         run: ./gradlew assembleOssWithQuickstepGithubRelease --stacktrace
       - name: Prepare APK
@@ -63,8 +63,8 @@ jobs:
           VERSION=$(tr -d '[:space:]' < version.txt)
           APK=$(find build/outputs/apk -name '*.apk' | head -1)
           cp "$APK" "TheLauncher-v$VERSION.apk"
-          cp "$(find feedbridge/build/outputs/apk -name '*.apk' | head -1)" TheLauncher-Feed.apk
-          sha256sum "TheLauncher-v$VERSION.apk" TheLauncher-Feed.apk > SHA256SUMS.txt
+          cp "$(find feedbridge/build/outputs/apk -name '*.apk' | head -1)" TheLauncherFeed.apk
+          sha256sum "TheLauncher-v$VERSION.apk" TheLauncherFeed.apk > SHA256SUMS.txt
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
       - name: Upload APK
         uses: actions/upload-artifact@v7
@@ -72,7 +72,7 @@ jobs:
           name: TheLauncher
           path: |
             TheLauncher-v*.apk
-            TheLauncher-Feed.apk
+            TheLauncherFeed.apk
             SHA256SUMS.txt
       - name: Publish release
         id: release
@@ -88,7 +88,7 @@ jobs:
           # Written notes for this version, if there are any; otherwise GitHub's list of changes.
           NOTES=(--generate-notes)
           [ -f ".github/release-notes/$TAG.md" ] && NOTES=(--notes-file ".github/release-notes/$TAG.md")
-          gh release create "$TAG" "TheLauncher-$TAG.apk" TheLauncher-Feed.apk SHA256SUMS.txt --title "TheLauncher $TAG" \
+          gh release create "$TAG" "TheLauncher-$TAG.apk" TheLauncherFeed.apk SHA256SUMS.txt --title "TheLauncher $TAG" \
             --target "${{ github.sha }}" "${NOTES[@]}"
           echo "released=true" >> "$GITHUB_OUTPUT"
 

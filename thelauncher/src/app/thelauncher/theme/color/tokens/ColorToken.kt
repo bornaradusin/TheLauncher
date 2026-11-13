@@ -99,6 +99,22 @@ data class SetAlphaColorToken(
     }
 }
 
+/** Pure black in the dark theme while Blackout is on; [token] otherwise. */
+data class BlackoutColorToken(
+    private val token: ColorToken,
+) : ColorToken {
+
+    override fun resolve(context: Context, scheme: ColorScheme, uiColorMode: UiColorMode): Color {
+        if (uiColorMode.isDarkTheme &&
+            app.thelauncher.preferences2.PreferenceManager2.getInstance(context).blackoutDarkMode
+                .let { app.thelauncher.preferences2.PreferenceCacheExtensionsKt.firstCached(it) }
+        ) {
+            return AndroidColor(android.graphics.Color.BLACK)
+        }
+        return token.resolve(context, scheme, uiColorMode)
+    }
+}
+
 data class SetLStarColorToken(
     private val token: ColorToken,
     private val lStar: Double,

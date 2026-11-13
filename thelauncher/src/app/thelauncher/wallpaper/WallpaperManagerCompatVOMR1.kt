@@ -45,6 +45,15 @@ internal class WallpaperManagerCompatVOMR1(context: Context) : WallpaperManagerC
         if (extractionInfo.supportsDarkTheme) {
             hints = hints or HINT_SUPPORTS_DARK_THEME
         }
-        this.wallpaperColors = WallpaperColorsCompat(wallpaperColors.primaryColor.toArgb(), hints)
+        val main = listOfNotNull(
+            wallpaperColors.primaryColor,
+            wallpaperColors.secondaryColor,
+            wallpaperColors.tertiaryColor,
+        ).map { it.toArgb() }
+        this.wallpaperColors = WallpaperColorsCompat(
+            wallpaperColors.primaryColor.toArgb(),
+            hints,
+            WallpaperColorsCompat.pickSeed(main),
+        )
     }
 }
