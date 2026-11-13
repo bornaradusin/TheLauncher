@@ -71,6 +71,7 @@ import app.thelauncher.ui.theme.preferenceGroupColor
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.runtime.rememberCoroutineScope
+import app.thelauncher.smartspace.model.GLANCE_SIZE_AUTO
 import app.thelauncher.smartspace.model.GLANCE_SIZE_COMPACT
 import app.thelauncher.smartspace.model.GLANCE_SIZE_LARGE
 import app.thelauncher.smartspace.model.GLANCE_STYLE_MATERIAL
@@ -210,16 +211,17 @@ private fun SmartspaceStylePreferences() {
                     entries = remember {
                         listOf(
                             ListPreferenceEntry(GLANCE_SIZE_COMPACT) { stringResource(id = R.string.glance_size_compact) },
+                            ListPreferenceEntry(GLANCE_SIZE_AUTO) { stringResource(id = R.string.glance_size_auto) },
                             ListPreferenceEntry(GLANCE_SIZE_LARGE) { stringResource(id = R.string.glance_size_large) },
                         )
                     },
                     value = sizeAdapter.state.value,
                     onValueChange = { size ->
-                        if (size != GLANCE_SIZE_LARGE) {
+                        if (size != GLANCE_SIZE_LARGE && size != GLANCE_SIZE_AUTO) {
                             sizeAdapter.onChange(size)
                         } else {
-                            // The large widget takes the second row of the first home screen, so
-                            // that row has to be empty.
+                            // The large and auto-sized widgets take the second row of the first
+                            // home screen, so that row has to be empty.
                             scope.launch {
                                 val free = withContext(Dispatchers.IO) { secondRowIsFree(context) }
                                 if (free) {

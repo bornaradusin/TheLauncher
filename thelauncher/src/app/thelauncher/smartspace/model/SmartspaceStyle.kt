@@ -18,6 +18,12 @@ const val GLANCE_SIZE_COMPACT = "compact"
 /** Two rows under the date, in two rows of the grid. */
 const val GLANCE_SIZE_LARGE = "large"
 
+/**
+ * Only the date while there's nothing else, growing to a second row when there is (an alarm, the
+ * flashlight, an event). It keeps two rows of the grid free to grow into.
+ */
+const val GLANCE_SIZE_AUTO = "auto"
+
 const val SMARTSPACE_DATE_SHORT = "short"
 const val SMARTSPACE_DATE_LONG = "long"
 const val SMARTSPACE_DATE_FULL = "full"

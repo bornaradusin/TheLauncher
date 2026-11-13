@@ -200,14 +200,7 @@ fun HomeScreenPreferences(
                     label = stringResource(id = R.string.feed_get_companion),
                     subtitle = stringResource(id = R.string.feed_get_companion_desc),
                 ) {
-                    runCatching {
-                        feedContext.startActivity(
-                            android.content.Intent(
-                                android.content.Intent.ACTION_VIEW,
-                                android.net.Uri.parse(FEED_COMPANION_URL),
-                            ).addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK),
-                        )
-                    }
+                    app.thelauncher.FeedCompanion.install(feedContext)
                 }
             }
             ExpandAndShrink(visible = feedAvailable && enableFeedAdapter.state.value) {
@@ -481,7 +474,3 @@ fun HomeScreenTextColorPreference(
         modifier = modifier,
     )
 }
-
-/** The TheLauncher Feed companion app, attached to every release. */
-private const val FEED_COMPANION_URL =
-    "https://github.com/bornaradusin/TheLauncher/releases/latest/download/TheLauncher-Feed.apk"

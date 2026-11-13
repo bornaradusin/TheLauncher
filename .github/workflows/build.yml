@@ -48,11 +48,15 @@ jobs:
           echo keyPassword='${{ secrets.KEY_PASSWORD }}' >> keystore.properties
           echo storeFile='${{ github.workspace }}/key.jks' >> keystore.properties
           echo "$KEYSTORE" | base64 --decode > key.jks
+      # TheLauncher Feed: the small companion app that reaches the Google feed (see feedbridge/).
+      # Built first, so TheLauncher can carry it and install it with one tap.
+      - name: Build TheLauncher Feed
+        run: |
+          ./gradlew -p feedbridge assembleDebug --stacktrace
+          mkdir -p thelauncher/assets/feed
+          cp "$(find feedbridge/build/outputs/apk -name '*.apk' | head -1)" thelauncher/assets/feed/TheLauncher-Feed.apk
       - name: Build APK
         run: ./gradlew assembleOssWithQuickstepGithubRelease --stacktrace
-      # TheLauncher Feed: the small companion app that reaches the Google feed (see feedbridge/).
-      - name: Build TheLauncher Feed
-        run: ./gradlew -p feedbridge assembleDebug --stacktrace
       - name: Prepare APK
         id: apk
         run: |

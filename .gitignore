@@ -20,3 +20,6 @@ __pycache__
 .vscode
 .fleet
 ossWithQuickstep/release
+
+# TheLauncher Feed, copied in by the build
+thelauncher/assets/feed/

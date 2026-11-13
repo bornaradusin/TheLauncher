@@ -30,6 +30,7 @@ import androidx.core.graphics.ColorUtils
 import androidx.core.view.isVisible
 import app.thelauncher.font.FontManager
 import app.thelauncher.preferences2.PreferenceManager2
+import app.thelauncher.smartspace.model.GLANCE_SIZE_AUTO
 import app.thelauncher.smartspace.model.GLANCE_SIZE_LARGE
 import app.thelauncher.smartspace.model.GlanceExtras
 import app.thelauncher.smartspace.model.GlanceRanking
@@ -80,7 +81,7 @@ class GlanceWidgetView @JvmOverloads constructor(
     private var style = GlanceWidgetStyle()
 
     /** One row fits in one grid row, so everything is a little smaller than in the large widget. */
-    private val compact get() = !appWidget && style.maxRows == 1
+    private val compact get() = !appWidget && style.maxRows == 1 && !style.grows
 
     private val maxRows get() = if (appWidget) APP_WIDGET_MAX_ROWS else style.maxRows
 
@@ -236,7 +237,8 @@ class GlanceWidgetView @JvmOverloads constructor(
     override fun onLayout(changed: Boolean, left: Int, top: Int, right: Int, bottom: Int) {
         val shown = card.measuredHeight * fitScale
         val inner = bottom - top - paddingTop - paddingBottom
-        val y = paddingTop + ((inner - shown) / 2f).roundToInt()
+        // The auto-sized card sits at the top and grows down into its second row.
+        val y = if (style.grows && !appWidget) paddingTop else paddingTop + ((inner - shown) / 2f).roundToInt()
         card.layout(paddingLeft, y, paddingLeft + card.measuredWidth, y + card.measuredHeight)
         card.pivotX = 0f
         card.pivotY = 0f
@@ -616,6 +618,8 @@ class GlanceWidgetView @JvmOverloads constructor(
 /** The widget's settings, read in one go. */
 data class GlanceWidgetStyle(
     val maxRows: Int = 1,
+    /** Only the date until there's something else to show, then a second row (see GLANCE_SIZE_AUTO). */
+    val grows: Boolean = false,
     val cardColor: ColorOption = ColorOption.Default,
     val opacity: Float = 1f,
     val radiusDp: Float = 28f,
@@ -643,6 +647,7 @@ data class GlanceWidgetStyle(
         ) { values ->
             GlanceWidgetStyle(
                 maxRows = if (values[0] == GLANCE_SIZE_LARGE) 2 else 1,
+                grows = values[0] == GLANCE_SIZE_AUTO,
                 cardColor = values[1] as ColorOption,
                 opacity = (values[2] as Float).coerceIn(0.2f, 1f),
                 radiusDp = values[3] as Float,

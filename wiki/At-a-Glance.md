@@ -32,6 +32,14 @@ Weather refreshes every 30 minutes.
 
 **Calendars to be shown** lists your phone's calendars. Turn off the ones whose events you don't want, such as holidays or birthdays. All-day events are skipped.
 
+## Size
+
+With the **Material card** style, **Size** picks how big the card is:
+
+- **Compact: one row** shows the date; swipe it sideways to see anything else.
+- **Auto: one row, two when there's more** shows just the date, and grows to a second row when there's something to show, such as an alarm, the flashlight or an event. It keeps the second row of your first home screen free for that.
+- **Large: two rows** always takes two rows.
+
 ## Date and time
 
 **Date**, **Time** and **Time format** choose what the first line shows. **Calendar** picks Gregorian or another calendar system.
