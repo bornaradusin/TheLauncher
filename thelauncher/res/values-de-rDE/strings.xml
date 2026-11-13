@@ -79,7 +79,6 @@
         <item quantity="one">%dJ.</item>
         <item quantity="other">%dJ.</item>
     </plurals>
-    <string name="managed_by_thelauncher">Von TheLauncher verwaltet</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Voreinstellungen</string>
     <string name="settings_button_text">Home-Einstellungen</string>
@@ -346,7 +345,6 @@
     <string name="pref_fonts_add_fonts">Schriftarten hinzufügen</string>
     <string name="pref_fonts_add_fonts_summary">OTF- und TTF-Schriftarten werden unterstützt</string>
     <string name="pref_fonts_missing_font">Schriftart nicht gefunden</string>
-    <string name="font_label">Schriftart (experimentell)</string>
     <string name="fontWorkspace">Allgemein</string>
     <string name="fontHeading">Überschriften</string>
     <string name="fontHeadingMedium">Überschriften (mittelgroß)</string>

@@ -73,7 +73,6 @@
     <plurals name="time_years_ago">
         <item quantity="other">%d年</item>
     </plurals>
-    <string name="managed_by_thelauncher">TheLauncher に管理されています</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">設定</string>
     <string name="settings_button_text">ホーム設定</string>
@@ -340,7 +339,6 @@
     <string name="pref_fonts_add_fonts">フォントを追加</string>
     <string name="pref_fonts_add_fonts_summary">OTF および TTF フォントがサポートされています</string>
     <string name="pref_fonts_missing_font">フォントが見つかりません</string>
-    <string name="font_label">フォント (実験的)</string>
     <string name="fontWorkspace">一般設定</string>
     <string name="fontHeading">見出し</string>
     <string name="fontHeadingMedium">見出し (中)</string>

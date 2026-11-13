@@ -79,7 +79,6 @@
         <item quantity="one">%dسال</item>
         <item quantity="other">%dسال</item>
     </plurals>
-    <string name="managed_by_thelauncher">مدیریت شده توسط TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">ترجیحات</string>
     <string name="settings_button_text">تنظیمات خانه</string>
@@ -346,7 +345,6 @@
     <string name="pref_fonts_add_fonts">افزودن قلم</string>
     <string name="pref_fonts_add_fonts_summary">قلم‌های OTF و TTF پشتیبانی می‌شوند</string>
     <string name="pref_fonts_missing_font">قلم پیدا نشد</string>
-    <string name="font_label">قلم‌ (آزمایشی)</string>
     <string name="fontWorkspace">عمومی</string>
     <string name="fontHeading">سربرگ</string>
     <string name="fontHeadingMedium">سربرگ (متوسط)</string>

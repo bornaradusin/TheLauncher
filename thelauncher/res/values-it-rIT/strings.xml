@@ -79,7 +79,6 @@
         <item quantity="one">%d anni</item>
         <item quantity="other">%d anni</item>
     </plurals>
-    <string name="managed_by_thelauncher">Gestito da TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Preferenze</string>
     <string name="settings_button_text">Impostazioni Home</string>
@@ -348,7 +347,6 @@
     <string name="pref_fonts_add_fonts">Aggiungi font</string>
     <string name="pref_fonts_add_fonts_summary">I font OTF e TTF sono supportati</string>
     <string name="pref_fonts_missing_font">Font non trovato</string>
-    <string name="font_label">Font (sperimentale)</string>
     <string name="fontWorkspace">Generale</string>
     <string name="fontHeading">Intestazioni</string>
     <string name="fontHeadingMedium">Intestazioni (medio)</string>

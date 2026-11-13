@@ -79,7 +79,6 @@
         <item quantity="one">%daastat</item>
         <item quantity="other">%daastat</item>
     </plurals>
-    <string name="managed_by_thelauncher">Haldab TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Eelistused</string>
     <string name="settings_button_text">Käivitaja seaded</string>
@@ -346,7 +345,6 @@
     <string name="pref_fonts_add_fonts">Lisa fonte</string>
     <string name="pref_fonts_add_fonts_summary">Toetatakse OTF ja TTF fonte</string>
     <string name="pref_fonts_missing_font">Fonti ei leitud</string>
-    <string name="font_label">Font (katseline)</string>
     <string name="fontWorkspace">Üldine</string>
     <string name="fontHeading">Pealkirjad</string>
     <string name="fontHeadingMedium">Pealkirjad (keskmine)</string>

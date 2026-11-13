@@ -79,7 +79,6 @@
         <item quantity="one">%daño</item>
         <item quantity="other">%daño</item>
     </plurals>
-    <string name="managed_by_thelauncher">Gestionado por TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Preferencias</string>
     <string name="settings_button_text">Ajustes del lanzador</string>
@@ -346,7 +345,6 @@
     <string name="pref_fonts_add_fonts">Añadir tipografías</string>
     <string name="pref_fonts_add_fonts_summary">Solo se permiten tipografías OTF y TTF</string>
     <string name="pref_fonts_missing_font">No se ha encontrado la tipografía</string>
-    <string name="font_label">Tipografía (experimental)</string>
     <string name="fontWorkspace">General</string>
     <string name="fontHeading">Encabezados</string>
     <string name="fontHeadingMedium">Encabezados (intermedio)</string>

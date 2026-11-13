@@ -73,7 +73,6 @@
     <plurals name="time_years_ago">
         <item quantity="other">%dn</item>
     </plurals>
-    <string name="managed_by_thelauncher">Quản lí bởi TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Tùy chỉnh</string>
     <string name="settings_button_text">Cài đặt trang chủ</string>
@@ -340,7 +339,6 @@
     <string name="pref_fonts_add_fonts">Thêm phông chữ</string>
     <string name="pref_fonts_add_fonts_summary">Hỗ trợ font dạng OTF và TTF</string>
     <string name="pref_fonts_missing_font">Không tìm thấy font</string>
-    <string name="font_label">Phông chữ (thử nghiệm)</string>
     <string name="fontWorkspace">Chung</string>
     <string name="fontHeading">Tiêu đề</string>
     <string name="fontHeadingMedium">Tiêu đề (vừa)</string>

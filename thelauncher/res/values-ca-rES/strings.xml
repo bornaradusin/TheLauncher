@@ -79,7 +79,6 @@
         <item quantity="one">%d any</item>
         <item quantity="other">%d anys</item>
     </plurals>
-    <string name="managed_by_thelauncher">Gestionat per TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Preferències</string>
     <string name="settings_button_text">Configuració d\'inici</string>
@@ -346,7 +345,6 @@
     <string name="pref_fonts_add_fonts">Afegeix fonts</string>
     <string name="pref_fonts_add_fonts_summary">Les fonts OTF i TTF són compatibles</string>
     <string name="pref_fonts_missing_font">Font no trobada</string>
-    <string name="font_label">Font (experimental)</string>
     <string name="fontWorkspace">General</string>
     <string name="fontHeading">Encapçalaments</string>
     <string name="fontHeadingMedium">Encapçalaments (mitjana)</string>

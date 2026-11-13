@@ -79,7 +79,6 @@
         <item quantity="one">%d a</item>
         <item quantity="other">%d a</item>
     </plurals>
-    <string name="managed_by_thelauncher">Gérée par TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Préférences</string>
     <string name="settings_button_text">Paramètres de l\'accueil</string>
@@ -346,7 +345,6 @@
     <string name="pref_fonts_add_fonts">Ajouter des polices</string>
     <string name="pref_fonts_add_fonts_summary">Les polices sont prises en charge aux formats OTF et TTF</string>
     <string name="pref_fonts_missing_font">Police introuvable</string>
-    <string name="font_label">Police (expérimental)</string>
     <string name="fontWorkspace">Général</string>
     <string name="fontHeading">Titres</string>
     <string name="fontHeadingMedium">Titres (medium)</string>

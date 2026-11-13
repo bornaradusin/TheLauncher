@@ -91,7 +91,6 @@
         <item quantity="many">%dy</item>
         <item quantity="other">%dy</item>
     </plurals>
-    <string name="managed_by_thelauncher">Zarządzane przez TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Ustawienia</string>
     <string name="settings_button_text">Ustawienia ekranu głównego</string>
@@ -358,7 +357,6 @@
     <string name="pref_fonts_add_fonts">Dodaj Czcionki</string>
     <string name="pref_fonts_add_fonts_summary">Wspierane są czcionki OTF i TTF</string>
     <string name="pref_fonts_missing_font">Nie znaleziono czcionki</string>
-    <string name="font_label">Czcionka (eksperymentalne)</string>
     <string name="fontWorkspace">Ogólne</string>
     <string name="fontHeading">Nagłówki</string>
     <string name="fontHeadingMedium">Nagłówki (średnie)</string>

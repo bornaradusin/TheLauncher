@@ -79,7 +79,6 @@
         <item quantity="one">%dy</item>
         <item quantity="other">%dy</item>
     </plurals>
-    <string name="managed_by_thelauncher">ലോൺചെയർ നിയന്ത്രിക്കുന്നത്</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">മുൻഗണനകൾ</string>
     <string name="settings_button_text">ഹോം ക്രമീകരണങ്ങൾ</string>
@@ -346,7 +345,6 @@
     <string name="pref_fonts_add_fonts">Add fonts</string>
     <string name="pref_fonts_add_fonts_summary">OTF and TTF fonts are supported</string>
     <string name="pref_fonts_missing_font">Font not found</string>
-    <string name="font_label">Font (experimental)</string>
     <string name="fontWorkspace">പൊതുവായവ</string>
     <string name="fontHeading">Headings</string>
     <string name="fontHeadingMedium">Headings (medium)</string>

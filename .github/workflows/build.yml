@@ -101,25 +101,14 @@ jobs:
           BEFORE: ${{ github.event.before }}
           RELEASED: ${{ steps.release.outputs.released }}
         run: |
-          # Only the screens this change touches: since the last release when releasing,
-          # otherwise since the previous push.
+          # Screenshots only when asked for by hand, and only of the screens asked for.
           if [ -n "$ASKED" ]; then
             echo "$ASKED" | tr ' ' '\n' > changed.txt
-          elif [ "$RELEASED" != "true" ]; then
-            # Builds that aren't releases take no screenshots.
+          else
+            # No screenshots unless asked for by hand (Run workflow → screenshots).
             printf 'SECTIONS=none\nPAGES=none\n' | tee -a "$GITHUB_ENV"
             exit 0
-          else
-            if [ "$RELEASED" = "true" ]; then
-              BEFORE=$(gh release list -R "$GITHUB_REPOSITORY" --limit 2 --json tagName --jq '.[1].tagName')
-            fi
-            if [ -n "$BEFORE" ] && [ "$BEFORE" != "0000000000000000000000000000000000000000" ]; then
-              gh api "repos/$GITHUB_REPOSITORY/compare/$BEFORE...$GITHUB_SHA" --jq '.files[].filename' > changed.txt || echo all > changed.txt
-            else
-              echo all > changed.txt
-            fi
           fi
-          # A release only retakes the wiki's pictures that its changes touch, nothing else.
           python3 .github/screenshots/sections.py ${RELEASED:+--release} < changed.txt | tee -a "$GITHUB_ENV"
           cp "TheLauncher-v${{ steps.apk.outputs.version }}.apk" TheLauncher.apk
           nohup python3 .github/screenshots/seerr.py > "$RUNNER_TEMP/seerr.log" 2>&1 &

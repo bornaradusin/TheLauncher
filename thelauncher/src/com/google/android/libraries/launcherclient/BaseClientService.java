@@ -22,6 +22,11 @@ public class BaseClientService implements ServiceConnection {
     }
 
     public final boolean connect() {
+        // TheLauncher: without the TheLauncher Feed companion a release build can't reach the
+        // Google feed, and trying makes the Google app's feed service crash and back off.
+        if (!mConnected && FeedBridge.Companion.getInstance(mContext).needsCompanionApp()) {
+            return false;
+        }
         if (!mConnected) {
             try {
                 mConnected = mContext.bindService(LauncherClient.getIntent(mContext,

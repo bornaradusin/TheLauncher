@@ -79,7 +79,6 @@
         <item quantity="one">%dy</item>
         <item quantity="other">%dy</item>
     </plurals>
-    <string name="managed_by_thelauncher">TheLauncher tarafından yönetilmektedir</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Tercihler</string>
     <string name="settings_button_text">Ana ekran ayarları</string>
@@ -346,7 +345,6 @@
     <string name="pref_fonts_add_fonts">Yazı tipleri ekle</string>
     <string name="pref_fonts_add_fonts_summary">OTF ve TTF yazı tipleri desteklenir</string>
     <string name="pref_fonts_missing_font">Yazı tipi bulunamadı</string>
-    <string name="font_label">Yazı tipi (deneysel)</string>
     <string name="fontWorkspace">Genel</string>
     <string name="fontHeading">Başlıklar</string>
     <string name="fontHeadingMedium">Başlıklar (orta)</string>

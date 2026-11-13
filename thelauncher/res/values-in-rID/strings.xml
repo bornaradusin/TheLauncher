@@ -73,7 +73,6 @@
     <plurals name="time_years_ago">
         <item quantity="other">%dthn</item>
     </plurals>
-    <string name="managed_by_thelauncher">Dikelola oleh TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Preferensi</string>
     <string name="settings_button_text">Pengaturan beranda</string>
@@ -340,7 +339,6 @@
     <string name="pref_fonts_add_fonts">Tambahkan font</string>
     <string name="pref_fonts_add_fonts_summary">Font OTF dan TTF didukung</string>
     <string name="pref_fonts_missing_font">Font tidak ditemukan</string>
-    <string name="font_label">Font (eksperimental)</string>
     <string name="fontWorkspace">Umum</string>
     <string name="fontHeading">Judul</string>
     <string name="fontHeadingMedium">Judul (medium)</string>

@@ -46,16 +46,17 @@ fun DrawerSearchPreference(
         label = stringResource(id = R.string.show_app_search_bar),
         modifier = modifier,
     ) {
-        PreferenceGroup(heading = stringResource(R.string.general_label)) {
+        // The search finds apps, Seerr and phone settings only, so there are no result types to pick.
+        PreferenceGroup(
+            heading = stringResource(R.string.general_label),
+            description = stringResource(id = R.string.drawer_search_finds),
+        ) {
             if (hiddenApps.isNotEmpty()) {
                 HiddenAppsInSearchPreference()
             }
             SwitchPreference(
                 adapter = prefs2.autoShowKeyboardInDrawer.getAdapter(),
                 label = stringResource(id = R.string.pref_search_auto_show_keyboard),
-            )
-            SearchProvider(
-                context = context,
             )
             SwitchPreference(
                 label = stringResource(R.string.allapps_match_qsb_style_label),
@@ -71,37 +72,6 @@ fun DrawerSearchPreference(
             app.thelauncher.ui.preferences.components.colorpreference.ColorPreference(preference = prefs2.drawerQsbColor)
         }
 
-        val searchAlgorithm = preferenceManager2().searchAlgorithm.getAdapter().state.value
-        val navController = LocalNavController.current
-        PreferenceGroup(heading = stringResource(id = R.string.show_search_result_types)) {
-            if (searchAlgorithm != TheLauncherSearchAlgorithm.ASI_SEARCH) {
-                val canDisable = searchAlgorithm != TheLauncherSearchAlgorithm.APP_SEARCH
-                val adapter = prefs.searchResultApps.getAdapter()
-
-                TwoTargetSwitchPreference(
-                    checked = if (canDisable) adapter.state.value else true,
-                    onCheckedChange = if (canDisable) adapter::onChange else ({}),
-                    enabled = canDisable,
-                    label = stringResource(R.string.search_pref_result_apps_and_shortcuts_title),
-                    onClick = {
-                        navController.navigate(SearchProviderPreference(SearchProviderId.APPS))
-                    },
-                )
-            }
-            when (searchAlgorithm) {
-                TheLauncherSearchAlgorithm.LOCAL_SEARCH -> {
-                    LocalSearchSettings(
-                        prefs = prefs,
-                        prefs2 = prefs2,
-                        context = context,
-                    )
-                }
-
-                TheLauncherSearchAlgorithm.ASI_SEARCH -> {
-                    ASISearchSettings(prefs)
-                }
-            }
-        }
     }
 }
 

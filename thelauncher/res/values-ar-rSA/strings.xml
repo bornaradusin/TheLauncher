@@ -103,7 +103,6 @@
         <item quantity="many">%dعام</item>
         <item quantity="other">%dعام</item>
     </plurals>
-    <string name="managed_by_thelauncher">يُدار بواسطة TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">التفضيلات</string>
     <string name="settings_button_text">إعدادات الشاشة الرئيسية</string>
@@ -370,7 +369,6 @@
     <string name="pref_fonts_add_fonts">إضافة خطوط</string>
     <string name="pref_fonts_add_fonts_summary">الخطوط بنوعي OTF وTTF مدعومة</string>
     <string name="pref_fonts_missing_font">لم يتم العثور على الخط</string>
-    <string name="font_label">الخط (تجريبي)</string>
     <string name="fontWorkspace">عام</string>
     <string name="fontHeading">العناوين</string>
     <string name="fontHeadingMedium">العناوين (متوسط)</string>

@@ -85,7 +85,6 @@
         <item quantity="few">%dy</item>
         <item quantity="other">%dy</item>
     </plurals>
-    <string name="managed_by_thelauncher">Upravlja TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Podešavanja</string>
     <string name="settings_button_text">Podešavanja početnog ekrana</string>
@@ -352,7 +351,6 @@
     <string name="pref_fonts_add_fonts">Dodaj fontove</string>
     <string name="pref_fonts_add_fonts_summary">OTF i TTF fontovi su podržani</string>
     <string name="pref_fonts_missing_font">Font nije pronađen</string>
-    <string name="font_label">Font (eksperimentalno)</string>
     <string name="fontWorkspace">Opšte</string>
     <string name="fontHeading">Naslovi</string>
     <string name="fontHeadingMedium">Naslovi (srednji)</string>

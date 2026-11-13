@@ -46,7 +46,6 @@
 
     <string name="loading">Loading…</string>
 
-    <string name="managed_by_thelauncher">Managed by TheLauncher</string>
 
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Preferences</string>
@@ -248,7 +247,6 @@
 
     <string name="pref_fonts_missing_font">Font not found</string>
 
-    <string name="font_label">Font (experimental)</string>
     <string name="fontWorkspace">General</string>
     <string name="fontHeading">Headings</string>
     <string name="fontHeadingMedium">Headings (medium)</string>

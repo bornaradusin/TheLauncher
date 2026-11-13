@@ -91,7 +91,6 @@
         <item quantity="many">%dy</item>
         <item quantity="other">%dy</item>
     </plurals>
-    <string name="managed_by_thelauncher">Керується TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Налаштування</string>
     <string name="settings_button_text">Налаштування головного екрана</string>
@@ -358,7 +357,6 @@
     <string name="pref_fonts_add_fonts">Додати шрифти</string>
     <string name="pref_fonts_add_fonts_summary">Підтримуються шрифти OTF і TTF</string>
     <string name="pref_fonts_missing_font">Шрифт не знайдений</string>
-    <string name="font_label">Шрифт (експериментально)</string>
     <string name="fontWorkspace">Загальні</string>
     <string name="fontHeading">Заголовки</string>
     <string name="fontHeadingMedium">Заголовки (середні)</string>

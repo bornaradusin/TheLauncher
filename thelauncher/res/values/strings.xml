@@ -91,7 +91,7 @@
         <item quantity="other">%dy</item>
     </plurals>
 
-    <string name="managed_by_thelauncher">Managed by TheLauncher</string>
+    <string name="managed_by_thelauncher">System default</string>
 
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Preferences</string>
@@ -428,7 +428,7 @@
 
     <string name="pref_fonts_missing_font">Font not found</string>
 
-    <string name="font_label">Font (experimental)</string>
+    <string name="font_label">Font</string>
     <string name="fontWorkspace">General</string>
     <string name="fontHeading">Headings</string>
     <string name="fontHeadingMedium">Headings (medium)</string>
@@ -560,7 +560,7 @@
 
     <!-- Toggle button for enabling Smartspace -->
     <string name="smartspace_widget_toggle_label">Show on home screen</string>
-    <string name="smartspace_widget_toggle_description">At a Glance can be added to the home screen with the TheLauncher widget</string>
+    <string name="smartspace_widget_toggle_description">At a Glance can also be added to the home screen as a TheLauncher widget</string>
 
     <!-- List of available providers -->
     <string name="smartspace_mode_label">At a Glance provider</string>

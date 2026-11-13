@@ -79,7 +79,6 @@
         <item quantity="one">%dy</item>
         <item quantity="other">%dy</item>
     </plurals>
-    <string name="managed_by_thelauncher">Beheerd door TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Voorkeuren</string>
     <string name="settings_button_text">Startscherminstellingen</string>
@@ -346,7 +345,6 @@
     <string name="pref_fonts_add_fonts">Lettertypen toevoegen</string>
     <string name="pref_fonts_add_fonts_summary">OTF- en TTF-lettertypen zijn ondersteund</string>
     <string name="pref_fonts_missing_font">Lettertype niet gevonden</string>
-    <string name="font_label">Lettertype (experimenteel)</string>
     <string name="fontWorkspace">Algemeen</string>
     <string name="fontHeading">Koppen</string>
     <string name="fontHeadingMedium">Koppen (middelgroot)</string>

@@ -44,7 +44,8 @@ Long-press it → **Customize**, then type a new name. Leave it empty to go back
 - **General → Colors** sets the accent colour, or follows your wallpaper.
 - **Blackout** uses pure black backgrounds in dark mode for settings, the drawer and folders.
 - **Color style** chooses how much of the wallpaper colour the launcher uses.
-- **Font (experimental)** changes the font across the launcher. **Add fonts** takes OTF and TTF files.
+- **Font**: by default the launcher uses your phone's own font, as Hyperion does. **App names** and **Everything else** can each be changed; **Add fonts** takes OTF and TTF files.
+- Settings that say **System default** follow your phone: its theme, accent colour and wallpaper.
 
 ## Wallpaper dimmer and shadows
 

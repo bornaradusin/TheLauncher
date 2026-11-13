@@ -79,7 +79,6 @@
         <item quantity="one">%da</item>
         <item quantity="other">%da</item>
     </plurals>
-    <string name="managed_by_thelauncher">Gerido por TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Preferências</string>
     <string name="settings_button_text">Definições do ecrã principal</string>
@@ -346,7 +345,6 @@
     <string name="pref_fonts_add_fonts">Adicionar fontes</string>
     <string name="pref_fonts_add_fonts_summary">São suportadas fontes OTF e TTF</string>
     <string name="pref_fonts_missing_font">Fonte não encontrada</string>
-    <string name="font_label">Fonte (experimental)</string>
     <string name="fontWorkspace">Geral</string>
     <string name="fontHeading">Títulos</string>
     <string name="fontHeadingMedium">Títulos (Médio)</string>

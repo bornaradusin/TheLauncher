@@ -79,7 +79,6 @@
         <item quantity="one">%dy</item>
         <item quantity="other">%dy</item>
     </plurals>
-    <string name="managed_by_thelauncher">لان چیئر کے زیر انتظام</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">ترجیحات</string>
     <string name="settings_button_text">گھر کی ترتیبات</string>
@@ -346,7 +345,6 @@
     <string name="pref_fonts_add_fonts">فونٹس شامل کریں۔</string>
     <string name="pref_fonts_add_fonts_summary">OTF اور TTF فونٹس تعاون یافتہ ہیں۔</string>
     <string name="pref_fonts_missing_font">فونٹ نہیں ملا</string>
-    <string name="font_label">فونٹ (تجرباتی)</string>
     <string name="fontWorkspace">جنرل</string>
     <string name="fontHeading">عنوانات</string>
     <string name="fontHeadingMedium">عنوانات (درمیانی)</string>

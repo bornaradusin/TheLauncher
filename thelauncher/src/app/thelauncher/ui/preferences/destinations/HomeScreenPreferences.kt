@@ -195,7 +195,7 @@ fun HomeScreenPreferences(
                 },
                 enabled = feedAvailable,
             )
-            ExpandAndShrink(visible = feedAvailable && needsCompanion) {
+            ExpandAndShrink(visible = feedAvailable && needsCompanion && enableFeedAdapter.state.value) {
                 ClickablePreference(
                     label = stringResource(id = R.string.feed_get_companion),
                     subtitle = stringResource(id = R.string.feed_get_companion_desc),
@@ -225,8 +225,8 @@ fun HomeScreenPreferences(
                 )
             }
         }
+        // Animations only; the text colour is a colour, under Colors → Home screen.
         PreferenceGroup(heading = stringResource(R.string.style)) {
-            HomeScreenTextColorPreference()
             OverlayHandlerPreference(
                 adapter = prefs2.closingAppOverlay.getAdapter(),
                 label = stringResource(id = R.string.app_closing_animation),
@@ -242,6 +242,7 @@ fun HomeScreenPreferences(
             )
         }
         PreferenceGroup(heading = stringResource(id = R.string.wallpaper)) {
+            HomeScreenTextColorPreference()
             val glowAdapter = prefs2.desktopGlow.getAdapter()
             SwitchPreference(
                 adapter = glowAdapter,

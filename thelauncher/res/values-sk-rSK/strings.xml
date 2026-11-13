@@ -91,7 +91,6 @@
         <item quantity="many">%d r.</item>
         <item quantity="other">%d r.</item>
     </plurals>
-    <string name="managed_by_thelauncher">Spravované TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Predvoľby</string>
     <string name="settings_button_text">Nastavenia domovskej obrazovky</string>
@@ -358,7 +357,6 @@
     <string name="pref_fonts_add_fonts">Pridať písma</string>
     <string name="pref_fonts_add_fonts_summary">OTF a TTF sú podporované písma</string>
     <string name="pref_fonts_missing_font">Písmo nebolo nájdené</string>
-    <string name="font_label">Písmo (Experimentálne)</string>
     <string name="fontWorkspace">Všeobecné</string>
     <string name="fontHeading">Nadpisy</string>
     <string name="fontHeadingMedium">Nadpisy (Stredné)</string>

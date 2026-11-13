@@ -215,6 +215,9 @@
     <string name="feed_needs_companion">Needs the TheLauncher Feed app to reach the Google feed</string>
     <string name="feed_get_companion">Get TheLauncher Feed</string>
     <string name="feed_get_companion_desc">A small free app from TheLauncher\'s releases. Install it, then swipe right on the home screen</string>
+    <string name="drawer_search_finds">Search finds apps, Seerr and phone settings</string>
+    <string name="drawer_search_hint">Search apps, Seerr and settings</string>
+    <string name="font_system_default">System default</string>
     <string name="weather_unit">Temperature unit</string>
     <string name="weather_unit_celsius">Celsius (°C)</string>
     <string name="weather_unit_fahrenheit">Fahrenheit (°F)</string>

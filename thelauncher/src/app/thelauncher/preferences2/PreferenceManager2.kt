@@ -754,7 +754,7 @@ class PreferenceManager2 @Inject constructor(
         onSet = { newValue ->
             if (!newValue) {
                 val fontCache = FontCache.INSTANCE.get(context)
-                TheLauncherPreferenceManager.getInstance(context).fontWorkspace.set(newValue = fontCache.uiText)
+                TheLauncherPreferenceManager.getInstance(context).fontWorkspace.set(newValue = fontCache.systemBody)
             }
         },
     )

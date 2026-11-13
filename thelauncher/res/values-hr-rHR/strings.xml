@@ -85,7 +85,6 @@
         <item quantity="few">%dy</item>
         <item quantity="other">%dy</item>
     </plurals>
-    <string name="managed_by_thelauncher">Ovime upravlja TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Postavke</string>
     <string name="settings_button_text">Postavke pokretača</string>
@@ -352,7 +351,6 @@
     <string name="pref_fonts_add_fonts">Add fonts</string>
     <string name="pref_fonts_add_fonts_summary">OTF and TTF fonts are supported</string>
     <string name="pref_fonts_missing_font">Font not found</string>
-    <string name="font_label">Font (experimental)</string>
     <string name="fontWorkspace">General</string>
     <string name="fontHeading">Headings</string>
     <string name="fontHeadingMedium">Headings (medium)</string>

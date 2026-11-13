@@ -73,7 +73,6 @@
     <plurals name="time_years_ago">
         <item quantity="other">%d ปี</item>
     </plurals>
-    <string name="managed_by_thelauncher">จัดการโดย TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">ปรับแต่ง</string>
     <string name="settings_button_text">การตั้งค่าหน้าโฮม</string>
@@ -340,7 +339,6 @@
     <string name="pref_fonts_add_fonts">เพิ่มแบบอักษร</string>
     <string name="pref_fonts_add_fonts_summary">รองรับไฟล์อักษรแบบ OTF และ TTF</string>
     <string name="pref_fonts_missing_font">ไม่พบแบบอักษร</string>
-    <string name="font_label">แบบอักษร (อยู่ในการทดลอง)</string>
     <string name="fontWorkspace">ทั่วไป</string>
     <string name="fontHeading">หัวข้อ</string>
     <string name="fontHeadingMedium">หัวข้อ (ปานกลาง)</string>

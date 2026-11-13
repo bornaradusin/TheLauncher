@@ -79,7 +79,6 @@
         <item quantity="one">%dy</item>
         <item quantity="other">%dy</item>
     </plurals>
-    <string name="managed_by_thelauncher">TheLauncher দ্বারা পরিচালিত করা হবে</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">পছন্দ-সমুহ</string>
     <string name="settings_button_text">হোম সেটিংস</string>
@@ -346,7 +345,6 @@
     <string name="pref_fonts_add_fonts">Add fonts</string>
     <string name="pref_fonts_add_fonts_summary">OTF and TTF fonts are supported</string>
     <string name="pref_fonts_missing_font">ফন্ট পাওয়া যায়নি</string>
-    <string name="font_label">Font (experimental)</string>
     <string name="fontWorkspace">সাধারণ</string>
     <string name="fontHeading">Headings</string>
     <string name="fontHeadingMedium">Headings (medium)</string>

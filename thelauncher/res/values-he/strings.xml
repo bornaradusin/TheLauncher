@@ -118,7 +118,6 @@
     <string name="font_weight_bold">מודגש</string>
     <string name="font_weight_extra_bold">Extra Bold</string>
     <string name="font_weight_extra_black">שחור</string>
-    <string name="font_label">פונט (ניסיוני)</string>
     <string name="reset_font">איפוס</string>
     <string name="search_input_action_clear_results">Clear Search Box</string>
     <string name="pref_category_search">חיפוש</string>

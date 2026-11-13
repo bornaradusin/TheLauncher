@@ -79,7 +79,6 @@
         <item quantity="one">%d v</item>
         <item quantity="other">%d v</item>
     </plurals>
-    <string name="managed_by_thelauncher">TheLauncherin hallinnoima</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Asetukset</string>
     <string name="settings_button_text">Kotiasetukset</string>
@@ -346,7 +345,6 @@
     <string name="pref_fonts_add_fonts">Lisää fontteja</string>
     <string name="pref_fonts_add_fonts_summary">OTF- ja TTF-fontit ovat tuettuja</string>
     <string name="pref_fonts_missing_font">Fonttia ei löydetty</string>
-    <string name="font_label">Fontti (kokeellinen)</string>
     <string name="fontWorkspace">Yleiset</string>
     <string name="fontHeading">Otsikot</string>
     <string name="fontHeadingMedium">Otsikot (keskikokoiset)</string>

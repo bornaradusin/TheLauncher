@@ -76,6 +76,24 @@ class FontCache @Inject constructor(
                 .toList()
         }
 
+    /**
+     * The phone's own fonts, as its system UI uses them: Google Sans on Pixels, the chosen font
+     * on phones that let you pick one. These are the defaults, as in Hyperion.
+     */
+    val systemHeadline: Font = systemFont("config_headlineFontFamily", "sans-serif")
+    val systemHeadlineMedium: Font = systemFont("config_headlineFontFamilyMedium", "sans-serif-medium")
+    val systemBody: Font = systemFont("config_bodyFontFamily", "sans-serif")
+    val systemBodyMedium: Font = systemFont("config_bodyFontFamilyMedium", "sans-serif-medium")
+
+    private fun systemFont(configName: String, fallback: String): Font {
+        val family = runCatching {
+            val res = android.content.res.Resources.getSystem()
+            val id = res.getIdentifier(configName, "string", "android")
+            if (id == 0) fallback else res.getString(id).ifBlank { fallback }
+        }.getOrDefault(fallback)
+        return SystemFont(family, displayName = context.getString(R.string.font_system_default))
+    }
+
     val uiRegular = ResourceFont(
         context,
         R.font.googlesansflex_variable,
@@ -327,11 +345,12 @@ class FontCache @Inject constructor(
     class SystemFont(
         val family: String,
         val style: Int = Typeface.NORMAL,
+        displayName: String? = null,
     ) : TypefaceFont(Typeface.create(family, style)) {
 
         private val hashCode = "SystemFont|$family|$style".hashCode()
 
-        override val fullDisplayName = family
+        override val fullDisplayName = displayName ?: family
         override val composeFontFamily = FontFamily(typeface!!)
 
         override fun saveToJson(obj: JSONObject) {

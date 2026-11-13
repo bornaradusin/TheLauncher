@@ -151,11 +151,12 @@ class PreferenceManager @Inject constructor(
     val recentActionOrder = StringPref("pref_recentActionOrder", "0,1,2,3,4", recreate)
 
     private val fontCache = FontCache.INSTANCE.get(context)
-    val fontWorkspace = FontPref("pref_workspaceFont", fontCache.uiText, recreate)
-    val fontHeading = FontPref("pref_fontHeading", fontCache.uiRegular, recreate)
-    val fontHeadingMedium = FontPref("pref_fontHeadingMedium", fontCache.uiMedium, recreate)
-    val fontBody = FontPref("pref_fontBody", fontCache.uiText, recreate)
-    val fontBodyMedium = FontPref("pref_fontBodyMedium", fontCache.uiTextMedium, recreate)
+    // The phone's own fonts by default, as in Hyperion; any font can still be picked.
+    val fontWorkspace = FontPref("pref_workspaceFont", fontCache.systemBody, recreate)
+    val fontHeading = FontPref("pref_fontHeading", fontCache.systemHeadline, recreate)
+    val fontHeadingMedium = FontPref("pref_fontHeadingMedium", fontCache.systemHeadlineMedium, recreate)
+    val fontBody = FontPref("pref_fontBody", fontCache.systemBody, recreate)
+    val fontBodyMedium = FontPref("pref_fontBodyMedium", fontCache.systemBodyMedium, recreate)
 
     // TODO REMOVE
     val deviceSearch = BoolPref("device_search", false, recreate)

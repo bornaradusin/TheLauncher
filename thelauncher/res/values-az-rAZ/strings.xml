@@ -79,7 +79,6 @@
         <item quantity="one">%dil</item>
         <item quantity="other">%dil</item>
     </plurals>
-    <string name="managed_by_thelauncher">TheLauncher tərəfindən idarə olunur</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Tənzimləmələr</string>
     <string name="settings_button_text">Əsas ekran tənzimləmələri</string>
@@ -346,7 +345,6 @@
     <string name="pref_fonts_add_fonts">Şriftlər əlavə et</string>
     <string name="pref_fonts_add_fonts_summary">OTF və TTF şriftləri dəstəklənir</string>
     <string name="pref_fonts_missing_font">Şrift tapılmadı</string>
-    <string name="font_label">Şrift (eksperimental)</string>
     <string name="fontWorkspace">Ümumi</string>
     <string name="fontHeading">Başlıqlar</string>
     <string name="fontHeadingMedium">Başlıqlar (orta)</string>

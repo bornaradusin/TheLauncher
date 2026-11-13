@@ -79,7 +79,6 @@
         <item quantity="one">%dy</item>
         <item quantity="other">%dy</item>
     </plurals>
-    <string name="managed_by_thelauncher">லான்ச்சர் மூலம் நிர்வகிக்கப்படுகிறது</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">சுமார்ட் இடம் விருப்பங்கள்</string>
     <string name="settings_button_text">முகப்பு அமைப்புகள்</string>
@@ -346,7 +345,6 @@
     <string name="pref_fonts_add_fonts">எழுத்துருக்களை சேர்க்கவும்</string>
     <string name="pref_fonts_add_fonts_summary">OTF &amp; TTF எழுத்துருக்கள் ஏற்றுக்கொள்ளப்படுகிறது</string>
     <string name="pref_fonts_missing_font">எழுத்துரு எதுவுமில்லை</string>
-    <string name="font_label">எழுத்துரு (பரீட்சார்த்த)</string>
     <string name="fontWorkspace">பொது</string>
     <string name="fontHeading">தலைப்புகள்</string>
     <string name="fontHeadingMedium">தலைப்புகள் (நடுத்தர)</string>

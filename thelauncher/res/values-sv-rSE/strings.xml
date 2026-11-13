@@ -79,7 +79,6 @@
         <item quantity="one">%d år</item>
         <item quantity="other">%d år</item>
     </plurals>
-    <string name="managed_by_thelauncher">Hanteras av TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Alternativ</string>
     <string name="settings_button_text">Startinställningar</string>
@@ -346,7 +345,6 @@
     <string name="pref_fonts_add_fonts">Lägg till typsnitt</string>
     <string name="pref_fonts_add_fonts_summary">OTF- och TTF-typsnitt stöds</string>
     <string name="pref_fonts_missing_font">Typsnittet hittades inte</string>
-    <string name="font_label">Typsnitt (experimentell)</string>
     <string name="fontWorkspace">Allmänt</string>
     <string name="fontHeading">Rubriker</string>
     <string name="fontHeadingMedium">Rubriker (medium)</string>

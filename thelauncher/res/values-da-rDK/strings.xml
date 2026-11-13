@@ -79,7 +79,6 @@
         <item quantity="one">%dy</item>
         <item quantity="other">%dy</item>
     </plurals>
-    <string name="managed_by_thelauncher">Administreret af TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Præferencer</string>
     <string name="settings_button_text">Indst. for startskærm</string>
@@ -346,7 +345,6 @@
     <string name="pref_fonts_add_fonts">Tilføj skrifttype</string>
     <string name="pref_fonts_add_fonts_summary">OTF og TTF Skrifttyper er understøttet</string>
     <string name="pref_fonts_missing_font">Font ikke fundet</string>
-    <string name="font_label">Skrifttype (eksperimentelt)</string>
     <string name="fontWorkspace">Generelt</string>
     <string name="fontHeading">Overskrifter</string>
     <string name="fontHeadingMedium">Overskrifter (medium)</string>

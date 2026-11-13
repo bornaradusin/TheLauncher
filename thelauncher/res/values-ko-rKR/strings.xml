@@ -73,7 +73,6 @@
     <plurals name="time_years_ago">
         <item quantity="other">%d년</item>
     </plurals>
-    <string name="managed_by_thelauncher">TheLauncher에서 관리</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">설정</string>
     <string name="settings_button_text">홈 화면 설정</string>
@@ -340,7 +339,6 @@
     <string name="pref_fonts_add_fonts">글꼴 추가</string>
     <string name="pref_fonts_add_fonts_summary">OTF폰트와 TTF폰트를 지원합니다</string>
     <string name="pref_fonts_missing_font">글꼴을 찾을 수 없습니다</string>
-    <string name="font_label">폰트 (실험적 기능)</string>
     <string name="fontWorkspace">일반</string>
     <string name="fontHeading">제목</string>
     <string name="fontHeadingMedium">제목 (medium)</string>

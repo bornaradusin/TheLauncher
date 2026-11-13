@@ -73,7 +73,6 @@
     <plurals name="time_years_ago">
         <item quantity="other">%d年</item>
     </plurals>
-    <string name="managed_by_thelauncher">由 TheLauncher 管理</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">首选项</string>
     <string name="settings_button_text">启动器设置</string>
@@ -340,7 +339,6 @@
     <string name="pref_fonts_add_fonts">添加字体</string>
     <string name="pref_fonts_add_fonts_summary">支持 OTF 和 TTF 格式字体</string>
     <string name="pref_fonts_missing_font">未找到字体</string>
-    <string name="font_label">字体 (实验性功能)</string>
     <string name="fontWorkspace">通用</string>
     <string name="fontHeading">标题</string>
     <string name="fontHeadingMedium">标题(中)</string>

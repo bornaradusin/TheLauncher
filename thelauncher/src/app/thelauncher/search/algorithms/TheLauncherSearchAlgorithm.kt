@@ -240,20 +240,8 @@ sealed class TheLauncherSearchAlgorithm(
             return true
         }
 
-        fun create(context: Context): TheLauncherSearchAlgorithm {
-            val prefs = PreferenceManager2.getInstance(context)
-            val searchAlgorithm = prefs.searchAlgorithm.firstCached()
-
-            return when {
-                searchAlgorithm == ASI_SEARCH && isASISearchEnabled(context) -> TheLauncherASISearchAlgorithm(
-                    context,
-                )
-
-                searchAlgorithm == LOCAL_SEARCH -> TheLauncherLocalSearchAlgorithm(context)
-
-                else -> TheLauncherAppSearchAlgorithm(context)
-            }
-        }
+        /** The drawer search finds apps, Seerr and phone settings, and nothing else. */
+        fun create(context: Context): TheLauncherSearchAlgorithm = TheLauncherLocalSearchAlgorithm(context)
     }
 }
 

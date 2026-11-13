@@ -79,7 +79,6 @@
         <item quantity="one">%d anos</item>
         <item quantity="other">%d anos</item>
     </plurals>
-    <string name="managed_by_thelauncher">Xestionado por TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Preferencias</string>
     <string name="settings_button_text">Configuración do lanzador</string>
@@ -346,7 +345,6 @@
     <string name="pref_fonts_add_fonts">Engadir fontes</string>
     <string name="pref_fonts_add_fonts_summary">As fontes OTF e TTF son compatibles</string>
     <string name="pref_fonts_missing_font">Fonte non atopada</string>
-    <string name="font_label">Fontes (experimental)</string>
     <string name="fontWorkspace">Xeral</string>
     <string name="fontHeading">Encabezados</string>
     <string name="fontHeadingMedium">Encabezados (intermedio)</string>

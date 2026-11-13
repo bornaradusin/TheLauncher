@@ -91,7 +91,6 @@
         <item quantity="many">%d let</item>
         <item quantity="other">%d let</item>
     </plurals>
-    <string name="managed_by_thelauncher">Spravováno aplikací TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Předvolby</string>
     <string name="settings_button_text">Nastavení domovské obrazovky</string>
@@ -358,7 +357,6 @@
     <string name="pref_fonts_add_fonts">Přidat písma</string>
     <string name="pref_fonts_add_fonts_summary">Jsou podporovány formáty OTF a TTF</string>
     <string name="pref_fonts_missing_font">Písmo nebylo nalezeno</string>
-    <string name="font_label">Písma (experimentální)</string>
     <string name="fontWorkspace">Obecné</string>
     <string name="fontHeading">Nadpisy</string>
     <string name="fontHeadingMedium">Nadpisy (střední)</string>

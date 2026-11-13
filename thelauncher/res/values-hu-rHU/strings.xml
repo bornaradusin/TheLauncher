@@ -79,7 +79,6 @@
         <item quantity="one">%dy</item>
         <item quantity="other">%dy</item>
     </plurals>
-    <string name="managed_by_thelauncher">A TheLauncher által kezelve</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Beállítások</string>
     <string name="settings_button_text">Kezdőoldal-beállítások</string>
@@ -346,7 +345,6 @@
     <string name="pref_fonts_add_fonts">Betűtípus-hozzáadás</string>
     <string name="pref_fonts_add_fonts_summary">Támogatott formátumok: TTF és OTF</string>
     <string name="pref_fonts_missing_font">Nem található betűtípus</string>
-    <string name="font_label">Betűtípus (kísérleti)</string>
     <string name="fontWorkspace">Általános</string>
     <string name="fontHeading">Címsorok</string>
     <string name="fontHeadingMedium">Címsorok (közepes)</string>

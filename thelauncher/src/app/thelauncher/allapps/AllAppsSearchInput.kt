@@ -213,11 +213,12 @@ class AllAppsSearchInput(context: Context, attrs: AttributeSet?) :
 
                 val actions = QsbActions(
                     onQsbClick = {
+                        // Focus first: clearing the results while the field isn't focused yet ends
+                        // the search session, which hides the keyboard again (the second tap).
+                        input.showKeyboard()
                         if (input.text.isNullOrEmpty()) {
                             searchAlgorithm?.doZeroStateSearch(this@AllAppsSearchInput)
                         }
-                        input.requestFocus()
-                        input.showKeyboard()
                     },
                     onStartIconClick = if (shouldShowIcons) {
                         {
@@ -278,16 +279,21 @@ class AllAppsSearchInput(context: Context, attrs: AttributeSet?) :
             if (event.action == MotionEvent.ACTION_DOWN && !input.hasFocus()) {
                 setDirectFocus(true)
             }
+            // One tap is enough: if the drawer's own touch handling or a running search
+            // transition swallowed the focus, ask for the keyboard once the tap ends.
+            if (event.action == MotionEvent.ACTION_UP) {
+                input.post {
+                    val imeShown = ViewCompat.getRootWindowInsets(input)
+                        ?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime()) == true
+                    if (!input.hasFocus() || !imeShown) input.showKeyboard()
+                }
+            }
             false
         }
 
         input.onFocusChangeListener = { _, hasFocus ->
             if (hasFocus) {
-                if (prefs2.searchAlgorithm.firstCached() != TheLauncherSearchAlgorithm.APP_SEARCH) {
-                    input.setHint(R.string.all_apps_device_search_hint)
-                } else {
-                    input.setHint(R.string.all_apps_search_bar_hint)
-                }
+                input.setHint(R.string.drawer_search_hint)
 
                 if (input.text.toString().isEmpty() && isDirectFocus) {
                     searchAlgorithm?.doZeroStateSearch(this)
@@ -300,10 +306,7 @@ class AllAppsSearchInput(context: Context, attrs: AttributeSet?) :
             } else {
                 setBackgroundVisibility(true, 1f)
                 animateHintVisibility(false)
-                if (prefs.searchResulRecentSuggestion.get()) {
-                    val query = editText.text.toString()
-                    suggestionsRecent.saveRecentQuery(query, null)
-                }
+                // No search history is kept: the search finds apps, Seerr and settings only.
 
                 if (input.text.isNullOrEmpty()) {
                     animatePadding(initialPaddingLeft, initialPaddingRight)

@@ -79,7 +79,6 @@
         <item quantity="one">%dt</item>
         <item quantity="other">%dt</item>
     </plurals>
-    <string name="managed_by_thelauncher">Pinamamahalaan ng TheLauncher</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Mga Kagustuhan</string>
     <string name="settings_button_text">Settings ng Home</string>
@@ -346,7 +345,6 @@
     <string name="pref_fonts_add_fonts">Add fonts</string>
     <string name="pref_fonts_add_fonts_summary">Sinusuportahan ang mga font na TTF at OTF</string>
     <string name="pref_fonts_missing_font">Hindi nahanap ang font</string>
-    <string name="font_label">Font (experimental)</string>
     <string name="fontWorkspace">Pangkalahatan</string>
     <string name="fontHeading">Headings</string>
     <string name="fontHeadingMedium">Headings (medium)</string>

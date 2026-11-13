@@ -79,7 +79,6 @@
         <item quantity="one">%dवर्ष पहले</item>
         <item quantity="other">%dवर्ष पहले</item>
     </plurals>
-    <string name="managed_by_thelauncher">TheLauncher द्वारा प्रबंधित</string>
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">पसंद</string>
     <string name="settings_button_text">होम सेटिंग्स</string>
@@ -346,7 +345,6 @@
     <string name="pref_fonts_add_fonts">Add fonts</string>
     <string name="pref_fonts_add_fonts_summary">OTF and TTF fonts are supported</string>
     <string name="pref_fonts_missing_font">Font not found</string>
-    <string name="font_label">Font (experimental)</string>
     <string name="fontWorkspace">सामान्य</string>
     <string name="fontHeading">Headings</string>
     <string name="fontHeadingMedium">Headings (medium)</string>
