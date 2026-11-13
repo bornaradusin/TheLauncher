@@ -62,8 +62,22 @@ class FeedBridge(private val context: Context) {
         }
     }
 
-    /** True when the feed is on its way to failing: no companion app installed to reach the Google app. */
-    fun needsCompanionApp(): Boolean = shouldUseFeed && resolveBridge().let { it == null || it.packageName == GOOGLE_APP }
+    /**
+     * True when the feed is on its way to failing: no companion app installed to reach the Google
+     * app, or one too old to work.
+     */
+    fun needsCompanionApp(): Boolean = shouldUseFeed && resolveBridge().let {
+        it == null || it.packageName == GOOGLE_APP || (it.packageName == OWN_BRIDGE_PACKAGE && companionOutdated())
+    }
+
+    /**
+     * TheLauncher Feed is installed but older than the one inside this build. Before 1.1 it handed
+     * the Google app's connection straight to TheLauncher, and the Google app ignores TheLauncher.
+     */
+    fun companionOutdated(): Boolean = runCatching {
+        val info = context.packageManager.getPackageInfo(OWN_BRIDGE_PACKAGE, 0)
+        androidx.core.content.pm.PackageInfoCompat.getLongVersionCode(info) < OWN_BRIDGE_VERSION
+    }.getOrDefault(false)
 
     private fun customBridgeOrNull(customPackage: String = prefs.feedProvider.get()): CustomBridgeInfo? {
         return if (customPackage.isNotBlank()) {
@@ -172,6 +186,8 @@ class FeedBridge(private val context: Context) {
         private const val OVERLAY_ACTION = "com.android.launcher3.WINDOW_OVERLAY"
         private const val GOOGLE_APP = "com.google.android.googlequicksearchbox"
         const val OWN_BRIDGE_PACKAGE = "app.thelauncher.feed"
+        /** The version of TheLauncher Feed inside this build (feedbridge/build.gradle). */
+        private const val OWN_BRIDGE_VERSION = 2L
 
         private val whitelist = mutableMapOf<String, Long?>()
 

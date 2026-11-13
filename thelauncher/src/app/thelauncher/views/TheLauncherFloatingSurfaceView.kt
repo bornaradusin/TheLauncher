@@ -5,8 +5,6 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
 import android.content.Context
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Color
 import android.graphics.PixelFormat
 import android.graphics.PorterDuff
@@ -21,10 +19,6 @@ import android.view.SurfaceHolder
 import android.view.SurfaceView
 import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
-import androidx.core.graphics.createBitmap
-import androidx.dynamicanimation.animation.DynamicAnimation
-import androidx.dynamicanimation.animation.SpringAnimation
-import androidx.dynamicanimation.animation.SpringForce
 import app.thelauncher.MainLauncher
 import app.thelauncher.launcher
 import com.android.app.animation.Interpolators
@@ -65,7 +59,6 @@ class TheLauncherFloatingSurfaceView @JvmOverloads constructor(
     private val mSurfaceView: SurfaceView = SurfaceView(context)
 
     private var mIcon: View? = null
-    private var mIconBitmap: Bitmap? = null
     private var mContract: GestureNavContract? = null
 
     init {
@@ -94,10 +87,6 @@ class TheLauncherFloatingSurfaceView @JvmOverloads constructor(
     }
 
     private fun removeViewFromParent() {
-        if (mIconBitmap != null) {
-            mIconBitmap!!.recycle()
-            mIconBitmap = null
-        }
         mLauncher.dragLayer.removeViewInLayout(this)
     }
 
@@ -260,11 +249,13 @@ class TheLauncherFloatingSurfaceView @JvmOverloads constructor(
         synchronized(this) {
             val icon = getIcon()
 
+            // TheLauncher: the real icon stays on screen. Hiding it while Android flies the app
+            // into its spot left a gap whenever Android didn't (on Pixels the app shrinks to the
+            // middle instead), until Android said it was done, a moment later.
             val iconChanged = mIcon !== icon
             if (iconChanged) {
                 setCurrentIconVisible(true)
                 mIcon = icon
-                setCurrentIconVisible(false)
             }
 
             if (icon != null) {
@@ -276,36 +267,10 @@ class TheLauncherFloatingSurfaceView @JvmOverloads constructor(
             }
 
             sendIconInfo()
-
-            if (mIcon != null && iconChanged && !mIconBounds.isEmpty) {
-                if (mIconBitmap == null || mIconBitmap!!.getWidth() != mIconBounds.width() || mIconBitmap!!.getHeight() != mIconBounds.height()) {
-                    if (mIconBitmap != null) mIconBitmap!!.recycle()
-                    mIconBitmap = createBitmap(
-                        mIconBounds.width(),
-                        mIconBounds.height(),
-                        Bitmap.Config.ARGB_8888,
-                    )
-                }
-                postInvalidateIconDrawing()
-            }
         }
     }
 
-    private fun postInvalidateIconDrawing() {
-        synchronized(this) {
-            post {
-                if (mIcon == null) return@post
-                drawIconOnBitmap()
-                drawOnSurface()
-            }
-        }
-    }
-
-    /**
-     * Puts the icon's surface exactly over the icon. Done straight away and laid out again: when
-     * it waited for a later frame, the surface kept its old (empty) size, so while the app shrank
-     * home its icon was simply missing until the real one came back.
-     */
+    /** Puts the (clear) surface exactly over the icon, where Android aims the closing app. */
     private fun updateSurfaceViewLayout() {
         val lp = mSurfaceView.layoutParams as LayoutParams
         lp.width = mIconPosition.width().roundToInt()
@@ -313,20 +278,6 @@ class TheLauncherFloatingSurfaceView @JvmOverloads constructor(
         lp.leftMargin = mIconPosition.left.roundToInt()
         lp.topMargin = mIconPosition.top.roundToInt()
         mSurfaceView.layoutParams = lp
-    }
-
-    private fun drawIconOnBitmap() {
-        if (mIcon != null && !mIconBounds.isEmpty) {
-            setCurrentIconVisible(true)
-            try {
-                val c = Canvas(mIconBitmap!!)
-                c.translate(-mIconBounds.left.toFloat(), -mIconBounds.top.toFloat())
-                mIcon!!.draw(c)
-            } catch (t: Throwable) {
-                Log.e(this.javaClass.name, "drawIconOnBitmap: ", t)
-            }
-            setCurrentIconVisible(false)
-        }
     }
 
     private fun sendIconInfo() {
@@ -355,16 +306,16 @@ class TheLauncherFloatingSurfaceView @JvmOverloads constructor(
         drawOnSurface()
     }
 
+    /** The surface is only a place for Android to aim at; it stays clear, the real icon shows. */
     private fun drawOnSurface() {
         val surfaceHolder = mSurfaceView.holder
-        if (!surfaceHolder.surface.isValid || mIconBitmap == null) return
+        if (!surfaceHolder.surface.isValid) return
 
         synchronized(this) {
-            val c = surfaceHolder.lockHardwareCanvas()
+            val c = runCatching { surfaceHolder.lockHardwareCanvas() }.getOrNull()
             if (c != null) {
                 try {
                     c.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR)
-                    c.drawBitmap(mIconBitmap!!, 0f, 0f, null)
                 } finally {
                     surfaceHolder.unlockCanvasAndPost(c)
                 }

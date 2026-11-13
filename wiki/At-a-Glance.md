@@ -14,6 +14,7 @@ Each source has its own switch under **What to show**:
 | **Calendar events** | The event that's on now, or the next one within 24 hours, with its time and place. Tap it to open the event. |
 | **Battery status** | Charging, and a warning when the battery is low |
 | **Now playing** | The song or video that's playing |
+| **Now Playing: songs heard nearby** | On a Pixel, the song Now Playing recognised nearby, for 10 minutes. Needs Now Playing's notification on and notification access for TheLauncher. |
 | **Flashlight status** | When the flashlight is on |
 
 When a source needs a permission (calendar for events) or Google's weather needs connecting, it asks the first time you turn it on.

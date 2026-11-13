@@ -1060,6 +1060,12 @@ class PreferenceManager2 @Inject constructor(
         defaultValue = true,
     )
 
+    /** Songs the Pixel's Now Playing recognises nearby. */
+    val smartspaceMusicRecognition = preference(
+        key = booleanPreferencesKey("enable_smartspace_music_recognition"),
+        defaultValue = true,
+    )
+
     val smartspaceOnboarding = preference(
         key = booleanPreferencesKey("enable_smartspace_onboarding"),
         defaultValue = true,

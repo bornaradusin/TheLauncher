@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.Parcel;
 import android.os.Process;
 import android.os.RemoteException;
 import android.util.Log;
@@ -86,7 +87,9 @@ public class FeedBridgeService extends Service {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
                 try {
-                    cb.onServiceConnected(name, service);
+                    // Every call to the Google app goes through this app, so the Google app sees
+                    // this (debuggable) app calling, not TheLauncher, which it would ignore.
+                    cb.onServiceConnected(name, new CallForwarder(service));
                 } catch (RemoteException e) {
                     disconnect(this);
                 }
@@ -125,6 +128,21 @@ public class FeedBridgeService extends Service {
             cb.asBinder().linkToDeath(() -> disconnect(connection), 0);
         } catch (RemoteException e) {
             disconnect(connection);
+        }
+    }
+
+    /** Passes each call on to the Google app, from this app. */
+    private static final class CallForwarder extends Binder {
+        private final IBinder mTarget;
+
+        CallForwarder(IBinder target) {
+            mTarget = target;
+        }
+
+        @Override
+        protected boolean onTransact(int code, Parcel data, Parcel reply, int flags)
+                throws RemoteException {
+            return mTarget.transact(code, data, reply, flags);
         }
     }
 

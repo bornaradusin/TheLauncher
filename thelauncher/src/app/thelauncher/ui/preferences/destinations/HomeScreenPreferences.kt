@@ -180,8 +180,12 @@ fun HomeScreenPreferences(
         var needsCompanion by androidx.compose.runtime.remember {
             androidx.compose.runtime.mutableStateOf(app.thelauncher.FeedBridge.getInstance(feedContext).needsCompanionApp())
         }
+        var companionOutdated by androidx.compose.runtime.remember {
+            androidx.compose.runtime.mutableStateOf(app.thelauncher.FeedBridge.getInstance(feedContext).companionOutdated())
+        }
         androidx.lifecycle.compose.LifecycleResumeEffect(Unit) {
             needsCompanion = app.thelauncher.FeedBridge.getInstance(feedContext).needsCompanionApp()
+            companionOutdated = app.thelauncher.FeedBridge.getInstance(feedContext).companionOutdated()
             onPauseOrDispose { }
         }
         PreferenceGroup(heading = stringResource(id = R.string.minus_one)) {
@@ -190,6 +194,7 @@ fun HomeScreenPreferences(
                 label = stringResource(id = R.string.minus_one_enable),
                 description = when {
                     !feedAvailable -> stringResource(id = R.string.minus_one_unavailable)
+                    needsCompanion && companionOutdated -> stringResource(id = R.string.feed_companion_outdated)
                     needsCompanion -> stringResource(id = R.string.feed_needs_companion)
                     else -> null
                 },
@@ -197,7 +202,7 @@ fun HomeScreenPreferences(
             )
             ExpandAndShrink(visible = feedAvailable && needsCompanion && enableFeedAdapter.state.value) {
                 ClickablePreference(
-                    label = stringResource(id = R.string.feed_get_companion),
+                    label = stringResource(id = if (companionOutdated) R.string.feed_update_companion else R.string.feed_get_companion),
                     subtitle = stringResource(id = R.string.feed_get_companion_desc),
                 ) {
                     app.thelauncher.FeedCompanion.install(feedContext)
