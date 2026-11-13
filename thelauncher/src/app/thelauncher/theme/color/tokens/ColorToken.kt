@@ -3,6 +3,7 @@ package app.thelauncher.theme.color.tokens
 import android.content.Context
 import android.util.Log
 import androidx.core.graphics.ColorUtils
+import app.thelauncher.preferences2.firstCached
 import app.thelauncher.theme.ResourceToken
 import app.thelauncher.theme.ThemeProvider
 import app.thelauncher.theme.UiColorMode
@@ -106,8 +107,7 @@ data class BlackoutColorToken(
 
     override fun resolve(context: Context, scheme: ColorScheme, uiColorMode: UiColorMode): Color {
         if (uiColorMode.isDarkTheme &&
-            app.thelauncher.preferences2.PreferenceManager2.getInstance(context).blackoutDarkMode
-                .let { app.thelauncher.preferences2.PreferenceCacheExtensionsKt.firstCached(it) }
+            app.thelauncher.preferences2.PreferenceManager2.getInstance(context).blackoutDarkMode.firstCached()
         ) {
             return AndroidColor(android.graphics.Color.BLACK)
         }

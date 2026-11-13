@@ -10,23 +10,19 @@ Each source has its own switch under **What to show**:
 
 | Source | Shows |
 |---|---|
-| **Weather (Open-Meteo, uses location)** | The temperature and conditions now, with today's high and low. Tap it for the full forecast. |
+| **Weather from the Google app** | The temperature from Google's own At a Glance. Tap it to open your weather app. |
 | **Calendar events** | The event that's on now, or the next one within 24 hours, with its time and place. Tap it to open the event. |
 | **Battery status** | Charging, and a warning when the battery is low |
 | **Now playing** | The song or video that's playing |
 | **Flashlight status** | When the flashlight is on |
 
-When a source needs a permission (location for weather, calendar for events), it asks the first time you turn it on.
+When a source needs a permission (calendar for events) or Google's weather needs connecting, it asks the first time you turn it on.
 
 ## Weather
 
-Weather comes from [Open-Meteo](https://open-meteo.com), which is free and needs no account.
+Weather comes only from the Google app, the same weather Google's own At a Glance shows. Its units and place follow the Google app's settings.
 
-- **Weather location** left empty uses your phone's approximate location.
-- Type a town or city instead, like *Kilmallock*, and weather uses that place. Then it doesn't need location permission at all.
-- **Temperature unit** picks °C, °F or K.
-
-Weather refreshes every 30 minutes.
+**Tapping the weather opens** picks the app that opens when you tap it. Left as **The phone's weather app**, it opens your phone's weather app, or the Google app's weather if there isn't one. It never opens the browser.
 
 ## Calendar
 

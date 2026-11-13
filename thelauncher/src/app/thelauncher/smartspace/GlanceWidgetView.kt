@@ -281,9 +281,9 @@ class GlanceWidgetView @JvmOverloads constructor(
         detailView.text = detail
         detailView.setTextColor(palette.secondary)
         detailView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 13f * scale)
-        val weatherTap = style.weatherApp.takeIf { it.isNotBlank() }
-            ?.let { context.packageManager.getLaunchIntentForPackage(it) }
-            ?.let { SmartspaceAction(id = "glanceWeatherApp", title = "", intent = it) }
+        // A weather app, never the browser; the Google card's own tap only when there is no app.
+        val weatherTap = WeatherApp.intent(context, style.weatherApp)
+            ?.let { SmartspaceAction(id = "glanceWeatherApp", title = "", intent = it, pendingIntent = weather?.pendingIntent) }
             ?: weather
         BcSmartSpaceUtil.setOnClickListener(weatherBox, weatherTap, null, TAG)
         BcSmartSpaceUtil.setOnClickListener(detailView, weatherTap, null, TAG)

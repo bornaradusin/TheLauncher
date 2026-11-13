@@ -297,19 +297,22 @@ class TheLauncherFloatingSurfaceView @JvmOverloads constructor(
                 if (mIcon == null) return@post
                 drawIconOnBitmap()
                 drawOnSurface()
-                bouncyIcon()
             }
         }
     }
 
+    /**
+     * Puts the icon's surface exactly over the icon. Done straight away and laid out again: when
+     * it waited for a later frame, the surface kept its old (empty) size, so while the app shrank
+     * home its icon was simply missing until the real one came back.
+     */
     private fun updateSurfaceViewLayout() {
-        post {
-            val lp = mSurfaceView.layoutParams as LayoutParams
-            lp.width = mIconPosition.width().roundToInt()
-            lp.height = mIconPosition.height().roundToInt()
-            lp.leftMargin = mIconPosition.left.roundToInt()
-            lp.topMargin = mIconPosition.top.roundToInt()
-        }
+        val lp = mSurfaceView.layoutParams as LayoutParams
+        lp.width = mIconPosition.width().roundToInt()
+        lp.height = mIconPosition.height().roundToInt()
+        lp.leftMargin = mIconPosition.left.roundToInt()
+        lp.topMargin = mIconPosition.top.roundToInt()
+        mSurfaceView.layoutParams = lp
     }
 
     private fun drawIconOnBitmap() {
@@ -324,25 +327,6 @@ class TheLauncherFloatingSurfaceView @JvmOverloads constructor(
             }
             setCurrentIconVisible(false)
         }
-    }
-
-    private fun bouncyIcon() {
-        mIcon ?: return
-
-        val (startX, startY) = mIconPosition.left to mIconPosition.top - ((height * 0.2f) / 3)
-
-        listOf(
-            SpringAnimation(mIcon, DynamicAnimation.TRANSLATION_X, 1f).apply {
-                spring = SpringForce(1f).setStiffness(SpringForce.STIFFNESS_LOW)
-                    .setDampingRatio(SpringForce.DAMPING_RATIO_HIGH_BOUNCY)
-                setStartVelocity((mIconPosition.left - startX) * 2)
-            },
-            SpringAnimation(mIcon, DynamicAnimation.TRANSLATION_Y, 1f).apply {
-                spring = SpringForce(1f).setStiffness(SpringForce.STIFFNESS_LOW)
-                    .setDampingRatio(SpringForce.DAMPING_RATIO_HIGH_BOUNCY)
-                setStartVelocity((mIconPosition.top - startY) * 3)
-            },
-        ).forEach { it.start() }
     }
 
     private fun sendIconInfo() {

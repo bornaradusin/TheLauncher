@@ -469,9 +469,10 @@ class HyperionBackupConverter(
                     else -> "auto"
                 }
                 store[prefs2.enableSmartspace.key] = settings.smartspaceEnabled ?: false
-                settings.smartspaceShowWeather?.let { store[prefs2.smartspaceWeather.key] = it }
+                // Weather on At a Glance comes from the Google app.
+                settings.smartspaceShowWeather?.let { store[prefs2.smartspaceAagWidget.key] = it }
+                store[prefs2.smartspaceWeather.key] = false
                 settings.smartspaceShowEvents?.let { store[prefs2.smartspaceCalendarEvents.key] = it }
-                settings.weatherLocation?.let { store[prefs2.smartspaceWeatherLocation.key] = it }
                 settings.rememberDrawerPosition?.let { store[prefs2.rememberPosition.key] = it }
                 settings.dockShadow?.let { store[prefs2.dockShadow.key] = it }
                 settings.notificationCount?.let { store[prefs2.showNotificationCount.key] = it }
@@ -547,7 +548,10 @@ class HyperionBackupConverter(
                 store[prefs2.showIconLabelsOnHomeScreenFolder.key] = settings.bool("pref_enable_folder_icon_text") ?: true
                 store[prefs2.enableLabelInDock.key] = settings.bool("pref_enable_dock_icon_text") ?: false
                 store[prefs2.showIconLabelsInDrawer.key] = settings.bool("pref_enable_app_drawer_label_label") ?: true
-                store[prefs2.twoLineAllApps.key] = settings.bool("pref_enable_icon_multiple_lines") ?: false
+                val twoLineDrawer = settings.bool("pref_enable_icon_multiple_lines") ?: false
+                store[prefs2.twoLineAllApps.key] = twoLineDrawer
+                // The drawer grid reads this copy, which the switch itself keeps in step.
+                LauncherPrefs.get(context).put(LauncherPrefs.ENABLE_TWOLINE_ALLAPPS_TOGGLE, twoLineDrawer)
                 store[prefs2.twoLineHome.key] = settings.bool("pref_enable_icon_multiple_lines_workspace") ?: false
                 store[prefs2.twoLineFolder.key] = settings.bool("pref_enable_icon_multiple_lines_folder") ?: false
                 store[prefs2.labelTextStyle.key] = (settings.string("pref_text_style")?.toIntOrNull() ?: 0).coerceIn(0, 3)
@@ -599,8 +603,6 @@ class HyperionBackupConverter(
                 hyperionColor(settings, "pref_smartspace_color", "pref_smartspace_color_toggle")?.let {
                     store[prefs2.smartspaceTextColor.key] = it.toString()
                 }
-                // Hyperion has its own weather; the Google app's would only add a second date card.
-                if (settings.smartspaceShowWeather == true) store[prefs2.smartspaceAagWidget.key] = false
                 settings.set("pref_calendar_events_values")?.takeIf { it.isNotEmpty() }?.let {
                     store[prefs2.smartspaceCalendarIds.key] = it
                 }

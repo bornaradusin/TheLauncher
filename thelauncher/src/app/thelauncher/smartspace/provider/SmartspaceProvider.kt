@@ -2,6 +2,7 @@ package app.thelauncher.smartspace.provider
 
 import android.app.Activity
 import android.content.Context
+import app.thelauncher.preferences2.PreferenceManager2
 import app.thelauncher.smartspace.model.SmartspaceAction
 import app.thelauncher.smartspace.model.SmartspaceTarget
 import app.thelauncher.ui.preferences.PreferenceActivity
@@ -14,7 +15,10 @@ import com.android.launcher3.dagger.LauncherAppSingleton
 import com.android.launcher3.util.DaggerSingletonObject
 import com.android.launcher3.util.SafeCloseable
 import javax.inject.Inject
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.map
@@ -27,7 +31,6 @@ class SmartspaceProvider @Inject constructor(
 
     val dataSources = listOf(
         SmartspaceWidgetReader(context),
-        WeatherProvider(context),
         CalendarEventsProvider(context),
         BatteryStatusProvider(context),
         TorchProvider(context),
@@ -35,6 +38,17 @@ class SmartspaceProvider @Inject constructor(
         NextAlarmProvider(context),
         OnboardingProvider(context),
     )
+
+    init {
+        // Weather now only comes from the Google app. Whoever had the other weather on gets Google's.
+        MainScope().launch(Dispatchers.IO) {
+            val prefs = PreferenceManager2.getInstance(context)
+            if (prefs.smartspaceWeather.get().first()) {
+                prefs.smartspaceAagWidget.set(true)
+                prefs.smartspaceWeather.set(false)
+            }
+        }
+    }
 
     private val state = dataSources
         .map { it.targets }
@@ -55,10 +69,7 @@ class SmartspaceProvider @Inject constructor(
     val previewTargets = state
         .map { it.targets.withOneDateCard() }
 
-    /**
-     * Both weather sources (Open-Meteo and the Google app's At a Glance) produce a date card. Only one
-     * is ever shown: the one that has weather on it, otherwise the first.
-     */
+    /** Only one date card is ever shown: the one that has weather on it, otherwise the first. */
     private fun List<SmartspaceTarget>.withOneDateCard(): List<SmartspaceTarget> {
         val dateCards = filter { it.featureType == SmartspaceTarget.FeatureType.FEATURE_WEATHER }
         if (dateCards.size <= 1) return this

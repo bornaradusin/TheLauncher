@@ -91,7 +91,7 @@ object ColorTokens {
 
     @JvmField val TextColorSecondary = DayNightColorToken(StaticColorToken(0xde000000), Neutral2_200)
 
-    @JvmField val AllAppsHeaderProtectionColor = DayNightColorToken(SurfaceContainerHighest, SurfaceContainerLow)
+    @JvmField val AllAppsHeaderProtectionColor = DayNightColorToken(SurfaceContainerHighest, BlackoutColorToken(SurfaceContainerLow))
 
     @JvmField val AllAppsScrimColor = StaticColorToken(0x404040).setAlpha(.40f)
 
@@ -137,25 +137,30 @@ object ColorTokens {
 
     @JvmField val DotColor = Accent3_200
 
-    @JvmField val FolderBackgroundColor = DayNightColorToken(Neutral1_50.setLStar(94.0), Neutral2_900.setLStar(12.0))
+    // Folders follow the phone's Material You colours in the dark theme too (they were a flat
+    // near-black grey), and go pure black with Blackout.
+    @JvmField val FolderBackgroundColor = DayNightColorToken(
+        Neutral1_50.setLStar(94.0),
+        BlackoutColorToken(Accent2_800.setLStar(12.0)),
+    )
 
     @JvmField val FolderIconBorderColor = StaticColorToken(0xFFF5F5F5) // Material Grey 100
 
     @JvmField val FolderPaginationColor = DayNightColorToken(Accent1_600, Accent1_200)
 
-    @JvmField val FolderPreviewColor = DayNightColorToken(Accent2_200, Neutral1_900.setLStar(12.0))
+    @JvmField val FolderPreviewColor = DayNightColorToken(Accent2_200, Accent2_800)
 
-    @JvmField val PopupColorPrimary = DayNightColorToken(Accent2_50, Neutral2_800)
+    @JvmField val PopupColorPrimary = DayNightColorToken(Accent2_50, BlackoutColorToken(Neutral2_800))
 
-    @JvmField val PopupColorSecondary = DayNightColorToken(Neutral2_100, Neutral1_900)
+    @JvmField val PopupColorSecondary = DayNightColorToken(Neutral2_100, BlackoutColorToken(Neutral1_900))
 
     @JvmField val PopupColorTertiary = DayNightColorToken(Neutral2_300, Neutral2_700)
 
-    @JvmField val PopupShadeFirst = DayNightColorToken(PopupColorPrimary.setLStar(98.0), PopupColorPrimary.setLStar(20.0))
+    @JvmField val PopupShadeFirst = DayNightColorToken(PopupColorPrimary.setLStar(98.0), BlackoutColorToken(PopupColorPrimary.setLStar(20.0)))
 
-    @JvmField val PopupShadeSecond = DayNightColorToken(PopupColorPrimary.setLStar(95.0), PopupColorPrimary.setLStar(15.0))
+    @JvmField val PopupShadeSecond = DayNightColorToken(PopupColorPrimary.setLStar(95.0), BlackoutColorToken(PopupColorPrimary.setLStar(15.0)))
 
-    @JvmField val PopupShadeThird = DayNightColorToken(PopupColorPrimary.setLStar(90.0), PopupColorPrimary.setLStar(10.0))
+    @JvmField val PopupShadeThird = DayNightColorToken(PopupColorPrimary.setLStar(90.0), BlackoutColorToken(PopupColorPrimary.setLStar(10.0)))
 
     @JvmField val PopupArrow = PopupShadeFirst
 

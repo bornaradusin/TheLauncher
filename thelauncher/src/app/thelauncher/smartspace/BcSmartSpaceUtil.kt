@@ -41,8 +41,11 @@ object BcSmartSpaceUtil {
         }
         view.setOnClickListener {
             runCatching {
-                if (action.intent != null) {
-                    view.context.startActivity(action.intent)
+                // If the app can't be started, the card's own tap is tried next.
+                val started = action.intent != null &&
+                    runCatching { view.context.startActivity(action.intent) }.isSuccess
+                if (started) {
+                    // Done.
                 } else if (action.pendingIntent != null) {
                     if (Utilities.ATLEAST_U) {
                         action.pendingIntent.send(options.toBundle())

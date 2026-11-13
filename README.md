@@ -7,7 +7,7 @@ Open-source Android home screen launcher.
 - Icon packs, themed icons and custom icon shapes
 - One- and two-finger gestures, double-tap and home-button actions
 - Hidden apps and locked apps (fingerprint/face or screen lock, adjustable re-lock timeout)
-- At a Glance widget with weather (Open-Meteo), calendar events, battery, media and torch
+- At a Glance widget with Google weather, calendar events, battery, media and torch
 - Google Discover feed, custom fonts, drawer blur
 - App drawer folders and custom drawer tabs, hide duplicate apps
 - Multi-row and paged dock, dock shadow, label shadow
@@ -24,7 +24,7 @@ Locally: `./gradlew assembleOssWithQuickstepGithubRelease` (JDK 21, Android SDK,
 
 ## Privacy
 
-Weather uses your approximate location to query open-meteo.com. Nothing else is sent anywhere.
+TheLauncher sends nothing anywhere itself. Weather comes from the Google app on your phone.
 
 ## License
 

@@ -1078,7 +1078,7 @@ class PreferenceManager2 @Inject constructor(
     val pageIndicatorHidden = preference(
         key = booleanPreferencesKey("page_indicator_hidden"),
         defaultValue = false,
-        onSet = { reloadHelper.recreate() },
+        onSet = { reloadHelper.restart() },
     )
 
     val blackoutDarkMode = preference(

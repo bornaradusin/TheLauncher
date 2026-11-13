@@ -419,6 +419,11 @@ public class DeviceProfile {
                 R.dimen.workspace_page_indicator_height);
         workspacePageIndicatorHeight *= PreferenceCacheExtensionsKt
                 .firstCached(preferenceManager2.getPageIndicatorHeightFactor());
+        // TheLauncher: hidden page dots take no room, so the dock sits one row below the home
+        // screen's last row, as in Hyperion.
+        if (PreferenceCacheExtensionsKt.firstCached(preferenceManager2.getPageIndicatorHidden())) {
+            workspacePageIndicatorHeight = 0;
+        }
         mWorkspacePageIndicatorOverlapWorkspace =
                 res.getDimensionPixelSize(R.dimen.workspace_page_indicator_overlap_workspace);
 

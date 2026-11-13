@@ -111,21 +111,21 @@ public class SysUiScrim implements View.OnAttachStateChangeListener {
 
         mTopMaskHeight = ResourceUtils.pxFromDp(TOP_MASK_HEIGHT_DP, dm);
         mBottomMaskHeight = ResourceUtils.pxFromDp(BOTTOM_MASK_HEIGHT_DP, dm);
+        // TheLauncher: the top shadow and the navigation bar gradient are settings of their own,
+        // so both masks always exist (before, a light wallpaper meant neither could ever show),
+        // and they're dark enough to see over an ordinary wallpaper.
         mHideSysUiScrim = Themes.getAttrBoolean(view.getContext(), R.attr.isWorkspaceDarkText);
 
-        mTopMaskBitmap = mHideSysUiScrim ? null
-                : createDitheredAlphaMask(mTopMaskHeight,
-                        new int[] { 0x3DFFFFFF, 0x0AFFFFFF, 0x00FFFFFF },
-                        new float[] { 0f, 0.7f, 1f });
-        mTopMaskPaint.setColor(0xFF222222);
-        mBottomMaskBitmap = mHideSysUiScrim ? null
-                : createDitheredAlphaMask(mBottomMaskHeight,
-                        new int[] { 0x00FFFFFF, 0x2FFFFFFF },
-                        new float[] { 0f, 1f });
+        mTopMaskBitmap = createDitheredAlphaMask(mTopMaskHeight,
+                new int[] { 0x73FFFFFF, 0x1FFFFFFF, 0x00FFFFFF },
+                new float[] { 0f, 0.7f, 1f });
+        mTopMaskPaint.setColor(0xFF000000);
+        mBottomMaskBitmap = createDitheredAlphaMask(mBottomMaskHeight,
+                new int[] { 0x00FFFFFF, 0x66FFFFFF },
+                new float[] { 0f, 1f });
+        mBottomMaskPaint.setColor(0xFF000000);
 
-        if (!mHideSysUiScrim) {
-            view.addOnAttachStateChangeListener(this);
-        }
+        view.addOnAttachStateChangeListener(this);
 
         PreferenceManager2 preferenceManager2 = PreferenceManager2.getInstance(mRoot.getContext());
         PreferenceExtensionsKt.onEach(
@@ -133,6 +133,7 @@ public class SysUiScrim implements View.OnAttachStateChangeListener {
                 ViewExtensionsKt.getViewAttachedScope(mRoot),
                 (showTopShadow) -> {
                     mHideSysUiScrim = !showTopShadow;
+                    if (mLastInsets != null) onInsetsChanged(mLastInsets);
                     mRoot.invalidate();
                     return null;
                 });
@@ -267,7 +268,8 @@ public class SysUiScrim implements View.OnAttachStateChangeListener {
             canvas.drawRect(0, 0, mRoot.getWidth(), mRoot.getHeight(), mDimPaint);
         }
         drawGlow(canvas);
-        if (!mHideSysUiScrim) {
+        // TheLauncher: the navigation bar gradient draws on its own, without the top shadow.
+        if (!mHideSysUiScrim || mForceBottomScrim) {
             if (mSysUiProgress.value <= 0) {
                 mAnimateScrimOnNextDraw = false;
                 return;
@@ -284,7 +286,7 @@ public class SysUiScrim implements View.OnAttachStateChangeListener {
                 mAnimateScrimOnNextDraw = false;
             }
 
-            if (mDrawTopScrim && mTopMaskBitmap != null) {
+            if (!mHideSysUiScrim && mDrawTopScrim && mTopMaskBitmap != null) {
                 canvas.drawBitmap(mTopMaskBitmap, null, mTopMaskRect, mTopMaskPaint);
             }
             if (mDrawBottomScrim && mBottomMaskBitmap != null) {
@@ -318,8 +320,10 @@ public class SysUiScrim implements View.OnAttachStateChangeListener {
         DeviceProfile dp = mContainer.getDeviceProfile();
         mDrawTopScrim = insets.top > 0;
         mLastInsets = new Rect(insets);
-        mDrawBottomScrim = !dp.isVerticalBarLayout() && !dp.isTaskbarPresent
-                && (!dp.getDeviceProperties().isGestureMode() || mForceBottomScrim);
+        // TheLauncher: the gradient setting draws it in any navigation mode; with three buttons
+        // it also comes with the top shadow, as before.
+        mDrawBottomScrim = mForceBottomScrim || (!dp.isVerticalBarLayout() && !dp.isTaskbarPresent
+                && !dp.getDeviceProperties().isGestureMode() && !mHideSysUiScrim);
     }
 
     @Override

@@ -298,7 +298,7 @@
     <string name="glance_weather_details">Weather details</string>
     <string name="glance_weather_details_desc">The condition and today\'s high and low under the date</string>
     <string name="glance_weather_app">Tapping the weather opens</string>
-    <string name="glance_weather_app_default">Forecast</string>
+    <string name="glance_weather_app_default">The phone\'s weather app</string>
     <string name="glance_widget_desc">What shows under the date is picked for you: the flashlight while it\'s on, music, an event about to start, an alarm due soon, charging, low battery, then your next event and alarm.</string>
     <string name="seerr_label">Seerr</string>
     <string name="seerr_entry_desc">Add and delete movies and series from search</string>

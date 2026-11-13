@@ -239,7 +239,8 @@ public class ActivityAllAppsContainerView<T extends Context & ActivityContext>
         pref2 = PreferenceManager2.getInstance(mActivityContext);
         pref = PreferenceManager.getInstance(mActivityContext);
         
-        mScrimColor = ColorTokens.AllAppsScrimColor.resolveColor(context);
+        // TheLauncher: the same colour as the full-screen drawer behind it.
+        mScrimColor = TheLauncherUtilsKt.getFullScreenDrawerColor(context);
         mHeaderThreshold = getResources().getDimensionPixelSize(
                 R.dimen.dynamic_grid_cell_border_spacing);
         mHeaderProtectionColor = ColorTokens.AllAppsHeaderProtectionColor.resolveColor(context);

@@ -3,9 +3,7 @@ package app.thelauncher.smartspace.provider
 import android.app.Activity
 import android.app.PendingIntent
 import android.appwidget.AppWidgetManager
-import android.content.ComponentName
 import android.content.Context
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Icon
@@ -16,6 +14,9 @@ import android.widget.TextView
 import androidx.core.view.descendants
 import app.thelauncher.BlankActivity
 import app.thelauncher.HeadlessWidgetsManager
+import app.thelauncher.preferences2.PreferenceManager2
+import app.thelauncher.preferences2.firstCached
+import app.thelauncher.smartspace.WeatherApp
 import app.thelauncher.smartspace.model.SmartspaceAction
 import app.thelauncher.smartspace.model.SmartspaceScores
 import app.thelauncher.smartspace.model.SmartspaceTarget
@@ -123,9 +124,11 @@ class SmartspaceWidgetReader(context: Context) :
             temperature,
             pendingIntent,
         ) ?: return null
-        val intent = Intent().apply {
-            component = WEATHER_COMPONENT
-        }
+        // Tapping opens a weather app; with none on the phone, the Google card's own tap.
+        val intent = WeatherApp.intent(
+            context,
+            PreferenceManager2.getInstance(context).smartspaceWeatherApp.firstCached(),
+        )
         return SmartspaceTarget(
             id = "smartspaceWidgetWeather",
             headerAction = SmartspaceAction(
@@ -148,8 +151,6 @@ class SmartspaceWidgetReader(context: Context) :
     data class WeatherData(
         val icon: Bitmap,
         private val temperature: Temperature,
-        val forecastUrl: String? = "https://www.google.com/search?q=weather",
-        val forecastIntent: Intent? = null,
         val pendingIntent: PendingIntent? = null,
     ) {
 
@@ -161,8 +162,6 @@ class SmartspaceWidgetReader(context: Context) :
     companion object {
         private const val GSA_PACKAGE = "com.google.android.googlequicksearchbox"
         private const val WIDGET_CLASS_NAME = "com.google.android.apps.gsa.staticplugins.smartspace.widget.SmartspaceWidgetProvider"
-        private const val GSA_WEATHER = "com.google.android.apps.search.weather.WeatherExportedActivity"
-        private val WEATHER_COMPONENT = ComponentName(GSA_PACKAGE, GSA_WEATHER)
 
         private val dummyTarget = SmartspaceTarget(
             id = "dummyTarget",

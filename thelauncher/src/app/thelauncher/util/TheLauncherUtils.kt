@@ -296,6 +296,23 @@ fun isBlackout(context: Context): Boolean {
     return Utilities.isDarkTheme(context)
 }
 
+/**
+ * The full-screen drawer's background (the drawer not on a sheet): the colour picked in App drawer
+ * → Style, or pure black with Blackout, or the usual dim grey; at the drawer's opacity. Blackout
+ * is fully black, as its name says. Before, the full-screen drawer ignored all three settings.
+ */
+fun getFullScreenDrawerColor(context: Context): Int {
+    val base = ColorTokens.AllAppsScrimColor.resolveColor(context)
+    if (isBlackout(context) && getCustomDrawerColor(context) == 0) return android.graphics.Color.BLACK
+    val opacity = PreferenceManager.getInstance(context).drawerOpacity.get().coerceIn(0f, 1f)
+    return ColorUtils.setAlphaComponent(getAllAppsBaseColor(context, base), (opacity * 255).roundToInt())
+}
+
+private fun getCustomDrawerColor(context: Context): Int {
+    val option = PreferenceManager2.getInstance(context).appDrawerBackgroundColor.firstCached()
+    return if (option is ColorOption.Default) 0 else option.colorPreferenceEntry.lightColor(context)
+}
+
 /** Apply TheLauncher custom allapps opacity and colour to the provided colour */
 fun getAllAppsBackgroundColor(context: Context, defaultColor: Int): Int {
     val prefs = PreferenceManager.getInstance(context)

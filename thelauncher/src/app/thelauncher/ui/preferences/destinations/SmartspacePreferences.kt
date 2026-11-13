@@ -311,59 +311,18 @@ private fun secondRowIsFree(context: Context): Boolean = runCatching {
 private fun ExtraSmartspacePreferences() {
     val preferenceManager2 = preferenceManager2()
     val context = LocalContext.current
-    val weatherEnabled = preferenceManager2.smartspaceWeather.getAdapter().state.value
+    val weatherEnabled = preferenceManager2.smartspaceAagWidget.getAdapter().state.value
     val calendarEnabled = preferenceManager2.smartspaceCalendarEvents.getAdapter().state.value
+    // The weather comes from the Google app, which sets its units and place itself.
     ExpandAndShrink(visible = weatherEnabled) {
         PreferenceGroup(
             heading = stringResource(id = R.string.smartspace_weather),
             modifier = Modifier.padding(top = 8.dp),
         ) {
-            val fahrenheit = preferenceManager2.smartspaceWeatherFahrenheit.getAdapter()
-            val kelvin = preferenceManager2.smartspaceWeatherKelvin.getAdapter()
-            // One choice instead of two switches that could both be on.
-            val unitAdapter = remember(fahrenheit, kelvin) {
-                object : PreferenceAdapter<String> {
-                    override val state = derivedStateOf {
-                        when {
-                            kelvin.state.value -> "k"
-                            fahrenheit.state.value -> "f"
-                            else -> "c"
-                        }
-                    }
-                    override fun onChange(newValue: String) {
-                        fahrenheit.onChange(newValue == "f")
-                        kelvin.onChange(newValue == "k")
-                    }
-                }
-            }
-            ListPreference(
-                adapter = unitAdapter,
-                entries = remember {
-                    listOf(
-                        ListPreferenceEntry("c") { stringResource(id = R.string.weather_unit_celsius) },
-                        ListPreferenceEntry("f") { stringResource(id = R.string.weather_unit_fahrenheit) },
-                        ListPreferenceEntry("k") { stringResource(id = R.string.weather_unit_kelvin) },
-                    )
-                },
-                label = stringResource(id = R.string.weather_unit),
-            )
-            if (preferenceManager2.smartspaceWidgetStyle.getAdapter().state.value == GLANCE_STYLE_MATERIAL) {
-                SwitchPreference(
-                    adapter = preferenceManager2.smartspaceWeatherDetails.getAdapter(),
-                    label = stringResource(id = R.string.glance_weather_details),
-                    description = stringResource(id = R.string.glance_weather_details_desc),
-                )
-                SmartspaceAppPreference(
-                    adapter = preferenceManager2.smartspaceWeatherApp.getAdapter(),
-                    label = stringResource(id = R.string.glance_weather_app),
-                    defaultLabel = stringResource(id = R.string.glance_weather_app_default),
-                )
-            }
-            val automaticLocation = stringResource(id = R.string.smartspace_weather_location_auto)
-            TextPreference(
-                adapter = preferenceManager2.smartspaceWeatherLocation.getAdapter(),
-                label = stringResource(id = R.string.smartspace_weather_location),
-                description = { it.ifBlank { automaticLocation } },
+            SmartspaceAppPreference(
+                adapter = preferenceManager2.smartspaceWeatherApp.getAdapter(),
+                label = stringResource(id = R.string.glance_weather_app),
+                defaultLabel = stringResource(id = R.string.glance_weather_app_default),
             )
         }
     }
