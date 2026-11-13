@@ -71,10 +71,18 @@ const val QSB_END_VOICE = "voice"
 const val QSB_END_ASSISTANT = "assistant"
 const val QSB_END_NONE = "none"
 
-/** Opens the phone's assistant (Gemini, Google Assistant or whichever is set). */
+/**
+ * Opens the phone's assistant (Gemini, Google Assistant or whichever is set) over the home
+ * screen, as holding the home button does. Starting ACTION_ASSIST from an app opens the Google
+ * app itself instead, which shows its feed.
+ */
 fun launchAssistant(context: Context) {
+    val activity = generateSequence(context) { (it as? android.content.ContextWrapper)?.baseContext }
+        .filterIsInstance<android.app.Activity>()
+        .firstOrNull()
+    if (activity != null && runCatching { activity.showAssist(null) }.getOrDefault(false)) return
     runCatching {
-        context.startActivity(Intent(Intent.ACTION_ASSIST).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
+        context.startActivity(Intent(Intent.ACTION_VOICE_COMMAND).addFlags(Intent.FLAG_ACTIVITY_NEW_TASK))
     }
 }
 

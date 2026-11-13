@@ -106,13 +106,6 @@ fun DockPreferences(modifier: Modifier = Modifier) {
                 ) {
                     HotseatBackgroundSettings(prefs, prefs2)
                 }
-                SliderPreference(
-                    label = stringResource(id = R.string.dock_icon_size),
-                    adapter = prefs2.dockIconSizeFactor.getAdapter(),
-                    step = 0.05f,
-                    valueRange = 0.5F..1.5F,
-                    showAsPercentage = true,
-                )
                 val drawerIndicator = prefs2.drawerIndicator.getAdapter()
                 ListPreference(
                     adapter = drawerIndicator,
@@ -130,7 +123,15 @@ fun DockPreferences(modifier: Modifier = Modifier) {
             }
             SearchBarPreference(SearchRoute.DOCK_SEARCH)
             GridSettings(prefs, prefs2)
+            // Icon size sits with the labels, so Iconography → Dock has it.
             PreferenceGroup(heading = stringResource(id = R.string.icons)) {
+                SliderPreference(
+                    label = stringResource(id = R.string.dock_icon_size),
+                    adapter = prefs2.dockIconSizeFactor.getAdapter(),
+                    step = 0.05f,
+                    valueRange = 0.5F..1.5F,
+                    showAsPercentage = true,
+                )
                 ColorPreference(preference = prefs2.dockLabelColor)
                 val dockLabels = prefs2.enableLabelInDock.getAdapter()
                 SwitchPreference(

@@ -20,13 +20,22 @@ import app.thelauncher.ui.preferences.components.controls.ListPreferenceEntry
 import com.android.launcher3.R
 import com.google.accompanist.drawablepainter.rememberDrawablePainter
 
+private const val GOOGLE_APP = "com.google.android.googlequicksearchbox"
+
 data class ProviderInfo(
     val name: String,
     val packageName: String,
     val icon: Drawable?,
 )
 
-fun getProviders(context: Context) = FeedBridge.getAvailableProviders(context).map {
+fun getProviders(context: Context) = FeedBridge.getAvailableProviders(context)
+    // Picking the Google app goes through TheLauncher Feed when it's installed, so it isn't
+    // offered as a second choice that looks like it does nothing.
+    .filterNot {
+        it.packageName == GOOGLE_APP &&
+            FeedBridge.getInstance(context).resolveBridge(GOOGLE_APP)?.packageName != GOOGLE_APP
+    }
+    .map {
     ProviderInfo(
         name = it.loadLabel(context.packageManager).toString(),
         packageName = it.packageName,

@@ -11,6 +11,8 @@ import app.thelauncher.MainLauncher
 class OpenAssistantHandler(context: Context) : GestureHandler(context) {
 
     override suspend fun onTrigger(launcher: MainLauncher) {
+        // The phone's assistant over the home screen, as holding the home button brings it up.
+        if (runCatching { launcher.showAssist(null) }.getOrDefault(false)) return
         try {
             val component = getCurrentlySelectedDefaultAssistant(context)
             Log.d(TAG, "Detected assistant: $component")

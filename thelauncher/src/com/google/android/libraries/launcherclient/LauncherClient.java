@@ -132,6 +132,8 @@ public class LauncherClient {
         IntentFilter intentFilter = new IntentFilter(Intent.ACTION_PACKAGE_ADDED);
         intentFilter.addDataScheme("package");
         intentFilter.addDataSchemeSpecificPart("com.google.android.googlequicksearchbox", 0);
+        // TheLauncher: and when TheLauncher Feed is installed or updated, which ends the old link.
+        intentFilter.addDataSchemeSpecificPart(app.thelauncher.FeedBridge.OWN_BRIDGE_PACKAGE, 0);
         mActivity.registerReceiver(googleInstallListener, intentFilter);
 
         if (apiVersion <= 0) {

@@ -28,6 +28,7 @@ import app.thelauncher.qsb.providers.AppSearch
 import app.thelauncher.qsb.providers.Google
 import app.thelauncher.qsb.providers.PixelSearch
 import app.thelauncher.qsb.providers.QsbSearchProvider
+import app.thelauncher.qsb.providers.QsbSearchProviderType
 import app.thelauncher.ui.preferences.PreferenceActivity
 import app.thelauncher.ui.preferences.navigation.Search
 import app.thelauncher.ui.theme.TheLauncherTheme
@@ -258,13 +259,15 @@ class ThemedQsbLayout(context: Context, attrs: AttributeSet?) : FrameLayout(cont
             context: Context,
             provider: QsbSearchProvider,
         ): QsbSearchProvider {
-            return if (provider == AppSearch ||
-                resolveIntent(context, provider.createSearchIntent()) ||
-                resolveIntent(context, provider.createWebsiteIntent())
-            ) {
-                provider
-            } else {
-                AppSearch
+            return when {
+                provider == AppSearch -> provider
+                resolveIntent(context, provider.createSearchIntent()) -> provider
+                // A search app that isn't installed (such as Sesame, carried over from a Hyperion
+                // backup): Google, rather than the app's store page.
+                provider.type == QsbSearchProviderType.APP && provider != Google &&
+                    resolveIntent(context, Google.createSearchIntent()) -> Google
+                resolveIntent(context, provider.createWebsiteIntent()) -> provider
+                else -> AppSearch
             }
         }
 

@@ -586,7 +586,12 @@ class HyperionBackupConverter(
                 store[prefs2.hideAppDrawerSearchBar.key] = !(settings.bool("pref_show_drawer_search_bar") ?: true)
                 settings.bool("auto_show_all_apps_search")?.let { store[prefs2.autoShowKeyboardInDrawer.key] = it }
                 store[prefs2.showSuggestedAppsInDrawer.key] = settings.bool("pref_show_predictions") ?: false
-                if (settings.bool("pref_enable_sesame_search") == true) store[prefs2.hotseatQsbProvider.key] = "sesame"
+                // Hyperion's Sesame search is part of its own search, which falls back to Google; here
+                // the dock bar opens Sesame only when the Sesame app is installed.
+                val sesameInstalled = runCatching { context.packageManager.getPackageInfo("ninja.sesame.app.edge", 0) }.isSuccess
+                if (settings.bool("pref_enable_sesame_search") == true && sesameInstalled) {
+                    store[prefs2.hotseatQsbProvider.key] = "sesame"
+                }
                 store[prefs2.smartspaceCenteredDate.key] = true
                 if (settings.bool("pref_show_dock_search_bar") == false) store[prefs2.hotseatMode.key] = "disabled"
                 settings.bool("pages_lock_desktop")?.let { store[prefs2.lockHomeScreen.key] = it }
