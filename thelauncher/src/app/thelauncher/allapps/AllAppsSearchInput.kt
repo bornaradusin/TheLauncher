@@ -105,6 +105,7 @@ class AllAppsSearchInput(context: Context, attrs: AttributeSet?) :
     private var searchAlgorithm: TheLauncherSearchAlgorithm? = null
 
     private var isDirectFocus = false
+    private var imeWasShown = false
     private var focusedResultTitle = ""
     private var canShowHint = false
     private var queryEmpty by mutableStateOf(true)
@@ -289,6 +290,24 @@ class AllAppsSearchInput(context: Context, attrs: AttributeSet?) :
                 }
             }
             false
+        }
+
+        // Back hides the keyboard before the launcher sees it (Android's predictive back), which
+        // left the empty search open, needing another back or two. When the keyboard goes away
+        // with nothing typed, end the search there and then.
+        ViewCompat.setOnApplyWindowInsetsListener(input) { v, insets ->
+            val shown = insets.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime())
+            if (imeWasShown && !shown) {
+                post {
+                    val stillHidden = ViewCompat.getRootWindowInsets(input)
+                        ?.isVisible(androidx.core.view.WindowInsetsCompat.Type.ime()) != true
+                    if (stillHidden && input.hasFocus() && input.text.isNullOrEmpty()) {
+                        searchBarController.reset()
+                    }
+                }
+            }
+            imeWasShown = shown
+            ViewCompat.onApplyWindowInsets(v, insets)
         }
 
         input.onFocusChangeListener = { _, hasFocus ->

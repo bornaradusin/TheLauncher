@@ -139,6 +139,12 @@ public class AllAppsSearchBarController
             reset();
             return true;
         }
+        // TheLauncher: with nothing typed, one back closes the keyboard and ends the search
+        // together, so the next back closes the drawer.
+        if (mInput.isFocused()) {
+            reset();
+            return true;
+        }
         return false;
     }
 
