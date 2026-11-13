@@ -20,7 +20,7 @@ sealed class ColorOption {
 
         override val colorPreferenceEntry = ColorPreferenceEntry<ColorOption>(
             this,
-            { stringResource(id = R.string.system) },
+            { stringResource(id = R.string.color_phone_accent) },
             { context -> context.getSystemAccent(false) },
             { context -> context.getSystemAccent(true) },
         )

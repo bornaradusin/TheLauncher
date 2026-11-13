@@ -91,7 +91,7 @@
         <item quantity="other">%dy</item>
     </plurals>
 
-    <string name="managed_by_thelauncher">System default</string>
+    <string name="managed_by_thelauncher">Automatic</string>
 
     <!-- When mentioning settings UI -->
     <string name="smartspace_preferences">Preferences</string>

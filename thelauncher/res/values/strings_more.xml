@@ -218,7 +218,8 @@
     <string name="feed_companion_allow_install">Allow TheLauncher to install apps, then tap Install TheLauncher Feed again</string>
     <string name="drawer_search_finds">Search finds apps, Seerr and phone settings</string>
     <string name="drawer_search_hint">Search apps, Seerr and settings</string>
-    <string name="font_system_default">System default</string>
+    <string name="font_system_default">Phone font</string>
+    <string name="color_phone_accent">Phone accent</string>
     <string name="weather_unit">Temperature unit</string>
     <string name="weather_unit_celsius">Celsius (°C)</string>
     <string name="weather_unit_fahrenheit">Fahrenheit (°F)</string>
@@ -384,7 +385,7 @@
     <string name="hyperion_missing_glance_font">At a Glance font</string>
     <string name="hyperion_missing_folder_covers">Folder covers</string>
     <string name="hyperion_missing_sesame_items">Sesame shortcuts on the home screen</string>
-    <string name="system_accent_deep">System, deep</string>
+    <string name="system_accent_deep">Phone accent, deep</string>
     <string name="drawer_navbar_tint">Navigation bar tint</string>
     <string name="drawer_navbar_tint_desc">Dark navigation line while the app drawer is open</string>
     <string name="folder_preview_inside">Icons inside the circle</string>
