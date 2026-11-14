@@ -40,6 +40,19 @@ sys.exit(1)
 PY
   ) && { adb shell input tap $xy; sleep 1; return 0; }; return 1
 }
+tap_id() {
+  dump /tmp/ui.xml || return 1
+  xy=$(python3 - "$1" <<'PY'
+import re, sys, xml.etree.ElementTree as ET
+for n in ET.parse('/tmp/ui.xml').getroot().iter('node'):
+    if (n.get('resource-id') or '').endswith('/' + sys.argv[1]):
+        b = list(map(int, re.findall(r'\d+', n.get('bounds'))))
+        print((b[0] + b[2]) // 2, (b[1] + b[3]) // 2)
+        sys.exit(0)
+sys.exit(1)
+PY
+  ) && { adb shell input tap $xy; sleep 2; return 0; }; echo "tap_id: '$1' not found"; return 1
+}
 long_xy() { adb shell input swipe $1 $2 $1 $2 1200; sleep 2; }
 home() { adb shell input keyevent KEYCODE_HOME; sleep 2; }
 
@@ -61,13 +74,17 @@ for widget in 'Clock' 'Weather' 'Battery' 'Now playing'; do
   shot "$n-a-search"
   tap_text "$widget" || tap_text "$widget.*"
   shot "$n-b-picked"
+  # Tapping the preview brings up its Add button.
+  tap_id widget_preview_container
+  shot "$n-c-preview" 2
   tap_text 'Add' || tap_text 'Add.*'
   sleep 4
-  shot "$n-c-added"
   home; sleep 6
   shot "$n-d-home"
   n=$((n + 1))
 done
 
+home; sleep 20
+shot 9-home-final
 adb logcat -d > "$OUT/logcat-all.txt"
 grep -E "TheLauncherWidgets|AndroidRuntime|FATAL|WeatherStore|LauncherAppWidgetHostView" "$OUT/logcat-all.txt" > "$OUT/logcat.txt"

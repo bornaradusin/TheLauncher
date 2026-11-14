@@ -1,7 +1,7 @@
 name: Widget check
 run-name: Widget check ${{ github.run_number }}
 
-# Puts the launcher's own widgets on the home screen of an emulator, using the newest release, and
+# Puts the launcher's own widgets on the home screen of an emulator, using the newest build, and
 # keeps pictures and the log under refs/screenshots/widgets-N.
 on:
   push:
@@ -18,12 +18,13 @@ jobs:
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v7
-      - name: Newest release
+      - name: Newest build
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release download --pattern 'TheLauncher-v*.apk' --dir .
-          mv TheLauncher-v*.apk TheLauncher.apk
+          RUN=$(gh run list --workflow build.yml --branch main --status success --limit 1 --json databaseId -q '.[0].databaseId')
+          gh run download "$RUN" --name TheLauncher --dir apk
+          mv apk/TheLauncher-v*.apk TheLauncher.apk
       - name: Enable KVM
         run: |
           echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
