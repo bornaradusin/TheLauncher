@@ -628,6 +628,32 @@ public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver,
             iconDrawable.setAnimationEnabled(false);
         }
         setIcon(iconDrawable);
+        // TheLauncher: an icon that should be themed but was handed over plain (seen after the
+        // wallpaper changes, which rebuilds every icon) is made again.
+        if ((flags & FLAG_THEMED) != 0 && !iconDrawable.isThemed() && !info.bitmap.isLowRes()
+                && info.itemType == LauncherSettings.Favorites.ITEM_TYPE_APPLICATION
+                && Themes.isThemedIconEnabled(getContext()) && allowThemedHeal(info)) {
+            post(this::ensureThemedIcon);
+        }
+    }
+
+    private static final android.util.ArrayMap<String, long[]> sThemedHeals =
+            new android.util.ArrayMap<>();
+
+    /** At most three tries in twenty seconds per app, so an icon that can't be themed is left alone. */
+    private static boolean allowThemedHeal(ItemInfoWithIcon info) {
+        android.content.ComponentName component = info.getTargetComponent();
+        if (component == null) return false;
+        String key = component.flattenToShortString() + "#" + info.user.hashCode();
+        long now = android.os.SystemClock.uptimeMillis();
+        long[] state = sThemedHeals.get(key);
+        if (state == null || now - state[0] > 20_000) {
+            sThemedHeals.put(key, new long[]{now, 1});
+            return true;
+        }
+        if (state[1] >= 3) return false;
+        state[1]++;
+        return true;
     }
 
     public boolean shouldUseTheme() {
