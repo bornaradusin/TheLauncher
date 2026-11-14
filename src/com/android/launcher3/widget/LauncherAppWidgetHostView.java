@@ -161,6 +161,18 @@ public class LauncherAppWidgetHostView extends BaseLauncherAppWidgetHostView
     private boolean mOwnWidget;
     private @Nullable View mOwnWidgetView;
 
+    // Android puts the widget's placeholder in by itself at times (when the wallpaper colours
+    // arrive, say), on top of everything; for an own widget that placeholder is empty.
+    @Override
+    protected View getDefaultView() {
+        return mOwnWidget ? new View(getContext()) : super.getDefaultView();
+    }
+
+    @Override
+    protected View getErrorView() {
+        return mOwnWidget ? new View(getContext()) : super.getErrorView();
+    }
+
     private void attachOwnWidget(AppWidgetProviderInfo info) {
         // That host view (the picture under the finger while dragging) builds its own.
         if (this instanceof TheLauncherAppWidgetHostView || this instanceof PendingAppWidgetHostView) return;
