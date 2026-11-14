@@ -46,7 +46,12 @@ import com.android.launcher3.allapps.search.SearchAdapterProvider;
 import com.android.launcher3.folder.FolderIcon;
 import com.android.launcher3.model.data.AppInfo;
 import com.android.launcher3.model.data.FolderInfo;
+import com.android.launcher3.model.data.ItemInfo;
+import com.android.launcher3.model.data.ItemInfoWithIcon;
 import com.android.launcher3.views.ActivityContext;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Adapter for all the apps.
@@ -141,7 +146,25 @@ public abstract class BaseAllAppsAdapter<T extends Context & ActivityContext> ex
         public static AdapterItem asFolder(FolderInfo folderInfo) {
             AdapterItem item = new AdapterItem(VIEW_TYPE_FOLDER);
             item.folderInfo = folderInfo;
+            item.folderState = folderState(folderInfo);
             return item;
+        }
+
+        // What a drawer folder shows: its name, its apps and their icons as they were when the
+        // list was made. A folder whose apps or icons have changed since is drawn again.
+        private Object[] folderState;
+
+        private static Object[] folderState(FolderInfo folderInfo) {
+            List<ItemInfo> contents = folderInfo.getContents();
+            Object[] state = new Object[2 + contents.size() * 2];
+            state[0] = folderInfo.id;
+            state[1] = folderInfo.title == null ? null : folderInfo.title.toString();
+            int i = 2;
+            for (ItemInfo info : contents) {
+                state[i++] = info;
+                state[i++] = info instanceof ItemInfoWithIcon withIcon ? withIcon.bitmap : null;
+            }
+            return state;
         }
 
         protected boolean isCountedForAccessibility() {
@@ -160,6 +183,9 @@ public abstract class BaseAllAppsAdapter<T extends Context & ActivityContext> ex
          * as well. Returning true will prevent redrawing of thee item.
          */
         public boolean isContentSame(AdapterItem other) {
+            if (viewType == VIEW_TYPE_FOLDER) {
+                return Arrays.equals(folderState, other.folderState);
+            }
             return itemInfo == null && other.itemInfo == null;
         }
 

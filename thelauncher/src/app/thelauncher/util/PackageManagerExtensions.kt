@@ -1,10 +1,6 @@
 package app.thelauncher.util
 
-import android.content.ComponentName
-import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
-import com.android.launcher3.R
 import com.android.launcher3.Utilities
 
 fun PackageManager.isPackageInstalled(packageName: String): Boolean = try {
@@ -30,13 +26,3 @@ fun PackageManager.isPackageInstalledAndEnabled(packageName: String) = try {
     false
 }
 
-fun PackageManager.getThemedIconPacksInstalled(context: Context): List<String> = try {
-    queryIntentActivityOptions(
-        ComponentName(context.applicationInfo.packageName, context.applicationInfo.className),
-        null,
-        Intent(context.resources.getString(R.string.icon_packs_intent_name)),
-        PackageManager.GET_RESOLVED_FILTER,
-    ).map { it.activityInfo.packageName }
-} catch (_: PackageManager.NameNotFoundException) {
-    emptyList()
-}

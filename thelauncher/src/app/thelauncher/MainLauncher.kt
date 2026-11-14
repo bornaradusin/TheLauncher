@@ -49,7 +49,6 @@ import app.thelauncher.root.RootNotAvailableException
 import app.thelauncher.theme.ThemeProvider
 import app.thelauncher.ui.popup.LauncherOptionsPopup
 import app.thelauncher.ui.popup.TheLauncherShortcut
-import app.thelauncher.util.getThemedIconPacksInstalled
 import app.thelauncher.util.unsafeLazy
 import app.thelauncher.views.TheLauncherFloatingSurfaceView
 import com.android.launcher3.AbstractFloatingView
@@ -255,14 +254,6 @@ class MainLauncher : QuickstepLauncher() {
 
         LauncherOptionsPopup.restoreMissingPopupOptions(launcher)
         LauncherOptionsPopup.migrateLegacyPreferences(launcher)
-
-        // Handle update from version 12 Alpha 4 to version 12 Alpha 5.
-        if (
-            prefs.themedIcons.get() &&
-            packageManager.getThemedIconPacksInstalled(this).isEmpty()
-        ) {
-            prefs.themedIcons.set(newValue = false)
-        }
 
         colorScheme = themeProvider.colorScheme
 
