@@ -13,7 +13,7 @@ Long-press an empty spot on the home screen and tap **Home settings**. Settings 
 | **Grids** | Columns and rows for the home screen, dock, drawer and folders |
 | **Widgets** | At a Glance, the search bar, widget corners and sizing |
 | **Gestures** | What each gesture does, and haptic feedback |
-| **Animations** | Animation speed, app closing animation, wallpaper scrolling and zoom |
+| **Animations** | Animation speed, wallpaper scrolling and zoom |
 | **Backup and restore** | Backups, saved layouts, one **Restore backup** for TheLauncher, Hyperion and Nova files, reloading icons |
 | **Integrations** | The Google feed and its theme, suggestions, Seerr, experimental features |
 | **About** | Version, updates, developer |

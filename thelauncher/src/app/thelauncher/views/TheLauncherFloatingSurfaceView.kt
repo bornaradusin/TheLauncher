@@ -359,9 +359,6 @@ class TheLauncherFloatingSurfaceView @JvmOverloads constructor(
             view.removeViewImmediate()
             launcher.dragLayer.addView(view)
             anim.start()
-            view.getIcon()?.let {
-                launcher.showFullScreenOverlay(endView = it) {}
-            }
         }
     }
 }

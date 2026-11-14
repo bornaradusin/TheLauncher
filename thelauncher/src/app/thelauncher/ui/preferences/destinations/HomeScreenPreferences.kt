@@ -43,7 +43,6 @@ import app.thelauncher.ui.preferences.components.FeedPreference
 import app.thelauncher.ui.preferences.components.GestureHandlerPreference
 import app.thelauncher.ui.preferences.components.HomeLayoutSettings
 import app.thelauncher.ui.preferences.components.NavigationActionPreference
-import app.thelauncher.ui.preferences.components.OverlayHandlerPreference
 import app.thelauncher.ui.preferences.components.controls.ClickablePreference
 import app.thelauncher.ui.preferences.components.controls.ListPreference
 import app.thelauncher.ui.preferences.components.controls.SliderPreference
@@ -225,10 +224,6 @@ fun HomeScreenPreferences(
         }
         // Animations only; the text colour is a colour, under Colors → Home screen.
         PreferenceGroup(heading = stringResource(R.string.style)) {
-            OverlayHandlerPreference(
-                adapter = prefs2.closingAppOverlay.getAdapter(),
-                label = stringResource(id = R.string.app_closing_animation),
-            )
             ListPreference(
                 adapter = prefs2.animationSpeed.getAdapter(),
                 entries = listOf(

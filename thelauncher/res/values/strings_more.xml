@@ -100,7 +100,7 @@
     <string name="cat_entry_grid_desc">Columns, rows and icon count</string>
     <string name="cat_entry_feed_desc">Feed to the left of the main desktop</string>
     <string name="cat_entry_widgets_desc">Widget corners and padding</string>
-    <string name="cat_entry_animations_desc">App closing animation</string>
+    <string name="cat_entry_animations_desc">Animation speed</string>
     <string name="cat_entry_wallpaper_motion_desc">Scrolling wallpaper and wallpaper zoom</string>
     <string name="cat_entry_search_desc">Search providers and Sesame</string>
     <string name="cat_entry_suggestions_desc">App suggestions in the drawer</string>
