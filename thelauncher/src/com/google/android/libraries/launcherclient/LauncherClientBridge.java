@@ -46,4 +46,16 @@ public class LauncherClientBridge extends IBridgeCallback.Stub implements Servic
             mConnectionName = null;
         }
     }
+
+    /** The companion or the Google app was updated: this link is dead for good, so make a new one. */
+    @Override
+    public void onBindingDied(ComponentName name) {
+        onServiceDisconnected(name);
+        new android.os.Handler(android.os.Looper.getMainLooper()).post(mClientService::rebind);
+    }
+
+    @Override
+    public void onNullBinding(ComponentName name) {
+        onServiceDisconnected(name);
+    }
 }

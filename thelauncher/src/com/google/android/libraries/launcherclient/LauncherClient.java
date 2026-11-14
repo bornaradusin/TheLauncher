@@ -122,7 +122,8 @@ public class LauncherClient {
     public LauncherClient(Activity activity, IScrollCallback scrollCallback, StaticInteger flags) {
         mActivity = activity;
         mScrollCallback = scrollCallback;
-        mBaseService = new BaseClientService(activity, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT);
+        mBaseService = new BaseClientService(activity, Context.BIND_AUTO_CREATE | Context.BIND_IMPORTANT,
+                !usesOwnBridge(activity));
         mFlags = flags.mData;
 
         mLauncherService = LauncherClientService.getInstance(activity);
@@ -171,6 +172,7 @@ public class LauncherClient {
     public final void onResume() {
         if (!mDestroyed) {
             mActivityState |= 2;
+            reconnectIfFeedStuck();
             if (mOverlay != null && mLayoutParams != null) {
                 try {
                     if (apiVersion < 4) {
@@ -201,9 +203,7 @@ public class LauncherClient {
     }
 
     public final void onStart() {
-        Log.i("FEED", "1");
         if (!mDestroyed) {
-            Log.i("FEED", "2");
             mLauncherService.setStopped(false);
             connect();
             mActivityState |= 1;
@@ -248,18 +248,48 @@ public class LauncherClient {
     }
 
     private void connect() {
+        if (mLastConnectAttempt == 0) mLastConnectAttempt = android.os.SystemClock.uptimeMillis();
         if (!mDestroyed && (!mLauncherService.connect() || !mBaseService.connect())) {
             mActivity.runOnUiThread(() -> setServiceState(0));
         }
     }
 
     public void reconnect() {
+        mLastConnectAttempt = android.os.SystemClock.uptimeMillis();
         mBaseService.disconnect();
         mLauncherService.disconnect();
+        // The old link is gone; don't keep talking to it, and let the next one attach afresh.
+        mLauncherService.mOverlay = null;
+        mOverlay = null;
+        setServiceState(0);
         LauncherClient.loadApiVersion(mActivity);
-        if ((mActivityState & 2) != 0) {
+        // Connect again whenever the launcher is on screen, not only when it is resumed: an update
+        // of the Google app or the companion often lands while the launcher sits behind another app.
+        if ((mActivityState & 1) != 0) {
             connect();
         }
+    }
+
+    private long mLastConnectAttempt = 0;
+    private static final long STUCK_FEED_RETRY_MS = 30_000;
+
+    /**
+     * The feed should be there but isn't (the Google app dropped the link and never came back,
+     * which used to need a force stop of the Google app): start over.
+     */
+    private void reconnectIfFeedStuck() {
+        if (mDestroyed || (mFlags & 1) == 0 || (mServiceState & 1) != 0) return;
+        long now = android.os.SystemClock.uptimeMillis();
+        if (now - mLastConnectAttempt < STUCK_FEED_RETRY_MS) return;
+        if (app.thelauncher.FeedBridge.Companion.getInstance(mActivity).needsCompanionApp()) return;
+        android.util.Log.i("LauncherClient", "Feed not attached, reconnecting");
+        reconnect();
+    }
+
+    private static boolean usesOwnBridge(Context context) {
+        if (!FeedBridge.useBridge(context)) return false;
+        BridgeInfo bridge = FeedBridge.Companion.getInstance(context).resolveBridge();
+        return bridge != null && app.thelauncher.FeedBridge.OWN_BRIDGE_PACKAGE.equals(bridge.getPackageName());
     }
 
     public final void setLayoutParams(LayoutParams layoutParams) {

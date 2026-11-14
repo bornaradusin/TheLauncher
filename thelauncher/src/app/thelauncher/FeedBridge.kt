@@ -187,7 +187,7 @@ class FeedBridge(private val context: Context) {
         private const val GOOGLE_APP = "com.google.android.googlequicksearchbox"
         const val OWN_BRIDGE_PACKAGE = "app.thelauncher.feed"
         /** The version of TheLauncher Feed inside this build (feedbridge/build.gradle). */
-        private const val OWN_BRIDGE_VERSION = 2L
+        private const val OWN_BRIDGE_VERSION = 3L
 
         private val whitelist = mutableMapOf<String, Long?>()
 

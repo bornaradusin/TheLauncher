@@ -14,11 +14,29 @@ public class BaseClientService implements ServiceConnection {
     private final ServiceConnection mBridge;
 
     BaseClientService(Context context, int flags) {
+        this(context, flags, true);
+    }
+
+    /**
+     * @param bridged false for a connection that only keeps the feed's process running: with
+     *                TheLauncher Feed it must not open a second link to the Google app, which the
+     *                companion would keep after this one ends.
+     */
+    BaseClientService(Context context, int flags, boolean bridged) {
         mContext = context;
         mFlags = flags;
-        mBridge = FeedBridge.useBridge(context)
+        mBridge = FeedBridge.useBridge(context) && bridged
                 ? new LauncherClientBridge(this, flags)
                 : this;
+    }
+
+    /** The other end was replaced (updated or reinstalled): this binding will never come back. */
+    final void rebind() {
+        boolean wasConnected = mConnected;
+        disconnect();
+        if (wasConnected) {
+            connect();
+        }
     }
 
     public final boolean connect() {
@@ -40,9 +58,23 @@ public class BaseClientService implements ServiceConnection {
 
     public final void disconnect() {
         if (mConnected) {
-            mContext.unbindService(mBridge);
+            try {
+                mContext.unbindService(mBridge);
+            } catch (IllegalArgumentException ignored) {
+            }
             mConnected = false;
         }
+    }
+
+    @Override
+    public void onBindingDied(ComponentName name) {
+        onServiceDisconnected(name);
+        rebind();
+    }
+
+    @Override
+    public void onNullBinding(ComponentName name) {
+        onServiceDisconnected(name);
     }
 
     @Override

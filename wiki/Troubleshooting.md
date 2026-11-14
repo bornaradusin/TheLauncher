@@ -37,3 +37,7 @@ Android needs permission to let TheLauncher install apps: **Allow from this sour
 ### The icons look too big or small
 
 Change **Icon size** under Home screen, App drawer or Folders. See [Icons and look](Icons-and-look#sizes-and-labels).
+
+## The feed won't open when I swipe right
+
+Update to TheLauncher 1.4.2 or later and tap **Update TheLauncher Feed** in the feed settings. Older versions piled up links to the Google app until it stopped answering, which needed a force stop of the Google app. TheLauncher now reconnects on its own when the Google app updates or the feed goes missing.
