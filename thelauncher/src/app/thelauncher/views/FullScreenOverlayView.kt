@@ -208,10 +208,10 @@ class FullScreenOverlayView @JvmOverloads constructor(
 }
 
 /**
- * Android shrinks the closing app over the home screen first; the overlay holds until that is
- * done, or its own animation would be over before the home screen can be seen.
+ * The overlay moves together with Android's own shrinking of the closing app. Holding it back
+ * until that was over showed two animations one after the other.
  */
-private const val CLOSING_HOLD_MS = 280L
+private const val CLOSING_HOLD_MS = 0L
 
 private fun View.postDelayed(delay: Long, action: () -> Unit) {
     postDelayed({ action() }, delay)
@@ -222,7 +222,7 @@ var lastClosingOverlayAt = 0L
 
 fun Activity.showFullScreenOverlay(
     durationIn: Long = 200,
-    durationOut: Long = 500,
+    durationOut: Long = 350,
     rootView: ViewGroup? = null,
     endView: View?,
     onOverlayReady: () -> Unit,
