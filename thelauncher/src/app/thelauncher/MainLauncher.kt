@@ -508,6 +508,13 @@ class MainLauncher : QuickstepLauncher() {
         closingOverlayPending = stoppedWhileInteractive
     }
 
+    private fun healThemedIcons(view: View?) {
+        when (view) {
+            is com.android.launcher3.BubbleTextView -> view.ensureThemedIcon()
+            is android.view.ViewGroup -> for (i in 0 until view.childCount) healThemedIcons(view.getChildAt(i))
+        }
+    }
+
     private var stoppedWhileInteractive = false
 
     override fun onStop() {
@@ -539,6 +546,8 @@ class MainLauncher : QuickstepLauncher() {
     override fun onResume() {
         super.onResume()
         restartIfPending()
+        // Themed icons that came back plain (after the screen was locked, say) are made again.
+        dragLayer?.postDelayed({ healThemedIcons(workspace); healThemedIcons(hotseat) }, 600)
         if (closingOverlayPending) {
             closingOverlayPending = false
             // Swiping home with an app icon to land on already played it (see handleGestureContract).

@@ -60,7 +60,7 @@ class FullScreenOverlayView @JvmOverloads constructor(
     }
 
     fun suckAnimation(duration: Long = 600, onEnd: (() -> Unit)? = null) {
-        post {
+        postDelayed(CLOSING_HOLD_MS) {
             if (!isAttachedToWindow) return@post
 
             if (endX == 0f || endY == 0f) {
@@ -128,7 +128,7 @@ class FullScreenOverlayView @JvmOverloads constructor(
     /** Starts covering the home screen and fades away, so the home screen fades in. */
     fun fadeHomeIn(duration: Long = 350, onEnd: (() -> Unit)? = null) {
         alpha = 1f
-        post {
+        postDelayed(CLOSING_HOLD_MS) {
             if (!isAttachedToWindow) return@post
             ObjectAnimator.ofFloat(this, ALPHA, 1f, 0f).apply {
                 this.duration = duration
@@ -207,6 +207,16 @@ class FullScreenOverlayView @JvmOverloads constructor(
     }
 }
 
+/**
+ * Android shrinks the closing app over the home screen first; the overlay holds until that is
+ * done, or its own animation would be over before the home screen can be seen.
+ */
+private const val CLOSING_HOLD_MS = 280L
+
+private fun View.postDelayed(delay: Long, action: () -> Unit) {
+    postDelayed({ action() }, delay)
+}
+
 /** When the closing animation last played, so one return home plays it once. */
 var lastClosingOverlayAt = 0L
 
@@ -232,7 +242,7 @@ fun Activity.showFullScreenOverlay(
 
     when (animationMode) {
         FullScreenOverlayMode.FADE_IN -> {
-            overlayView.fadeHomeIn(durationOut - 150, onOverlayReady)
+            overlayView.fadeHomeIn(durationOut, onOverlayReady)
         }
 
         FullScreenOverlayMode.SUCK_IN -> {

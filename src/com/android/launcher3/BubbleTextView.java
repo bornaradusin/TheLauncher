@@ -1659,6 +1659,34 @@ public class BubbleTextView extends TextView implements ItemInfoUpdateReceiver,
     }
 
     /**
+     * TheLauncher: with themed icons on, an icon that should be themed but came back from the
+     * saved icon cache without its themed version is made again from the app's icon.
+     */
+    public void ensureThemedIcon() {
+        if (!(getTag() instanceof ItemInfoWithIcon info) || mHighResUpdateInProgress) return;
+        if (info.itemType != com.android.launcher3.LauncherSettings.Favorites.ITEM_TYPE_APPLICATION) {
+            return;
+        }
+        if (!shouldUseTheme() || !Themes.isThemedIconEnabled(getContext())) return;
+        if (mIcon == null || mIcon.isThemed() || info.bitmap == null || info.bitmap.isLowRes()) {
+            return;
+        }
+        android.content.ComponentName component = info.getTargetComponent();
+        if (component == null) return;
+        com.android.launcher3.icons.IconCache cache =
+                LauncherAppState.getInstance(getContext()).getIconCache();
+        com.android.launcher3.util.Executors.MODEL_EXECUTOR.execute(() -> {
+            cache.removeIconsForPkg(component.getPackageName(), info.user);
+            post(() -> {
+                if (getTag() != info) return;
+                if (mIconLoadRequest != null) mIconLoadRequest.cancel();
+                mIconLoadRequest = cache.updateIconInBackground(BubbleTextView.this, info,
+                        DEFAULT_LOOKUP_FLAG.withThemeIcon(true));
+            });
+        });
+    }
+
+    /**
      * Verifies that the current icon is high-res otherwise posts a request to load the icon.
      */
     public void verifyHighRes() {

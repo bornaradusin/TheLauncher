@@ -98,11 +98,6 @@ class TheLauncherIconProvider @Inject constructor(
             return overrideItem.toIconEntry()
         }
 
-        // if forced monochrome is enabled, fallback to launcher3 behavior
-        if (prefs.forceIconMonochrome.get()) {
-            return null
-        }
-
         val iconPack = iconPack ?: return null
         // then look for dynamic calendar
         val calendarEntry = iconPack.getCalendar(componentName)
@@ -165,9 +160,12 @@ class TheLauncherIconProvider @Inject constructor(
         if (!themedIconsEnabled || iconEntry == null || iconEntry.packPackageName == PictureIcons.PACK) {
             return baseIcon
         }
-        // An icon picked for the app is themed from that icon, not swapped back for the app's
-        // own themed icon (which made the pick look like it did nothing).
-        if (componentName != null && overrideRepo.overridesMap[ComponentKey(componentName, user)] != null) {
+        // An icon picked for the app, or one from the chosen icon pack, is themed from that icon,
+        // not swapped back for the app's own themed icon (which made the pick or the pack look
+        // like it did nothing).
+        if (iconPackIcon != null && iconEntry.type != IconType.Calendar &&
+            iconPackProvider.getClockMetadata(iconEntry) == null
+        ) {
             return baseIcon
         }
 
@@ -237,7 +235,7 @@ class TheLauncherIconProvider @Inject constructor(
         } else {
             ""
         }
-        return "$base|lc:" +
+        return "$base|lc:v3," +
             "ip=${iconPackPref.get()}," +
             "tip=${themedIconSourcePref.get()}," +
             "ti=${prefs.themedIcons.get()}," +
