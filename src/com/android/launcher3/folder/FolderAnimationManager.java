@@ -254,7 +254,13 @@ public class FolderAnimationManager implements FolderAnimationCreator {
         }
         int left = page * lp.width;
 
-        int extraRadius = (int) ((mDeviceProfile.folderIconSizePx / initialScale)
+        // TheLauncher: with "keep icons inside the folder shape" on, the closing folder's icons are
+        // cut to the shape all the way down, not let past its edge until the preview takes over.
+        boolean previewInside = Boolean.TRUE.equals(
+                app.thelauncher.preferences2.PreferenceCacheExtensionsKt.firstCached(
+                        app.thelauncher.preferences2.PreferenceManager2.getInstance(mContext)
+                                .getFolderPreviewInside()));
+        int extraRadius = previewInside ? 0 : (int) ((mDeviceProfile.folderIconSizePx / initialScale)
                 * EXTRA_FOLDER_REVEAL_RADIUS_PERCENTAGE);
         Rect contentStart = new Rect(
                 (int) (left + (startRect.left / initialScale)) - extraRadius,
