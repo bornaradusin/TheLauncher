@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="widget_clock">Clock</string>
+    <string name="widget_clock_desc">The time, the date and your next alarm</string>
+    <string name="widget_weather">Weather</string>
+    <string name="widget_weather_desc">Now, the next hours and the coming days</string>
+    <string name="widget_battery">Battery</string>
+    <string name="widget_battery_desc">Your phone and connected Bluetooth devices</string>
+    <string name="widget_media">Now playing</string>
+    <string name="widget_media_desc">Album art and playback controls</string>
+
+    <string name="widget_battery_phone">Phone</string>
+    <string name="widget_battery_bluetooth_hint">Tap to show Bluetooth devices</string>
+
+    <string name="widget_media_nothing">Nothing playing</string>
+    <string name="widget_media_access">Tap to allow notification access, so this can show what is playing</string>
+
+    <string name="widget_weather_permission">Tap to allow location, so this can show the weather where you are</string>
+    <string name="widget_weather_no_location">Couldn\'t find where you are. Turn on location and tap to try again.</string>
+    <string name="widget_weather_failed">Couldn\'t load the weather. Tap to try again.</string>
+    <string name="widget_weather_loading">Loading the weather…</string>
+    <string name="widget_weather_clear">Clear</string>
+    <string name="widget_weather_partly_cloudy">Partly cloudy</string>
+    <string name="widget_weather_cloudy">Cloudy</string>
+    <string name="widget_weather_fog">Fog</string>
+    <string name="widget_weather_rain">Rain</string>
+    <string name="widget_weather_snow">Snow</string>
+    <string name="widget_weather_thunder">Thunderstorm</string>
+</resources>
