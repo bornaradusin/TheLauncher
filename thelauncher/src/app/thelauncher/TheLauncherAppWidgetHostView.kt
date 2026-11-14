@@ -94,6 +94,17 @@ class TheLauncherAppWidgetHostView @JvmOverloads constructor(
             MediaWidgetProvider.componentName,
         )
 
+        /** True for a widget the launcher draws itself wherever it is shown. */
+        @JvmStatic
+        fun isOwnWidget(info: AppWidgetProviderInfo): Boolean = info.provider in ownWidgets
+
+        /** The view for one of those widgets, or null if it couldn't be built. */
+        @JvmStatic
+        fun createOwnWidgetView(context: Context, info: AppWidgetProviderInfo): View? =
+            runCatching { createOwnWidget(context, info.provider) }
+                .onFailure { Log.e("TheLauncherWidgets", "Couldn't build ${info.provider}", it) }
+                .getOrNull()
+
         @JvmStatic
         fun inflateCustomView(context: Context, info: AppWidgetProviderInfo, previewMode: Boolean): ViewGroup? {
             val ownWidget = info.provider in ownWidgets

@@ -22,6 +22,7 @@ import android.appwidget.AppWidgetProviderInfo;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Handler;
+import android.os.Looper;
 import android.os.Parcelable;
 import android.os.SystemClock;
 import android.os.Trace;
@@ -49,6 +50,8 @@ import com.android.launcher3.util.Themes;
 import com.android.launcher3.views.ActivityContext;
 import com.android.launcher3.views.BaseDragLayer;
 import com.android.launcher3.views.BaseDragLayer.TouchCompleteListener;
+
+import app.thelauncher.TheLauncherAppWidgetHostView;
 
 /**
  * {@inheritDoc}
@@ -150,6 +153,41 @@ public class LauncherAppWidgetHostView extends BaseLauncherAppWidgetHostView
                 Trace.beginAsyncSection(TRACE_METHOD_NAME + info.provider, appWidgetId);
             }
         }
+        attachOwnWidget(info);
+    }
+
+    // TheLauncher's own widgets (clock, weather, battery, now playing) are drawn by the launcher
+    // itself rather than sent over as RemoteViews.
+    private boolean mOwnWidget;
+    private @Nullable View mOwnWidgetView;
+
+    private void attachOwnWidget(AppWidgetProviderInfo info) {
+        // That host view (the picture under the finger while dragging) builds its own.
+        if (this instanceof TheLauncherAppWidgetHostView || this instanceof PendingAppWidgetHostView) return;
+        if (mOwnWidgetView != null) {
+            removeView(mOwnWidgetView);
+            mOwnWidgetView = null;
+        }
+        mOwnWidget = info != null && TheLauncherAppWidgetHostView.isOwnWidget(info);
+        if (!mOwnWidget) return;
+        Runnable attach = () -> {
+            if (mOwnWidgetView != null || !mOwnWidget) return;
+            View view = TheLauncherAppWidgetHostView.createOwnWidgetView(getContext(), info);
+            if (view == null) {
+                mOwnWidget = false;
+                return;
+            }
+            removeAllViews();
+            view.setOnLongClickListener(this);
+            addView(view, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            mOwnWidgetView = view;
+        };
+        // Widgets can be set up off the main thread; the view itself is always made on it.
+        if (Looper.myLooper() == Looper.getMainLooper()) {
+            attach.run();
+        } else {
+            post(attach);
+        }
     }
 
     @Override
@@ -161,6 +199,9 @@ public class LauncherAppWidgetHostView extends BaseLauncherAppWidgetHostView
                     TRACE_METHOD_NAME + getAppWidgetInfo().provider, getAppWidgetId());
             }
             mTrackingWidgetUpdate = false;
+        }
+        if (mOwnWidget) {
+            return;
         }
         mLastRemoteViews = remoteViews;
         mReapplyOnResumeUpdates = isDeferringUpdates();
