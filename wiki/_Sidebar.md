@@ -11,6 +11,7 @@
 - [App drawer](App-drawer)
 - [Folders](Folders)
 - [At a Glance](At-a-Glance)
+- [Widgets](Widgets)
 - [Gestures](Gestures)
 - [Icons and look](Icons-and-look)
 - [App lock](App-lock)

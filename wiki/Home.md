@@ -20,6 +20,7 @@
 | [App drawer](App-drawer) | Columns, hidden apps, drawer folders, drawer tabs, suggestions |
 | [Folders](Folders) | Home screen folders, their shape, size and sorting |
 | [At a Glance](At-a-Glance) | Date, time, weather, calendar events, battery and media at the top of the home screen |
+| [Widgets](Widgets) | Clock, weather, battery and now playing widgets of the launcher's own |
 | [Gestures](Gestures) | Double tap, swipes, the Home and Back buttons |
 | [Icons and look](Icons-and-look) | Icon packs, themed icons, icon shapes, sizes, labels, wallpaper dimmer, colours, fonts |
 | [App lock](App-lock) | Locking apps with your fingerprint, face or screen lock |
