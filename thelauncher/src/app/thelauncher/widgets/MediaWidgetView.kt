@@ -169,6 +169,7 @@ class MediaWidgetView(context: Context) : WidgetCardView(context) {
             art.setImageDrawable(null)
             art.isVisible = false
             buttons.isVisible = false
+            title.maxLines = 3
             title.text = context.getString(
                 if (hasNotificationAccess()) R.string.widget_media_nothing else R.string.widget_media_access,
             )
@@ -178,6 +179,7 @@ class MediaWidgetView(context: Context) : WidgetCardView(context) {
             return
         }
 
+        title.maxLines = 1
         title.text = info?.title
         artist.text = info?.artist ?: info?.album ?: ""
         artist.isVisible = artist.text.isNotEmpty()

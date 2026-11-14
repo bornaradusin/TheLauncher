@@ -79,6 +79,11 @@ for widget in 'Clock' 'Weather' 'Battery' 'Now playing'; do
   shot "$n-c-preview" 2
   tap_text 'Add' || tap_text 'Add.*'
   sleep 4
+  # A newly installed launcher is asked once whether it may create widgets.
+  tap_text 'Always allow.*' || true
+  shot "$n-c-allow" 1
+  tap_text 'Create' || tap_text 'Allow' || true
+  sleep 4
   home; sleep 6
   shot "$n-d-home"
   n=$((n + 1))
@@ -86,5 +91,9 @@ done
 
 home; sleep 20
 shot 9-home-final
+adb shell input swipe 900 1200 200 1200 300; sleep 3
+shot 9-home-page2
+adb shell input swipe 900 1200 200 1200 300; sleep 3
+shot 9-home-page3
 adb logcat -d > "$OUT/logcat-all.txt"
 grep -E "TheLauncherWidgets|AndroidRuntime|FATAL|WeatherStore|LauncherAppWidgetHostView" "$OUT/logcat-all.txt" > "$OUT/logcat.txt"
