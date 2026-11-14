@@ -26,7 +26,12 @@ public class LauncherClientBridge extends IBridgeCallback.Stub implements Servic
             if (INTERFACE_DESCRIPTOR.equals(service.getInterfaceDescriptor())) {
                 IBridge bridge = IBridge.Stub.asInterface(service);
                 try {
-                    bridge.bindService(this, mFlags);
+                    // The companion's link to the Google app must carry priority. Bound with
+                    // "waive priority", Android treats the Google app as idle and freezes it, and
+                    // a frozen Google app ignores the swipe until it is force stopped.
+                    int flags = (mFlags & ~android.content.Context.BIND_WAIVE_PRIORITY)
+                            | android.content.Context.BIND_IMPORTANT;
+                    bridge.bindService(this, flags);
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
