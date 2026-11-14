@@ -61,7 +61,7 @@ class FullScreenOverlayView @JvmOverloads constructor(
 
     fun suckAnimation(duration: Long = 600, onEnd: (() -> Unit)? = null) {
         postDelayed(CLOSING_HOLD_MS) {
-            if (!isAttachedToWindow) return@post
+            if (!isAttachedToWindow) return@postDelayed
 
             if (endX == 0f || endY == 0f) {
                 endX = width / 2f
@@ -129,7 +129,7 @@ class FullScreenOverlayView @JvmOverloads constructor(
     fun fadeHomeIn(duration: Long = 350, onEnd: (() -> Unit)? = null) {
         alpha = 1f
         postDelayed(CLOSING_HOLD_MS) {
-            if (!isAttachedToWindow) return@post
+            if (!isAttachedToWindow) return@postDelayed
             ObjectAnimator.ofFloat(this, ALPHA, 1f, 0f).apply {
                 this.duration = duration
                 interpolator = DecelerateInterpolator()
