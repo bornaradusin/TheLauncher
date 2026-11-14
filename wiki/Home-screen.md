@@ -65,3 +65,7 @@ The Google app only shows its feed to specially built apps, so TheLauncher reach
 ## Labels
 
 **Label shadow** draws a dark shadow behind icon labels. Turn it off if your wallpaper is dark and you prefer clean text. Label size and visibility are under [Icons and look](Icons-and-look#sizes-and-labels).
+
+## App closing animation
+
+**Animations → App closing animation** plays when you leave an app and come back to the home screen, but not when the screen turns on. **Fade in** fades the home screen in. **Suck in** shrinks a panel into the app's icon, or into the middle of the screen when the icon isn't on the page. **None** turns it off.
