@@ -238,7 +238,14 @@ public class BaseIconFactory implements AutoCloseable {
 
         if (adaptiveIcon instanceof Extender extender) {
             info = extender.getExtendedInfo(bitmap, color, this, scale[0]);
-        } else if (IconProvider.ATLEAST_T && mThemeController != null && adaptiveIcon instanceof AdaptiveIconDrawable aid) {
+        } else if (IconProvider.ATLEAST_T && mThemeController != null
+                && (adaptiveIcon instanceof AdaptiveIconDrawable
+                        || (adaptiveIcon != null
+                                && IconPreferencesKt.shouldForceMonochrome(mContext)))) {
+            // TheLauncher: an old-style icon (not adaptive, or from an icon pack) is wrapped
+            // just for this, so themed icons cover every app.
+            AdaptiveIconDrawable aid = adaptiveIcon instanceof AdaptiveIconDrawable a
+                    ? a : wrapToAdaptiveIcon(adaptiveIcon);
             info.setThemedBitmap(
                     mThemeController.createThemedBitmap(
                         aid,

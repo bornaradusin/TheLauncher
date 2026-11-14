@@ -235,7 +235,7 @@ class TheLauncherIconProvider @Inject constructor(
         } else {
             ""
         }
-        return "$base|lc:v3," +
+        return "$base|lc:v4," +
             "ip=${iconPackPref.get()}," +
             "tip=${themedIconSourcePref.get()}," +
             "ti=${prefs.themedIcons.get()}," +
