@@ -165,6 +165,11 @@ class TheLauncherIconProvider @Inject constructor(
         if (!themedIconsEnabled || iconEntry == null || iconEntry.packPackageName == PictureIcons.PACK) {
             return baseIcon
         }
+        // An icon picked for the app is themed from that icon, not swapped back for the app's
+        // own themed icon (which made the pick look like it did nothing).
+        if (componentName != null && overrideRepo.overridesMap[ComponentKey(componentName, user)] != null) {
+            return baseIcon
+        }
 
         return resolveThemedIcon(packageName, componentName, iconEntry, iconDpi) ?: baseIcon
     }

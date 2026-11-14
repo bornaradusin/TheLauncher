@@ -54,6 +54,7 @@ constructor(
         prefs1.coloredBackgroundLightness,
         prefs1.iconBackgroundStaticColor,
         prefs1.forceIconMonochrome,
+        prefs1.themedIcons,
         prefs1.launcherTheme,
     )
 
@@ -145,7 +146,7 @@ constructor(
         val appShapeKey = currentAppShape.getHashString() + currentPrefs1State
         val folderShapeKey = currentFolderShape.getHashString() + currentPrefs1State
         val themeController = iconControllerFactory.createThemeController()?.let {
-            if (prefs1.forceIconMonochrome.get()) {
+            if (prefs1.forceIconMonochrome.get() || prefs1.themedIcons.get()) {
                 FORCED_MONO_THEME_CONTROLLER
             } else {
                 MONO_THEME_CONTROLLER

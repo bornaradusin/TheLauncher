@@ -125,6 +125,25 @@ class FullScreenOverlayView @JvmOverloads constructor(
         }
     }
 
+    /** Starts covering the home screen and fades away, so the home screen fades in. */
+    fun fadeHomeIn(duration: Long = 350, onEnd: (() -> Unit)? = null) {
+        alpha = 1f
+        post {
+            if (!isAttachedToWindow) return@post
+            ObjectAnimator.ofFloat(this, ALPHA, 1f, 0f).apply {
+                this.duration = duration
+                interpolator = DecelerateInterpolator()
+                addListener(object : AnimatorListenerAdapter() {
+                    override fun onAnimationEnd(animation: Animator) {
+                        (parent as? ViewGroup)?.removeView(this@FullScreenOverlayView)
+                        onEnd?.invoke()
+                    }
+                })
+                start()
+            }
+        }
+    }
+
     fun animateIn(duration: Long = 400, onEnd: (() -> Unit)? = null) {
         post {
             if (!isAttachedToWindow) return@post
@@ -188,26 +207,32 @@ class FullScreenOverlayView @JvmOverloads constructor(
     }
 }
 
+/** When the closing animation last played, so one return home plays it once. */
+var lastClosingOverlayAt = 0L
+
 fun Activity.showFullScreenOverlay(
     durationIn: Long = 200,
     durationOut: Long = 500,
     rootView: ViewGroup? = null,
-    endView: View,
+    endView: View?,
     onOverlayReady: () -> Unit,
 ) {
     val pref2 = PreferenceManager2.getInstance(this)
     val animationMode = pref2.closingAppOverlay.firstCached()
+    if (animationMode == FullScreenOverlayMode.NONE) {
+        onOverlayReady()
+        return
+    }
+    lastClosingOverlayAt = android.os.SystemClock.uptimeMillis()
     val overlayView = FullScreenOverlayView(this)
     val targetRootView = rootView ?: window.decorView.findViewById<ViewGroup>(android.R.id.content)
 
-    overlayView.pointyEndView(endView)
+    endView?.let { overlayView.pointyEndView(it) }
     targetRootView?.addView(overlayView)
 
     when (animationMode) {
         FullScreenOverlayMode.FADE_IN -> {
-            overlayView.animateIn(durationIn) {
-                overlayView.animateOut(durationOut, onOverlayReady)
-            }
+            overlayView.fadeHomeIn(durationOut - 150, onOverlayReady)
         }
 
         FullScreenOverlayMode.SUCK_IN -> {

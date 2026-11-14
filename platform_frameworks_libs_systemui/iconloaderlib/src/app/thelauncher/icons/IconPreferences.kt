@@ -25,7 +25,9 @@ fun Context.shouldShadowBGIcons(): Boolean = prefs.getBoolean("pref_shadowBGIcon
 fun Context.isThemedIconsEnabled(): Boolean = prefs.getBoolean("themed_icons", false)
 fun Context.shouldTintIconPackBackgrounds(): Boolean = prefs.getBoolean("tint_icon_pack_backgrounds", false)
 
-fun Context.shouldForceMonochrome(): Boolean = prefs.getBoolean("pref_forceIconMonochrome", false)
+// Themed icons theme every app: one without its own themed icon gets one made from its icon.
+fun Context.shouldForceMonochrome(): Boolean =
+    prefs.getBoolean("pref_forceIconMonochrome", false) || prefs.getBoolean("themed_icons", false)
 
 private fun getCustomAppNameMap(context: Context): Map<ComponentKey, String> {
     val prefs = context.prefs

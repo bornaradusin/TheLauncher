@@ -192,6 +192,11 @@ class AllAppsSearchInput(context: Context, attrs: AttributeSet?) :
                     endButton = endButton,
                 )
 
+                // The text field sits over the bar; keep it clear of the buttons at the end, or a
+                // tap on them (the assistant button, the microphone) lands in the text field.
+                val endIconCount = state.endIcons.count { it.visible }
+                androidx.compose.runtime.SideEffect { reserveEndIconSpace(endIconCount) }
+
                 val backgroundColor = when {
                     customColor !is ColorOption.Default -> customColor.colorPreferenceEntry.lightColor(context)
                     supportBlur -> ColorTokens.SearchboxHighlightBlur.resolveColor(context)
@@ -368,6 +373,22 @@ class AllAppsSearchInput(context: Context, attrs: AttributeSet?) :
             // GONE so top margin/height do not reserve empty space above the app list.
             isGone = true
             layoutParams.height = 0
+        }
+    }
+
+    private fun reserveEndIconSpace(iconCount: Int) {
+        val res = resources
+        val base = (28 * res.displayMetrics.density).toInt()
+        val wrapperPaddingEnd = res.getDimensionPixelSize(R.dimen.search_result_padding)
+        val icons = iconCount * res.getDimensionPixelSize(R.dimen.qsb_icon_width) +
+            (6 * res.displayMetrics.density).toInt()
+        val margin = if (iconCount > 0) maxOf(base, icons - wrapperPaddingEnd) else base
+        listOf<View>(input, hint).forEach { view ->
+            val lp = view.layoutParams as MarginLayoutParams
+            if (lp.marginEnd != margin) {
+                lp.marginEnd = margin
+                view.layoutParams = lp
+            }
         }
     }
 

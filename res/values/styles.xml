@@ -62,8 +62,8 @@
         <item name="isWorkspaceDarkText">false</item>
         <item name="workspaceTextColor">@color/workspace_text_color_light</item>
         <item name="workspaceShadowColor">#B0000000</item>
-        <item name="workspaceAmbientShadowColor">#40000000</item>
-        <item name="workspaceKeyShadowColor">#89000000</item>
+        <item name="workspaceAmbientShadowColor">#99000000</item>
+        <item name="workspaceKeyShadowColor">#CC000000</item>
         <item name="widgetsTheme">@style/WidgetContainerTheme</item>
         <item name="pageIndicatorDotColor">@color/page_indicator_dot_color_light</item>
         <item name="pageIndicatorArrowBgColor">@color/page_indicator_arrow_bg_light</item>
@@ -420,11 +420,11 @@
         <item name="android:shadowRadius">2.0</item>
         <item name="android:shadowColor">?attr/workspaceShadowColor</item>
         <item name="ambientShadowColor">?attr/workspaceAmbientShadowColor</item>
-        <item name="ambientShadowBlur">1.5dp</item>
+        <item name="ambientShadowBlur">3dp</item>
         <item name="keyShadowColor">?attr/workspaceKeyShadowColor</item>
-        <item name="keyShadowBlur">.5dp</item>
+        <item name="keyShadowBlur">1.5dp</item>
         <item name="keyShadowOffsetX">.5dp</item>
-        <item name="keyShadowOffsetY">.5dp</item>
+        <item name="keyShadowOffsetY">1dp</item>
     </style>
 
     <!-- Intentionally empty so we can override -->

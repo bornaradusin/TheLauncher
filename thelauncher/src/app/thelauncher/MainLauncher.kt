@@ -52,6 +52,8 @@ import app.thelauncher.ui.popup.TheLauncherShortcut
 import app.thelauncher.util.getThemedIconPacksInstalled
 import app.thelauncher.util.unsafeLazy
 import app.thelauncher.views.TheLauncherFloatingSurfaceView
+import app.thelauncher.views.lastClosingOverlayAt
+import app.thelauncher.views.showFullScreenOverlay
 import com.android.launcher3.AbstractFloatingView
 import com.android.launcher3.BaseActivity
 import com.android.launcher3.BubbleTextView
@@ -497,7 +499,19 @@ class MainLauncher : QuickstepLauncher() {
         return ActivityOptionsWrapper(options, callback)
     }
 
+    /** Left for another app (not the screen turning off): play the closing animation on return. */
+    private var closingOverlayPending = false
+
+    override fun onRestart() {
+        super.onRestart()
+        // Stopped because the screen turned off: coming back isn't an app closing.
+        closingOverlayPending = stoppedWhileInteractive
+    }
+
+    private var stoppedWhileInteractive = false
+
     override fun onStop() {
+        stoppedWhileInteractive = getSystemService(android.os.PowerManager::class.java)?.isInteractive == true
         super.onStop()
         if (preferenceManager2.closeDrawerOnLaunch.firstCached() && isInState(LauncherState.ALL_APPS)) {
             stateManager.goToState(LauncherState.NORMAL, false)
@@ -525,6 +539,13 @@ class MainLauncher : QuickstepLauncher() {
     override fun onResume() {
         super.onResume()
         restartIfPending()
+        if (closingOverlayPending) {
+            closingOverlayPending = false
+            // Swiping home with an app icon to land on already played it (see handleGestureContract).
+            if (android.os.SystemClock.uptimeMillis() - lastClosingOverlayAt > 1000) {
+                showFullScreenOverlay(endView = null) {}
+            }
+        }
         // The screen's modes can change while away (a resolution switch), so ask again.
         applyRefreshRate(preferenceManager2.highRefreshRate.firstCached())
         if (preferenceManager2.animationSpeed.firstCached() != "default") {
