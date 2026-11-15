@@ -147,6 +147,17 @@ constructor(
         themeManager.addChangeListener(themeChangeListener)
         lifeCycle.addCloseable { themeManager.removeChangeListener(themeChangeListener) }
 
+        // TheLauncher: only the themed icon colours changed (a new wallpaper). The icons in the
+        // cache are still right, so they are kept: the home screen is bound again and every icon
+        // is drawn in the new colours. Icons with the colour baked in (an icon pack or a picked
+        // icon) are out of date by their own key and get remade in the background.
+        val colorChangeListener = ThemeChangeListener {
+            iconPool.clear()
+            model.forceReload()
+        }
+        themeManager.addColorChangeListener(colorChangeListener)
+        lifeCycle.addCloseable { themeManager.removeColorChangeListener(colorChangeListener) }
+
         // Icon changes
         lifeCycle.addCloseable(
             iconProvider.registerIconChangeListener(model::onAppIconChanged, MODEL_EXECUTOR.handler)

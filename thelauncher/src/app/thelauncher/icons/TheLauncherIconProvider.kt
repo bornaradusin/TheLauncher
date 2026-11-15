@@ -241,7 +241,19 @@ class TheLauncherIconProvider @Inject constructor(
             "ti=${prefs.themedIcons.get()}," +
             "dti=${prefs.drawerThemedIcons.get()}," +
             "fm=${prefs.forceIconMonochrome.get()}," +
-            "ov=$overrideState"
+            "ov=$overrideState" +
+            bakedColorsState(overrideState)
+    }
+
+    /**
+     * An icon from an icon pack, or one picked for the app, is themed with the colours put into
+     * the picture itself. Those icons are out of date when the wallpaper colours change, so the
+     * colours are part of their key; every other icon takes its colour when drawn and is kept.
+     */
+    private fun bakedColorsState(overrideState: String): String {
+        if (!themedIconsEnabled) return ""
+        if (iconPackPref.get().isEmpty() && overrideState.isEmpty()) return ""
+        return ",tc=" + ThemedIconDrawable.getColors(context).joinToString(",")
     }
 
     override fun getThemeDataForPackage(packageName: String?): ThemeData? {

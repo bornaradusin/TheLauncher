@@ -118,12 +118,23 @@ constructor(
     }
 
     override fun verifyIconState() {
-        val newState = parseIconStateV2(iconState)
-        if (newState == iconState) return
+        val oldState = iconState
+        val newState = parseIconStateV2(oldState)
+        if (newState == oldState) return
         iconState = newState
 
-        listeners.forEach { it.onThemeChanged() }
+        if (newState.onlyColorsDiffer(oldState)) {
+            // Only the wallpaper colours moved: no icon has to be made again, so the icon cache is
+            // kept. Android often sends a few of these in a row; they are handled once.
+            uiExecutor.handler.removeCallbacks(notifyColors)
+            uiExecutor.handler.postDelayed(notifyColors, COLOR_SETTLE_MS)
+        } else {
+            uiExecutor.handler.removeCallbacks(notifyColors)
+            listeners.forEach { it.onThemeChanged() }
+        }
     }
+
+    private val notifyColors = Runnable { colorListeners.forEach { it.onThemeChanged() } }
 
     private fun prefs1State(): String = statePrefs1.joinToString(",") { it.get().toString() }
 
@@ -158,7 +169,7 @@ constructor(
             } else {
                 ""
             }
-        val combinedKey = "$appShapeKey:$folderShapeKey:$themedColorsKey"
+        val combinedKey = "$appShapeKey:$folderShapeKey"
 
         val appShape =
             if (oldState != null && (oldState.iconShape as? PathShapeDelegate)?.iconShape == currentAppShape) {
@@ -181,6 +192,7 @@ constructor(
             themeController = themeController,
             iconShape = appShape,
             folderShape = folderShape,
+            colorsKey = themedColorsKey,
         )
     }
 }
@@ -189,3 +201,4 @@ constructor(
 private val MONO_THEME_CONTROLLER = MonoIconThemeController()
 private val FORCED_MONO_THEME_CONTROLLER = MonoIconThemeController(shouldForceThemeIcon = true)
 private const val TAG = "TheLauncherThemeManager"
+private const val COLOR_SETTLE_MS = 250L

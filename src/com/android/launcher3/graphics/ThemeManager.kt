@@ -74,6 +74,13 @@ constructor(
 
     protected val listeners = CopyOnWriteArrayList<ThemeChangeListener>()
 
+    /** TheLauncher: told when only the themed icon colours changed (no icon needs rebuilding). */
+    protected val colorListeners = CopyOnWriteArrayList<ThemeChangeListener>()
+
+    fun addColorChangeListener(listener: ThemeChangeListener) = colorListeners.add(listener)
+
+    fun removeColorChangeListener(listener: ThemeChangeListener) = colorListeners.remove(listener)
+
     init {
         val receiver = SimpleBroadcastReceiver(
             context, uiExecutor) { verifyIconState() }
@@ -149,8 +156,15 @@ constructor(
         val iconShape: ShapeDelegate,
         val folderShape: ShapeDelegate,
         val shapeRadius: Float,
+        // TheLauncher: the themed icon colours. Kept out of toUniqueId(), so the icon cache stays
+        // valid when only the wallpaper colours change (themed icons take their colour when drawn).
+        val colorsKey: String = "",
     ) {
         fun toUniqueId() = "${iconMask.hashCode()},$themeCode"
+
+        /** True when the two states differ only in the themed icon colours. */
+        fun onlyColorsDiffer(other: IconState?) =
+            other != null && other.colorsKey != colorsKey && other.copy(colorsKey = colorsKey) == this
     }
 
     /** Interface for receiving theme change events */
