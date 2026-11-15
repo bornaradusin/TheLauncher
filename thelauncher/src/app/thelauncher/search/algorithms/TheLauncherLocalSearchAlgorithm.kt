@@ -34,11 +34,11 @@ class TheLauncherLocalSearchAlgorithm(context: Context) : TheLauncherSearchAlgor
 
     private val appSearchProvider = AppSearchProvider
 
-    // Apps, Seerr and phone settings, nothing else: no web, contacts, files, shortcuts,
-    // calculator, history or "search on" actions.
+    // Apps, Seerr, Google and phone settings: no contacts, files, shortcuts, calculator or history.
     private val searchProviders: List<SearchProvider> = listOf(
         SettingsSearchProvider,
         SeerrSearchProvider,
+        app.thelauncher.search.algorithms.engine.provider.web.GoogleSearchProvider,
     )
 
     override fun doSearch(query: String, callback: SearchCallback<BaseAllAppsAdapter.AdapterItem>) {
@@ -84,6 +84,8 @@ class TheLauncherLocalSearchAlgorithm(context: Context) : TheLauncherSearchAlgor
     private val sectionBuilders: List<SectionBuilder> = listOf(
         SeerrSectionBuilder,
         AppsAndShortcutsSectionBuilder,
+        app.thelauncher.search.algorithms.engine.ActionsSectionBuilder,
+        app.thelauncher.search.algorithms.engine.WebSuggestionsSectionBuilder,
         SettingsSectionBuilder,
     )
 

@@ -46,7 +46,7 @@ fun DrawerSearchPreference(
         label = stringResource(id = R.string.show_app_search_bar),
         modifier = modifier,
     ) {
-        // The search finds apps, Seerr and phone settings only, so there are no result types to pick.
+        // The search finds apps, Seerr, Google and phone settings.
         PreferenceGroup(
             heading = stringResource(R.string.general_label),
             description = stringResource(id = R.string.drawer_search_finds),
@@ -54,6 +54,11 @@ fun DrawerSearchPreference(
             if (hiddenApps.isNotEmpty()) {
                 HiddenAppsInSearchPreference()
             }
+            SwitchPreference(
+                adapter = prefs.searchGoogle.getAdapter(),
+                label = stringResource(id = R.string.drawer_search_google),
+                description = stringResource(id = R.string.drawer_search_google_desc),
+            )
             SwitchPreference(
                 adapter = prefs2.autoShowKeyboardInDrawer.getAdapter(),
                 label = stringResource(id = R.string.pref_search_auto_show_keyboard),

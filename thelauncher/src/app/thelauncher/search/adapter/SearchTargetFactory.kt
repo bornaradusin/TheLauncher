@@ -78,10 +78,18 @@ class SearchTargetFactory(
         }.build()
     }
 
+    /** A Google search in the Google app, or in the browser when there's no Google app. */
+    private fun googleIntent(query: String, url: String): Intent {
+        val inApp = Intent(Intent.ACTION_WEB_SEARCH)
+            .setPackage("com.google.android.googlequicksearchbox")
+            .putExtra(android.app.SearchManager.QUERY, query)
+        return if (context.packageManager.resolveActivity(inApp, 0) != null) inApp else Intent(Intent.ACTION_VIEW, url.toUri())
+    }
+
     fun createWebSuggestionsTarget(suggestion: String, suggestionProvider: String): SearchTargetCompat {
         val webSearchProvider = WebSearchProvider.fromString(suggestionProvider)
         val url = webSearchProvider.getSearchUrl(suggestion)
-        val browserIntent = Intent(Intent.ACTION_VIEW, url.toUri())
+        val browserIntent = if (webSearchProvider.id == "google") googleIntent(suggestion, url) else Intent(Intent.ACTION_VIEW, url.toUri())
         val id = suggestion + url
         val bitmap = createSmallSearchResultBitmap(context, R.drawable.ic_allapps_search)
         val action = SearchActionCompat.Builder(id, suggestion).apply {
@@ -242,7 +250,11 @@ class SearchTargetFactory(
         tintIcon: Boolean = false,
     ): SearchTargetCompat {
         val id = "browser:$query:$providerName"
-        val browserIntent = Intent(Intent.ACTION_VIEW, searchUrl.toUri())
+        val browserIntent = if (providerName == context.getString(R.string.search_provider_google)) {
+            googleIntent(query, searchUrl)
+        } else {
+            Intent(Intent.ACTION_VIEW, searchUrl.toUri())
+        }
         val title = context.getString(R.string.all_apps_search_on_web_message, providerName)
 
         val icon = Icon.createWithResource(context, providerIconRes).apply {
