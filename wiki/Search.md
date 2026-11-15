@@ -7,7 +7,8 @@ Open search from the search bar in the dock, by swiping up and typing in the dra
 Settings: **Home settings → Search bar**.
 
 - **Search provider** picks what the search bar's button opens: an app such as Google, or a website.
-- **Search in the app drawer** finds three things only: your apps, Seerr titles (once Seerr is set up under **Integrations → Seerr**), and pages of your phone's Settings (type "wifi", "battery" or "brightness"). There are no web results, contacts, files or search history.
+- **Search in the app drawer** finds your apps, Seerr titles (once Seerr is set up under **Integrations → Seerr**), Google, and pages of your phone's Settings (type "wifi", "battery" or "bluetooth").
+- **Google search**: under the apps, **Search Google for …** appears as you type, then up to four of Google's suggestions. They open in the Google app, or the browser if it isn't installed. When no app matches, Enter searches Google. Turn it off with **Google search** in the same settings.
 - One tap on the drawer's search bar opens the keyboard.
 
 Hidden apps don't show in search unless you turn on **Show hidden apps in search results**.
