@@ -14,6 +14,8 @@ To change one app's icon, long-press it → **Customize** → tap the icon and p
 
 **Themed icons** turns icons single-coloured to match your wallpaper colours, like Android's own themed icons. Every app is themed: an app without its own themed icon gets one made from its icon. An icon you picked for an app is themed too, and shows as picked when themed icons are off; a picture you chose always stays as it is.
 
+When the wallpaper changes (even every unlock, with a wallpaper changer), the icons only take on the new colours; they aren't made again, so the home screen doesn't freeze. Icons from an icon pack, or ones you picked, have the colour in the picture itself and are remade in the background.
+
 <img src="https://raw.githubusercontent.com/wiki/bornaradusin/TheLauncher/images/settings-themed-icons.png" width="260" alt="Themed icons">
 
 ## Icon shape
